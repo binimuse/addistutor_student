@@ -33,8 +33,6 @@ class OnBoardingPage extends StatefulWidget {
 }
 
 class _OnBoardingPageState extends State<OnBoardingPage> {
-  final introKey = GlobalKey<IntroductionScreenState>();
-
   void _onIntroEnd(context) {
     Navigator.push(
       // ignore: prefer_const_constructors
@@ -75,7 +73,6 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
     );
 
     return IntroductionScreen(
-      key: introKey,
       globalBackgroundColor: Colors.white,
 
       pages: [

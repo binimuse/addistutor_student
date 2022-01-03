@@ -1,6 +1,7 @@
 import 'package:addistutor_student/Screens/Appointment/message_model.dart';
 import 'package:addistutor_student/Screens/Home/components/category_list_view.dart';
 import 'package:addistutor_student/Screens/Home/components/course_info_screen.dart';
+import 'package:addistutor_student/Screens/Home/components/course_info_screen_rating.dart';
 import 'package:addistutor_student/Screens/Home/components/design_course_app_theme.dart';
 import 'package:addistutor_student/Screens/Home/components/popular_course_list_view.dart';
 import 'package:addistutor_student/constants.dart';
@@ -104,7 +105,7 @@ class _HomePageState extends State<Appointment>
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
+            const Text(
               'Book List',
               textAlign: TextAlign.right,
               style: TextStyle(
@@ -126,7 +127,8 @@ class _HomePageState extends State<Appointment>
                     Navigator.push<dynamic>(
                       context,
                       MaterialPageRoute<dynamic>(
-                        builder: (BuildContext context) => CourseInfoScreen(),
+                        builder: (BuildContext context) =>
+                            CourseInfoScreenRating(),
                       ),
                     );
                   },
@@ -151,7 +153,7 @@ class _HomePageState extends State<Appointment>
                             Stack(
                               children: [
                                 Container(
-                                  width: 70,
+                                  width: 30,
                                   height: 70,
                                   decoration: BoxDecoration(
                                       border: Border.all(

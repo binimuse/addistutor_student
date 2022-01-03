@@ -59,16 +59,46 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(),
-        child: Center(
-          child: Image.asset(
-            'assets/images/logo2.png',
-            height: 160,
-            width: 160,
-          ),
-        ),
-      ),
+      body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              decoration: const BoxDecoration(),
+              child: Center(
+                child: Image.asset(
+                  'assets/images/logo2.png',
+                  height: 160,
+                  width: 160,
+                ),
+              ),
+            ),
+            const Text(
+              "One-on-One Tutorial Service ",
+              style: TextStyle(
+                fontSize: 16.0,
+                fontFamily: 'WorkSans',
+                fontWeight: FontWeight.bold,
+                letterSpacing: 0.4,
+                height: 0.9,
+                color: Color(0xFF4A6572),
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            const Text(
+              "Connecting you with the Best Tutors in Town, Conveniently. ",
+              style: TextStyle(
+                fontSize: 12.0,
+                fontFamily: 'Roboto',
+                fontWeight: FontWeight.normal,
+                letterSpacing: 0.4,
+                height: 0.9,
+                color: Color(0xFF4A6572),
+              ),
+            )
+          ]),
     );
   }
 }

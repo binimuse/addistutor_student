@@ -70,8 +70,8 @@ class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.only(top: 8.0, left: 18, right: 16),
+        const Padding(
+          padding: EdgeInsets.only(top: 8.0, left: 18, right: 16),
           child: Text(
             'Recommended Tutor',
             textAlign: TextAlign.left,
@@ -120,7 +120,7 @@ class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(
+          const Text(
             'Popular Tutor',
             textAlign: TextAlign.left,
             style: TextStyle(
@@ -181,7 +181,7 @@ class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
             },
             child: Padding(
               padding: const EdgeInsets.only(
-                  top: 12, bottom: 12, left: 18, right: 18),
+                  top: 12, bottom: 12, left: 10, right: 10),
               child: Center(
                 child: Row(children: [
                   txt == "Female"
