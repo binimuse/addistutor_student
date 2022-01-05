@@ -16,12 +16,19 @@ class Body extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
+            const Text(
               "Welcome to AddisTutor",
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: kPrimaryColor,
                   fontSize: 23),
+            ),
+            Text(
+              "Student Applicaion",
+              style: TextStyle(
+                  fontWeight: FontWeight.normal,
+                  color: Colors.black54,
+                  fontSize: 20),
             ),
             SizedBox(height: size.height * 0.05),
             SvgPicture.asset(

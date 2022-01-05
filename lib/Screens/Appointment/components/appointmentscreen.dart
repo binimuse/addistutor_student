@@ -4,6 +4,7 @@ import 'package:addistutor_student/Screens/Home/components/course_info_screen.da
 import 'package:addistutor_student/Screens/Home/components/course_info_screen_rating.dart';
 import 'package:addistutor_student/Screens/Home/components/design_course_app_theme.dart';
 import 'package:addistutor_student/Screens/Home/components/popular_course_list_view.dart';
+import 'package:addistutor_student/Screens/Qr/qrcode.dart';
 import 'package:addistutor_student/constants.dart';
 
 import 'package:flutter/cupertino.dart';
@@ -46,6 +47,7 @@ class _HomePageState extends State<Appointment>
               height: MediaQuery.of(context).padding.top,
             ),
             getAppBarUI(),
+            _buildDivider(),
             Expanded(
               child: SingleChildScrollView(
                 child: Container(
@@ -64,6 +66,13 @@ class _HomePageState extends State<Appointment>
           ],
         ),
       ),
+    );
+  }
+
+  final Color divider = Colors.grey.shade600;
+  Divider _buildDivider() {
+    return Divider(
+      color: divider,
     );
   }
 
@@ -355,8 +364,8 @@ class _HomePageState extends State<Appointment>
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  'Booking',
+                const Text(
+                  'Student',
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
@@ -379,10 +388,38 @@ class _HomePageState extends State<Appointment>
               ],
             ),
           ),
-          Container(
-            width: 60,
-            height: 60,
-          )
+          GestureDetector(
+            onTap: () {
+              Navigator.push<dynamic>(
+                context,
+                MaterialPageRoute<dynamic>(
+                  builder: (BuildContext context) => CodeScreen(),
+                ),
+              );
+            },
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    'Qr Code',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 17,
+                      letterSpacing: 0.2,
+                      color: DesignCourseAppTheme.darkerText,
+                    ),
+                  ),
+                  Center(
+                    child: Icon(
+                      Icons.qr_code,
+                      color: kPrimaryColor,
+                      size: 20,
+                    ),
+                  ),
+                ]),
+          ),
         ],
       ),
     );
