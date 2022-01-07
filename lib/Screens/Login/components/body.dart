@@ -7,8 +7,6 @@ import 'package:addistutor_student/Screens/Login/components/background.dart';
 import 'package:addistutor_student/Screens/Signup/signup_screen.dart';
 import 'package:addistutor_student/Screens/main/main.dart';
 import 'package:addistutor_student/components/already_have_an_account_acheck.dart';
-import 'package:addistutor_student/components/rounded_button.dart';
-import 'package:addistutor_student/components/rounded_input_field.dart';
 
 import 'package:flutter_svg/svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -26,7 +24,9 @@ class Body extends StatefulWidget {
 
 class _LoginScreenState extends State<Body> {
   bool isLoading = false;
+  SharedPreferences? localStorage;
   final _formKey = GlobalKey<FormState>();
+  var body;
   // ignore: prefer_typing_uninitialized_variables
   var email;
   // ignore: prefer_typing_uninitialized_variables
@@ -165,13 +165,13 @@ class _LoginScreenState extends State<Body> {
     });
     var data = {'email': email, 'password': password};
     var res = await Network().authData(data, "login-student");
-    var body = json.decode(res.body);
+    body = json.decode(res.body);
     // ignore: avoid_print
+
     print(body.toString());
     if (res.statusCode == 200) {
-      SharedPreferences localStorage = await SharedPreferences.getInstance();
-      // /localStorage.setString('token', body['token']);
-      localStorage.setString('user', json.encode(body['user']));
+      commit();
+
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -251,6 +251,19 @@ class _LoginScreenState extends State<Body> {
           ],
         ),
       );
+    }
+  }
+
+  Future<bool> commit() async {
+    localStorage ??= await SharedPreferences.getInstance();
+    if (body != null) {
+      await localStorage!.setString('token', json.encode(body['_token']));
+      await localStorage!.setString('user', json.encode(body['user']));
+      return true;
+    } else {
+      // you can set default or return false;
+      // await _sharedPreferences.setInt(LANG, 1);
+      return false;
     }
   }
 }

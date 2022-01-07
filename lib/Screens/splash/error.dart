@@ -18,7 +18,7 @@ class _MyHomePageState extends State<ConnectionFaildScreen> {
         fit: StackFit.expand,
         children: [
           Image.asset(
-            "assets/images/err.png",
+            "assets/images/no.png",
             fit: BoxFit.cover,
           ),
           Positioned(

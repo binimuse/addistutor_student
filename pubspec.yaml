@@ -43,7 +43,7 @@ dependencies:
   qr_flutter: ^4.0.0
   get: ^4.3.8
   shared_preferences: ^2.0.11
-
+  connectivity: ^0.4.2
 
 
 dev_dependencies:

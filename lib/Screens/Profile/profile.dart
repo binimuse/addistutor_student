@@ -1,9 +1,13 @@
+import 'package:addistutor_student/Screens/Login/login_screen.dart';
 import 'package:addistutor_student/Screens/Profile/help_screen.dart';
 import 'package:addistutor_student/Screens/Profile/setting.dart';
 import 'package:addistutor_student/Screens/Notification/notification.dart';
+import 'package:addistutor_student/components/signupcontroller.dart';
 import 'package:addistutor_student/constants.dart';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'editprofile.dart';
 import 'feedback_screen.dart';
@@ -202,7 +206,101 @@ class ProfileScreen extends StatelessWidget {
                       },
                       child: _buildRow(Icons.info_outline, "Help")),
                   _buildDivider(),
-                  _buildRow(Icons.logout, "Logout"),
+                  GestureDetector(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            elevation: 0,
+                            backgroundColor: Color(0xffffffff),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            title: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  SizedBox(height: 15),
+                                  const Text(
+                                    'Message',
+                                    style: TextStyle(
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  SizedBox(height: 15),
+                                  Divider(
+                                    height: 1,
+                                    color: kPrimaryColor,
+                                  ),
+                                ]),
+                            content: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  SizedBox(height: 15),
+                                  const Text(
+                                    'Are You Sure you want to Log Out',
+                                    style: TextStyle(
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  SizedBox(height: 15),
+                                ]),
+                            actions: <Widget>[
+                              // ignore: deprecated_member_use
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width,
+                                height: 50,
+                                child: InkWell(
+                                  highlightColor: Colors.grey[200],
+                                  onTap: () {
+                                    Navigator.of(context).pop(true);
+                                    _logout(context);
+                                  },
+                                  child: Center(
+                                    child: Text(
+                                      "Ok",
+                                      style: TextStyle(
+                                        fontSize: 18.0,
+                                        color: Theme.of(context).primaryColor,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+
+                              Divider(
+                                height: 1,
+                              ),
+                              Container(
+                                width: MediaQuery.of(context).size.width,
+                                height: 50,
+                                child: InkWell(
+                                  borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.circular(15.0),
+                                    bottomRight: Radius.circular(15.0),
+                                  ),
+                                  highlightColor: Colors.grey[200],
+                                  onTap: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Center(
+                                    child: Text(
+                                      "Cancel",
+                                      style: TextStyle(
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                      child: _buildRow(Icons.logout, "Logout")),
                   _buildDivider(),
                 ],
               ),
@@ -259,6 +357,20 @@ class ProfileScreen extends StatelessWidget {
             ),
           )
       ]),
+    );
+  }
+
+  void _logout(BuildContext context) async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    localStorage.remove('token');
+    Get.delete<SignupController>();
+
+    Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) => LoginScreen(),
+        transitionDuration: Duration.zero,
+      ),
     );
   }
 }

@@ -8,7 +8,6 @@ import 'package:addistutor_student/Screens/Signup/components/background.dart';
 import 'package:addistutor_student/Screens/Signup/components/or_divider.dart';
 import 'package:addistutor_student/Screens/Signup/components/social_icon.dart';
 import 'package:addistutor_student/components/already_have_an_account_acheck.dart';
-import 'package:addistutor_student/components/rounded_button.dart';
 
 import 'package:addistutor_student/components/text_field_container.dart';
 import 'package:flutter/services.dart';
@@ -248,7 +247,7 @@ class _SplashScreenState extends State<Body> {
 
     var res = await Network().authData(data, 'register-student');
     var body = json.decode(res.body);
-
+    print(body.toString());
     if (res.statusCode == 200) {
       SharedPreferences localStorage = await SharedPreferences.getInstance();
       localStorage.setString("token", body["token"].toString());
