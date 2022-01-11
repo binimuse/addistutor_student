@@ -407,6 +407,25 @@ class UserInfo extends StatelessWidget {
                         color: Colors.grey,
                         tiles: [
                           const ListTile(
+                            leading: Icon(
+                              Icons.phone,
+                              color: kPrimaryColor,
+                            ),
+                            title: Text("Phone"),
+                            subtitle: Text("99--99876-56"),
+                          ),
+                          const ListTile(
+                            leading: Icon(Icons.email, color: kPrimaryColor),
+                            title: Text("Email"),
+                            subtitle: Text("sudeptech@gmail.com"),
+                          ),
+                          const ListTile(
+                            leading:
+                                Icon(Icons.male_sharp, color: kPrimaryColor),
+                            title: Text("Gender"),
+                            subtitle: Text("Male"),
+                          ),
+                          const ListTile(
                             contentPadding: EdgeInsets.symmetric(
                                 horizontal: 12, vertical: 4),
                             leading: Icon(
@@ -418,21 +437,8 @@ class UserInfo extends StatelessWidget {
                           ),
                           const ListTile(
                             leading: Icon(Icons.grade, color: kPrimaryColor),
-                            title: Text("Grade"),
-                            subtitle: Text("8"),
-                          ),
-                          const ListTile(
-                            leading: Icon(Icons.email, color: kPrimaryColor),
-                            title: Text("Email"),
-                            subtitle: Text("sudeptech@gmail.com"),
-                          ),
-                          const ListTile(
-                            leading: Icon(
-                              Icons.phone,
-                              color: kPrimaryColor,
-                            ),
-                            title: Text("Phone"),
-                            subtitle: Text("99--99876-56"),
+                            title: Text("Educational Background"),
+                            subtitle: Text("Secoundary Student"),
                           ),
                           const ListTile(
                             leading: Icon(

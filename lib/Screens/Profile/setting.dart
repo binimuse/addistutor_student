@@ -70,8 +70,6 @@ class _SettingsFourPageState extends State<SettingsFourPage> {
               height: 10,
             ),
             buildAccountOptionRow(context, "Change password"),
-            buildAccountOptionRow(context, "Content settings"),
-            buildAccountOptionRow(context, "Social Media"),
             buildAccountOptionRow(context, "Language"),
             buildAccountOptionRow(context, "Privacy and Policy"),
             SizedBox(
