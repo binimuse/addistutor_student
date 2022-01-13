@@ -170,7 +170,11 @@ class _LoginScreenState extends State<Body> {
 
     print(body.toString());
     if (res.statusCode == 200) {
-      commit();
+      // commit();
+      SharedPreferences localStorage = await SharedPreferences.getInstance();
+      localStorage.setString("token", body["token"]);
+
+      localStorage.setString('user', json.encode(body['user']));
 
       Navigator.push(
         context,
@@ -178,9 +182,27 @@ class _LoginScreenState extends State<Body> {
           builder: (context) => Main(),
         ),
       );
-      isLoading = false;
-    } else {
-      closeDialog(false, res);
+
+      //   isLoading = false;
+    } else if (res.statusCode == 401) {
+      showDialog(
+        context: context,
+        builder: (context) => new AlertDialog(
+          title: const Text('info'),
+          content: new Text(body["message"]),
+          actions: <Widget>[
+            new FlatButton(
+              onPressed: () {
+                Navigator.of(context).pop(true);
+                setState(() {
+                  isLoading = false;
+                });
+              },
+              child: new Text('ok'),
+            ),
+          ],
+        ),
+      );
     }
   }
 
@@ -251,19 +273,6 @@ class _LoginScreenState extends State<Body> {
           ],
         ),
       );
-    }
-  }
-
-  Future<bool> commit() async {
-    localStorage ??= await SharedPreferences.getInstance();
-    if (body != null) {
-      await localStorage!.setString('token', json.encode(body['_token']));
-      await localStorage!.setString('user', json.encode(body['user']));
-      return true;
-    } else {
-      // you can set default or return false;
-      // await _sharedPreferences.setInt(LANG, 1);
-      return false;
     }
   }
 }

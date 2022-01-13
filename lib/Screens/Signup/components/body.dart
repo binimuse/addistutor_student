@@ -250,7 +250,7 @@ class _SplashScreenState extends State<Body> {
     print(body.toString());
     if (res.statusCode == 200) {
       SharedPreferences localStorage = await SharedPreferences.getInstance();
-      localStorage.setString("token", body["token"].toString());
+      localStorage.setString("token", body["token"]);
 
       localStorage.setString('user', json.encode(body['user']));
 

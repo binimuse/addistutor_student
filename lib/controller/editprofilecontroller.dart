@@ -2,10 +2,11 @@ import 'package:addistutor_student/constants.dart';
 import 'package:addistutor_student/remote_services/service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/state_manager.dart';
 
 class EditprofileController extends GetxController with StateMixin {
-  GlobalKey<FormState> Form = GlobalKey<FormState>();
-  final GlobalKey<FormState> EditProf = GlobalKey<FormState>();
+  // ignore: non_constant_identifier_names
+  GlobalKey<FormState> EditProf = GlobalKey<FormState>();
   var inforesponse;
   var isLoading = false.obs;
   late TextEditingController parent_first_name;
@@ -14,15 +15,18 @@ class EditprofileController extends GetxController with StateMixin {
   late TextEditingController parent_last_name;
   late TextEditingController phone;
   late TextEditingController email;
-  late var macthgender = "Male";
-  late var locaion = "Bole";
-  late var education = "Primary";
+  late var macthgender = "Male".obs;
+  late var locaion = "Bole".obs;
+  late var education = "Primary".obs;
   var date;
-  var studyperpose = "Regular support";
-  late var Grade = "Nersury";
-  late TextEditingController About;
-  late bool is_parent = true;
 
+  var studyperpose = "Regular support".obs;
+  late var Grade = "Nersury".obs;
+  late TextEditingController About;
+  // ignore: non_constant_identifier_names
+  late var is_parent = false.obs;
+  var isFetched = false.obs;
+  @override
   void onInit() {
     parent_first_name = TextEditingController();
     parent_last_name = TextEditingController();
@@ -33,6 +37,44 @@ class EditprofileController extends GetxController with StateMixin {
     About = TextEditingController();
 
     super.onInit();
+  }
+
+  var fetched;
+
+  Future<void> fetchPf(var id) async {
+    try {
+      //  openAndCloseLoadingDialog();
+      fetched = await RemoteServices.fetchpf(id);
+      //   print(fetched);
+      if (fetched != "") {
+        isFetched.value = true;
+
+        parent_first_name.text = fetched.parent_first_name;
+        parent_last_name.text = fetched.parent_last_name;
+        firstname.text = fetched.first_name;
+        lastname.text = fetched.last_name;
+        phone.text = fetched.phone_no;
+        email.text = fetched.email;
+        email.text = fetched.email;
+
+        macthgender.value = fetched.gender;
+        date = fetched.birth_date;
+        locaion.value = fetched.location;
+        locaion.value = fetched.location;
+        Grade.value = fetched.grade;
+        studyperpose.value = fetched.study_purpose;
+        About.text = fetched.about;
+
+        await Future.delayed(const Duration(seconds: 1));
+        // Dismiss CircularProgressIndicator
+        //   Navigator.of(Get.context!).pop();
+      }
+      change(fetched, status: RxStatus.success());
+    } on Exception {
+      change(null, status: RxStatus.error("Something went wrong"));
+
+      // TODO
+    }
   }
 
   void editProf() async {
@@ -50,22 +92,21 @@ class EditprofileController extends GetxController with StateMixin {
   }
 
   Future<void> seteditInfo() async {
-    openAndCloseLoadingDialog();
+    //   openAndCloseLoadingDialog();
 
     var data = {
-      "is_parent": is_parent,
+      "is_parent": is_parent.value,
       "parent_first_name": parent_first_name.text,
       "parent_last_name": parent_last_name.text,
       "first_name": firstname.text,
       "last_name": lastname.text,
       "phone_no": phone.text,
-      "gender": macthgender.obs,
+      "gender": macthgender.value,
       "birth_date": date,
-      "location": locaion.obs,
+      "location": locaion.value,
+      "study_purpose": studyperpose.value,
+      "grade": Grade.value,
       "about": About.text,
-      // "image": About.text,
-      "study_purpose": studyperpose.obs,
-      "grade": Grade.obs,
     };
     inforesponse = await RemoteServices.editPersonalInfo(data);
     if (inforesponse.toString() == "200") {

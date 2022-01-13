@@ -3,6 +3,7 @@ import 'package:addistutor_student/Screens/search/components/searchscreen.dart';
 import 'package:addistutor_student/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:connectivity/connectivity.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'Screens/splash/error.dart';
 import 'Screens/splash/splash_screen.dart';
@@ -65,6 +66,7 @@ class _MyHomePageState extends State<MyApp> {
               scaffoldBackgroundColor: Colors.white,
             ),
             home: const SplashScreen(),
+            builder: EasyLoading.init(),
           )
         : buildUnAuthScreen();
   }

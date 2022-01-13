@@ -41,8 +41,11 @@ class _SplashScreenState extends State<SplashScreen> {
   void _checkIfLoggedIn() async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     var token = localStorage.getString('token');
+    var user = localStorage.getString('user');
 
     if (token != null) {
+      print(user);
+      print("token login");
       setState(() {
         isAuth = true;
       });

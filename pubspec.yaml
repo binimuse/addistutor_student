@@ -46,7 +46,7 @@ dependencies:
   connectivity: ^0.4.2
 
 
-
+  flutter_easyloading: ^2.0.0
   image_picker: ^0.8.4+4
   camera_camera: ^2.0.2
   

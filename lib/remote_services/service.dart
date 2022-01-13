@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'dart:io';
+import 'package:addistutor_student/remote_services/user.dart';
 import 'package:http/http.dart' as http;
 import 'package:async/async.dart';
 
@@ -30,6 +31,19 @@ class RemoteServices {
 
         return errors.join("\n").toString();
       }
+    }
+  }
+
+  static Future<Student> fetchpf(var id) async {
+    print(id.toString());
+    res = await Network().getData("student/${id.toString()}");
+
+    var body = json.decode(res.body);
+    if (res.statusCode == 200) {
+      print(body);
+      return Student.fromJson(body);
+    } else {
+      throw Exception('Failed to load User' + res.statusCode.toString());
     }
   }
 }
