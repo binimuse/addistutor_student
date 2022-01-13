@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:addistutor_student/components/signupcontroller.dart';
+import 'package:addistutor_student/controller/signupcontroller.dart';
 import 'package:addistutor_student/remote_services/api.dart';
 import 'package:flutter/material.dart';
 import 'package:addistutor_student/Screens/Login/login_screen.dart';

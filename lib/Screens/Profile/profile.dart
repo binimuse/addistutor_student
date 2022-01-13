@@ -2,7 +2,7 @@ import 'package:addistutor_student/Screens/Login/login_screen.dart';
 import 'package:addistutor_student/Screens/Profile/help_screen.dart';
 import 'package:addistutor_student/Screens/Profile/setting.dart';
 import 'package:addistutor_student/Screens/Notification/notification.dart';
-import 'package:addistutor_student/components/signupcontroller.dart';
+import 'package:addistutor_student/controller/signupcontroller.dart';
 import 'package:addistutor_student/constants.dart';
 
 import 'package:flutter/material.dart';

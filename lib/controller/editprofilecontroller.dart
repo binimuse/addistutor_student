@@ -5,17 +5,27 @@ import 'package:get/get.dart';
 
 class EditprofileController extends GetxController with StateMixin {
   GlobalKey<FormState> Form = GlobalKey<FormState>();
+  final GlobalKey<FormState> EditProf = GlobalKey<FormState>();
   var inforesponse;
+  var isLoading = false.obs;
+  late TextEditingController parent_first_name;
   late TextEditingController firstname;
   late TextEditingController lastname;
+  late TextEditingController parent_last_name;
   late TextEditingController phone;
   late TextEditingController email;
-  var gender;
-  var location;
-  var education;
+  late var macthgender = "Male";
+  late var locaion = "Bole";
+  late var education = "Primary";
+  var date;
+  var studyperpose = "Regular support";
+  late var Grade = "Nersury";
   late TextEditingController About;
+  late bool is_parent = true;
 
   void onInit() {
+    parent_first_name = TextEditingController();
+    parent_last_name = TextEditingController();
     firstname = TextEditingController();
     lastname = TextEditingController();
     email = TextEditingController();
@@ -25,16 +35,37 @@ class EditprofileController extends GetxController with StateMixin {
     super.onInit();
   }
 
+  void editProf() async {
+    try {
+      final isValid = EditProf.currentState!.validate();
+
+      if (isValid == true) {
+        isLoading(true);
+        EditProf.currentState!.save();
+        await seteditInfo();
+      }
+    } finally {
+      // TODO
+    }
+  }
+
   Future<void> seteditInfo() async {
     openAndCloseLoadingDialog();
 
     var data = {
+      "is_parent": is_parent,
+      "parent_first_name": parent_first_name.text,
+      "parent_last_name": parent_last_name.text,
       "first_name": firstname.text,
       "last_name": lastname.text,
-      "phone_no": lastname.text,
-      "gender": lastname.text,
-      "last_name": lastname.text,
-      "last_name": lastname.text,
+      "phone_no": phone.text,
+      "gender": macthgender.obs,
+      "birth_date": date,
+      "location": locaion.obs,
+      "about": About.text,
+      // "image": About.text,
+      "study_purpose": studyperpose.obs,
+      "grade": Grade.obs,
     };
     inforesponse = await RemoteServices.editPersonalInfo(data);
     if (inforesponse.toString() == "200") {
@@ -97,5 +128,19 @@ class EditprofileController extends GetxController with StateMixin {
         snackPosition: SnackPosition.TOP);
     await Future.delayed(const Duration(seconds: 1));
     // Navigator.pushNamed(Get.context!, '/home');
+  }
+
+  String? validateEmail(String value) {
+    if (!GetUtils.isEmail(value)) {
+      return "Provide a valid Email";
+    }
+    return null;
+  }
+
+  String? validateName(String value) {
+    if (value.isEmpty) {
+      return "please Provide a name";
+    }
+    return null;
   }
 }

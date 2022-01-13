@@ -24,7 +24,7 @@ final ImagePicker _picker = ImagePicker();
 
 late var sessions = "3 sessions";
 late var days = "Mon";
-late var wtime = "4:30pm - 5:30pm";
+late var wtime = '4:30pm - 5:00pm';
 late var time = "9:00am - 10:00am";
 
 late bool weakdays = false;
@@ -158,9 +158,6 @@ class _EditPageState extends State<EditPage2> {
                 height: 10,
               ),
               buildTextFieldstudent("data and time", "Evan kutto", false),
-              const SizedBox(
-                height: 25,
-              ),
               Expanded(
                 child: Container(
                   color: Colors.white,
@@ -294,8 +291,9 @@ class _EditPageState extends State<EditPage2> {
                         fontSize: 16,
                         fontWeight: FontWeight.w700),
                     items: <String>[
-                      '4:30pm - 5:30pm',
-                      '5:30pm - 6:30pm',
+                      '4:30pm - 5:00pm',
+                      '5:00pm - 5:30pm',
+                      '6:00pm - 6:30pm',
                     ].map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
@@ -350,7 +348,7 @@ late bool ispressd2 = false;
 
 class _EditPageState5 extends State<dynamicWidget> {
   late var days2 = "Mon";
-  late var wtime2 = "4:30pm - 5:30pm";
+  late var wtime2 = "4:30pm - 5:00pm";
   late var time2 = "9:00am - 10:00am";
   @override
   Widget build(BuildContext context) {
@@ -438,8 +436,9 @@ class _EditPageState5 extends State<dynamicWidget> {
                         fontSize: 16,
                         fontWeight: FontWeight.w700),
                     items: <String>[
-                      '4:30pm - 5:30pm',
-                      '5:30pm - 6:30pm',
+                      '4:30pm - 5:00pm',
+                      '5:00pm - 5:30pm',
+                      '6:00pm - 6:30pm',
                     ].map<DropdownMenuItem<String>>((String value2) {
                       return DropdownMenuItem<String>(
                         value: value2,
@@ -484,10 +483,13 @@ class _EditPageState5 extends State<dynamicWidget> {
 
   void refresh() {
     Navigator.pop(context); // pop current page
-    Navigator.push<dynamic>(
+
+    Navigator.push(
       context,
-      MaterialPageRoute<dynamic>(
-        builder: (BuildContext context) => const EditPage2(),
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) {
+          return EditPage2();
+        },
       ),
     );
   }
@@ -508,7 +510,7 @@ class _EditPageState3 extends State<dynamicWidget3> {
   }
 
   late var days3 = "Mon";
-  late var wtime3 = "4:30pm - 5:30pm";
+  late var wtime3 = "4:30pm - 5:00pm";
   late var time3 = "9:00am - 10:00am";
   late bool weakdays3 = false;
 
@@ -595,8 +597,9 @@ class _EditPageState3 extends State<dynamicWidget3> {
                       fontSize: 16,
                       fontWeight: FontWeight.w700),
                   items: <String>[
-                    '4:30pm - 5:30pm',
-                    '5:30pm - 6:30pm',
+                    '4:30pm - 5:00pm',
+                    '5:00pm - 5:30pm',
+                    '6:00pm - 6:30pm',
                   ].map<DropdownMenuItem<String>>((String value2) {
                     return DropdownMenuItem<String>(
                       value: value2,
