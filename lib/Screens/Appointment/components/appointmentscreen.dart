@@ -1,9 +1,10 @@
+// ignore_for_file: prefer_final_fields, unused_field, sized_box_for_whitespace, prefer_const_literals_to_create_immutables, prefer_const_constructors, duplicate_ignore
+
 import 'package:addistutor_student/Screens/Appointment/message_model.dart';
 import 'package:addistutor_student/Screens/Home/components/category_list_view.dart';
 import 'package:addistutor_student/Screens/Home/components/course_info_screen.dart';
 import 'package:addistutor_student/Screens/Home/components/course_info_screen_rating.dart';
 import 'package:addistutor_student/Screens/Home/components/design_course_app_theme.dart';
-import 'package:addistutor_student/Screens/Home/components/popular_course_list_view.dart';
 import 'package:addistutor_student/Screens/Qr/qrcode.dart';
 import 'package:addistutor_student/constants.dart';
 
@@ -81,9 +82,10 @@ class _HomePageState extends State<Appointment>
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
+        // ignore: prefer_const_constructors
         Padding(
           padding: const EdgeInsets.only(top: 8.0, left: 18, right: 16),
-          child: Text(
+          child: const Text(
             'Upcoming Tutors',
             textAlign: TextAlign.center,
             style: TextStyle(

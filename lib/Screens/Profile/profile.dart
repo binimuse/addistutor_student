@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:addistutor_student/Screens/Login/login_screen.dart';
 import 'package:addistutor_student/Screens/Profile/help_screen.dart';
 import 'package:addistutor_student/Screens/Profile/setting.dart';
 import 'package:addistutor_student/Screens/Notification/notification.dart';
+import 'package:addistutor_student/controller/editprofilecontroller.dart';
+import 'package:addistutor_student/controller/getlocationcontroller.dart';
 import 'package:addistutor_student/controller/signupcontroller.dart';
 import 'package:addistutor_student/constants.dart';
 
@@ -13,66 +17,123 @@ import 'editprofile.dart';
 import 'feedback_screen.dart';
 import 'help_screen.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
+  const ProfileScreen({Key? key}) : super(key: key);
+
+  @override
+  _EditPageState createState() => _EditPageState();
+}
+
+class _EditPageState extends State<ProfileScreen> {
+  final GetLocationController getLocationController =
+      Get.put(GetLocationController());
+
+  final EditprofileController editprofileController =
+      Get.put(EditprofileController());
+  @override
+  void initState() {
+    super.initState();
+
+    _getlocation();
+    _fetchUser();
+  }
+
+  var ids;
+
+  void _fetchUser() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    var token = localStorage.getString('user');
+
+    if (token != null) {
+      var body = json.decode(token);
+
+      if (body["student_id"] != null) {
+        ids = int.parse(body["student_id"]);
+        editprofileController.fetchPf(int.parse(body["student_id"]));
+      }
+    }
+  }
+
+  void _getlocation() {
+    getLocationController.fetchLocation();
+
+    // ignore: invalid_use_of_protected_member
+  }
+
   static const String path = "lib/src/pages/profile/profile8.dart";
   final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        key: _key,
-        backgroundColor: Colors.grey.shade100,
-        extendBodyBehindAppBar: true,
-        extendBody: true,
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          leading: IconButton(
-            onPressed: () {
-              _key.currentState!.openDrawer();
-            },
-            icon: const Icon(Icons.menu),
-          ),
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-        ),
-        drawer: _buildDrawer(context),
-        body: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              ProfileHeader(
-                avatar: const NetworkImage(
-                    "https://firebasestorage.googleapis.com/v0/b/dl-flutter-ui-challenges.appspot.com/o/img%2F1.jpg?alt=media"),
-                coverImage: NetworkImage(
-                    "https://firebasestorage.googleapis.com/v0/b/dl-flutter-ui-challenges.appspot.com/o/img%2F1.jpg?alt=media"),
-                title: "Ramesh Mana",
-                subtitle: "Secondary student",
-                actions: <Widget>[
-                  MaterialButton(
-                    color: Colors.white,
-                    shape: CircleBorder(),
-                    elevation: 0,
-                    child: const Icon(
-                      Icons.edit,
-                      color: kPrimaryColor,
-                    ),
+    return editprofileController
+        .obx((editForm) => editprofileController.isFetched.value
+            ? Scaffold(
+                key: _key,
+                backgroundColor: Colors.grey.shade100,
+                extendBodyBehindAppBar: true,
+                extendBody: true,
+                appBar: AppBar(
+                  automaticallyImplyLeading: false,
+                  leading: IconButton(
                     onPressed: () {
-                      Navigator.push(
-                        // ignore: prefer_const_constructors
-                        context,
-                        PageRouteBuilder(
-                          pageBuilder: (context, animation1, animation2) =>
-                              EditPage(),
-                          transitionDuration: Duration.zero,
-                        ),
-                      );
+                      _key.currentState!.openDrawer();
                     },
-                  )
-                ],
-              ),
-              const SizedBox(height: 10.0),
-              UserInfo(),
-            ],
-          ),
-        ));
+                    icon: const Icon(Icons.menu),
+                  ),
+                  backgroundColor: Colors.transparent,
+                  elevation: 0,
+                ),
+                drawer: _buildDrawer(context),
+                body: SingleChildScrollView(
+                  child: Column(
+                    children: <Widget>[
+                      ProfileHeader(
+                        avatar: NetworkImage(
+                            "https://tutor.oddatech.com/api/student-profile-picture/${ids}"),
+                        coverImage: NetworkImage(
+                            "https://tutor.oddatech.com/api/student-profile-picture/${ids}"),
+                        title: editprofileController.firstname.text.toString() +
+                            " " +
+                            editprofileController.lastname.text.toString(),
+                        subtitle: "Grade" +
+                            " " +
+                            editprofileController.Grade.toString(),
+                        actions: <Widget>[
+                          MaterialButton(
+                            color: Colors.white,
+                            shape: const CircleBorder(),
+                            elevation: 0,
+                            child: const Icon(
+                              Icons.edit,
+                              color: kPrimaryColor,
+                            ),
+                            onPressed: () {
+                              Navigator.push(
+                                // ignore: prefer_const_constructors
+                                context,
+                                PageRouteBuilder(
+                                  pageBuilder:
+                                      (context, animation1, animation2) =>
+                                          const EditPage(),
+                                  transitionDuration: Duration.zero,
+                                ),
+                              );
+                            },
+                          )
+                        ],
+                      ),
+                      const SizedBox(height: 10.0),
+                      UserInfo(
+                        phone: editprofileController.phone.text.toString(),
+                        email: editprofileController.email.text.toString(),
+                        gender:
+                            editprofileController.macthgender.value.toString(),
+                        location: editprofileController.locaion.toString(),
+                        about: editprofileController.About.text.toString(),
+                      ),
+                    ],
+                  ),
+                ))
+            : const Center(child: CircularProgressIndicator()));
   }
 
   final Color primary = Colors.white;
@@ -376,6 +437,20 @@ class ProfileScreen extends StatelessWidget {
 }
 
 class UserInfo extends StatelessWidget {
+  final String? phone;
+  final String? email;
+  final String? gender;
+  final String? location;
+  final String? about;
+  const UserInfo({
+    Key? key,
+    required this.phone,
+    required this.email,
+    required this.gender,
+    required this.location,
+    required this.about,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -406,26 +481,26 @@ class UserInfo extends StatelessWidget {
                       ...ListTile.divideTiles(
                         color: Colors.grey,
                         tiles: [
-                          const ListTile(
+                          ListTile(
                             leading: Icon(
                               Icons.phone,
                               color: kPrimaryColor,
                             ),
                             title: Text("Phone"),
-                            subtitle: Text("99--99876-56"),
+                            subtitle: Text(phone.toString()),
                           ),
-                          const ListTile(
+                          ListTile(
                             leading: Icon(Icons.email, color: kPrimaryColor),
                             title: Text("Email"),
-                            subtitle: Text("sudeptech@gmail.com"),
+                            subtitle: Text(email.toString()),
                           ),
-                          const ListTile(
+                          ListTile(
                             leading:
                                 Icon(Icons.male_sharp, color: kPrimaryColor),
                             title: Text("Gender"),
-                            subtitle: Text("Male"),
+                            subtitle: Text(gender.toString()),
                           ),
-                          const ListTile(
+                          ListTile(
                             contentPadding: EdgeInsets.symmetric(
                                 horizontal: 12, vertical: 4),
                             leading: Icon(
@@ -433,21 +508,15 @@ class UserInfo extends StatelessWidget {
                               color: kPrimaryColor,
                             ),
                             title: Text("Location"),
-                            subtitle: Text("Bole"),
+                            subtitle: Text(location.toString()),
                           ),
-                          const ListTile(
-                            leading: Icon(Icons.grade, color: kPrimaryColor),
-                            title: Text("Educational Background"),
-                            subtitle: Text("Secoundary Student"),
-                          ),
-                          const ListTile(
+                          ListTile(
                             leading: Icon(
                               Icons.person,
                               color: kPrimaryColor,
                             ),
                             title: Text("About Me"),
-                            subtitle: Text(
-                                "This is a about me link and you can khow about me in this section."),
+                            subtitle: Text(about.toString()),
                           ),
                         ],
                       ),

@@ -12,9 +12,9 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
-class EditPage2 extends StatefulWidget {
+class BookScreen extends StatefulWidget {
   static List<Widget> containerList = [];
-  const EditPage2({Key? key}) : super(key: key);
+  const BookScreen({Key? key}) : super(key: key);
 
   @override
   _EditPageState createState() => _EditPageState();
@@ -38,7 +38,7 @@ TimeOfDay currentDate = TimeOfDay.now();
 var date;
 TimePickerEntryMode initialEntryMode = TimePickerEntryMode.dial;
 
-class _EditPageState extends State<EditPage2> {
+class _EditPageState extends State<BookScreen> {
   bool showPassword = false;
 
   @override
@@ -61,7 +61,7 @@ class _EditPageState extends State<EditPage2> {
           ),
         ),
         title: const Text(
-          "Edit Profile",
+          "Book Tutor",
           style: TextStyle(
             fontSize: 25,
             fontWeight: FontWeight.w500,
@@ -163,7 +163,7 @@ class _EditPageState extends State<EditPage2> {
                   color: Colors.white,
                   height: 400,
                   width: double.infinity,
-                  child: Column(children: EditPage2.containerList),
+                  child: Column(children: BookScreen.containerList),
                 ),
               ),
               Row(
@@ -318,7 +318,7 @@ class _EditPageState extends State<EditPage2> {
                 : GestureDetector(
                     onTap: () {
                       setState(() {
-                        EditPage2.containerList.add(
+                        BookScreen.containerList.add(
                           dynamicWidget(),
                         );
                         ispressd = true;
@@ -463,7 +463,7 @@ class _EditPageState5 extends State<dynamicWidget> {
                 : GestureDetector(
                     onTap: () {
                       setState(() {
-                        EditPage2.containerList.add(
+                        BookScreen.containerList.add(
                           dynamicWidget3(),
                         );
                       });
@@ -488,7 +488,7 @@ class _EditPageState5 extends State<dynamicWidget> {
       context,
       PageRouteBuilder(
         pageBuilder: (context, animation1, animation2) {
-          return EditPage2();
+          return BookScreen();
         },
       ),
     );

@@ -44,8 +44,8 @@ class _SplashScreenState extends State<SplashScreen> {
     var user = localStorage.getString('user');
 
     if (token != null) {
-      print(user);
-      print("token login");
+      // print(user);
+      // print("token login");
       setState(() {
         isAuth = true;
       });

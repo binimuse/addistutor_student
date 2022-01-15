@@ -1,13 +1,7 @@
-import 'dart:convert';
-
-import 'package:addistutor_student/Screens/Login/login_screen.dart';
-import 'package:addistutor_student/constants.dart';
-import 'package:addistutor_student/remote_services/api.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get/state_manager.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SignupController extends GetxController with StateMixin {
   GlobalKey<FormState> Form = GlobalKey<FormState>();

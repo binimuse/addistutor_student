@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:get/get.dart';
 
 class Student {
@@ -49,6 +51,27 @@ class Student {
       grade: json["grade"],
       study_purpose: json["study_purpose"],
       about: json["about"],
+    );
+  }
+}
+
+class GetLocation {
+  int id;
+
+  String name;
+  String description;
+
+  GetLocation({
+    required this.id,
+    required this.name,
+    required this.description,
+  });
+
+  factory GetLocation.fromJson(Map<String, dynamic> json) {
+    return GetLocation(
+      id: json["id"] as int,
+      name: json["name"],
+      description: json["description"],
     );
   }
 }

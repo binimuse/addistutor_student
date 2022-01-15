@@ -168,7 +168,7 @@ class _LoginScreenState extends State<Body> {
     body = json.decode(res.body);
     // ignore: avoid_print
 
-    print(body.toString());
+  //  print(body.toString());
     if (res.statusCode == 200) {
       // commit();
       SharedPreferences localStorage = await SharedPreferences.getInstance();

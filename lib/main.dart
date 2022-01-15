@@ -1,5 +1,5 @@
 import 'package:addistutor_student/Screens/connectvity.dart';
-import 'package:addistutor_student/Screens/search/components/searchscreen.dart';
+
 import 'package:addistutor_student/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:connectivity/connectivity.dart';

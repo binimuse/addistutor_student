@@ -247,7 +247,7 @@ class _SplashScreenState extends State<Body> {
 
     var res = await Network().authData(data, 'register-student');
     var body = json.decode(res.body);
-    print(body.toString());
+    //print(body.toString());
     if (res.statusCode == 200) {
       SharedPreferences localStorage = await SharedPreferences.getInstance();
       localStorage.setString("token", body["token"]);
