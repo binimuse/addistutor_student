@@ -1,5 +1,6 @@
 // ignore_for_file: non_constant_identifier_names, duplicate_ignore, prefer_typing_uninitialized_variables, avoid_print, avoid_web_libraries_in_flutter
 
+import 'package:addistutor_student/Screens/Profile/profile.dart';
 import 'package:addistutor_student/constants.dart';
 import 'package:addistutor_student/remote_services/service.dart';
 import 'package:addistutor_student/remote_services/user.dart';
@@ -66,7 +67,7 @@ class EditprofileController extends GetxController with StateMixin {
         email.text = fetched.email;
         macthgender.value = fetched.gender;
         date = fetched.birth_date;
-        // locaion = fetched.location;
+        // locaion!.id = fetched.location;
 
         Grade.value = fetched.grade;
         studyperpose.value = fetched.study_purpose;
@@ -117,7 +118,7 @@ class EditprofileController extends GetxController with StateMixin {
         "gender": macthgender.value,
         "birth_date": date,
         "email": email.text,
-        "location_id": 1,
+        "location_id": locaion!.id,
         "study_purpose": studyperpose.value,
         "grade": Grade.value,
         "about": About.text,
@@ -147,7 +148,7 @@ class EditprofileController extends GetxController with StateMixin {
         "gender": macthgender.value,
         "birth_date": date,
         "email": email.text,
-        "location_id": 1,
+        "location_id": locaion!.id,
         "study_purpose": studyperpose.value,
         "grade": Grade.value,
         "about": About.text,
@@ -177,16 +178,23 @@ class EditprofileController extends GetxController with StateMixin {
     }
   }
 
-  openSnackBaredit(BuildContext context) {
+  openSnackBaredit(BuildContext context) async {
     //  snackbar("", "profile Edited",
     //       icon: Icon(Icons.person, color: kPrimaryColor.withOpacity(0.05)),
     //       snackPosition: SnackPosition.TOP);
-    //   Future.delayed(const Duration(seconds: 1));
+
     //   // Navigator.pushNamed(Get.context!, '/home');
 
     scaffoldKey.currentState!.showSnackBar(SnackBar(
       content: Text("profile Edited"),
     ));
+   await Future.delayed(const Duration(seconds: 3));
+    Navigator.push<dynamic>(
+      context,
+      MaterialPageRoute<dynamic>(
+        builder: (BuildContext context) => const ProfileScreen(),
+      ),
+    );
   }
 
   String? validateEmail(String value) {

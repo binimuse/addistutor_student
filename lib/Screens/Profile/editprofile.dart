@@ -720,7 +720,10 @@ class _EditPageState extends State<EditPage> {
                             padding: const EdgeInsets.symmetric(horizontal: 50),
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20)),
-                            onPressed: () {},
+                            onPressed: () {
+
+                                   Navigator.pop(context);
+                            },
                             child: const Text("CANCEL",
                                 style: TextStyle(
                                     fontSize: 14,
@@ -732,43 +735,9 @@ class _EditPageState extends State<EditPage> {
                               print(id);
                               editprofileController.editProf(id, context);
 
-                              if (editprofileController.ifupdatd.value) {
-                                AlertDialog(
-                                  title: const Text("info"),
-                                  content: Text(" Updated"),
-                                  actions: <Widget>[
-                                    // ignore: deprecated_member_use
-                                    FlatButton(
-                                      child: const Text("close"),
-                                      onPressed: () {
-                                        Get.back();
-                                      },
-                                    )
-                                  ],
-                                );
-                              } else {
-                                AlertDialog(
-                                  title: const Text("info"),
-                                  content: Text("Not Updated"),
-                                  actions: <Widget>[
-                                    // ignore: deprecated_member_use
-                                    FlatButton(
-                                      child: const Text("close"),
-                                      onPressed: () {
-                                        Get.back();
-                                      },
-                                    )
-                                  ],
-                                );
-                              }
+                             
 
-                              // Navigator.push<dynamic>(
-                              //   context,
-                              //   MaterialPageRoute<dynamic>(
-                              //     builder: (BuildContext context) =>
-                              //         const EditPage2(),
-                              //   ),
-                              // );
+                           
                             },
                             color: kPrimaryColor,
                             padding: const EdgeInsets.symmetric(horizontal: 50),

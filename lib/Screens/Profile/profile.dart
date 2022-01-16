@@ -8,8 +8,9 @@ import 'package:addistutor_student/controller/editprofilecontroller.dart';
 import 'package:addistutor_student/controller/getlocationcontroller.dart';
 import 'package:addistutor_student/controller/signupcontroller.dart';
 import 'package:addistutor_student/constants.dart';
-
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -25,6 +26,12 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _EditPageState extends State<ProfileScreen> {
+  @override
+  void deactivate() {
+    EasyLoading.dismiss();
+    super.deactivate();
+  }
+
   final GetLocationController getLocationController =
       Get.put(GetLocationController());
 
@@ -36,6 +43,33 @@ class _EditPageState extends State<ProfileScreen> {
 
     _getlocation();
     _fetchUser();
+  }
+
+  final RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
+
+  void _onRefresh() async {
+    // monitor network fetch
+    await Future.delayed(const Duration(milliseconds: 1000));
+    // if failed,use refreshFailed()
+
+    setState(() {
+      _getlocation();
+      _fetchUser();
+    });
+    _refreshController.refreshCompleted();
+  }
+
+  void _onLoading() async {
+    // monitor network fetch
+    await Future.delayed(const Duration(milliseconds: 1000));
+    // if failed,use loadFailed(),if no data return,use LoadNodata()
+    //items.add((items.length+1).toString());
+    //if(mounted)
+    // setState(() {
+
+    // });
+    _refreshController.loadComplete();
   }
 
   var ids;
@@ -64,8 +98,8 @@ class _EditPageState extends State<ProfileScreen> {
   final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
-    return editprofileController
-        .obx((editForm) => editprofileController.isFetched.value
+    return editprofileController.obx(
+        (editForm) => editprofileController.isFetched.value
             ? Scaffold(
                 key: _key,
                 backgroundColor: Colors.grey.shade100,
@@ -82,64 +116,91 @@ class _EditPageState extends State<ProfileScreen> {
                   backgroundColor: Colors.transparent,
                   elevation: 0,
                 ),
-                drawer: _buildDrawer(context),
-                body: SingleChildScrollView(
-                  child: Column(
-                    children: <Widget>[
-                      ProfileHeader(
-                        avatar: NetworkImage(
-                            "https://tutor.oddatech.com/api/student-profile-picture/${ids}"),
-                        coverImage: NetworkImage(
-                            "https://tutor.oddatech.com/api/student-profile-picture/${ids}"),
-                        title: editprofileController.firstname.text.toString() +
-                            " " +
-                            editprofileController.lastname.text.toString(),
-                        subtitle: "Grade" +
-                            " " +
-                            editprofileController.Grade.toString(),
-                        actions: <Widget>[
-                          MaterialButton(
-                            color: Colors.white,
-                            shape: const CircleBorder(),
-                            elevation: 0,
-                            child: const Icon(
-                              Icons.edit,
-                              color: kPrimaryColor,
-                            ),
-                            onPressed: () {
-                              Navigator.push(
-                                // ignore: prefer_const_constructors
-                                context,
-                                PageRouteBuilder(
-                                  pageBuilder:
-                                      (context, animation1, animation2) =>
-                                          const EditPage(),
-                                  transitionDuration: Duration.zero,
-                                ),
-                              );
-                            },
-                          )
-                        ],
-                      ),
-                      const SizedBox(height: 10.0),
-                      UserInfo(
-                        phone: editprofileController.phone.text.toString(),
-                        email: editprofileController.email.text.toString(),
-                        gender:
-                            editprofileController.macthgender.value.toString(),
-                        location: editprofileController.locaion.toString(),
-                        about: editprofileController.About.text.toString(),
-                      ),
-                    ],
+                drawer: _buildDrawer(
+                  context,
+                  editprofileController.firstname.text.toString(),
+                  editprofileController.lastname.text.toString(),
+                ),
+                body: SmartRefresher(
+                  enablePullDown: true,
+                  enablePullUp: true,
+
+                  //cheak pull_to_refresh
+                  controller: _refreshController,
+                  onRefresh: _onRefresh,
+                  onLoading: _onLoading,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: <Widget>[
+                        ProfileHeader(
+                          avatar: NetworkImage(
+                              "https://tutor.oddatech.com/api/student-profile-picture/${ids}"),
+                          coverImage: NetworkImage(
+                              "https://tutor.oddatech.com/api/student-profile-picture/${ids}"),
+                          title: editprofileController.firstname.text
+                                  .toString() +
+                              " " +
+                              editprofileController.lastname.text.toString(),
+                          subtitle: "Grade" +
+                              " " +
+                              editprofileController.Grade.toString(),
+                          actions: <Widget>[
+                            MaterialButton(
+                              color: Colors.white,
+                              shape: const CircleBorder(),
+                              elevation: 0,
+                              child: const Icon(
+                                Icons.edit,
+                                color: kPrimaryColor,
+                              ),
+                              onPressed: () {
+                                Navigator.push(
+                                  // ignore: prefer_const_constructors
+                                  context,
+                                  PageRouteBuilder(
+                                    pageBuilder:
+                                        (context, animation1, animation2) =>
+                                            const EditPage(),
+                                    transitionDuration: Duration.zero,
+                                  ),
+                                );
+                              },
+                            )
+                          ],
+                        ),
+                        const SizedBox(height: 10.0),
+                        UserInfo(
+                          phone: editprofileController.phone.text.toString(),
+                          email: editprofileController.email.text.toString(),
+                          gender: editprofileController.macthgender.value
+                              .toString(),
+                          about: editprofileController.About.text.toString(),
+                        ),
+                      ],
+                    ),
                   ),
-                ))
-            : const Center(child: CircularProgressIndicator()));
+                ),
+              )
+            : Center(child: loadData()),
+        onLoading: Center(child: loadData()),
+        onEmpty: const Text("Can't fetch data"),
+        onError: (error) => Center(child: Text(error.toString())));
+  }
+
+  loadData() {
+    // Here you can write your code for open new view
+    EasyLoading.show();
+    Future.delayed(const Duration(milliseconds: 500), () {
+// Here you can write your code
+
+      EasyLoading.dismiss();
+    });
   }
 
   final Color primary = Colors.white;
   final Color active = Colors.grey.shade800;
   final Color divider = Colors.grey.shade600;
-  _buildDrawer(BuildContext context) {
+  _buildDrawer(BuildContext context, String fname, String lastname) {
     final String image =
         "https://firebasestorage.googleapis.com/v0/b/dl-flutter-ui-challenges.appspot.com/o/img%2F1.jpg?alt=media";
     return ClipPath(
@@ -177,8 +238,8 @@ class _EditPageState extends State<ProfileScreen> {
                     ),
                   ),
                   const SizedBox(height: 5.0),
-                  const Text(
-                    "erika costell",
+                  Text(
+                    fname.toString()+" "+lastname.toString(),
                     style: TextStyle(
                         color: Colors.black,
                         fontSize: 18.0,
@@ -440,14 +501,13 @@ class UserInfo extends StatelessWidget {
   final String? phone;
   final String? email;
   final String? gender;
-  final String? location;
+
   final String? about;
   const UserInfo({
     Key? key,
     required this.phone,
     required this.email,
     required this.gender,
-    required this.location,
     required this.about,
   }) : super(key: key);
 
@@ -499,16 +559,6 @@ class UserInfo extends StatelessWidget {
                                 Icon(Icons.male_sharp, color: kPrimaryColor),
                             title: Text("Gender"),
                             subtitle: Text(gender.toString()),
-                          ),
-                          ListTile(
-                            contentPadding: EdgeInsets.symmetric(
-                                horizontal: 12, vertical: 4),
-                            leading: Icon(
-                              Icons.my_location,
-                              color: kPrimaryColor,
-                            ),
-                            title: Text("Location"),
-                            subtitle: Text(location.toString()),
                           ),
                           ListTile(
                             leading: Icon(
