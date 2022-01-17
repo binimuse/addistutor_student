@@ -27,6 +27,11 @@ class Home extends StatefulWidget {
 }
 
 class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   int _tabIndex = 0;
 
   CategoryType categoryType = CategoryType.ui;

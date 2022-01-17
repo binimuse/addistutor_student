@@ -11,6 +11,7 @@ import 'package:addistutor_student/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class BookScreen extends StatefulWidget {
   static List<Widget> containerList = [];
@@ -24,8 +25,8 @@ final ImagePicker _picker = ImagePicker();
 
 late var sessions = "3 sessions";
 late var days = "Mon";
-late var wtime = '4:30pm - 5:00pm';
-late var time = "9:00am - 10:00am";
+late var wtime = '4:30pm';
+late var time = '9:00am';
 
 late bool weakdays = false;
 late bool weakdays2 = false;
@@ -39,6 +40,33 @@ var date;
 TimePickerEntryMode initialEntryMode = TimePickerEntryMode.dial;
 
 class _EditPageState extends State<BookScreen> {
+  final RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
+
+  _onRefresh() async {
+    // monitor network fetch
+    await Future.delayed(const Duration(milliseconds: 1000));
+    // if failed,use refreshFailed()
+
+    setState(() {
+      // _getlocation();
+      // _fetchUser();
+    });
+    _refreshController.refreshCompleted();
+  }
+
+  void _onLoading() async {
+    // monitor network fetch
+    await Future.delayed(const Duration(milliseconds: 1000));
+    // if failed,use loadFailed(),if no data return,use LoadNodata()
+    //items.add((items.length+1).toString());
+    //if(mounted)
+    // setState(() {
+
+    // });
+    _refreshController.loadComplete();
+  }
+
   bool showPassword = false;
 
   @override
@@ -70,135 +98,144 @@ class _EditPageState extends State<BookScreen> {
           ),
         ),
       ),
-      body: Container(
-        padding: EdgeInsets.only(left: 16, top: 25, right: 16),
-        child: GestureDetector(
-          onTap: () {
-            FocusScope.of(context).unfocus();
-          },
-          child: ListView(
-            children: [
-              const SizedBox(
-                height: 35,
-              ),
-              const Text(
-                'How many sessions do you want to buy? ',
-                style: TextStyle(color: Colors.black45),
-              ),
-              const Text(
-                'A session is 90 minutes long and you can buy starting from three sessions. ',
-                style: TextStyle(color: Colors.black38),
-              ),
-              DropdownButton<String>(
-                value: sessions,
-                isExpanded: true,
-                style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700),
-                items: <String>[
-                  '3 sessions',
-                  '4 sessions',
-                  '5 sessions',
-                  '6 sessions',
-                  '7 sessions',
-                  '8 sessions',
-                  '9 sessions',
-                  '10 sessions',
-                  '11 sessions',
-                  '12 sessions',
-                  '13 sessions',
-                  '14 sessions',
-                  '15 sessions',
-                  '16 sessions',
-                  '17 sessions',
-                  '18 sessions',
-                  '19 sessions',
-                  '20 sessions',
-                  '21 sessions',
-                  '22 sessions',
-                  '23 sessions',
-                  '24 sessions',
-                  '25 sessions',
-                  '26 sessions',
-                  '27 sessions',
-                  '28 sessions',
-                  '29 sessions',
-                  '30 sessions',
-                ].map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(
-                      value,
-                      style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w700),
-                    ),
-                  );
-                }).toList(),
-                onChanged: (value) {
-                  setState(() {
-                    sessions = value!;
-                  });
-                },
-              ),
-              const SizedBox(
-                height: 25,
-              ),
-              const Text(
-                'Date And Time ',
-                style: TextStyle(color: Colors.black38),
-              ),
-              const Text(
-                'Preferred study date and  starting from what time?',
-                style: TextStyle(color: Colors.black38),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              buildTextFieldstudent("data and time", "Evan kutto", false),
-              Expanded(
-                child: Container(
-                  color: Colors.white,
-                  height: 400,
-                  width: double.infinity,
-                  child: Column(children: BookScreen.containerList),
+      body: SmartRefresher(
+        enablePullDown: true,
+        enablePullUp: true,
+
+        //cheak pull_to_refresh
+        controller: _refreshController,
+        onRefresh: _onRefresh,
+        onLoading: _onLoading,
+        child: Container(
+          padding: EdgeInsets.only(left: 16, top: 25, right: 16),
+          child: GestureDetector(
+            onTap: () {
+              FocusScope.of(context).unfocus();
+            },
+            child: ListView(
+              children: [
+                const SizedBox(
+                  height: 35,
                 ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  // ignore: deprecated_member_use
-                  OutlineButton(
-                    padding: EdgeInsets.symmetric(horizontal: 50),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20)),
-                    onPressed: () {},
-                    child: const Text("CANCEL",
+                const Text(
+                  'How many sessions do you want to buy? ',
+                  style: TextStyle(color: Colors.black45),
+                ),
+                const Text(
+                  'A session is 90 minutes long and you can buy starting from three sessions. ',
+                  style: TextStyle(color: Colors.black38),
+                ),
+                DropdownButton<String>(
+                  value: sessions,
+                  isExpanded: true,
+                  style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700),
+                  items: <String>[
+                    '3 sessions',
+                    '4 sessions',
+                    '5 sessions',
+                    '6 sessions',
+                    '7 sessions',
+                    '8 sessions',
+                    '9 sessions',
+                    '10 sessions',
+                    '11 sessions',
+                    '12 sessions',
+                    '13 sessions',
+                    '14 sessions',
+                    '15 sessions',
+                    '16 sessions',
+                    '17 sessions',
+                    '18 sessions',
+                    '19 sessions',
+                    '20 sessions',
+                    '21 sessions',
+                    '22 sessions',
+                    '23 sessions',
+                    '24 sessions',
+                    '25 sessions',
+                    '26 sessions',
+                    '27 sessions',
+                    '28 sessions',
+                    '29 sessions',
+                    '30 sessions',
+                  ].map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(
+                        value,
+                        style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700),
+                      ),
+                    );
+                  }).toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      sessions = value!;
+                    });
+                  },
+                ),
+                const SizedBox(
+                  height: 25,
+                ),
+                const Text(
+                  'Date And Time ',
+                  style: TextStyle(color: Colors.black38),
+                ),
+                const Text(
+                  'Preferred study date and  starting from what time?',
+                  style: TextStyle(color: Colors.black38),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                buildTextFieldstudent("data and time", "Evan kutto", false),
+                Expanded(
+                  child: Container(
+                    color: Colors.white,
+                    height: 400,
+                    width: double.infinity,
+                    child: Column(children: BookScreen.containerList),
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    // ignore: deprecated_member_use
+                    OutlineButton(
+                      padding: EdgeInsets.symmetric(horizontal: 50),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                      onPressed: () {},
+                      child: const Text("CANCEL",
+                          style: TextStyle(
+                              fontSize: 14,
+                              letterSpacing: 2.2,
+                              color: Colors.black)),
+                    ),
+                    RaisedButton(
+                      onPressed: () {},
+                      color: kPrimaryColor,
+                      padding: const EdgeInsets.symmetric(horizontal: 50),
+                      elevation: 2,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                      child: const Text(
+                        "SAVE",
                         style: TextStyle(
                             fontSize: 14,
                             letterSpacing: 2.2,
-                            color: Colors.black)),
-                  ),
-                  RaisedButton(
-                    onPressed: () {},
-                    color: kPrimaryColor,
-                    padding: const EdgeInsets.symmetric(horizontal: 50),
-                    elevation: 2,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20)),
-                    child: const Text(
-                      "SAVE",
-                      style: TextStyle(
-                          fontSize: 14,
-                          letterSpacing: 2.2,
-                          color: Colors.white),
-                    ),
-                  )
-                ],
-              )
-            ],
+                            color: Colors.white),
+                      ),
+                    )
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -261,11 +298,16 @@ class _EditPageState extends State<BookScreen> {
                         fontSize: 16,
                         fontWeight: FontWeight.w700),
                     items: <String>[
-                      '9:00am - 10:00am',
-                      '11:00am - 12:00pm',
-                      '1:00pm - 2:00pm',
-                      '3:00pm - 4:00pm',
-                      '5:00pm - 6:00pm',
+                      '9:00am',
+                      '10:00am',
+                      '11:00am',
+                      '12:00pm',
+                      '1:00pm',
+                      '2:00pm',
+                      '3:00pm',
+                      '4:00pm',
+                      '5:00pm',
+                      '6:00pm',
                     ].map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
@@ -291,9 +333,11 @@ class _EditPageState extends State<BookScreen> {
                         fontSize: 16,
                         fontWeight: FontWeight.w700),
                     items: <String>[
-                      '4:30pm - 5:00pm',
-                      '5:00pm - 5:30pm',
-                      '6:00pm - 6:30pm',
+                      '4:30pm',
+                      '5:00pm',
+                      '5:30pm',
+                      '6:00pm',
+                      '6:30pm',
                     ].map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
@@ -347,12 +391,25 @@ class dynamicWidget extends StatefulWidget {
 late bool ispressd2 = false;
 
 class _EditPageState5 extends State<dynamicWidget> {
+  final RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
+  _onRefresh() async {
+    // monitor network fetch
+    await Future.delayed(const Duration(milliseconds: 1000));
+    // if failed,use refreshFailed()
+
+    setState(() {});
+    _refreshController.refreshCompleted();
+  }
+
+  final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
   late var days2 = "Mon";
-  late var wtime2 = "4:30pm - 5:00pm";
-  late var time2 = "9:00am - 10:00am";
+  late var wtime2 = "4:30pm";
+  late var time2 = "9:00am";
   @override
   Widget build(BuildContext context) {
     return Container(
+      key: _key,
       child: Column(children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -406,11 +463,16 @@ class _EditPageState5 extends State<dynamicWidget> {
                         fontSize: 16,
                         fontWeight: FontWeight.w700),
                     items: <String>[
-                      '9:00am - 10:00am',
-                      '11:00am - 12:00pm',
-                      '1:00pm - 2:00pm',
-                      '3:00pm - 4:00pm',
-                      '5:00pm - 6:00pm',
+                      '9:00am',
+                      '10:00am',
+                      '11:00am',
+                      '12:00pm',
+                      '1:00pm',
+                      '2:00pm',
+                      '3:00pm',
+                      '4:00pm',
+                      '5:00pm',
+                      '6:00pm',
                     ].map<DropdownMenuItem<String>>((String value2) {
                       return DropdownMenuItem<String>(
                         value: value2,
@@ -436,9 +498,11 @@ class _EditPageState5 extends State<dynamicWidget> {
                         fontSize: 16,
                         fontWeight: FontWeight.w700),
                     items: <String>[
-                      '4:30pm - 5:00pm',
-                      '5:00pm - 5:30pm',
-                      '6:00pm - 6:30pm',
+                      '4:30pm',
+                      '5:00pm',
+                      '5:30pm',
+                      '6:00pm',
+                      '6:30pm',
                     ].map<DropdownMenuItem<String>>((String value2) {
                       return DropdownMenuItem<String>(
                         value: value2,
@@ -464,11 +528,21 @@ class _EditPageState5 extends State<dynamicWidget> {
                     onTap: () {
                       setState(() {
                         BookScreen.containerList.add(
-                          dynamicWidget3(),
+                          const dynamicWidget3(),
                         );
                       });
                       ispressd2 = true;
-                      refresh();
+                      // refresh();
+                      Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder: (context, animation1, animation2) {
+                            return BookScreen();
+                          },
+                        ),
+                      );
+
+                      _onRefresh();
                     },
                     child: const Icon(
                       Icons.add,
@@ -510,8 +584,8 @@ class _EditPageState3 extends State<dynamicWidget3> {
   }
 
   late var days3 = "Mon";
-  late var wtime3 = "4:30pm - 5:00pm";
-  late var time3 = "9:00am - 10:00am";
+  late var wtime3 = "4:30pm";
+  late var time3 = "9:00am";
   late bool weakdays3 = false;
 
   @override
@@ -532,11 +606,11 @@ class _EditPageState3 extends State<dynamicWidget3> {
               'Fri',
               'Sat',
               'Sun',
-            ].map<DropdownMenuItem<String>>((String value2) {
+            ].map<DropdownMenuItem<String>>((String value3) {
               return DropdownMenuItem<String>(
-                value: value2,
+                value: value3,
                 child: Text(
-                  value2,
+                  value3,
                   style: const TextStyle(
                       color: Colors.black,
                       fontSize: 16,
@@ -544,9 +618,9 @@ class _EditPageState3 extends State<dynamicWidget3> {
                 ),
               );
             }).toList(),
-            onChanged: (value2) {
+            onChanged: (value3) {
               setState(() {
-                days3 = value2!;
+                days3 = value3!;
                 if (days3 == "Sat") {
                   weakdays3 = true;
                 } else if (days3 == "Sun") {
@@ -567,16 +641,21 @@ class _EditPageState3 extends State<dynamicWidget3> {
                       fontSize: 16,
                       fontWeight: FontWeight.w700),
                   items: <String>[
-                    '9:00am - 10:00am',
-                    '11:00am - 12:00pm',
-                    '1:00pm - 2:00pm',
-                    '3:00pm - 4:00pm',
-                    '5:00pm - 6:00pm',
-                  ].map<DropdownMenuItem<String>>((String value2) {
+                    '9:00am',
+                    '10:00am',
+                    '11:00am',
+                    '12:00pm',
+                    '1:00pm',
+                    '2:00pm',
+                    '3:00pm',
+                    '4:00pm',
+                    '5:00pm',
+                    '6:00pm',
+                  ].map<DropdownMenuItem<String>>((String value3) {
                     return DropdownMenuItem<String>(
-                      value: value2,
+                      value: value3,
                       child: Text(
-                        value2,
+                        value3,
                         style: const TextStyle(
                             color: Colors.black,
                             fontSize: 16,
@@ -597,14 +676,16 @@ class _EditPageState3 extends State<dynamicWidget3> {
                       fontSize: 16,
                       fontWeight: FontWeight.w700),
                   items: <String>[
-                    '4:30pm - 5:00pm',
-                    '5:00pm - 5:30pm',
-                    '6:00pm - 6:30pm',
-                  ].map<DropdownMenuItem<String>>((String value2) {
+                    '4:30pm',
+                    '5:00pm',
+                    '5:30pm',
+                    '6:00pm',
+                    '6:30pm',
+                  ].map<DropdownMenuItem<String>>((String value3) {
                     return DropdownMenuItem<String>(
-                      value: value2,
+                      value: value3,
                       child: Text(
-                        value2,
+                        value3,
                         style: const TextStyle(
                             color: Colors.black,
                             fontSize: 16,
@@ -612,9 +693,9 @@ class _EditPageState3 extends State<dynamicWidget3> {
                       ),
                     );
                   }).toList(),
-                  onChanged: (value2) {
+                  onChanged: (value3) {
                     setState(() {
-                      wtime3 = value2!;
+                      wtime3 = value3!;
                     });
                   },
                 ),

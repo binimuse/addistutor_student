@@ -1,12 +1,18 @@
 // ignore_for_file: non_constant_identifier_names, duplicate_ignore, prefer_typing_uninitialized_variables, avoid_print, avoid_web_libraries_in_flutter
 
+import 'dart:convert';
+
+import 'package:addistutor_student/Screens/Login/components/body.dart';
+import 'package:addistutor_student/Screens/Login/login_screen.dart';
 import 'package:addistutor_student/Screens/Profile/profile.dart';
+import 'package:addistutor_student/Screens/main/main.dart';
 import 'package:addistutor_student/constants.dart';
 import 'package:addistutor_student/remote_services/service.dart';
 import 'package:addistutor_student/remote_services/user.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/state_manager.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class EditprofileController extends GetxController with StateMixin {
   // ignore: non_constant_identifier_names
@@ -23,14 +29,14 @@ class EditprofileController extends GetxController with StateMixin {
   late TextEditingController parent_last_name;
   late TextEditingController phone;
   late TextEditingController email;
-  late var macthgender = "male".obs;
+  late var macthgender = "".obs;
   GetLocation? locaion;
   late var education = "Primary".obs;
   var date;
   var id;
   //GetLocation? selectedModel;
   var studyperpose = "Regular support".obs;
-  late var Grade = "Nersury".obs;
+  late var Grade = "".obs;
   late TextEditingController About;
   // ignore: non_constant_identifier_names
   late var is_parent = false.obs;
@@ -52,37 +58,42 @@ class EditprofileController extends GetxController with StateMixin {
   var fetched;
 
   Future<void> fetchPf(var id) async {
-    try {
-      //  openAndCloseLoadingDialog();
-      fetched = await RemoteServices.fetchpf(id);
-      //   print(fetched);
-      if (fetched != "") {
-        isFetched.value = true;
-        id = fetched.id;
-        parent_first_name.text = fetched.parent_first_name;
-        parent_last_name.text = fetched.parent_last_name;
-        firstname.text = fetched.first_name;
-        lastname.text = fetched.last_name;
-        phone.text = fetched.phone_no;
-        email.text = fetched.email;
-        macthgender.value = fetched.gender;
-        date = fetched.birth_date;
-        // locaion!.id = fetched.location;
-
-        Grade.value = fetched.grade;
-        studyperpose.value = fetched.study_purpose;
-        About.text = fetched.about;
-
-        await Future.delayed(const Duration(seconds: 1));
-        // Dismiss CircularProgressIndicator
-        //   Navigator.of(Get.context!).pop();
-      }
+    if (id == "noid") {
       change(fetched, status: RxStatus.success());
-    } on Exception {
-      change(null, status: RxStatus.error("Something went wrong"));
+      isFetched.value = true;
+    } else {
+      try {
+        //  openAndCloseLoadingDialog();
+        fetched = await RemoteServices.fetchpf(id);
+        //   print(fetched);
+        if (fetched != "") {
+          isFetched.value = true;
+          id = fetched.id;
+          parent_first_name.text = fetched.parent_first_name;
+          parent_last_name.text = fetched.parent_last_name;
+          firstname.text = fetched.first_name;
+          lastname.text = fetched.last_name;
+          phone.text = fetched.phone_no;
+          email.text = fetched.email;
+          macthgender.value = fetched.gender;
+          date = fetched.birth_date;
+          // locaion!.id = fetched.location;
 
-      // ignore: todo
-      // TODO
+          Grade.value = fetched.grade;
+          studyperpose.value = fetched.study_purpose;
+          About.text = fetched.about;
+
+          await Future.delayed(const Duration(seconds: 1));
+          // Dismiss CircularProgressIndicator
+          //   Navigator.of(Get.context!).pop();
+        }
+        change(fetched, status: RxStatus.success());
+      } on Exception {
+        change(null, status: RxStatus.error("Something went wrong"));
+
+        // ignore: todo
+        // TODO
+      }
     }
   }
 
@@ -126,16 +137,13 @@ class EditprofileController extends GetxController with StateMixin {
       inforesponse = await RemoteServices.editPersonalInfo(data);
       if (inforesponse.toString() == "200") {
         closeDialog(true, '', context);
-        //  print("yess");
+        isLoading(false);
 
-        // ignore: unrelated_type_equality_checks
-        print("yess");
         ifupdatd(true);
       } else {
         closeDialog(false, inforesponse, context);
 
         ifupdatd(false);
-        print("noo");
       }
     } else {
       var data = {
@@ -156,6 +164,7 @@ class EditprofileController extends GetxController with StateMixin {
       inforesponse = await RemoteServices.editPersonalInfo(data);
       if (inforesponse.toString() == "200") {
         closeDialog(true, '', context);
+        isLoading(false);
       } else {
         closeDialog(false, inforesponse, context);
       }
@@ -174,28 +183,89 @@ class EditprofileController extends GetxController with StateMixin {
       scaffoldKey.currentState!
           .showSnackBar(SnackBar(content: Text("profile Not Edited")));
     } else {
-      openSnackBaredit(context);
+      // ignore: deprecated_member_use
+
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text(
+            'profile Edited',
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w500,
+              color: Colors.black,
+              fontFamily: 'WorkSans',
+            ),
+          ),
+          content: const Text(
+            'if its your first time updating your profile you will me redirected to login',
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w500,
+              color: Colors.black,
+              fontFamily: 'WorkSans',
+            ),
+          ),
+          actions: <Widget>[
+            // ignore: deprecated_member_use
+            FlatButton(
+              onPressed: () async {
+                isLoading(false);
+                Navigator.of(context).pop(true);
+
+                SharedPreferences localStorage =
+                    await SharedPreferences.getInstance();
+                localStorage.setBool('isupdated', true);
+
+                var token = localStorage.getString('user');
+
+                if (token != null) {
+                  body = json.decode(token);
+
+                  if (body["student_id"] != null) {
+                    Navigator.pop(context);
+                    isLoading(false);
+                    //    openAndCloseLoadingDialog(context);
+                    print("yess");
+                  } else {
+                    isLoading(false);
+
+                    Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (context, animation1, animation2) {
+                          return LoginScreen();
+                        },
+                      ),
+                    );
+                  }
+                }
+              },
+              child: new Text('ok'),
+            ),
+          ],
+        ),
+      );
+      editstudentid(context);
     }
   }
 
   openSnackBaredit(BuildContext context) async {
-    //  snackbar("", "profile Edited",
-    //       icon: Icon(Icons.person, color: kPrimaryColor.withOpacity(0.05)),
-    //       snackPosition: SnackPosition.TOP);
-
-    //   // Navigator.pushNamed(Get.context!, '/home');
-
     scaffoldKey.currentState!.showSnackBar(SnackBar(
       content: Text("profile Edited"),
-    ));
-   await Future.delayed(const Duration(seconds: 3));
-    Navigator.push<dynamic>(
-      context,
-      MaterialPageRoute<dynamic>(
-        builder: (BuildContext context) => const ProfileScreen(),
+      action: SnackBarAction(
+        label: 'OK',
+        onPressed: () {},
       ),
-    );
+      backgroundColor: kPrimaryColor,
+      behavior: SnackBarBehavior.floating,
+      margin: EdgeInsets.all(50),
+      elevation: 30,
+    ));
   }
+
+  var body;
+  Future<void> editstudentid(BuildContext context) async {}
 
   String? validateEmail(String value) {
     if (!GetUtils.isEmail(value)) {

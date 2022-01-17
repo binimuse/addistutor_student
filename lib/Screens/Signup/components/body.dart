@@ -247,6 +247,8 @@ class _SplashScreenState extends State<Body> {
 
     var res = await Network().authData(data, 'register-student');
     var body = json.decode(res.body);
+
+    print(res.statusCode);
     //print(body.toString());
     if (res.statusCode == 200) {
       SharedPreferences localStorage = await SharedPreferences.getInstance();
@@ -256,6 +258,26 @@ class _SplashScreenState extends State<Body> {
 
       closeDialog(true, '');
       isLoading = false;
+    } else if (res.statusCode == 422) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Error'),
+          content: Text(body["errors"].toString()),
+          actions: <Widget>[
+            // ignore: deprecated_member_use
+            FlatButton(
+              onPressed: () {
+                Navigator.of(context).pop(true);
+                setState(() {
+                  isLoading = false;
+                });
+              },
+              child: const Text('ok'),
+            ),
+          ],
+        ),
+      );
     } else {
       closeDialog(false, res);
     }
@@ -295,8 +317,8 @@ class _SplashScreenState extends State<Body> {
           ]),
           content: Column(mainAxisSize: MainAxisSize.min, children: [
             SizedBox(height: 15),
-            const Text(
-              'Email is already on Use',
+            Text(
+              "Running TO a probelm please try again",
               style: TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.bold,

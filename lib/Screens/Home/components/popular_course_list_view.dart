@@ -27,6 +27,12 @@ class _PopularCourseListViewState extends State<PopularCourseListView>
   }
 
   @override
+  void dispose() {
+    animationController?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 8),

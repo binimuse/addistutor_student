@@ -18,14 +18,28 @@ import 'editprofile.dart';
 import 'feedback_screen.dart';
 import 'help_screen.dart';
 
-class ProfileScreen extends StatefulWidget {
+class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
   @override
-  _EditPageState createState() => _EditPageState();
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: ProfileS(),
+    );
+  }
 }
 
-class _EditPageState extends State<ProfileScreen> {
+class ProfileS extends StatefulWidget {
+  const ProfileS({Key? key}) : super(key: key);
+  @override
+  _ProfilePageState createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfileS> {
   @override
   void deactivate() {
     EasyLoading.dismiss();
@@ -41,8 +55,8 @@ class _EditPageState extends State<ProfileScreen> {
   void initState() {
     super.initState();
 
-    _getlocation();
     _fetchUser();
+    _getlocation();
   }
 
   final RefreshController _refreshController =
@@ -84,12 +98,24 @@ class _EditPageState extends State<ProfileScreen> {
       if (body["student_id"] != null) {
         ids = int.parse(body["student_id"]);
         editprofileController.fetchPf(int.parse(body["student_id"]));
+      } else {
+        var noid = "noid";
+        print("no Id");
+        editprofileController.fetchPf(noid);
       }
+    } else {
+      print("no Token");
     }
   }
 
   void _getlocation() {
     getLocationController.fetchLocation();
+
+    // if (getLocationController.isfetchedlocation.isTrue) {
+    //   print("hahah");
+    // } else {
+    //   print("noo");
+    // }
 
     // ignore: invalid_use_of_protected_member
   }
@@ -98,93 +124,89 @@ class _EditPageState extends State<ProfileScreen> {
   final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
-    return editprofileController.obx(
-        (editForm) => editprofileController.isFetched.value
-            ? Scaffold(
-                key: _key,
-                backgroundColor: Colors.grey.shade100,
-                extendBodyBehindAppBar: true,
-                extendBody: true,
-                appBar: AppBar(
-                  automaticallyImplyLeading: false,
-                  leading: IconButton(
-                    onPressed: () {
-                      _key.currentState!.openDrawer();
-                    },
-                    icon: const Icon(Icons.menu),
-                  ),
-                  backgroundColor: Colors.transparent,
-                  elevation: 0,
-                ),
-                drawer: _buildDrawer(
-                  context,
-                  editprofileController.firstname.text.toString(),
-                  editprofileController.lastname.text.toString(),
-                ),
-                body: SmartRefresher(
-                  enablePullDown: true,
-                  enablePullUp: true,
+    return Scaffold(
+      key: _key,
+      backgroundColor: Colors.grey.shade100,
+      extendBodyBehindAppBar: true,
+      extendBody: true,
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          onPressed: () {
+            _key.currentState!.openDrawer();
+          },
+          icon: const Icon(Icons.menu),
+        ),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
+      drawer: _buildDrawer(
+        context,
+        editprofileController.firstname.text.toString(),
+        editprofileController.lastname.text.toString(),
+      ),
+      body: editprofileController.obx(
+          (editForm) => SmartRefresher(
+                enablePullDown: true,
+                enablePullUp: true,
 
-                  //cheak pull_to_refresh
-                  controller: _refreshController,
-                  onRefresh: _onRefresh,
-                  onLoading: _onLoading,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: <Widget>[
-                        ProfileHeader(
-                          avatar: NetworkImage(
-                              "https://tutor.oddatech.com/api/student-profile-picture/${ids}"),
-                          coverImage: NetworkImage(
-                              "https://tutor.oddatech.com/api/student-profile-picture/${ids}"),
-                          title: editprofileController.firstname.text
-                                  .toString() +
-                              " " +
-                              editprofileController.lastname.text.toString(),
-                          subtitle: "Grade" +
-                              " " +
-                              editprofileController.Grade.toString(),
-                          actions: <Widget>[
-                            MaterialButton(
-                              color: Colors.white,
-                              shape: const CircleBorder(),
-                              elevation: 0,
-                              child: const Icon(
-                                Icons.edit,
-                                color: kPrimaryColor,
-                              ),
-                              onPressed: () {
-                                Navigator.push(
-                                  // ignore: prefer_const_constructors
-                                  context,
-                                  PageRouteBuilder(
-                                    pageBuilder:
-                                        (context, animation1, animation2) =>
-                                            const EditPage(),
-                                    transitionDuration: Duration.zero,
-                                  ),
-                                );
-                              },
-                            )
-                          ],
-                        ),
-                        const SizedBox(height: 10.0),
-                        UserInfo(
-                          phone: editprofileController.phone.text.toString(),
-                          email: editprofileController.email.text.toString(),
-                          gender: editprofileController.macthgender.value
-                              .toString(),
-                          about: editprofileController.About.text.toString(),
-                        ),
-                      ],
-                    ),
+                //cheak pull_to_refresh
+                controller: _refreshController,
+                onRefresh: _onRefresh,
+                onLoading: _onLoading,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: <Widget>[
+                      ProfileHeader(
+                        avatar: NetworkImage(
+                            "https://tutor.oddatech.com/api/student-profile-picture/${ids}"),
+                        coverImage: NetworkImage(
+                            "https://tutor.oddatech.com/api/student-profile-picture/${ids}"),
+                        title: editprofileController.firstname.text.toString() +
+                            " " +
+                            editprofileController.lastname.text.toString(),
+                        subtitle: "Grade" " " +
+                            editprofileController.Grade.toString(),
+                        actions: <Widget>[
+                          MaterialButton(
+                            color: Colors.white,
+                            shape: const CircleBorder(),
+                            elevation: 0,
+                            child: const Icon(
+                              Icons.edit,
+                              color: kPrimaryColor,
+                            ),
+                            onPressed: () {
+                              Navigator.push(
+                                // ignore: prefer_const_constructors
+                                context,
+                                PageRouteBuilder(
+                                  pageBuilder:
+                                      (context, animation1, animation2) =>
+                                          const EditPage(),
+                                  transitionDuration: Duration.zero,
+                                ),
+                              );
+                            },
+                          )
+                        ],
+                      ),
+                      const SizedBox(height: 10.0),
+                      UserInfo(
+                        phone: editprofileController.phone.text.toString(),
+                        email: editprofileController.email.text.toString(),
+                        gender:
+                            editprofileController.macthgender.value.toString(),
+                        about: editprofileController.About.text.toString(),
+                      ),
+                    ],
                   ),
                 ),
-              )
-            : Center(child: loadData()),
-        onLoading: Center(child: loadData()),
-        onEmpty: const Text("Can't fetch data"),
-        onError: (error) => Center(child: Text(error.toString())));
+              ),
+          onLoading: Center(child: loadData()),
+          onEmpty: const Text("Can't fetch data"),
+          onError: (error) => Center(child: Text(error.toString()))),
+    );
   }
 
   loadData() {
@@ -202,7 +224,8 @@ class _EditPageState extends State<ProfileScreen> {
   final Color divider = Colors.grey.shade600;
   _buildDrawer(BuildContext context, String fname, String lastname) {
     final String image =
-        "https://firebasestorage.googleapis.com/v0/b/dl-flutter-ui-challenges.appspot.com/o/img%2F1.jpg?alt=media";
+        "https://tutor.oddatech.com/api/student-profile-picture/${ids}";
+
     return ClipPath(
       clipper: OvalRightBorderClipper(),
       child: Drawer(
@@ -239,7 +262,7 @@ class _EditPageState extends State<ProfileScreen> {
                   ),
                   const SizedBox(height: 5.0),
                   Text(
-                    fname.toString()+" "+lastname.toString(),
+                    fname.toString() + " " + lastname.toString(),
                     style: TextStyle(
                         color: Colors.black,
                         fontSize: 18.0,
@@ -486,6 +509,8 @@ class _EditPageState extends State<ProfileScreen> {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     localStorage.remove('token');
     Get.delete<SignupController>();
+    Get.delete<EditprofileController>();
+    Get.delete<GetLocationController>();
 
     Navigator.push(
       context,
@@ -521,7 +546,7 @@ class UserInfo extends StatelessWidget {
             padding: const EdgeInsets.only(left: 8.0, bottom: 4.0),
             alignment: Alignment.topLeft,
             child: Text(
-              "User Information",
+              "User Information  \n ",
               style: TextStyle(
                 color: Colors.black87,
                 fontWeight: FontWeight.w500,

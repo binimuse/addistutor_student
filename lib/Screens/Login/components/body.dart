@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:addistutor_student/Screens/Profile/profile.dart';
 import 'package:addistutor_student/components/text_field_container.dart';
 import 'package:addistutor_student/remote_services/api.dart';
 import 'package:flutter/material.dart';
@@ -19,13 +20,14 @@ class Body extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<Body> createState() => _LoginScreenState();
+  _LoginScreenState createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<Body> {
   bool isLoading = false;
   SharedPreferences? localStorage;
   final _formKey = GlobalKey<FormState>();
+  GlobalKey<_LoginScreenState> _myKey = GlobalKey();
   var body;
   // ignore: prefer_typing_uninitialized_variables
   var email;
@@ -166,9 +168,10 @@ class _LoginScreenState extends State<Body> {
     var data = {'email': email, 'password': password};
     var res = await Network().authData(data, "login-student");
     body = json.decode(res.body);
+    bool isupdated;
     // ignore: avoid_print
 
-  //  print(body.toString());
+    //  print(body.toString());
     if (res.statusCode == 200) {
       // commit();
       SharedPreferences localStorage = await SharedPreferences.getInstance();
@@ -176,6 +179,22 @@ class _LoginScreenState extends State<Body> {
 
       localStorage.setString('user', json.encode(body['user']));
 
+      var isupdated = localStorage.getBool("isupdated");
+      // if (isupdated!) {
+      //   Navigator.push(
+      //     context,
+      //     MaterialPageRoute(
+      //       builder: (context) => Main(),
+      //     ),
+      //   );
+      // } else {
+      //   Navigator.push(
+      //     context,
+      //     MaterialPageRoute(
+      //       builder: (context) => ProfileScreen(),
+      //     ),
+      //   );
+      // }
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -183,8 +202,27 @@ class _LoginScreenState extends State<Body> {
         ),
       );
 
-      //   isLoading = false;
+      isLoading = false;
     } else if (res.statusCode == 401) {
+      showDialog(
+        context: context,
+        builder: (context) => new AlertDialog(
+          title: const Text('info'),
+          content: new Text(body["message"]),
+          actions: <Widget>[
+            new FlatButton(
+              onPressed: () {
+                Navigator.of(context).pop(true);
+                setState(() {
+                  isLoading = false;
+                });
+              },
+              child: new Text('ok'),
+            ),
+          ],
+        ),
+      );
+    } else {
       showDialog(
         context: context,
         builder: (context) => new AlertDialog(

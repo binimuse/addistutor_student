@@ -43,6 +43,12 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
   }
 
   @override
+  void dispose() {
+    animationController!.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final double tempHeight = MediaQuery.of(context).size.height -
         (MediaQuery.of(context).size.width / 1.2) +

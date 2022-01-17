@@ -47,7 +47,6 @@ class _EditPageState extends State<EditPage> {
   final EditprofileController editprofileController =
       Get.put(EditprofileController());
 
-  EditprofileController pfcontroller = Get.find();
   GetLocationController getLocationController =
       Get.put(GetLocationController());
 
@@ -83,9 +82,14 @@ class _EditPageState extends State<EditPage> {
       body = json.decode(token);
 
       if (body["student_id"] != null) {
-        pfcontroller.fetchPf(int.parse(body["student_id"]));
+        editprofileController.fetchPf(int.parse(body["student_id"]));
         id = int.parse(body["student_id"]);
+      } else {
+        var noid = "noid";
+        editprofileController.fetchPf(noid);
       }
+    } else {
+      print("cant");
     }
   }
 
@@ -456,6 +460,7 @@ class _EditPageState extends State<EditPage> {
                             fontSize: 16,
                             fontWeight: FontWeight.w700),
                         items: <String>[
+                          '',
                           'male',
                           'Female',
                         ].map<DropdownMenuItem<String>>((String value) {
@@ -651,6 +656,7 @@ class _EditPageState extends State<EditPage> {
                             fontSize: 16,
                             fontWeight: FontWeight.w700),
                         items: <String>[
+                          '',
                           'Nersury',
                           'LKG',
                           'UKG',
@@ -721,8 +727,7 @@ class _EditPageState extends State<EditPage> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20)),
                             onPressed: () {
-
-                                   Navigator.pop(context);
+                              Navigator.pop(context);
                             },
                             child: const Text("CANCEL",
                                 style: TextStyle(
@@ -734,10 +739,6 @@ class _EditPageState extends State<EditPage> {
                             onPressed: () {
                               print(id);
                               editprofileController.editProf(id, context);
-
-                             
-
-                           
                             },
                             color: kPrimaryColor,
                             padding: const EdgeInsets.symmetric(horizontal: 50),
