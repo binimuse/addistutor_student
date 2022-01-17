@@ -197,7 +197,7 @@ class _EditPageState extends State<BookScreen> {
                 Expanded(
                   child: Container(
                     color: Colors.white,
-                    height: 400,
+                    height: 150,
                     width: double.infinity,
                     child: Column(children: BookScreen.containerList),
                   ),
@@ -225,7 +225,7 @@ class _EditPageState extends State<BookScreen> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20)),
                       child: const Text(
-                        "SAVE",
+                        "Book",
                         style: TextStyle(
                             fontSize: 14,
                             letterSpacing: 2.2,
