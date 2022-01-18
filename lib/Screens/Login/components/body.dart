@@ -179,7 +179,24 @@ class _LoginScreenState extends State<Body> {
 
       localStorage.setString('user', json.encode(body['user']));
 
-      var isupdated = localStorage.getBool("isupdated");
+      var token = localStorage.getString('user');
+      var bodys = json.decode(token!);
+
+      if (bodys["student_id"] == null) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ProfileScreen(),
+          ),
+        );
+      } else {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Main(),
+          ),
+        );
+      }
       // if (isupdated!) {
       //   Navigator.push(
       //     context,
@@ -195,12 +212,6 @@ class _LoginScreenState extends State<Body> {
       //     ),
       //   );
       // }
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => Main(),
-        ),
-      );
 
       isLoading = false;
     } else if (res.statusCode == 401) {
