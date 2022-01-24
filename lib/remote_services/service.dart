@@ -90,22 +90,6 @@ class RemoteServices {
     }
   }
 
-  static Future<List<Searchsubject>> searchsubject(var subjectid) async {
-    res = await Network().getData("tutors?subject_id=${subjectid}");
-    var body = json.decode(res.body);
-
-    if (res.statusCode == 200) {
-      return body["data"]
-          .map((e) => Searchsubject.fromJson(e))
-          .toList()
-          .cast<Searchsubject>();
-
-      // return User.fromJson(jsonDecode(body["data"]));
-    } else {
-      throw Exception('Failed to load Users');
-    }
-  }
-
   static Future<List<GetEducationlevel>> geteducation() async {
     // print("id.toString()");
     //print(id.toString());
@@ -138,6 +122,24 @@ class RemoteServices {
           .cast<GetSubject>();
     } else {
       throw Exception('Failed to load User' + res.statusCode.toString());
+    }
+  }
+
+  static Future<List<Search>> search(
+      var locationid, var subjectid, var gender) async {
+    res = await Network().getData(
+        "tutors?location_id=${locationid}&subject_id=${subjectid}&gender=${gender}");
+    var body = json.decode(res.body);
+
+    if (res.statusCode == 200) {
+      return body["data"]
+          .map((e) => Search.fromJson(e))
+          .toList()
+          .cast<Search>();
+
+      // return User.fromJson(jsonDecode(body["data"]));
+    } else {
+      throw Exception('Failed to load Users');
     }
   }
 }

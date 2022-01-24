@@ -118,14 +118,42 @@ class GetSubject {
   }
 }
 
-class Searchsubject {
-  int subject_id;
+class Search {
+  int id;
+  String user_id;
+  String first_name;
+  String middle_name;
+  String last_name;
+  String phone_no;
+  String gender;
+  String about;
+  String subject_id;
+  String location_id;
 
-  Searchsubject({
+  Search({
+    required this.id,
+    required this.user_id,
+    required this.first_name,
+    required this.middle_name,
+    required this.last_name,
+    required this.phone_no,
+    required this.gender,
+    required this.about,
     required this.subject_id,
+    required this.location_id,
   });
 
-  factory Searchsubject.fromJson(Map<String, dynamic> json) {
-    return Searchsubject(subject_id: json["subject_id"]);
+  factory Search.fromJson(Map<String, dynamic> json) {
+    return Search(
+        id: json["id"],
+        user_id: json["user_id"],
+        first_name: json["first_name"],
+        middle_name: json["middle_name"],
+        last_name: json["last_name"],
+        phone_no: json["phone_no"],
+        gender: json["gender"],
+        about: json["about"],
+        subject_id: json["subject_id"],
+        location_id: json["location_id"]);
   }
 }

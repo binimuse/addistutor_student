@@ -2,6 +2,7 @@ import 'package:addistutor_student/controller/editprofilecontroller.dart';
 import 'package:addistutor_student/controller/geteducationlevelcontroller.dart';
 import 'package:addistutor_student/controller/getlocationcontroller.dart';
 import 'package:addistutor_student/controller/getsubjectcontroller.dart';
+import 'package:addistutor_student/controller/searchcontroller.dart';
 import 'package:addistutor_student/remote_services/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -24,12 +25,16 @@ class _FiltersScreenState extends State<FiltersScreen> {
   GetSubjectController getSubjectController = Get.find();
   GetLocationController getLocationController = Get.find();
 
+  SearchController searchController = Get.put(SearchController());
+
   RangeValues _values = const RangeValues(100, 600);
   double distValue = 50.0;
-
+  var lid, gender;
   List<GetEducationlevel> education = [];
   List<GetSubject> subject = [];
   final List<String> _tobeSent = [];
+  final List<String> sid = [];
+  late var macthgender = "".obs;
   bool showsubject = false;
 
   @override
@@ -173,8 +178,16 @@ class _FiltersScreenState extends State<FiltersScreen> {
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(24.0)),
                               highlightColor: Colors.transparent,
-                              onTap: () {
-                                Navigator.pop(context);
+                              onTap: () async {
+                                //Navigator.pop(context);
+
+                                print(lid);
+                                print(sid);
+                                print(gender);
+
+                                sid.clear();
+
+                                // searchController.fetch(lid, sid, gender);
                               },
                               child: const Center(
                                 child: Text(
@@ -247,7 +260,9 @@ class _FiltersScreenState extends State<FiltersScreen> {
             for (var item in _selectedItems2) {
               // ignore: unnecessary_string_interpolations
               _tobeSent.add("${item.title.toString()}");
+              sid.add("${item.id.toString()}");
             }
+            setState(() {});
 
             /*senduserdata(
                       'partnerreligion', '${_selectedItems2.toString()}');*/
@@ -325,6 +340,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
             onChanged: (value) {
               setState(() {
                 getLocationController.location = value!;
+                lid = value.id;
               });
 
               // pop current page
@@ -361,7 +377,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
         Padding(
           padding: const EdgeInsets.only(left: 18.0),
           child: DropdownButton<String>(
-            // value: editprofileController.macthgender.value,
+            value: macthgender.value,
             isExpanded: true,
             style: const TextStyle(
                 color: Colors.black, fontSize: 16, fontWeight: FontWeight.w700),
@@ -383,7 +399,8 @@ class _FiltersScreenState extends State<FiltersScreen> {
             }).toList(),
             onChanged: (value) {
               setState(() {
-                //  editprofileController.macthgender.value = value!;
+                macthgender.value = value!;
+                gender = value;
               });
             },
           ),
