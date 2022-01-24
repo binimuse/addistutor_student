@@ -9,6 +9,7 @@ import 'dart:io';
 import 'package:addistutor_student/Screens/Home/components/design_course_app_theme.dart';
 import 'package:addistutor_student/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -40,6 +41,12 @@ var date;
 TimePickerEntryMode initialEntryMode = TimePickerEntryMode.dial;
 
 class _EditPageState extends State<BookScreen> {
+  @override
+  void deactivate() {
+    EasyLoading.dismiss();
+    super.deactivate();
+  }
+
   final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
 
@@ -194,14 +201,8 @@ class _EditPageState extends State<BookScreen> {
                   height: 10,
                 ),
                 buildTextFieldstudent("data and time", "Evan kutto", false),
-                Expanded(
-                  child: Container(
-                    color: Colors.white,
-                    height: 150,
-                    width: double.infinity,
-                    child: Column(children: BookScreen.containerList),
-                  ),
-                ),
+                buildTextFieldstudent2("data and time", "Evan kutto", false),
+                buildTextFieldstudent3("data and time", "Evan kutto", false),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -219,8 +220,56 @@ class _EditPageState extends State<BookScreen> {
                     ),
                     RaisedButton(
                       onPressed: () {
-
-                        
+                        if (days.toString() == days2.toString() ||
+                            days.toString() == days3.toString() ||
+                            days2.toString() == days.toString() ||
+                            days2.toString() == days3.toString() ||
+                            days3.toString() == days.toString() ||
+                            days3.toString() == days2.toString()) {
+                          showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: const Text(
+                                'Error Please Select diffrent Date To book',
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.red,
+                                  fontFamily: 'WorkSans',
+                                ),
+                              ),
+                              content: const Text(
+                                'You canot book one date more than once',
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black,
+                                  fontFamily: 'WorkSans',
+                                ),
+                              ),
+                              actions: <Widget>[
+                                Center(
+                                  child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        FlatButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop(true);
+                                            setState(() {
+                                              // isLoading = false;
+                                            });
+                                          },
+                                          child: Center(child: Text('ok')),
+                                        ),
+                                      ]),
+                                ),
+                              ],
+                            ),
+                          );
+                        } else {
+                          Cricular();
+                        }
                       },
                       color: kPrimaryColor,
                       padding: const EdgeInsets.symmetric(horizontal: 50),
@@ -359,60 +408,19 @@ class _EditPageState extends State<BookScreen> {
                       });
                     },
                   ),
-
-            ispressd
-                ? Container()
-                : GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        BookScreen.containerList.add(
-                          dynamicWidget(),
-                        );
-                        ispressd = true;
-                      });
-                    },
-                    child: const Icon(
-                      Icons.add,
-                      color: Colors.green,
-                    ),
-                  )
           ],
         ),
       ]),
     );
   }
-}
 
-// ignore: camel_case_types
-class dynamicWidget extends StatefulWidget {
-  const dynamicWidget({Key? key}) : super(key: key);
-
-  @override
-  _EditPageState5 createState() => _EditPageState5();
-}
-
-late bool ispressd2 = false;
-
-class _EditPageState5 extends State<dynamicWidget> {
-  final RefreshController _refreshController =
-      RefreshController(initialRefresh: false);
-  _onRefresh() async {
-    // monitor network fetch
-    await Future.delayed(const Duration(milliseconds: 1000));
-    // if failed,use refreshFailed()
-
-    setState(() {});
-    _refreshController.refreshCompleted();
-  }
-
-  final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
   late var days2 = "Mon";
   late var wtime2 = "4:30pm";
   late var time2 = "9:00am";
-  @override
-  Widget build(BuildContext context) {
+
+  Widget buildTextFieldstudent2(
+      String labelText2, String placeholder2, bool isPasswordTextField2) {
     return Container(
-      key: _key,
       child: Column(children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -431,11 +439,11 @@ class _EditPageState5 extends State<dynamicWidget> {
                 'Fri',
                 'Sat',
                 'Sun',
-              ].map<DropdownMenuItem<String>>((String value2) {
+              ].map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
-                  value: value2,
+                  value: value,
                   child: Text(
-                    value2,
+                    value,
                     style: const TextStyle(
                         color: Colors.black,
                         fontSize: 16,
@@ -448,7 +456,7 @@ class _EditPageState5 extends State<dynamicWidget> {
                   days2 = value2!;
                   if (days2 == "Sat") {
                     weakdays2 = true;
-                  } else if (days2 == "Sun") {
+                  } else if (days == "Sun") {
                     weakdays2 = true;
                   } else {
                     weakdays2 = false;
@@ -456,7 +464,7 @@ class _EditPageState5 extends State<dynamicWidget> {
                 });
               },
             ),
-            const SizedBox(width: 50), // give it width
+            SizedBox(width: 50), // give it width
 
             weakdays2
                 ? DropdownButton<String>(
@@ -524,66 +532,10 @@ class _EditPageState5 extends State<dynamicWidget> {
                       });
                     },
                   ),
-
-            ispressd2
-                ? Container()
-                : GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        BookScreen.containerList.add(
-                          const dynamicWidget3(),
-                        );
-                      });
-                      ispressd2 = true;
-                      // refresh();
-                      Navigator.push(
-                        context,
-                        PageRouteBuilder(
-                          pageBuilder: (context, animation1, animation2) {
-                            return BookScreen();
-                          },
-                        ),
-                      );
-
-                      _onRefresh();
-                    },
-                    child: const Icon(
-                      Icons.add,
-                      color: Colors.green,
-                    ),
-                  )
           ],
         ),
       ]),
     );
-  }
-
-  void refresh() {
-    Navigator.pop(context); // pop current page
-
-    Navigator.push(
-      context,
-      PageRouteBuilder(
-        pageBuilder: (context, animation1, animation2) {
-          return BookScreen();
-        },
-      ),
-    );
-  }
-}
-
-class dynamicWidget3 extends StatefulWidget {
-  const dynamicWidget3({Key? key}) : super(key: key);
-
-  @override
-  _EditPageState3 createState() => _EditPageState3();
-}
-
-class _EditPageState3 extends State<dynamicWidget3> {
-  @override
-  void initState() {
-    super.initState();
-    ispressd2 = true;
   }
 
   late var days3 = "Mon";
@@ -591,120 +543,180 @@ class _EditPageState3 extends State<dynamicWidget3> {
   late var time3 = "9:00am";
   late bool weakdays3 = false;
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(children: [
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          DropdownButton<String>(
-            value: days3,
-            style: const TextStyle(
-                color: Colors.black, fontSize: 16, fontWeight: FontWeight.w700),
-            items: <String>[
-              'Mon',
-              'Tue',
-              'Wed',
-              'Thu',
-              'Fri',
-              'Sat',
-              'Sun',
-            ].map<DropdownMenuItem<String>>((String value3) {
-              return DropdownMenuItem<String>(
-                value: value3,
-                child: Text(
-                  value3,
-                  style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w700),
-                ),
-              );
-            }).toList(),
-            onChanged: (value3) {
-              setState(() {
-                days3 = value3!;
-                if (days3 == "Sat") {
-                  weakdays3 = true;
-                } else if (days3 == "Sun") {
-                  weakdays3 = true;
-                } else {
-                  weakdays3 = false;
-                }
-              });
-            },
-          ),
-          const SizedBox(width: 50), // give it width
+  Widget buildTextFieldstudent3(
+      String labelText3, String placeholder3, bool isPasswordTextField3) {
+    return Container(
+      child: Column(children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            DropdownButton<String>(
+              value: days3,
+              style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700),
+              items: <String>[
+                'Mon',
+                'Tue',
+                'Wed',
+                'Thu',
+                'Fri',
+                'Sat',
+                'Sun',
+              ].map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(
+                    value,
+                    style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w700),
+                  ),
+                );
+              }).toList(),
+              onChanged: (value3) {
+                setState(() {
+                  days3 = value3!;
+                  if (days3 == "Sat") {
+                    weakdays3 = true;
+                  } else if (days == "Sun") {
+                    weakdays3 = true;
+                  } else {
+                    weakdays3 = false;
+                  }
+                });
+              },
+            ),
+            SizedBox(width: 50), // give it width
 
-          weakdays3
-              ? DropdownButton<String>(
-                  value: time3,
-                  style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w700),
-                  items: <String>[
-                    '9:00am',
-                    '10:00am',
-                    '11:00am',
-                    '12:00pm',
-                    '1:00pm',
-                    '2:00pm',
-                    '3:00pm',
-                    '4:00pm',
-                    '5:00pm',
-                    '6:00pm',
-                  ].map<DropdownMenuItem<String>>((String value3) {
-                    return DropdownMenuItem<String>(
-                      value: value3,
-                      child: Text(
-                        value3,
-                        style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700),
-                      ),
-                    );
-                  }).toList(),
-                  onChanged: (value2) {
+            weakdays3
+                ? DropdownButton<String>(
+                    value: time3,
+                    style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w700),
+                    items: <String>[
+                      '9:00am',
+                      '10:00am',
+                      '11:00am',
+                      '12:00pm',
+                      '1:00pm',
+                      '2:00pm',
+                      '3:00pm',
+                      '4:00pm',
+                      '5:00pm',
+                      '6:00pm',
+                    ].map<DropdownMenuItem<String>>((String value3) {
+                      return DropdownMenuItem<String>(
+                        value: value3,
+                        child: Text(
+                          value3,
+                          style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700),
+                        ),
+                      );
+                    }).toList(),
+                    onChanged: (value3) {
+                      setState(() {
+                        time3 = value3!;
+                      });
+                    },
+                  )
+                : DropdownButton<String>(
+                    value: wtime3,
+                    style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w700),
+                    items: <String>[
+                      '4:30pm',
+                      '5:00pm',
+                      '5:30pm',
+                      '6:00pm',
+                      '6:30pm',
+                    ].map<DropdownMenuItem<String>>((String value3) {
+                      return DropdownMenuItem<String>(
+                        value: value3,
+                        child: Text(
+                          value3,
+                          style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700),
+                        ),
+                      );
+                    }).toList(),
+                    onChanged: (value3) {
+                      setState(() {
+                        wtime3 = value3!;
+                      });
+                    },
+                  ),
+          ],
+        ),
+      ]),
+    );
+  }
+
+  void Cricular() async {
+    // Here you can write your code for open new view
+    EasyLoading.show();
+    Future.delayed(const Duration(milliseconds: 500), () {
+// Here you can write your code
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text(
+            'booking',
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w500,
+              color: Colors.green,
+              fontFamily: 'WorkSans',
+            ),
+          ),
+          content: const Text(
+            'Are You Sure you want to Book this Tutor',
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w500,
+              color: Colors.black,
+              fontFamily: 'WorkSans',
+            ),
+          ),
+          actions: <Widget>[
+            Center(
+              child:
+                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                FlatButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(true);
                     setState(() {
-                      time3 = value2!;
+                      // isLoading = false;
                     });
                   },
-                )
-              : DropdownButton<String>(
-                  value: wtime3,
-                  style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w700),
-                  items: <String>[
-                    '4:30pm',
-                    '5:00pm',
-                    '5:30pm',
-                    '6:00pm',
-                    '6:30pm',
-                  ].map<DropdownMenuItem<String>>((String value3) {
-                    return DropdownMenuItem<String>(
-                      value: value3,
-                      child: Text(
-                        value3,
-                        style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700),
-                      ),
-                    );
-                  }).toList(),
-                  onChanged: (value3) {
-                    setState(() {
-                      wtime3 = value3!;
-                    });
-                  },
+                  child: Center(child: Text('No')),
                 ),
-          Container()
-        ],
-      ),
-    ]);
+                FlatButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(true);
+                    setState(() {
+                      // isLoading = false;
+                    });
+                  },
+                  child: Center(child: Text('Yes')),
+                ),
+              ]),
+            ),
+          ],
+        ),
+      );
+      EasyLoading.dismiss();
+    });
   }
 }

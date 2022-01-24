@@ -1,12 +1,18 @@
 import 'package:addistutor_student/Screens/Home/components/course_info_screen.dart';
 import 'package:addistutor_student/Screens/search/components/hotel_list_view.dart';
 import 'package:addistutor_student/Screens/search/components/model/hotel_list_data.dart';
+import 'package:addistutor_student/controller/geteducationlevelcontroller.dart';
+import 'package:addistutor_student/controller/getlocationcontroller.dart';
+import 'package:addistutor_student/controller/getsubjectcontroller.dart';
+import 'package:addistutor_student/controller/searchcontroller.dart';
+import 'package:addistutor_student/remote_services/user.dart';
 import 'package:flutter/material.dart';
 
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import 'calendar_popup_view.dart';
@@ -36,15 +42,58 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
   AnimationController? animationController;
   List<HotelListData> hotelList = HotelListData.hotelList;
   final ScrollController _scrollController = ScrollController();
+  GetEducationlevelController getEducationlevelController =
+      Get.put(GetEducationlevelController());
+  GetLocationController getLocationController =
+      Get.put(GetLocationController());
 
+  GetSubjectController getSubjectController = Get.put(GetSubjectController());
   DateTime startDate = DateTime.now();
   DateTime endDate = DateTime.now().add(const Duration(days: 5));
-
+  List<GetSubject> subject = [];
   @override
   void initState() {
     animationController = AnimationController(
         duration: const Duration(milliseconds: 1000), vsync: this);
+
+    _getall();
     super.initState();
+  }
+
+  _getall() async {
+    _geteducation();
+    _getsubject();
+    _getlocation();
+  }
+
+  List<GetLocation> location = [];
+  _getlocation() async {
+    getLocationController.fetchLocation();
+    // ignore: invalid_use_of_protected_member
+    location = getLocationController.listlocation.value;
+    if (location != null && location.isNotEmpty) {
+      setState(() {
+        getLocationController.location = location[0];
+      });
+    }
+  }
+
+  _geteducation() async {
+    getEducationlevelController.fetchLocation();
+    getSubjectController.fetchLocation("");
+    getLocationController.fetchLocation();
+
+    //
+    // ignore: invalid_use_of_protected_member
+  }
+
+  _getsubject() {
+    subject = getSubjectController.listsubject.value;
+    if (subject != null && subject.isNotEmpty) {
+      setState(() {
+        //  getSubjectController.subject = subject[0];
+      });
+    }
   }
 
   Future<bool> getData() async {
@@ -61,94 +110,96 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Theme(
-      data: HotelAppTheme.buildLightTheme(),
-      child: Container(
-        child: Scaffold(
-          body: Stack(
-            children: <Widget>[
-              InkWell(
-                splashColor: Colors.transparent,
-                focusColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                hoverColor: Colors.transparent,
-                onTap: () {
-                  FocusScope.of(context).requestFocus(FocusNode());
-                },
-                child: Column(
+        data: HotelAppTheme.buildLightTheme(),
+        child: Obx(() => getEducationlevelController.isfetchededucation.value
+            ? Scaffold(
+                body: Stack(
                   children: <Widget>[
-                    getAppBarUI(),
-                    Expanded(
-                      child: NestedScrollView(
-                        controller: _scrollController,
-                        headerSliverBuilder:
-                            (BuildContext context, bool innerBoxIsScrolled) {
-                          return <Widget>[
-                            SliverList(
-                              delegate: SliverChildBuilderDelegate(
-                                  (BuildContext context, int index) {
-                                return Column(
-                                  children: <Widget>[
-                                    getSearchBarUI(),
-                                  ],
-                                );
-                              }, childCount: 1),
-                            ),
-                            SliverPersistentHeader(
-                              pinned: true,
-                              floating: true,
-                              delegate: ContestTabHeader(
-                                getFilterBarUI(),
+                    InkWell(
+                      splashColor: Colors.transparent,
+                      focusColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      onTap: () {
+                        FocusScope.of(context).requestFocus(FocusNode());
+                      },
+                      child: Column(
+                        children: <Widget>[
+                          getAppBarUI(),
+                          Expanded(
+                            child: NestedScrollView(
+                              controller: _scrollController,
+                              headerSliverBuilder: (BuildContext context,
+                                  bool innerBoxIsScrolled) {
+                                return <Widget>[
+                                  SliverList(
+                                    delegate: SliverChildBuilderDelegate(
+                                        (BuildContext context, int index) {
+                                      return Column(
+                                        children: <Widget>[
+                                          getSearchBarUI(),
+                                        ],
+                                      );
+                                    }, childCount: 1),
+                                  ),
+                                  SliverPersistentHeader(
+                                    pinned: true,
+                                    floating: true,
+                                    delegate: ContestTabHeader(
+                                      getFilterBarUI(),
+                                    ),
+                                  ),
+                                ];
+                              },
+                              body: Container(
+                                color: HotelAppTheme.buildLightTheme()
+                                    .backgroundColor,
+                                child: ListView.builder(
+                                  itemCount: hotelList.length,
+                                  padding: const EdgeInsets.only(top: 8),
+                                  scrollDirection: Axis.vertical,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    final int count = hotelList.length > 10
+                                        ? 10
+                                        : hotelList.length;
+                                    final Animation<double> animation =
+                                        Tween<double>(begin: 0.0, end: 1.0)
+                                            .animate(CurvedAnimation(
+                                                parent: animationController!,
+                                                curve: Interval(
+                                                    (1 / count) * index, 1.0,
+                                                    curve:
+                                                        Curves.fastOutSlowIn)));
+                                    animationController?.forward();
+                                    return HotelListView(
+                                      callback: () {
+                                        Navigator.push(
+                                          context,
+                                          PageRouteBuilder(
+                                            pageBuilder: (context, animation1,
+                                                animation2) {
+                                              return CourseInfoScreen();
+                                            },
+                                          ),
+                                        );
+                                      },
+                                      hotelData: hotelList[index],
+                                      animation: animation,
+                                      animationController: animationController!,
+                                    );
+                                  },
+                                ),
                               ),
                             ),
-                          ];
-                        },
-                        body: Container(
-                          color:
-                              HotelAppTheme.buildLightTheme().backgroundColor,
-                          child: ListView.builder(
-                            itemCount: hotelList.length,
-                            padding: const EdgeInsets.only(top: 8),
-                            scrollDirection: Axis.vertical,
-                            itemBuilder: (BuildContext context, int index) {
-                              final int count =
-                                  hotelList.length > 10 ? 10 : hotelList.length;
-                              final Animation<double> animation =
-                                  Tween<double>(begin: 0.0, end: 1.0).animate(
-                                      CurvedAnimation(
-                                          parent: animationController!,
-                                          curve: Interval(
-                                              (1 / count) * index, 1.0,
-                                              curve: Curves.fastOutSlowIn)));
-                              animationController?.forward();
-                              return HotelListView(
-                                callback: () {
-                                  Navigator.push(
-                                    context,
-                                    PageRouteBuilder(
-                                      pageBuilder:
-                                          (context, animation1, animation2) {
-                                        return CourseInfoScreen();
-                                      },
-                                    ),
-                                  );
-                                },
-                                hotelData: hotelList[index],
-                                animation: animation,
-                                animationController: animationController!,
-                              );
-                            },
-                          ),
-                        ),
+                          )
+                        ],
                       ),
-                    )
+                    ),
                   ],
                 ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+              )
+            : const Center(child: CircularProgressIndicator())));
   }
 
   Widget getSearchBarUI() {
@@ -172,18 +223,37 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
                         blurRadius: 8.0),
                   ],
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                      left: 16, right: 16, top: 4, bottom: 4),
-                  child: TextField(
-                    onChanged: (String txt) {},
-                    style: const TextStyle(
-                      fontSize: 18,
-                    ),
-                    cursorColor: HotelAppTheme.buildLightTheme().primaryColor,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Search Here...',
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push<dynamic>(
+                      context,
+                      MaterialPageRoute<dynamic>(
+                          builder: (BuildContext context) => FiltersScreen(),
+                          fullscreenDialog: true),
+                    );
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        left: 16, right: 16, top: 4, bottom: 4),
+                    child: GestureDetector(
+                      onTap: () {},
+                      child: TextFormField(
+                        onChanged: (String txt) {
+                          // setState(() {
+                          //   searchsubject = txt as TextEditingController;
+                          //   subjectController.fetch(txt);
+                          // });
+                        },
+                        style: const TextStyle(
+                          fontSize: 18,
+                        ),
+                        cursorColor:
+                            HotelAppTheme.buildLightTheme().primaryColor,
+                        decoration: const InputDecoration(
+                          border: InputBorder.none,
+                          hintText: 'What do you want to learn...',
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -210,7 +280,12 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
                   Radius.circular(32.0),
                 ),
                 onTap: () {
-                  FocusScope.of(context).requestFocus(FocusNode());
+                  Navigator.push<dynamic>(
+                    context,
+                    MaterialPageRoute<dynamic>(
+                        builder: (BuildContext context) => FiltersScreen(),
+                        fullscreenDialog: true),
+                  );
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),

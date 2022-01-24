@@ -1,5 +1,14 @@
+import 'package:addistutor_student/controller/editprofilecontroller.dart';
+import 'package:addistutor_student/controller/geteducationlevelcontroller.dart';
+import 'package:addistutor_student/controller/getlocationcontroller.dart';
+import 'package:addistutor_student/controller/getsubjectcontroller.dart';
+import 'package:addistutor_student/remote_services/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:multi_select_flutter/multi_select_flutter.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+import '../../../constants.dart';
 import 'range_slider_view.dart';
 import 'slider_view.dart';
 import 'hotel_app_theme.dart';
@@ -11,205 +20,182 @@ class FiltersScreen extends StatefulWidget {
 }
 
 class _FiltersScreenState extends State<FiltersScreen> {
-  List<PopularFilterListData> popularFilterListData =
-      PopularFilterListData.popularFList;
-  List<PopularFilterListData> accomodationListData =
-      PopularFilterListData.accomodationList;
+  GetEducationlevelController getEducationlevelController = Get.find();
+  GetSubjectController getSubjectController = Get.find();
+  GetLocationController getLocationController = Get.find();
 
   RangeValues _values = const RangeValues(100, 600);
   double distValue = 50.0;
 
+  List<GetEducationlevel> education = [];
+  List<GetSubject> subject = [];
+  final List<String> _tobeSent = [];
+  bool showsubject = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _getall();
+  }
+
+  _getall() async {
+    _geteducation();
+    _getsubject();
+    _getlocation();
+  }
+
+  List<GetSubject> _selectedItems2 = [];
+
+  final RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
+
+  void _onRefresh() async {
+    // monitor network fetch
+    await Future.delayed(const Duration(milliseconds: 1000));
+    // if failed,use refreshFailed()
+
+    setState(() {
+      _getsubject();
+    });
+    _refreshController.refreshCompleted();
+  }
+
+  void _onLoading() async {
+    // monitor network fetch
+    await Future.delayed(const Duration(milliseconds: 1000));
+    // if failed,use loadFailed(),if no data return,use LoadNodata()
+    //items.add((items.length+1).toString());
+    //if(mounted)
+    // setState(() {
+
+    // });
+    _refreshController.loadComplete();
+  }
+
+  _geteducation() async {
+    getEducationlevelController.fetchLocation();
+    // ignore: invalid_use_of_protected_member
+    education = getEducationlevelController.listeducation.value;
+    if (education != null && education.isNotEmpty) {
+      setState(() {
+        getEducationlevelController.education = education[0];
+      });
+    }
+  }
+
+  _getsubject() {
+    subject = getSubjectController.listsubject.value;
+    if (subject != null && subject.isNotEmpty) {
+      setState(() {
+        //  getSubjectController.subject = subject[0];
+      });
+    }
+  }
+
+  List<GetLocation> location = [];
+  _getlocation() async {
+    getLocationController.fetchLocation();
+    // ignore: invalid_use_of_protected_member
+    location = getLocationController.listlocation.value;
+    if (location != null && location.isNotEmpty) {
+      setState(() {
+        getLocationController.location = location[0];
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: HotelAppTheme.buildLightTheme().backgroundColor,
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: Column(
-          children: <Widget>[
-            getAppBarUI(),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: <Widget>[
-                    gradebarfilter(),
-                    const Divider(
-                      height: 1,
-                    ),
-                    LocationFilter(),
-                    const Divider(
-                      height: 1,
-                    ),
-                    subjectViewUI(),
-                    const Divider(
-                      height: 1,
-                    ),
-                    genderViewUI(),
-                    const Divider(
-                      height: 1,
-                    ),
-                    experianceViewUI()
-                  ],
-                ),
-              ),
-            ),
-            const Divider(
-              height: 1,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: 16, right: 16, bottom: 16, top: 8),
-              child: Container(
-                height: 48,
-                decoration: BoxDecoration(
-                  color: HotelAppTheme.buildLightTheme().primaryColor,
-                  borderRadius: const BorderRadius.all(Radius.circular(24.0)),
-                  boxShadow: <BoxShadow>[
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.6),
-                      blurRadius: 8,
-                      offset: const Offset(4, 4),
-                    ),
-                  ],
-                ),
-                child: Material(
-                  color: Colors.transparent,
-                  child: InkWell(
-                    borderRadius: const BorderRadius.all(Radius.circular(24.0)),
-                    highlightColor: Colors.transparent,
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: Center(
-                      child: Text(
-                        'Apply',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 18,
-                            color: Colors.white),
+    return Obx(() => getEducationlevelController.isfetchededucation.value
+        ? Container(
+            color: HotelAppTheme.buildLightTheme().backgroundColor,
+            child: SmartRefresher(
+              enablePullDown: true,
+              enablePullUp: true,
+
+              //cheak pull_to_refresh
+              controller: _refreshController,
+              onRefresh: _onRefresh,
+              onLoading: _onLoading,
+              child: Form(
+                child: Scaffold(
+                  backgroundColor: Colors.transparent,
+                  body: Column(
+                    children: <Widget>[
+                      getAppBarUI(),
+                      Expanded(
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: <Widget>[
+                              gradebarfilter(),
+                              const Divider(
+                                height: 1,
+                              ),
+                              showsubject ? subjectViewUI() : Container(),
+                              const Divider(
+                                height: 1,
+                              ),
+                              LocationFilter(),
+                              const Divider(
+                                height: 1,
+                              ),
+                              genderViewUI(),
+                              const Divider(
+                                height: 1,
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
-                    ),
+                      const Divider(
+                        height: 1,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 16, right: 16, bottom: 16, top: 8),
+                        child: Container(
+                          height: 48,
+                          decoration: BoxDecoration(
+                            color: HotelAppTheme.buildLightTheme().primaryColor,
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(24.0)),
+                            boxShadow: <BoxShadow>[
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.6),
+                                blurRadius: 8,
+                                offset: const Offset(4, 4),
+                              ),
+                            ],
+                          ),
+                          child: Material(
+                            color: Colors.transparent,
+                            child: InkWell(
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(24.0)),
+                              highlightColor: Colors.transparent,
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Center(
+                                child: Text(
+                                  'Apply',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 18,
+                                      color: Colors.white),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
                   ),
                 ),
               ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget allAccommodationUI() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Padding(
-          padding:
-              const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 8),
-          child: Text(
-            'Type of Accommodation',
-            textAlign: TextAlign.left,
-            style: TextStyle(
-                color: Colors.grey,
-                fontSize: MediaQuery.of(context).size.width > 360 ? 18 : 16,
-                fontWeight: FontWeight.normal),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(right: 16, left: 16),
-          child: Column(
-            children: getAccomodationListUI(),
-          ),
-        ),
-        const SizedBox(
-          height: 8,
-        ),
-      ],
-    );
-  }
-
-  List<Widget> getAccomodationListUI() {
-    final List<Widget> noList = <Widget>[];
-    for (int i = 0; i < accomodationListData.length; i++) {
-      final PopularFilterListData date = accomodationListData[i];
-      noList.add(
-        Material(
-          color: Colors.transparent,
-          child: InkWell(
-            borderRadius: const BorderRadius.all(Radius.circular(4.0)),
-            onTap: () {
-              setState(() {
-                checkAppPosition(i);
-              });
-            },
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Text(
-                      date.titleTxt,
-                      style: TextStyle(color: Colors.black),
-                    ),
-                  ),
-                  CupertinoSwitch(
-                    activeColor: date.isSelected
-                        ? HotelAppTheme.buildLightTheme().primaryColor
-                        : Colors.grey.withOpacity(0.6),
-                    onChanged: (bool value) {
-                      setState(() {
-                        checkAppPosition(i);
-                      });
-                    },
-                    value: date.isSelected,
-                  ),
-                ],
-              ),
             ),
-          ),
-        ),
-      );
-      if (i == 0) {
-        noList.add(const Divider(
-          height: 1,
-        ));
-      }
-    }
-    return noList;
-  }
-
-  void checkAppPosition(int index) {
-    if (index == 0) {
-      if (accomodationListData[0].isSelected) {
-        accomodationListData.forEach((d) {
-          d.isSelected = false;
-        });
-      } else {
-        accomodationListData.forEach((d) {
-          d.isSelected = true;
-        });
-      }
-    } else {
-      accomodationListData[index].isSelected =
-          !accomodationListData[index].isSelected;
-
-      int count = 0;
-      for (int i = 0; i < accomodationListData.length; i++) {
-        if (i != 0) {
-          final PopularFilterListData data = accomodationListData[i];
-          if (data.isSelected) {
-            count += 1;
-          }
-        }
-      }
-
-      if (count == accomodationListData.length - 1) {
-        accomodationListData[0].isSelected = true;
-      } else {
-        accomodationListData[0].isSelected = false;
-      }
-    }
+          )
+        : const Center(child: CircularProgressIndicator()));
   }
 
   Widget subjectViewUI() {
@@ -217,22 +203,72 @@ class _FiltersScreenState extends State<FiltersScreen> {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Padding(
-          padding:
-              const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 8),
-          child: Text(
-            'Select Subject:',
-            textAlign: TextAlign.left,
-            style: TextStyle(
-                color: Colors.grey,
-                fontSize: MediaQuery.of(context).size.width > 360 ? 18 : 16,
-                fontWeight: FontWeight.normal),
+        MultiSelectBottomSheetField<GetSubject>(
+          initialChildSize: 0.7,
+          maxChildSize: 0.95,
+          listType: MultiSelectListType.CHIP,
+          checkColor: Colors.pink,
+          selectedColor: kPrimaryColor,
+          selectedItemsTextStyle: const TextStyle(
+            fontSize: 25,
+            color: Colors.white,
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(right: 16, left: 16),
-          child: Column(
-            children: getPList(),
+          unselectedColor: kPrimaryColor.withOpacity(.08),
+          buttonIcon: const Icon(
+            Icons.add,
+            color: Colors.pinkAccent,
+          ),
+          searchHintStyle: const TextStyle(
+            fontSize: 12,
+          ),
+          searchable: true,
+          buttonText: Text(
+            "Select Subject:", //"????",
+            style: const TextStyle(
+              fontSize: 18,
+              color: Colors.grey,
+            ),
+            overflow: TextOverflow.ellipsis,
+            maxLines: 5,
+          ),
+          title: const Text(
+            "Subjects avalable",
+            style: TextStyle(
+              fontSize: 20,
+              color: kPrimaryColor,
+            ),
+          ),
+          items: getSubjectController.hobItem,
+          onConfirm: (values) {
+            setState(() {
+              _selectedItems2 = values.cast<GetSubject>();
+            });
+
+            for (var item in _selectedItems2) {
+              // ignore: unnecessary_string_interpolations
+              _tobeSent.add("${item.title.toString()}");
+            }
+
+            /*senduserdata(
+                      'partnerreligion', '${_selectedItems2.toString()}');*/
+          },
+          chipDisplay: MultiSelectChipDisplay(
+            textStyle: const TextStyle(
+              fontSize: 12,
+              color: Colors.black,
+            ),
+            onTap: (value) {
+              setState(() {
+                _selectedItems2.remove(value);
+                _tobeSent.remove(value.toString());
+              });
+
+              // ignore: avoid_print
+
+              for (var item in _selectedItems2) {
+                _tobeSent.add(item.title.toString());
+              }
+            },
           ),
         ),
         const SizedBox(
@@ -242,6 +278,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
     );
   }
 
+  // ignore: non_constant_identifier_names
   Widget LocationFilter() {
     var grade;
     return Column(
@@ -261,39 +298,40 @@ class _FiltersScreenState extends State<FiltersScreen> {
         ),
         Padding(
           padding: const EdgeInsets.only(left: 18.0),
-          child: DropdownButton<String>(
-            value: grade,
-            isExpanded: true,
-            style: const TextStyle(color: Colors.black),
-            items: <String>[
-              'Yeka ',
-              'Kolfe',
-              'arada',
-              'bole',
-              'Addis ketema',
-              'akaki kality',
-              'ledeta ',
-              'lafto',
-              'gulele',
-              'kirkos',
-            ].map<DropdownMenuItem<String>>((String grade) {
-              return DropdownMenuItem<String>(
-                value: grade,
-                child: Text(grade),
-              );
-            }).toList(),
+          child: DropdownButton<GetLocation>(
             hint: Text(
-              "select here",
+              getLocationController.listlocation.toString(),
               style: const TextStyle(
                   color: Colors.black,
                   fontSize: 16,
                   fontWeight: FontWeight.w400),
             ),
+            isExpanded: true,
+            style: const TextStyle(
+                color: Colors.black, fontSize: 16, fontWeight: FontWeight.w700),
+            items: location
+                .map((e) => DropdownMenuItem(
+                      child: Text(
+                        e.name,
+                        textAlign: TextAlign.left,
+                        style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400),
+                      ),
+                      value: e,
+                    ))
+                .toList(),
             onChanged: (value) {
               setState(() {
-                grade = value!;
+                getLocationController.location = value!;
               });
+
+              // pop current page
+
+              showsubject = true;
             },
+            value: getLocationController.location,
           ),
         ),
         const SizedBox(
@@ -323,158 +361,41 @@ class _FiltersScreenState extends State<FiltersScreen> {
         Padding(
           padding: const EdgeInsets.only(left: 18.0),
           child: DropdownButton<String>(
-            value: grade,
+            // value: editprofileController.macthgender.value,
             isExpanded: true,
-            style: const TextStyle(color: Colors.black),
+            style: const TextStyle(
+                color: Colors.black, fontSize: 16, fontWeight: FontWeight.w700),
             items: <String>[
-              'Male ',
-              'FeMale',
-            ].map<DropdownMenuItem<String>>((String grade) {
+              '',
+              'male',
+              'Female',
+            ].map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
-                value: grade,
-                child: Text(grade),
-              );
-            }).toList(),
-            hint: Text(
-              "select here",
-              style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400),
-            ),
-            onChanged: (value) {
-              setState(() {
-                grade = value!;
-              });
-            },
-          ),
-        ),
-        const SizedBox(
-          height: 8,
-        )
-      ],
-    );
-  }
-
-  Widget experianceViewUI() {
-    var grade;
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Text(
-            'Tutor Experiance :',
-            textAlign: TextAlign.left,
-            style: TextStyle(
-                color: Colors.grey,
-                fontSize: MediaQuery.of(context).size.width > 360 ? 18 : 16,
-                fontWeight: FontWeight.normal),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 18.0),
-          child: DropdownButton<String>(
-            value: grade,
-            isExpanded: true,
-            style: const TextStyle(color: Colors.black),
-            items: <String>[
-              'Beginner ',
-              'Intermidate ',
-              'Professional',
-            ].map<DropdownMenuItem<String>>((String grade) {
-              return DropdownMenuItem<String>(
-                value: grade,
-                child: Text(grade),
-              );
-            }).toList(),
-            hint: Text(
-              "select here",
-              style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400),
-            ),
-            onChanged: (value) {
-              setState(() {
-                grade = value!;
-              });
-            },
-          ),
-        ),
-        const SizedBox(
-          height: 8,
-        )
-      ],
-    );
-  }
-
-  List<Widget> getPList() {
-    final List<Widget> noList = <Widget>[];
-    int count = 0;
-    const int columnCount = 2;
-    for (int i = 0; i < popularFilterListData.length / columnCount; i++) {
-      final List<Widget> listUI = <Widget>[];
-      for (int i = 0; i < columnCount; i++) {
-        try {
-          final PopularFilterListData date = popularFilterListData[count];
-          listUI.add(Expanded(
-            child: Row(
-              children: <Widget>[
-                Material(
-                  color: Colors.transparent,
-                  child: InkWell(
-                    borderRadius: const BorderRadius.all(Radius.circular(4.0)),
-                    onTap: () {
-                      setState(() {
-                        date.isSelected = !date.isSelected;
-                      });
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: <Widget>[
-                          Icon(
-                            date.isSelected
-                                ? Icons.check_box
-                                : Icons.check_box_outline_blank,
-                            color: date.isSelected
-                                ? HotelAppTheme.buildLightTheme().primaryColor
-                                : Colors.grey.withOpacity(0.6),
-                          ),
-                          const SizedBox(
-                            width: 4,
-                          ),
-                          Text(
-                            date.titleTxt,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                value: value,
+                child: Text(
+                  value,
+                  style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700),
                 ),
-              ],
-            ),
-          ));
-          if (count < popularFilterListData.length - 1) {
-            count += 1;
-          } else {
-            break;
-          }
-        } catch (e) {
-          print(e);
-        }
-      }
-      noList.add(Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: listUI,
-      ));
-    }
-    return noList;
+              );
+            }).toList(),
+            onChanged: (value) {
+              setState(() {
+                //  editprofileController.macthgender.value = value!;
+              });
+            },
+          ),
+        ),
+        const SizedBox(
+          height: 8,
+        )
+      ],
+    );
   }
+
+  getPList() {}
 
   Widget gradebarfilter() {
     var grade;
@@ -485,7 +406,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: Text(
-            'Grade :',
+            'Education Level:',
             textAlign: TextAlign.left,
             style: TextStyle(
                 color: Colors.grey,
@@ -495,33 +416,44 @@ class _FiltersScreenState extends State<FiltersScreen> {
         ),
         Padding(
           padding: const EdgeInsets.only(left: 18.0),
-          child: DropdownButton<String>(
-            value: grade,
-            isExpanded: true,
-            style: const TextStyle(color: Colors.black),
-            items: <String>[
-              'Preschool',
-              'Primary School',
-              'Middle School',
-              'Highschool',
-            ].map<DropdownMenuItem<String>>((String grade) {
-              return DropdownMenuItem<String>(
-                value: grade,
-                child: Text(grade),
-              );
-            }).toList(),
+          child: DropdownButton<GetEducationlevel>(
             hint: Text(
-              "select here",
+              getEducationlevelController.education.toString(),
               style: const TextStyle(
                   color: Colors.black,
                   fontSize: 16,
                   fontWeight: FontWeight.w400),
             ),
+            isExpanded: true,
+            style: const TextStyle(
+                color: Colors.black, fontSize: 16, fontWeight: FontWeight.w700),
+            items: education
+                .map((e) => DropdownMenuItem(
+                      child: Text(
+                        e.title,
+                        textAlign: TextAlign.left,
+                        style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400),
+                      ),
+                      value: e,
+                    ))
+                .toList(),
             onChanged: (value) {
               setState(() {
-                grade = value!;
+                getEducationlevelController.education = value!;
               });
+
+              _onRefresh();
+
+              getSubjectController.fetchLocation(value!.id.toString());
+
+              // pop current page
+
+              showsubject = true;
             },
+            value: getEducationlevelController.education,
           ),
         ),
         const SizedBox(

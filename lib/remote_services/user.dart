@@ -75,3 +75,57 @@ class GetLocation {
     );
   }
 }
+
+class GetEducationlevel {
+  int id;
+
+  String title;
+  String description;
+
+  GetEducationlevel({
+    required this.id,
+    required this.title,
+    required this.description,
+  });
+
+  factory GetEducationlevel.fromJson(Map<String, dynamic> json) {
+    return GetEducationlevel(
+      id: json["id"] as int,
+      title: json["title"],
+      description: json["description"],
+    );
+  }
+}
+
+class GetSubject {
+  int id;
+
+  String title;
+  String code;
+
+  GetSubject({
+    required this.id,
+    required this.title,
+    required this.code,
+  });
+
+  factory GetSubject.fromJson(Map<String, dynamic> json) {
+    return GetSubject(
+      id: json["id"] as int,
+      title: json["title"],
+      code: json["code"],
+    );
+  }
+}
+
+class Searchsubject {
+  int subject_id;
+
+  Searchsubject({
+    required this.subject_id,
+  });
+
+  factory Searchsubject.fromJson(Map<String, dynamic> json) {
+    return Searchsubject(subject_id: json["subject_id"]);
+  }
+}

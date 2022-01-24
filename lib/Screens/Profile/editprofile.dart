@@ -101,7 +101,6 @@ class _EditPageState extends State<EditPage> {
 
   @override
   Widget build(BuildContext context) {
-    print(getLocationController.listlocation.length);
     return Obx(() => editprofileController.isFetched.value
         ? Scaffold(
             key: editprofileController.scaffoldKey,

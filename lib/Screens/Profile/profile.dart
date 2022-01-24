@@ -144,6 +144,7 @@ class _ProfilePageState extends State<ProfileS> {
         context,
         editprofileController.firstname.text.toString(),
         editprofileController.lastname.text.toString(),
+        ids,
       ),
       body: editprofileController.obx(
           (editForm) => SmartRefresher(
@@ -222,7 +223,7 @@ class _ProfilePageState extends State<ProfileS> {
   final Color primary = Colors.white;
   final Color active = Colors.grey.shade800;
   final Color divider = Colors.grey.shade600;
-  _buildDrawer(BuildContext context, String fname, String lastname) {
+  _buildDrawer(BuildContext context, String fname, String lastname, ids) {
     final String image =
         "https://tutor.oddatech.com/api/student-profile-picture/${ids}";
 

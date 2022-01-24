@@ -49,6 +49,7 @@ dependencies:
   flutter_easyloading: ^2.0.0
   image_picker: ^0.8.4+4
   camera_camera: ^2.0.2
+  multi_select_flutter: ^4.0.0
   
 
 
