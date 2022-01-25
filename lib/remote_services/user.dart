@@ -129,6 +129,7 @@ class Search {
   String about;
   String subject_id;
   String location_id;
+  String profile_img;
 
   Search({
     required this.id,
@@ -141,6 +142,7 @@ class Search {
     required this.about,
     required this.subject_id,
     required this.location_id,
+    required this.profile_img,
   });
 
   factory Search.fromJson(Map<String, dynamic> json) {
@@ -154,6 +156,7 @@ class Search {
         gender: json["gender"],
         about: json["about"],
         subject_id: json["subject_id"],
+        profile_img: json["profile_img"],
         location_id: json["location_id"]);
   }
 }

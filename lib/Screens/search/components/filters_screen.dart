@@ -1,8 +1,10 @@
+import 'package:addistutor_student/Screens/search/components/searchscreen.dart';
 import 'package:addistutor_student/controller/editprofilecontroller.dart';
 import 'package:addistutor_student/controller/geteducationlevelcontroller.dart';
 import 'package:addistutor_student/controller/getlocationcontroller.dart';
 import 'package:addistutor_student/controller/getsubjectcontroller.dart';
 import 'package:addistutor_student/controller/searchcontroller.dart';
+import 'package:addistutor_student/remote_services/service.dart';
 import 'package:addistutor_student/remote_services/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -179,19 +181,81 @@ class _FiltersScreenState extends State<FiltersScreen> {
                                   const BorderRadius.all(Radius.circular(24.0)),
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                //Navigator.pop(context);
+                                //   searchwidget(sid, lid, gender);
+                                // searchController.fetch("1", "1", "female");
 
-                                print(lid);
-                                print(sid);
-                                print(gender);
+                                // Navigator.pop(context, () {
+                                //   setState(() {});
+                                // });
 
-                                sid.clear();
-
-                                // searchController.fetch(lid, sid, gender);
+                                SizedBox(
+                                  height: 200.0,
+                                  child: ListView(
+                                    shrinkWrap: true,
+                                    children: List.generate(
+                                        1,
+                                        (index) => ListTile(
+                                              subtitle: Padding(
+                                                padding: const EdgeInsets.only(
+                                                    top: 5),
+                                                child: Row(
+                                                  children: [
+                                                    FutureBuilder(
+                                                        future: RemoteServices
+                                                            .search("1", "1",
+                                                                "female"),
+                                                        builder: (BuildContext
+                                                                context,
+                                                            AsyncSnapshot
+                                                                snapshot) {
+                                                          if (snapshot
+                                                              .hasError) {
+                                                            return Center(
+                                                              child: Text(snapshot
+                                                                  .error
+                                                                  .toString()),
+                                                            );
+                                                          }
+                                                          if (snapshot
+                                                              .hasData) {
+                                                            return Expanded(
+                                                              child: ListView
+                                                                  .builder(
+                                                                shrinkWrap:
+                                                                    true,
+                                                                physics:
+                                                                    const BouncingScrollPhysics(),
+                                                                itemBuilder:
+                                                                    (context,
+                                                                        index) {
+                                                                  return SearchListtag(
+                                                                      tag: snapshot
+                                                                              .data[
+                                                                          index]);
+                                                                },
+                                                                itemCount:
+                                                                    snapshot
+                                                                        .data
+                                                                        .length,
+                                                              ),
+                                                            );
+                                                          } else {
+                                                            return const Center(
+                                                              child:
+                                                                  CircularProgressIndicator(),
+                                                            );
+                                                          }
+                                                        }),
+                                                  ],
+                                                ),
+                                              ),
+                                            )),
+                                  ),
+                                );
                               },
                               child: const Center(
                                 child: Text(
-                                  'Apply',
+                                  'Search',
                                   style: TextStyle(
                                       fontWeight: FontWeight.w500,
                                       fontSize: 18,
@@ -235,9 +299,9 @@ class _FiltersScreenState extends State<FiltersScreen> {
             fontSize: 12,
           ),
           searchable: true,
-          buttonText: Text(
+          buttonText: const Text(
             "Select Subject:", //"????",
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 18,
               color: Colors.grey,
             ),
@@ -276,6 +340,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
               setState(() {
                 _selectedItems2.remove(value);
                 _tobeSent.remove(value.toString());
+                sid.clear();
               });
 
               // ignore: avoid_print
@@ -303,7 +368,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: Text(
-            'Location : :',
+            'Location :',
             textAlign: TextAlign.left,
             style: TextStyle(
                 color: Colors.grey,
@@ -535,5 +600,78 @@ class _FiltersScreenState extends State<FiltersScreen> {
         ),
       ),
     );
+  }
+
+  void searchwidget(List<String> sid, lid, gender) {
+    RemoteServices.search(lid, sid, gender);
+  }
+}
+
+class SearchListtag extends StatelessWidget {
+  final Search? tag;
+  const SearchListtag({Key? key, required this.tag}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+        color: Theme.of(context).cardColor,
+        child: InkWell(
+          child: GestureDetector(
+            onTap: () {
+              // Navigator.push(
+              //   context,
+              //   PageRouteBuilder(
+              //     pageBuilder: (context, animation1, animation2) =>
+              //         Hashtagdetail(
+              //       tag: tag,
+              //     ),
+              //     transitionDuration: Duration.zero,
+              //   ),
+              // );
+            },
+            child: Container(
+              padding: const EdgeInsets.symmetric(vertical: 9, horizontal: 16),
+              child: Row(
+                children: <Widget>[
+                  Container(
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                            width: 4,
+                            color: Theme.of(context).scaffoldBackgroundColor),
+                        boxShadow: [
+                          BoxShadow(
+                              spreadRadius: 2,
+                              blurRadius: 10,
+                              color: Colors.black.withOpacity(0.1),
+                              offset: const Offset(0, 10))
+                        ],
+                        shape: BoxShape.circle,
+                        image: const DecorationImage(
+                          fit: BoxFit.contain,
+                          image: AssetImage('assets/images/hash.png'),
+                        )),
+                  ),
+                  Expanded(
+                      child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: RichText(
+                              text: TextSpan(children: [
+                            TextSpan(
+                                text: tag!.first_name,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .subtitle1
+                                    ?.copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16)),
+                          ])))),
+                ],
+              ),
+            ),
+          ),
+          onTap: () {},
+        ));
   }
 }

@@ -9,13 +9,14 @@ class SearchController extends GetxController {
   var locationid;
 
   void fetch(lid, sid, gender) async {
-    print(lid);
-    print(sid);
-    print(gender);
-
     list.value = await RemoteServices.search(lid, sid, gender);
+
     if (list.isNotEmpty) {
       isfetched(true);
+      print("yess");
+      print(list.value);
+    } else {
+      print("Noo");
     }
   }
 }

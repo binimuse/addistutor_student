@@ -1,9 +1,15 @@
 import 'package:addistutor_student/Screens/Home/components/category_list_view.dart';
 import 'package:addistutor_student/Screens/Home/components/course_info_screen.dart';
 import 'package:addistutor_student/Screens/Home/components/popular_course_list_view.dart';
+import 'package:addistutor_student/controller/geteducationlevelcontroller.dart';
+import 'package:addistutor_student/controller/getlocationcontroller.dart';
+import 'package:addistutor_student/controller/getsubjectcontroller.dart';
+import 'package:addistutor_student/controller/searchcontroller.dart';
+import 'package:addistutor_student/remote_services/user.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'design_course_app_theme.dart';
 
@@ -27,9 +33,53 @@ class Home extends StatefulWidget {
 }
 
 class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
+  GetEducationlevelController getEducationlevelController =
+      Get.put(GetEducationlevelController());
+  GetLocationController getLocationController =
+      Get.put(GetLocationController());
+  SearchController searchController = Get.put(SearchController());
+  GetSubjectController getSubjectController = Get.put(GetSubjectController());
   @override
   void initState() {
     super.initState();
+    _getall();
+  }
+
+  _getall() async {
+    _geteducation();
+    _getsubject();
+    _getlocation();
+  }
+
+  List<GetSubject> subject = [];
+  _getsubject() {
+    subject = getSubjectController.listsubject.value;
+    if (subject != null && subject.isNotEmpty) {
+      setState(() {
+        //  getSubjectController.subject = subject[0];
+      });
+    }
+  }
+
+  _geteducation() async {
+    getEducationlevelController.fetchLocation();
+    getSubjectController.fetchLocation("1");
+    getLocationController.fetchLocation();
+
+    //
+    // ignore: invalid_use_of_protected_member
+  }
+
+  List<GetLocation> location = [];
+  _getlocation() async {
+    getLocationController.fetchLocation();
+    // ignore: invalid_use_of_protected_member
+    location = getLocationController.listlocation.value;
+    if (location != null && location.isNotEmpty) {
+      setState(() {
+        getLocationController.location = location[0];
+      });
+    }
   }
 
   int _tabIndex = 0;

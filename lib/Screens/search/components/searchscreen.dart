@@ -5,31 +5,26 @@ import 'package:addistutor_student/controller/geteducationlevelcontroller.dart';
 import 'package:addistutor_student/controller/getlocationcontroller.dart';
 import 'package:addistutor_student/controller/getsubjectcontroller.dart';
 import 'package:addistutor_student/controller/searchcontroller.dart';
+import 'package:addistutor_student/remote_services/service.dart';
 import 'package:addistutor_student/remote_services/user.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:multi_select_flutter/bottom_sheet/multi_select_bottom_sheet_field.dart';
+import 'package:multi_select_flutter/chip_display/multi_select_chip_display.dart';
+import 'package:multi_select_flutter/util/multi_select_list_type.dart';
 
 import 'dart:ui';
-
+import 'package:need_resume/need_resume.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
+import '../../../constants.dart';
 import 'calendar_popup_view.dart';
 import 'filters_screen.dart';
 import 'hotel_app_theme.dart';
-
-class SearchScreen extends StatelessWidget {
-  const SearchScreen({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: SerachPage(),
-    );
-  }
-}
 
 class SerachPage extends StatefulWidget {
   const SerachPage({Key? key}) : super(key: key);
@@ -39,31 +34,68 @@ class SerachPage extends StatefulWidget {
 }
 
 class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
+  @override
+  void deactivate() {
+    EasyLoading.dismiss();
+    super.deactivate();
+  }
+
   AnimationController? animationController;
   List<HotelListData> hotelList = HotelListData.hotelList;
   final ScrollController _scrollController = ScrollController();
-  GetEducationlevelController getEducationlevelController =
-      Get.put(GetEducationlevelController());
-  GetLocationController getLocationController =
-      Get.put(GetLocationController());
+  GetEducationlevelController getEducationlevelController = Get.find();
+  GetSubjectController getSubjectController = Get.find();
+  GetLocationController getLocationController = Get.find();
+  SearchController searchController = Get.put(SearchController());
 
-  GetSubjectController getSubjectController = Get.put(GetSubjectController());
   DateTime startDate = DateTime.now();
   DateTime endDate = DateTime.now().add(const Duration(days: 5));
   List<GetSubject> subject = [];
+
+  final List<String> _tobeSent = [];
+  final List<String> sid = [];
+  late var macthgender = "Male".obs;
+  var lid, gender;
+  bool showsubject = false;
+  bool searched = false;
+
   @override
   void initState() {
     animationController = AnimationController(
         duration: const Duration(milliseconds: 1000), vsync: this);
-
-    _getall();
     super.initState();
+    _getall();
   }
 
   _getall() async {
     _geteducation();
     _getsubject();
     _getlocation();
+  }
+
+  final RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
+
+  void _onRefresh() async {
+    // monitor network fetch
+    await Future.delayed(const Duration(milliseconds: 1));
+    // if failed,use refreshFailed()
+
+    setState(() {
+      _getsubject();
+    });
+    _refreshController.refreshCompleted();
+  }
+
+  void _onLoading() async {
+    await Future.delayed(const Duration(milliseconds: 1000));
+    // if failed,use loadFailed(),if no data return,use LoadNodata()
+    //items.add((items.length+1).toString());
+    //if(mounted)
+    // setState(() {
+
+    // });
+    _refreshController.loadComplete();
   }
 
   List<GetLocation> location = [];
@@ -78,15 +110,20 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
     }
   }
 
+  List<GetEducationlevel> education = [];
+
   _geteducation() async {
     getEducationlevelController.fetchLocation();
-    getSubjectController.fetchLocation("");
-    getLocationController.fetchLocation();
-
-    //
     // ignore: invalid_use_of_protected_member
+    education = getEducationlevelController.listeducation.value;
+    if (education != null && education.isNotEmpty) {
+      setState(() {
+        getEducationlevelController.education = education[0];
+      });
+    }
   }
 
+  List<GetSubject> _selectedItems2 = [];
   _getsubject() {
     subject = getSubjectController.listsubject.value;
     if (subject != null && subject.isNotEmpty) {
@@ -109,25 +146,33 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Theme(
-        data: HotelAppTheme.buildLightTheme(),
-        child: Obx(() => getEducationlevelController.isfetchededucation.value
-            ? Scaffold(
-                body: Stack(
-                  children: <Widget>[
-                    InkWell(
-                      splashColor: Colors.transparent,
-                      focusColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      onTap: () {
-                        FocusScope.of(context).requestFocus(FocusNode());
-                      },
-                      child: Column(
-                        children: <Widget>[
-                          getAppBarUI(),
-                          Expanded(
-                            child: NestedScrollView(
+    return Obx(() => getEducationlevelController.isfetchededucation.value
+        ? Theme(
+            data: HotelAppTheme.buildLightTheme(),
+            child: SmartRefresher(
+                enablePullDown: true,
+                enablePullUp: true,
+
+                //cheak pull_to_refresh
+                controller: _refreshController,
+                onRefresh: _onRefresh,
+                onLoading: _onLoading,
+                child: Scaffold(
+                  body: Stack(
+                    children: <Widget>[
+                      InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        onTap: () {
+                          FocusScope.of(context).requestFocus(FocusNode());
+                        },
+                        child: Column(
+                          children: <Widget>[
+                            getAppBarUI(),
+                            Expanded(
+                                child: NestedScrollView(
                               controller: _scrollController,
                               headerSliverBuilder: (BuildContext context,
                                   bool innerBoxIsScrolled) {
@@ -137,6 +182,12 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
                                         (BuildContext context, int index) {
                                       return Column(
                                         children: <Widget>[
+                                          gradebarfilter(),
+                                          showsubject
+                                              ? subjectViewUI()
+                                              : Container(),
+                                          LocationFilter(),
+                                          genderViewUI(),
                                           getSearchBarUI(),
                                         ],
                                       );
@@ -151,152 +202,373 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
                                   ),
                                 ];
                               },
-                              body: Container(
-                                color: HotelAppTheme.buildLightTheme()
-                                    .backgroundColor,
-                                child: ListView.builder(
-                                  itemCount: hotelList.length,
-                                  padding: const EdgeInsets.only(top: 8),
-                                  scrollDirection: Axis.vertical,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    final int count = hotelList.length > 10
-                                        ? 10
-                                        : hotelList.length;
-                                    final Animation<double> animation =
-                                        Tween<double>(begin: 0.0, end: 1.0)
-                                            .animate(CurvedAnimation(
-                                                parent: animationController!,
-                                                curve: Interval(
-                                                    (1 / count) * index, 1.0,
-                                                    curve:
-                                                        Curves.fastOutSlowIn)));
-                                    animationController?.forward();
-                                    return HotelListView(
-                                      callback: () {
-                                        Navigator.push(
-                                          context,
-                                          PageRouteBuilder(
-                                            pageBuilder: (context, animation1,
-                                                animation2) {
-                                              return CourseInfoScreen();
-                                            },
-                                          ),
-                                        );
-                                      },
-                                      hotelData: hotelList[index],
-                                      animation: animation,
-                                      animationController: animationController!,
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
-                          )
-                        ],
+                              body: searched
+                                  ? Container(
+                                      color: HotelAppTheme.buildLightTheme()
+                                          .backgroundColor,
+                                      child: FutureBuilder(
+                                          future: RemoteServices.search(
+                                              "1", "", ""),
+                                          builder: (BuildContext context,
+                                              AsyncSnapshot snapshot) {
+                                            if (snapshot.hasError) {
+                                              return Center(
+                                                child: Text(
+                                                    snapshot.error.toString()),
+                                              );
+                                            }
+                                            if (snapshot.hasData) {
+                                              return Expanded(
+                                                child: ListView.builder(
+                                                  itemCount:
+                                                      snapshot.data.length,
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 8),
+                                                  scrollDirection:
+                                                      Axis.vertical,
+                                                  itemBuilder:
+                                                      (BuildContext context,
+                                                          int index) {
+                                                    return HotelListView(
+                                                      hotelData:
+                                                          snapshot.data[index],
+                                                    );
+                                                  },
+                                                ),
+                                              );
+                                            } else {
+                                              return const Center(
+                                                child:
+                                                    CircularProgressIndicator(),
+                                              );
+                                            }
+                                          }))
+                                  : const Center(
+                                      child: CircularProgressIndicator(),
+                                    ),
+                            ))
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
+                )))
+        : const Center(child: CircularProgressIndicator()));
+  }
+
+  Widget genderViewUI() {
+    var grade;
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Text(
+            'Tutor Gender:',
+            textAlign: TextAlign.left,
+            style: TextStyle(
+                color: Colors.grey,
+                fontSize: MediaQuery.of(context).size.width > 360 ? 18 : 16,
+                fontWeight: FontWeight.normal),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 18.0),
+          child: DropdownButton<String>(
+            value: macthgender.value,
+            isExpanded: true,
+            style: const TextStyle(
+                color: Colors.black, fontSize: 16, fontWeight: FontWeight.w700),
+            items: <String>[
+              'Male',
+              'Female',
+            ].map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(
+                  value,
+                  style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700),
                 ),
-              )
-            : const Center(child: CircularProgressIndicator())));
+              );
+            }).toList(),
+            onChanged: (value) {
+              setState(() {
+                macthgender.value = value!;
+                gender = value;
+              });
+            },
+          ),
+        ),
+        const SizedBox(
+          height: 8,
+        )
+      ],
+    );
+  }
+
+  // ignore: non_constant_identifier_names
+  Widget LocationFilter() {
+    var grade;
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Text(
+            'Location :',
+            textAlign: TextAlign.left,
+            style: TextStyle(
+                color: Colors.grey,
+                fontSize: MediaQuery.of(context).size.width > 360 ? 18 : 16,
+                fontWeight: FontWeight.normal),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 18.0),
+          child: DropdownButton<GetLocation>(
+            hint: Text(
+              getLocationController.listlocation.toString(),
+              style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400),
+            ),
+            isExpanded: true,
+            style: const TextStyle(
+                color: Colors.black, fontSize: 16, fontWeight: FontWeight.w700),
+            items: location
+                .map((e) => DropdownMenuItem(
+                      child: Text(
+                        e.name,
+                        textAlign: TextAlign.left,
+                        style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400),
+                      ),
+                      value: e,
+                    ))
+                .toList(),
+            onChanged: (value) {
+              setState(() {
+                getLocationController.location = value!;
+                lid = value.id;
+              });
+
+              // pop current page
+            },
+            value: getLocationController.location,
+          ),
+        ),
+        const SizedBox(
+          height: 8,
+        )
+      ],
+    );
+  }
+
+  Widget subjectViewUI() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        MultiSelectBottomSheetField<GetSubject>(
+          initialChildSize: 0.7,
+          maxChildSize: 0.95,
+          listType: MultiSelectListType.CHIP,
+          checkColor: Colors.pink,
+          selectedColor: kPrimaryColor,
+          selectedItemsTextStyle: const TextStyle(
+            fontSize: 25,
+            color: Colors.white,
+          ),
+          unselectedColor: kPrimaryColor.withOpacity(.08),
+          buttonIcon: const Icon(
+            Icons.add,
+            color: Colors.pinkAccent,
+          ),
+          searchHintStyle: const TextStyle(
+            fontSize: 12,
+          ),
+          searchable: true,
+          buttonText: const Text(
+            "Select Subject:", //"????",
+            style: TextStyle(
+              fontSize: 18,
+              color: Colors.grey,
+            ),
+            overflow: TextOverflow.ellipsis,
+            maxLines: 5,
+          ),
+          title: const Text(
+            "Subjects avalable",
+            style: TextStyle(
+              fontSize: 20,
+              color: kPrimaryColor,
+            ),
+          ),
+          items: getSubjectController.hobItem,
+          onConfirm: (values) {
+            setState(() {
+              _selectedItems2 = values.cast<GetSubject>();
+            });
+
+            for (var item in _selectedItems2) {
+              // ignore: unnecessary_string_interpolations
+              _tobeSent.add("${item.title.toString()}");
+              sid.add("${item.id.toString()}");
+            }
+            setState(() {});
+
+            /*senduserdata(
+                      'partnerreligion', '${_selectedItems2.toString()}');*/
+          },
+          chipDisplay: MultiSelectChipDisplay(
+            textStyle: const TextStyle(
+              fontSize: 12,
+              color: Colors.black,
+            ),
+            onTap: (value) {
+              setState(() {
+                _selectedItems2.remove(value);
+                _tobeSent.remove(value.toString());
+                sid.clear();
+              });
+
+              // ignore: avoid_print
+
+              for (var item in _selectedItems2) {
+                _tobeSent.add(item.title.toString());
+              }
+            },
+          ),
+        ),
+        const SizedBox(
+          height: 8,
+        )
+      ],
+    );
+  }
+
+  loadData() {
+    // Here you can write your code for open new view
+    EasyLoading.show();
+    Future.delayed(const Duration(milliseconds: 1000), () {
+// Here you can write your code
+
+      EasyLoading.dismiss();
+    });
+  }
+
+  Widget gradebarfilter() {
+    var grade;
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Text(
+            'Education Level:',
+            textAlign: TextAlign.left,
+            style: TextStyle(
+                color: Colors.grey,
+                fontSize: MediaQuery.of(context).size.width > 360 ? 18 : 16,
+                fontWeight: FontWeight.normal),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 18.0),
+          child: DropdownButton<GetEducationlevel>(
+            hint: Text(
+              getEducationlevelController.education.toString(),
+              style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400),
+            ),
+            isExpanded: true,
+            style: const TextStyle(
+                color: Colors.black, fontSize: 16, fontWeight: FontWeight.w700),
+            items: education
+                .map((e) => DropdownMenuItem(
+                      child: Text(
+                        e.title,
+                        textAlign: TextAlign.left,
+                        style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400),
+                      ),
+                      value: e,
+                    ))
+                .toList(),
+            onChanged: (value) {
+              setState(() {
+                getEducationlevelController.education = value!;
+              });
+
+              _onRefresh();
+              loadData();
+
+              getSubjectController.fetchLocation(value!.id.toString());
+
+              // pop current page
+
+              showsubject = true;
+            },
+            value: getEducationlevelController.education,
+          ),
+        ),
+        const SizedBox(
+          height: 8,
+        )
+      ],
+    );
   }
 
   Widget getSearchBarUI() {
-    return Padding(
-      padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
-      child: Row(
-        children: <Widget>[
-          Expanded(
+    return Positioned(
+      top: 10,
+      bottom: 10,
+      child: Container(
+        decoration: BoxDecoration(
+          color: HotelAppTheme.buildLightTheme().primaryColor,
+          borderRadius: const BorderRadius.all(
+            Radius.circular(38.0),
+          ),
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+                color: Colors.grey.withOpacity(0.4),
+                offset: const Offset(0, 2),
+                blurRadius: 8.0),
+          ],
+        ),
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            borderRadius: const BorderRadius.all(
+              Radius.circular(32.0),
+            ),
+            onTap: () {
+              setState(() {
+                searched = true;
+              });
+            },
             child: Padding(
-              padding: const EdgeInsets.only(right: 16, top: 8, bottom: 8),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: HotelAppTheme.buildLightTheme().backgroundColor,
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(38.0),
-                  ),
-                  boxShadow: <BoxShadow>[
-                    BoxShadow(
-                        color: Colors.grey.withOpacity(0.2),
-                        offset: const Offset(0, 2),
-                        blurRadius: 8.0),
-                  ],
-                ),
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.push<dynamic>(
-                      context,
-                      MaterialPageRoute<dynamic>(
-                          builder: (BuildContext context) => FiltersScreen(),
-                          fullscreenDialog: true),
-                    );
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        left: 16, right: 16, top: 4, bottom: 4),
-                    child: GestureDetector(
-                      onTap: () {},
-                      child: TextFormField(
-                        onChanged: (String txt) {
-                          // setState(() {
-                          //   searchsubject = txt as TextEditingController;
-                          //   subjectController.fetch(txt);
-                          // });
-                        },
-                        style: const TextStyle(
-                          fontSize: 18,
-                        ),
-                        cursorColor:
-                            HotelAppTheme.buildLightTheme().primaryColor,
-                        decoration: const InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'What do you want to learn...',
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              padding: const EdgeInsets.all(16.0),
+              child: Icon(FontAwesomeIcons.search,
+                  size: 20,
+                  color: HotelAppTheme.buildLightTheme().backgroundColor),
             ),
           ),
-          Container(
-            decoration: BoxDecoration(
-              color: HotelAppTheme.buildLightTheme().primaryColor,
-              borderRadius: const BorderRadius.all(
-                Radius.circular(38.0),
-              ),
-              boxShadow: <BoxShadow>[
-                BoxShadow(
-                    color: Colors.grey.withOpacity(0.4),
-                    offset: const Offset(0, 2),
-                    blurRadius: 8.0),
-              ],
-            ),
-            child: Material(
-              color: Colors.transparent,
-              child: InkWell(
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(32.0),
-                ),
-                onTap: () {
-                  Navigator.push<dynamic>(
-                    context,
-                    MaterialPageRoute<dynamic>(
-                        builder: (BuildContext context) => FiltersScreen(),
-                        fullscreenDialog: true),
-                  );
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Icon(FontAwesomeIcons.search,
-                      size: 20,
-                      color: HotelAppTheme.buildLightTheme().backgroundColor),
-                ),
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
@@ -323,65 +595,18 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
         ),
         Container(
           color: HotelAppTheme.buildLightTheme().backgroundColor,
-          child: Padding(
-            padding:
-                const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 4),
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      '53 Tutors found',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w100,
-                        fontSize: 16,
-                      ),
-                    ),
+          child: Center(
+            child: const Expanded(
+              child: Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  '53 Tutors found',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w100,
+                    fontSize: 16,
                   ),
                 ),
-                Material(
-                  color: Colors.transparent,
-                  child: InkWell(
-                    focusColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    splashColor: Colors.grey.withOpacity(0.2),
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(4.0),
-                    ),
-                    onTap: () {
-                      FocusScope.of(context).requestFocus(FocusNode());
-                      Navigator.push<dynamic>(
-                        context,
-                        MaterialPageRoute<dynamic>(
-                            builder: (BuildContext context) => FiltersScreen(),
-                            fullscreenDialog: true),
-                      );
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 8),
-                      child: Row(
-                        children: <Widget>[
-                          Text(
-                            'Filter',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w100,
-                              fontSize: 16,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Icon(Icons.sort,
-                                color: HotelAppTheme.buildLightTheme()
-                                    .primaryColor),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
         ),
@@ -394,26 +619,6 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
           ),
         )
       ],
-    );
-  }
-
-  void showDemoDialog({BuildContext? context}) {
-    showDialog<dynamic>(
-      context: context!,
-      builder: (BuildContext context) => CalendarPopupView(
-        barrierDismissible: true,
-        minimumDate: DateTime.now(),
-        //  maximumDate: DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day + 10),
-        initialEndDate: endDate,
-        initialStartDate: startDate,
-        onApplyClick: (DateTime startData, DateTime endData) {
-          setState(() {
-            startDate = startData;
-            endDate = endData;
-          });
-        },
-        onCancelClick: () {},
-      ),
     );
   }
 

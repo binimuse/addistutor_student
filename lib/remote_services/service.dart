@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_brace_in_string_interps
+
 import 'dart:convert';
 
 import 'dart:io';
@@ -113,9 +115,6 @@ class RemoteServices {
 
     var body = json.decode(res.body);
     if (res.statusCode == 200) {
-      print("yessssssssssss");
-      print(body.toString());
-
       return body["data"]
           .map((e) => GetSubject.fromJson(e))
           .toList()
@@ -129,9 +128,11 @@ class RemoteServices {
       var locationid, var subjectid, var gender) async {
     res = await Network().getData(
         "tutors?location_id=${locationid}&subject_id=${subjectid}&gender=${gender}");
+    //  res = await Network().getData("tutors?location_id=l&subject_id=2");
     var body = json.decode(res.body);
 
     if (res.statusCode == 200) {
+      print(body["data"]);
       return body["data"]
           .map((e) => Search.fromJson(e))
           .toList()
