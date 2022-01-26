@@ -6,6 +6,8 @@ import 'package:addistutor_student/Screens/Profile/setting.dart';
 import 'package:addistutor_student/Screens/Notification/notification.dart';
 import 'package:addistutor_student/controller/editprofilecontroller.dart';
 import 'package:addistutor_student/controller/getlocationcontroller.dart';
+import 'package:addistutor_student/controller/getsubjectcontroller.dart';
+import 'package:addistutor_student/controller/searchcontroller.dart';
 import 'package:addistutor_student/controller/signupcontroller.dart';
 import 'package:addistutor_student/constants.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -512,6 +514,8 @@ class _ProfilePageState extends State<ProfileS> {
     Get.delete<SignupController>();
     Get.delete<EditprofileController>();
     Get.delete<GetLocationController>();
+    Get.delete<GetSubjectController>();
+    Get.delete<SearchController>();
 
     Navigator.push(
       context,

@@ -36,13 +36,13 @@ class HotelListView extends StatelessWidget {
             children: <Widget>[
               Column(
                 children: <Widget>[
-                  // AspectRatio(
-                  //   aspectRatio: 2,
-                  //   child: Image.asset(
-                  //     hotelData!.profile_img,
-                  //     fit: BoxFit.cover,
-                  //   ),
-                  // ),
+                  AspectRatio(
+                    aspectRatio: 2,
+                    child: Image.network(
+                      "https://tutor.oddatech.com/api/student-profile-picture/${2}",
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                   Container(
                     color: HotelAppTheme.buildLightTheme().backgroundColor,
                     child: Row(
@@ -59,12 +59,26 @@ class HotelListView extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
                                   Text(
-                                    hotelData!.first_name,
+                                    hotelData!.first_name +
+                                        " " +
+                                        hotelData!.last_name,
                                     textAlign: TextAlign.left,
                                     style: TextStyle(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 22,
                                     ),
+                                  ),
+                                  const SizedBox(
+                                    height: 4,
+                                  ),
+                                  Text(
+                                    ' ${hotelData!.gender}',
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        color: Colors.grey.withOpacity(0.8)),
+                                  ),
+                                  const SizedBox(
+                                    height: 4,
                                   ),
                                   Row(
                                     crossAxisAlignment:
@@ -83,54 +97,6 @@ class HotelListView extends StatelessWidget {
                                       ),
                                     ],
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 4),
-                                    child: Row(
-                                      children: <Widget>[
-                                        // RatingBar(
-                                        //   initialRating:
-                                        //       hotelData!.rating,
-                                        //   direction: Axis.horizontal,
-                                        //   allowHalfRating: true,
-                                        //   itemCount: 5,
-                                        //   itemSize: 24,
-                                        //   ratingWidget: RatingWidget(
-                                        //     full: Icon(
-                                        //       Icons.star_rate_rounded,
-                                        //       color: HotelAppTheme
-                                        //               .buildLightTheme()
-                                        //           .primaryColor,
-                                        //     ),
-                                        //     half: Icon(
-                                        //       Icons.star_half_rounded,
-                                        //       color: HotelAppTheme
-                                        //               .buildLightTheme()
-                                        //           .primaryColor,
-                                        //     ),
-                                        //     empty: Icon(
-                                        //       Icons
-                                        //           .star_border_rounded,
-                                        //       color: HotelAppTheme
-                                        //               .buildLightTheme()
-                                        //           .primaryColor,
-                                        //     ),
-                                        //   ),
-                                        //   itemPadding:
-                                        //       EdgeInsets.zero,
-                                        //   onRatingUpdate: (rating) {
-                                        //     print(rating);
-                                        //   },
-                                        // ),
-                                        Text(
-                                          ' ${hotelData!.gender} Reviews',
-                                          style: TextStyle(
-                                              fontSize: 14,
-                                              color:
-                                                  Colors.grey.withOpacity(0.8)),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
                                 ],
                               ),
                             ),
@@ -143,18 +109,47 @@ class HotelListView extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: <Widget>[
                               Text(
-                                '${hotelData!.phone_no} birr',
+                                'teaching_since : ${hotelData!.teaching_since} ',
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
                                   fontWeight: FontWeight.w600,
                                   fontSize: 17,
                                 ),
                               ),
-                              Text(
-                                '/per hour',
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.grey.withOpacity(0.8)),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 4),
+                                child: Row(
+                                  children: <Widget>[
+                                    RatingBar(
+                                      initialRating: 3,
+                                      direction: Axis.horizontal,
+                                      allowHalfRating: true,
+                                      itemCount: 5,
+                                      itemSize: 24,
+                                      ratingWidget: RatingWidget(
+                                        full: Icon(
+                                          Icons.star_rate_rounded,
+                                          color: HotelAppTheme.buildLightTheme()
+                                              .primaryColor,
+                                        ),
+                                        half: Icon(
+                                          Icons.star_half_rounded,
+                                          color: HotelAppTheme.buildLightTheme()
+                                              .primaryColor,
+                                        ),
+                                        empty: Icon(
+                                          Icons.star_border_rounded,
+                                          color: HotelAppTheme.buildLightTheme()
+                                              .primaryColor,
+                                        ),
+                                      ),
+                                      itemPadding: EdgeInsets.zero,
+                                      onRatingUpdate: (rating) {
+                                        print(rating);
+                                      },
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           ),

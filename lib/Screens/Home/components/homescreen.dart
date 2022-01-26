@@ -1,6 +1,7 @@
 import 'package:addistutor_student/Screens/Home/components/category_list_view.dart';
 import 'package:addistutor_student/Screens/Home/components/course_info_screen.dart';
 import 'package:addistutor_student/Screens/Home/components/popular_course_list_view.dart';
+import 'package:addistutor_student/Screens/search/components/searchscreen.dart';
 import 'package:addistutor_student/controller/geteducationlevelcontroller.dart';
 import 'package:addistutor_student/controller/getlocationcontroller.dart';
 import 'package:addistutor_student/controller/getsubjectcontroller.dart';
@@ -33,12 +34,11 @@ class Home extends StatefulWidget {
 }
 
 class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
-  GetEducationlevelController getEducationlevelController =
-      Get.put(GetEducationlevelController());
-  GetLocationController getLocationController =
-      Get.put(GetLocationController());
-  SearchController searchController = Get.put(SearchController());
-  GetSubjectController getSubjectController = Get.put(GetSubjectController());
+  SearchController searchController = Get.find();
+
+  GetEducationlevelController getEducationlevelController = Get.find();
+  GetSubjectController getSubjectController = Get.find();
+  GetLocationController getLocationController = Get.find();
   @override
   void initState() {
     super.initState();
@@ -324,15 +324,15 @@ class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
                               //   MaterialPageRoute(
                               //       builder: (context) => const SearchScreen()),
                               // );
-                              // Navigator.push(
-                              //   context,
-                              //   PageRouteBuilder(
-                              //     pageBuilder:
-                              //         (context, animation1, animation2) {
-                              //       return SearchScreen();
-                              //     },
-                              //   ),
-                              // );
+                              Navigator.push(
+                                context,
+                                PageRouteBuilder(
+                                  pageBuilder:
+                                      (context, animation1, animation2) {
+                                    return const SerachPage();
+                                  },
+                                ),
+                              );
 
                               // Navigator.of(context, rootNavigator: true).push(
                               //   new CupertinoPageRoute<bool>(

@@ -2,7 +2,13 @@ import 'package:addistutor_student/Screens/Home/components/homescreen.dart';
 import 'package:addistutor_student/Screens/Progress/progress.dart';
 import 'package:addistutor_student/Screens/Welcome/welcome_screen.dart';
 import 'package:addistutor_student/Screens/main/main.dart';
+import 'package:addistutor_student/controller/geteducationlevelcontroller.dart';
+import 'package:addistutor_student/controller/getlocationcontroller.dart';
+import 'package:addistutor_student/controller/getsubjectcontroller.dart';
+import 'package:addistutor_student/controller/searchcontroller.dart';
+import 'package:addistutor_student/remote_services/user.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 //import 'package:shared_preferences/shared_preferences.dart';
@@ -15,6 +21,12 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  GetEducationlevelController getEducationlevelController =
+      Get.put(GetEducationlevelController());
+  GetLocationController getLocationController =
+      Get.put(GetLocationController());
+  SearchController searchController = Get.put(SearchController());
+  GetSubjectController getSubjectController = Get.put(GetSubjectController());
   bool isAuth = false;
 
   @override
@@ -34,8 +46,45 @@ class _SplashScreenState extends State<SplashScreen> {
       );
     });
     _checkIfLoggedIn();
-
+    _getall();
     super.initState();
+  }
+
+  _getall() async {
+    _geteducation();
+    _getsubject();
+    _getlocation();
+  }
+
+  List<GetSubject> subject = [];
+  _getsubject() {
+    subject = getSubjectController.listsubject.value;
+    if (subject != null && subject.isNotEmpty) {
+      setState(() {
+        //  getSubjectController.subject = subject[0];
+      });
+    }
+  }
+
+  _geteducation() async {
+    getEducationlevelController.fetchLocation();
+    getSubjectController.fetchLocation("1");
+    getLocationController.fetchLocation();
+
+    //
+    // ignore: invalid_use_of_protected_member
+  }
+
+  List<GetLocation> location = [];
+  _getlocation() async {
+    getLocationController.fetchLocation();
+    // ignore: invalid_use_of_protected_member
+    location = getLocationController.listlocation.value;
+    if (location != null && location.isNotEmpty) {
+      setState(() {
+        getLocationController.location = location[0];
+      });
+    }
   }
 
   void _checkIfLoggedIn() async {

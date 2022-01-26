@@ -43,19 +43,21 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
   AnimationController? animationController;
   List<HotelListData> hotelList = HotelListData.hotelList;
   final ScrollController _scrollController = ScrollController();
+  SearchController searchController = Get.find();
+
   GetEducationlevelController getEducationlevelController = Get.find();
   GetSubjectController getSubjectController = Get.find();
   GetLocationController getLocationController = Get.find();
-  SearchController searchController = Get.put(SearchController());
 
   DateTime startDate = DateTime.now();
   DateTime endDate = DateTime.now().add(const Duration(days: 5));
   List<GetSubject> subject = [];
 
   final List<String> _tobeSent = [];
-  final List<String> sid = [];
-  late var macthgender = "Male".obs;
-  var lid, gender;
+  late String sid = "";
+  late var macthgender = "Any".obs;
+  var lid = 1, gender = "";
+  RxInt found = 0.obs;
   bool showsubject = false;
   bool searched = false;
 
@@ -78,7 +80,7 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
 
   void _onRefresh() async {
     // monitor network fetch
-    await Future.delayed(const Duration(milliseconds: 1));
+    await Future.delayed(const Duration(milliseconds: 1000));
     // if failed,use refreshFailed()
 
     setState(() {
@@ -116,6 +118,7 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
     getEducationlevelController.fetchLocation();
     // ignore: invalid_use_of_protected_member
     education = getEducationlevelController.listeducation.value;
+
     if (education != null && education.isNotEmpty) {
       setState(() {
         getEducationlevelController.education = education[0];
@@ -208,15 +211,20 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
                                           .backgroundColor,
                                       child: FutureBuilder(
                                           future: RemoteServices.search(
-                                              "1", "", ""),
+                                              lid.toString(),
+                                              sid,
+                                              gender.toString()),
                                           builder: (BuildContext context,
                                               AsyncSnapshot snapshot) {
                                             if (snapshot.hasError) {
+                                              found.value =
+                                                  snapshot.data.length;
                                               return Center(
                                                 child: Text(
                                                     snapshot.error.toString()),
                                               );
                                             }
+
                                             if (snapshot.hasData) {
                                               return Expanded(
                                                 child: ListView.builder(
@@ -231,6 +239,19 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
                                                       (BuildContext context,
                                                           int index) {
                                                     return HotelListView(
+                                                      callback: () {
+                                                        Navigator.push(
+                                                          context,
+                                                          PageRouteBuilder(
+                                                            pageBuilder:
+                                                                (context,
+                                                                    animation1,
+                                                                    animation2) {
+                                                              return CourseInfoScreen();
+                                                            },
+                                                          ),
+                                                        );
+                                                      },
                                                       hotelData:
                                                           snapshot.data[index],
                                                     );
@@ -245,7 +266,7 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
                                             }
                                           }))
                                   : const Center(
-                                      child: CircularProgressIndicator(),
+                                      child: Text("No Tutors found"),
                                     ),
                             ))
                           ],
@@ -282,6 +303,7 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
             style: const TextStyle(
                 color: Colors.black, fontSize: 16, fontWeight: FontWeight.w700),
             items: <String>[
+              'Any',
               'Male',
               'Female',
             ].map<DropdownMenuItem<String>>((String value) {
@@ -299,8 +321,13 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
             onChanged: (value) {
               setState(() {
                 macthgender.value = value!;
-                gender = value;
               });
+
+              gender = macthgender.value;
+
+              if (macthgender.value == "Any") {
+                gender = "";
+              }
             },
           ),
         ),
@@ -422,9 +449,11 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
             for (var item in _selectedItems2) {
               // ignore: unnecessary_string_interpolations
               _tobeSent.add("${item.title.toString()}");
-              sid.add("${item.id.toString()}");
+              // sid.add("${item.id.toString()}");
+              setState(() {
+                sid = item.id.toString();
+              });
             }
-            setState(() {});
 
             /*senduserdata(
                       'partnerreligion', '${_selectedItems2.toString()}');*/
@@ -438,9 +467,10 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
               setState(() {
                 _selectedItems2.remove(value);
                 _tobeSent.remove(value.toString());
-                sid.clear();
+                //   sid.clear();
+                //     sid = ("");
               });
-
+              //  sid.clear();
               // ignore: avoid_print
 
               for (var item in _selectedItems2) {
@@ -498,20 +528,23 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
                 color: Colors.black, fontSize: 16, fontWeight: FontWeight.w700),
             items: education
                 .map((e) => DropdownMenuItem(
-                      child: Text(
-                        e.title,
-                        textAlign: TextAlign.left,
-                        style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w400),
-                      ),
+                      child: Column(children: [
+                        Text(
+                          e.title,
+                          textAlign: TextAlign.left,
+                          style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400),
+                        ),
+                      ]),
                       value: e,
                     ))
                 .toList(),
             onChanged: (value) {
               setState(() {
                 getEducationlevelController.education = value!;
+                //     sid = ("");
               });
 
               _onRefresh();
@@ -596,11 +629,11 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
         Container(
           color: HotelAppTheme.buildLightTheme().backgroundColor,
           child: Center(
-            child: const Expanded(
+            child: Expanded(
               child: Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text(
-                  '53 Tutors found',
+                  "Tutors Found",
                   style: TextStyle(
                     fontWeight: FontWeight.w100,
                     fontSize: 16,
