@@ -10,6 +10,7 @@ class GetSubjectController extends GetxController with StateMixin {
   List<MultiSelectItem<GetSubject>> hobItem = [];
 
   late List<GetSubject> subject;
+  GetSubject? sub;
 
   void fetchLocation(var id) async {
     listsubject.value = await RemoteServices.getsubject(id);

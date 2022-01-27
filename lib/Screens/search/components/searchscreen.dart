@@ -247,7 +247,11 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
                                                                 (context,
                                                                     animation1,
                                                                     animation2) {
-                                                              return CourseInfoScreen();
+                                                              return CourseInfoScreen(
+                                                                hotelData:
+                                                                    snapshot.data[
+                                                                        index],
+                                                              );
                                                             },
                                                           ),
                                                         );
@@ -406,14 +410,14 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         MultiSelectBottomSheetField<GetSubject>(
-          initialChildSize: 0.7,
+          initialChildSize: 0.6,
           maxChildSize: 0.95,
-          listType: MultiSelectListType.CHIP,
+          listType: MultiSelectListType.LIST,
           checkColor: Colors.pink,
           selectedColor: kPrimaryColor,
           selectedItemsTextStyle: const TextStyle(
-            fontSize: 25,
-            color: Colors.white,
+            fontSize: 20,
+            color: kPrimaryColor,
           ),
           unselectedColor: kPrimaryColor.withOpacity(.08),
           buttonIcon: const Icon(

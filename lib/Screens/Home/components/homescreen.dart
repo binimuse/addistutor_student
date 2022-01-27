@@ -201,7 +201,7 @@ class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
     Navigator.push<dynamic>(
       context,
       MaterialPageRoute<dynamic>(
-        builder: (BuildContext context) => CourseInfoScreen(),
+        builder: (BuildContext context) => CourseInfoScreen(hotelData: null),
       ),
     );
   }
@@ -386,7 +386,7 @@ class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
                   ),
                 ),
                 Text(
-                  'Addis Tutor',
+                  'NextGen',
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -400,10 +400,10 @@ class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
             ),
           ),
           Container(
-            width: 60,
-            height: 60,
+            width: 100,
+            height: 100,
             child: Image.asset(
-              'assets/images/logo2.png',
+              'assets/images/lg3.png',
             ),
           )
         ],

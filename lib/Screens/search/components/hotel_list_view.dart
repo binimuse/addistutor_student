@@ -39,7 +39,7 @@ class HotelListView extends StatelessWidget {
                   AspectRatio(
                     aspectRatio: 2,
                     child: Image.network(
-                      "https://tutor.oddatech.com/api/student-profile-picture/${2}",
+                      "https://tutor.oddatech.com/api/teacher-profile-picture/${hotelData!.id}",
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -79,23 +79,6 @@ class HotelListView extends StatelessWidget {
                                   ),
                                   const SizedBox(
                                     height: 4,
-                                  ),
-                                  Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: <Widget>[
-                                      Text(
-                                        hotelData!.phone_no,
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            color:
-                                                Colors.grey.withOpacity(0.8)),
-                                      ),
-                                      const SizedBox(
-                                        width: 4,
-                                      ),
-                                    ],
                                   ),
                                 ],
                               ),

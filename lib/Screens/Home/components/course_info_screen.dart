@@ -1,8 +1,15 @@
 import 'package:addistutor_student/Screens/Book/book.dart';
+import 'package:addistutor_student/remote_services/user.dart';
 import 'package:flutter/material.dart';
 import 'design_course_app_theme.dart';
 
 class CourseInfoScreen extends StatefulWidget {
+  const CourseInfoScreen({Key? key, this.hotelData, this.callback})
+      : super(key: key);
+
+  final VoidCallback? callback;
+  final Search? hotelData;
+
   @override
   _CourseInfoScreenState createState() => _CourseInfoScreenState();
 }
@@ -23,7 +30,22 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
         parent: animationController!,
         curve: Interval(0, 1.0, curve: Curves.fastOutSlowIn)));
     setData();
+
+    _getsubject();
     super.initState();
+  }
+
+  List<GetSubject> subject = [];
+  _getsubject() {
+    getSubjectController.fetchLocation(" ");
+
+    subject = getSubjectController.listsubject.value;
+
+    if (subject != null && subject.isNotEmpty) {
+      setState(() {
+        getSubjectController.sub = subject![0];
+      });
+    }
   }
 
   Future<void> setData() async {
@@ -99,10 +121,12 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Padding(
-                            padding: const EdgeInsets.only(
-                                top: 32.0, left: 18, right: 16),
+                            padding:
+                                EdgeInsets.only(top: 32.0, left: 18, right: 16),
                             child: Text(
-                              'Robel Musema\n',
+                              widget.hotelData!.first_name +
+                                  " " +
+                                  widget.hotelData!.middle_name,
                               textAlign: TextAlign.left,
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
@@ -120,7 +144,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
                                 Text(
-                                  '2800 birr',
+                                  widget.hotelData!.gender,
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
                                     fontWeight: FontWeight.w200,
@@ -132,8 +156,19 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                                 Container(
                                   child: Row(
                                     children: <Widget>[
+                                      // Text(
+                                      //    widget.hotelData!.rating,
+                                      //   textAlign: TextAlign.left,
+                                      //   style: TextStyle(
+                                      //     fontWeight: FontWeight.w200,
+                                      //     fontSize: 22,
+                                      //     letterSpacing: 0.27,
+                                      //     color: DesignCourseAppTheme.grey,
+                                      //   ),
+                                      // ),
+
                                       Text(
-                                        '4.3',
+                                        "4.5",
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
                                           fontWeight: FontWeight.w200,
@@ -176,7 +211,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                                     left: 16, right: 16, bottom: 18),
                                 child: Center(
                                   child: Text(
-                                    'Lorem ipsum is simply dummy text of printing & typesetting industry, Lorem ipsum is simply dummy text of printing & typesetting industry Lorem ipsum is simply dummy text of printing & typesetting industryLorem ipsum is simply dummy text of printing & typesetting industryLorem ipsum is simply dummy text of printing & typesetting inLorem ipsum is simply dummy text of printing & typesetting industryLorem ipsum is simply dummy text of printing & typesetting industryLorem ipsum is simply dummy text of printing & typesetting industryLorem ipsum is simply dummy text of printing & typesetting industryLorem ipsum isLorem ipsum is simply dummy text of printing & typesetting industryLorem ipsum is simply dummy text of printing & typesetting industryLorem ipsum is simply dummy text of printing & typesetting industryLorem ipsum is simply dummy text of printing & typesetting industryLorem ipsum is simply dummy text of printing & typesetting industry simply dummy text of printing & typesetting industrydustry.',
+                                    widget.hotelData!.about,
                                     textAlign: TextAlign.justify,
                                     style: TextStyle(
                                       fontWeight: FontWeight.w300,
@@ -276,17 +311,17 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                         borderRadius: BorderRadius.circular(80.0)),
                     elevation: 10.0,
                     child: Container(
-                      width: 120,
-                      height: 120,
+                      width: 70,
+                      height: 70,
                       //   child: Center(
                       //       child: Image.asset("assets/images/userImage.png")),
                       // ),
                       child: ClipRRect(
                           borderRadius: BorderRadius.circular(18.0),
-                          child: Image.asset(
-                            "assets/images/userImage.png",
-                            height: 190.0,
-                            width: 200.0,
+                          child: Image.network(
+                            "https://tutor.oddatech.com/api/teacher-profile-picture/${widget.hotelData!.id}",
+                            height: 100.0,
+                            width: 110.0,
                           )),
                     ),
                   )),
