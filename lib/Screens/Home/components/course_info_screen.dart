@@ -43,7 +43,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
 
     if (subject != null && subject.isNotEmpty) {
       setState(() {
-        getSubjectController.sub = subject![0];
+        getSubjectController.sub = subject[0];
       });
     }
   }
