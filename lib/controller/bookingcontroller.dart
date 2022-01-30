@@ -23,26 +23,41 @@ class BookingeController extends GetxController with StateMixin {
   var inforesponse;
   var isLoading = false.obs;
   // ignore: non_constant_identifier_names
-  late TextEditingController parent_first_name;
-  late TextEditingController firstname;
-  late TextEditingController lastname;
-  late TextEditingController parent_last_name;
-  late TextEditingController phone;
-  late TextEditingController email;
 
-  late var sessions = "3".obs;
+  var sessionsd = "3".obs;
 
-  late TextEditingController Mon;
-  late TextEditingController Tue;
-  late TextEditingController Wed;
-  late TextEditingController Thu;
-  late TextEditingController Fri;
-  late TextEditingController Sat;
-  late TextEditingController Sun;
+  late var Mon = "Monday";
+  late var Tue = "";
+  late var Wed = "";
+  late var Thu = "";
+  late var Fri = "";
+  late var Sat = "";
+  late var Sun = "";
+  late int subjectid = 0;
+  late String teacherid = "";
+
+  late var motime = '16:30';
+  late var tuetime2 = "16:30";
+  late var wentime3 = "16:30";
+  late var thetime4 = "16:30";
+
+  late var fritime5 = "16:30";
+
+  late var suntime2 = "09:00";
+  late var sattime = '09:00';
+
+  bool ismonday = false;
+  bool istue = false;
+  bool iswen = false;
+  bool isthe = false;
+  bool isfri = false;
+  bool issat = false;
+  bool issun = false;
 
   late var days = "Mon".obs;
   late var days2 = "Mon".obs;
   late var days3 = "Mon".obs;
+
   final List<String> daylist = [];
 
   GetLocation? locaion;
@@ -59,55 +74,121 @@ class BookingeController extends GetxController with StateMixin {
   var ifupdatd = false.obs;
   @override
   void onInit() {
-    parent_first_name = TextEditingController();
-    parent_last_name = TextEditingController();
-    firstname = TextEditingController();
-    lastname = TextEditingController();
-    email = TextEditingController();
-    phone = TextEditingController();
-    About = TextEditingController();
-
-    Mon = TextEditingController();
-    Tue = TextEditingController();
-    Wed = TextEditingController();
-    Wed = TextEditingController();
-    Thu = TextEditingController();
-    Fri = TextEditingController();
-    Sat = TextEditingController();
-    Sun = TextEditingController();
-
     super.onInit();
   }
 
+  List<String> selecteddate = [];
+  var day0;
+  var day1;
+  var day2;
+  var day0time;
+  var day1time;
+  var day2time;
+
   var fetched;
   late var isValid;
-  void Booking(BuildContext context) async {
-    try {
-      if (days.contains(days2) ||
-          days.contains(days3) ||
-          days2.contains(days) ||
-          days2.contains(days3) ||
-          days3.contains(days) ||
-          days3.contains(days2)) {
-        isValid = false;
-
-        print(daylist);
-      } else {
-        isValid = true;
-      }
-      if (isValid == true) {
-        isLoading(true);
-        book.currentState!.save();
-
-        print("am herer");
-        //  await seteditInfo(context);
-      } else {
-        print("am");
-      }
-    } finally {
-      // ignore: todo
-      // TODO
+  void Booking(BuildContext context, int id) async {
+    teacherid = id.toString();
+    if (ismonday) {
+      day0 = "Monday";
+      selecteddate.add(day0);
     }
+    if (istue) {
+      day0 = "Tuesday";
+      selecteddate.add(day0);
+    }
+
+    if (iswen) {
+      day0 = "Wensday";
+      selecteddate.add(day0);
+    }
+
+    if (isthe) {
+      day0 = "Thursday";
+      selecteddate.add(day0);
+    }
+
+    if (isfri) {
+      day0 = "Friday";
+      selecteddate.add(day0);
+    }
+
+    if (issat) {
+      day0 = "Saterday";
+      selecteddate.add(day0);
+    }
+    if (issun) {
+      day0 = "Sunday";
+      selecteddate.add(day0);
+    }
+
+    try {
+      day0 = selecteddate[0];
+      day1 = selecteddate[1];
+      day2 = selecteddate[2];
+    } catch (e) {
+      selecteddate.clear();
+    }
+
+    if (day0 == "Monday") {
+      day0time = motime;
+    } else if (day0 == "Tuesday") {
+      day0time = tuetime2;
+    } else if (day0 == "Wensday") {
+      day0time = wentime3;
+    } else if (day0 == "Thursday") {
+      day0time = thetime4;
+    } else if (day0 == "Friday") {
+      day0time = fritime5;
+    } else if (day0 == "Saterday") {
+      day0time = sattime;
+    } else if (day0 == "Sunday") {
+      day0time = suntime2;
+    }
+
+    if (day1 == "Monday") {
+      day1time = motime;
+    } else if (day1 == "Tuesday") {
+      day1time = tuetime2;
+    } else if (day1 == "Wensday") {
+      day1time = wentime3;
+    } else if (day1 == "Thursday") {
+      day1time = thetime4;
+    } else if (day1 == "Friday") {
+      day1time = fritime5;
+    } else if (day1 == "Saterday") {
+      day1time = sattime;
+    } else if (day0 == "Sunday") {
+      day1time = suntime2;
+    }
+
+    if (day2 == "Monday") {
+      day2time = motime;
+    } else if (day2 == "Tuesday") {
+      day2time = tuetime2;
+    } else if (day2 == "Wensday") {
+      day2time = wentime3;
+    } else if (day2 == "Thursday") {
+      day2time = thetime4;
+    } else if (day2 == "Friday") {
+      day2time = fritime5;
+    } else if (day2 == "Saterday") {
+      day2time = sattime;
+    } else if (day2 == "Sunday") {
+      day2time = suntime2;
+    }
+
+    print(sessionsd.value);
+    print(day0);
+    print(day0time);
+    print(day1);
+    print(day1time);
+    print(day2);
+    print(day2time);
+    print(subjectid.toString());
+    print(teacherid.toString());
+
+    await seteditInfo(context);
   }
 
   var image;
@@ -116,39 +197,37 @@ class BookingeController extends GetxController with StateMixin {
     openAndCloseLoadingDialog(context);
 
     var data = {
-      "is_parent": is_parent.value,
-      "parent_first_name": parent_first_name.text,
-      "parent_last_name": parent_last_name.text,
-      "first_name": firstname.text,
-      "last_name": lastname.text,
-      "phone_no": phone.text,
-      "session": sessions.value,
-      "email": email.text,
-      "location_id": locaion!.id,
-      "study_purpose": studyperpose.value,
-      "grade": Grade.value,
-      "about": About.text,
+      "session": sessionsd.value,
+      "day[0]": day0,
+      "time[0]": day0time,
+      "day[1]": day1,
+      "time[1]": day1time,
+      "day[2]": day2,
+      "time[2]": day2time,
+      "subject_id": subjectid,
     };
     inforesponse = await RemoteServices.booking(data);
     if (inforesponse.toString() == "200") {
       closeDialog(true, '', context);
+      print("yess");
       isLoading(false);
     } else {
+      print("noo");
       closeDialog(false, inforesponse, context);
     }
   }
 
-  // openAndCloseLoadingDialog() {
+// openAndCloseLoadingDialog() {
 
-  // }
+// }
 
   closeDialog(bool stat, String data, BuildContext context) {
     Future.delayed(const Duration(seconds: 1));
     // Dismiss CircularProgressIndicator
     Navigator.of(context).pop();
     if (stat == false) {
-      scaffoldKey.currentState!
-          .showSnackBar(SnackBar(content: Text("Not successfully  Booked")));
+      // scaffoldKey.currentState!
+      //     .showSnackBar(SnackBar(content: Text("Not successfully  Booked")));
     } else {
       // ignore: deprecated_member_use
 
@@ -168,7 +247,7 @@ class BookingeController extends GetxController with StateMixin {
             // ignore: deprecated_member_use
             FlatButton(
               onPressed: () async {
-                isLoading(false);
+                //   isLoading(false);
                 Navigator.of(context).pop(true);
               },
               child: new Text('ok'),

@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:addistutor_student/Screens/Book/book.dart';
+import 'package:addistutor_student/Screens/Profile/editprofile.dart';
 import 'package:addistutor_student/remote_services/user.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'design_course_app_theme.dart';
 
 class CourseInfoScreen extends StatefulWidget {
@@ -227,14 +231,76 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                             ),
                           ),
                           GestureDetector(
-                            onTap: () {
-                              Navigator.push<dynamic>(
-                                context,
-                                MaterialPageRoute<dynamic>(
-                                  builder: (BuildContext context) =>
-                                      BookScreen(),
-                                ),
-                              );
+                            onTap: () async {
+                              SharedPreferences localStorage =
+                                  await SharedPreferences.getInstance();
+                              localStorage.setBool('isupdated', true);
+                              var token = localStorage.getString('user');
+                              var body;
+
+                              if (token != null) {
+                                body = json.decode(token);
+
+                                if (body["student_id"] != null) {
+                                  Navigator.pop(context);
+                                  // isLoading(false);
+                                  //    openAndCloseLoadingDialog(context);
+                                  print("yess");
+
+                                  Navigator.push<dynamic>(
+                                    context,
+                                    MaterialPageRoute<dynamic>(
+                                      builder: (BuildContext context) =>
+                                          BookScreen(
+                                              hotelData: widget.hotelData!),
+                                    ),
+                                  );
+                                } else {
+                                  //  isLoading(false);
+
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => AlertDialog(
+                                      title: const Text(
+                                        'Booking',
+                                        style: TextStyle(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w500,
+                                          color: Colors.black,
+                                          fontFamily: 'WorkSans',
+                                        ),
+                                      ),
+                                      content: const Text(
+                                        'Please update profile before booking a tutor',
+                                        style: TextStyle(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w500,
+                                          color: Colors.black,
+                                          fontFamily: 'WorkSans',
+                                        ),
+                                      ),
+                                      actions: <Widget>[
+                                        // ignore: deprecated_member_use
+                                        FlatButton(
+                                          onPressed: () async {
+                                            Navigator.of(context).pop(true);
+
+                                            Navigator.push<dynamic>(
+                                              context,
+                                              MaterialPageRoute<dynamic>(
+                                                builder:
+                                                    (BuildContext context) =>
+                                                        EditPage(),
+                                              ),
+                                            );
+                                          },
+                                          child: new Text('ok'),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                }
+                              }
                             },
                             child: AnimatedOpacity(
                               duration: const Duration(milliseconds: 500),

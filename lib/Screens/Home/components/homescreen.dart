@@ -34,11 +34,12 @@ class Home extends StatefulWidget {
 }
 
 class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
-  SearchController searchController = Get.find();
-
-  GetEducationlevelController getEducationlevelController = Get.find();
-  GetSubjectController getSubjectController = Get.find();
-  GetLocationController getLocationController = Get.find();
+  GetEducationlevelController getEducationlevelController =
+      Get.put(GetEducationlevelController());
+  GetLocationController getLocationController =
+      Get.put(GetLocationController());
+  SearchController searchController = Get.put(SearchController());
+  GetSubjectController getSubjectController = Get.put(GetSubjectController());
   @override
   void initState() {
     super.initState();
@@ -198,12 +199,12 @@ class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
   }
 
   void moveTo() {
-    Navigator.push<dynamic>(
-      context,
-      MaterialPageRoute<dynamic>(
-        builder: (BuildContext context) => CourseInfoScreen(hotelData: null),
-      ),
-    );
+    // Navigator.push<dynamic>(
+    //   context,
+    //   MaterialPageRoute<dynamic>(
+    //     builder: (BuildContext context) => CourseInfoScreen(hotelData: null),
+    //   ),
+    // );
   }
 
   Widget getButtonUI(CategoryType categoryTypeData, bool isSelected) {

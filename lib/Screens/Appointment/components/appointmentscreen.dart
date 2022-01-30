@@ -297,12 +297,12 @@ class _HomePageState extends State<Appointment>
   }
 
   void moveTo() {
-    Navigator.push<dynamic>(
-      context,
-      MaterialPageRoute<dynamic>(
-        builder: (BuildContext context) => CourseInfoScreen(),
-      ),
-    );
+    // Navigator.push<dynamic>(
+    //   context,
+    //   MaterialPageRoute<dynamic>(
+    //     builder: (BuildContext context) => CourseInfoScreen(),
+    //   ),
+    // );
   }
 
   Widget getButtonUI(CategoryType categoryTypeData, bool isSelected) {
