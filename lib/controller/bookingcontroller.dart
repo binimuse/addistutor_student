@@ -33,7 +33,7 @@ class BookingeController extends GetxController with StateMixin {
   late var Fri = "";
   late var Sat = "";
   late var Sun = "";
-  late int subjectid = 0;
+  late int? subjectid = 1;
   late String teacherid = "";
 
   late var motime = '16:30';
@@ -192,30 +192,35 @@ class BookingeController extends GetxController with StateMixin {
   }
 
   var image;
-
+  late List<Dateandtime> tags = [];
   Future<void> seteditInfo(BuildContext context) async {
     // openAndCloseLoadingDialog(context);
+    try {
+      if (day1 || day2 == null) {
+        tags = [
+          Dateandtime(day0, day0time),
+          // Dateandtime(day1, day1time),
+          // Dateandtime(day2, day2time)
+        ];
+      } else {
+        tags = [
+          Dateandtime(day0, day0time),
+          Dateandtime(day1, day1time),
+          Dateandtime(day2, day2time)
+        ];
+      }
+    } catch (e) {}
 
-    List<Dateandtime> tags = [
-      Dateandtime(day0, day0time),
-      Dateandtime(day1, day1time),
-      Dateandtime(day2, day2time)
-    ];
     String jsonTags = jsonEncode(tags);
     print(jsonTags.toString());
     var data = {
-      "session": "3",
-      "subject_id": "1",
+      "session": sessionsd.value,
+      "subject_id": subjectid,
       "teacher_id": teacherid,
       'dates': jsonTags.toString()
-      // "session": sessionsd.value,
-      // "day[0]": day0,
-      // "time[0]": day0time,
-      // "day[1]": day1,
-      // "time[1]": day1time,
-      // "subject_id": subjectid,
-      // "teacher_id": teacherid,
     };
+
+    print(data);
 
     inforesponse = await RemoteServices.booking(data);
 
@@ -237,8 +242,8 @@ class BookingeController extends GetxController with StateMixin {
     // Dismiss CircularProgressIndicator
     //Navigator.of(context).pop();
     if (stat == false) {
-      scaffoldKey.currentState!
-          .showSnackBar(SnackBar(content: Text("Not successfully  Booked")));
+      scaffoldKey.currentState!.showSnackBar(
+          SnackBar(content: Text(data + "Not successfully  Booked")));
     } else {
       // ignore: deprecated_member_use
       isLoading(false);
