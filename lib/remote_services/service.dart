@@ -150,7 +150,8 @@ class RemoteServices {
     res = await Network().getpassedData(data, "booking");
 
     body = json.decode(res.body);
-
+    print("body");
+    print(body);
     if (res.statusCode == 200) {
       return res.statusCode.toString();
     } else {

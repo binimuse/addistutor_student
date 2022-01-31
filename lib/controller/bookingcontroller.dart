@@ -178,15 +178,15 @@ class BookingeController extends GetxController with StateMixin {
       day2time = suntime2;
     }
 
-    print(sessionsd.value);
-    print(day0);
-    print(day0time);
-    print(day1);
-    print(day1time);
-    print(day2);
-    print(day2time);
-    print(subjectid.toString());
-    print(teacherid.toString());
+    // print(sessionsd.value);
+    // print(day0);
+    // print(day0time);
+    // print(day1);
+    // print(day1time);
+    // print(day2);
+    // print(day2time);
+    // print(subjectid.toString());
+    // print(teacherid.toString());
 
     await seteditInfo(context);
   }
@@ -194,22 +194,33 @@ class BookingeController extends GetxController with StateMixin {
   var image;
 
   Future<void> seteditInfo(BuildContext context) async {
-    openAndCloseLoadingDialog(context);
+    // openAndCloseLoadingDialog(context);
 
+    List<Dateandtime> tags = [
+      Dateandtime(day0, day0time),
+      Dateandtime(day1, day1time),
+      Dateandtime(day2, day2time)
+    ];
+    String jsonTags = jsonEncode(tags);
+    print(jsonTags.toString());
     var data = {
-      "session": sessionsd.value,
-      "day[0]": day0,
-      "time[0]": day0time,
-      "day[1]": day1,
-      "time[1]": day1time,
-      "day[2]": day2,
-      "time[2]": day2time,
-      "subject_id": subjectid,
+      "session": "3",
+      "subject_id": "1",
+      "teacher_id": teacherid,
+      'dates': jsonTags.toString()
+      // "session": sessionsd.value,
+      // "day[0]": day0,
+      // "time[0]": day0time,
+      // "day[1]": day1,
+      // "time[1]": day1time,
+      // "subject_id": subjectid,
+      // "teacher_id": teacherid,
     };
+
     inforesponse = await RemoteServices.booking(data);
+
     if (inforesponse.toString() == "200") {
       closeDialog(true, '', context);
-      print("yess");
       isLoading(false);
     } else {
       print("noo");
@@ -224,44 +235,33 @@ class BookingeController extends GetxController with StateMixin {
   closeDialog(bool stat, String data, BuildContext context) {
     Future.delayed(const Duration(seconds: 1));
     // Dismiss CircularProgressIndicator
-    Navigator.of(context).pop();
+    //Navigator.of(context).pop();
     if (stat == false) {
-      // scaffoldKey.currentState!
-      //     .showSnackBar(SnackBar(content: Text("Not successfully  Booked")));
+      scaffoldKey.currentState!
+          .showSnackBar(SnackBar(content: Text("Not successfully  Booked")));
     } else {
       // ignore: deprecated_member_use
-
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: const Text(
-            'Booking success',
-            style: TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w500,
-              color: Colors.black,
-              fontFamily: 'WorkSans',
-            ),
-          ),
-          actions: <Widget>[
-            // ignore: deprecated_member_use
-            FlatButton(
-              onPressed: () async {
-                //   isLoading(false);
-                Navigator.of(context).pop(true);
-              },
-              child: new Text('ok'),
-            ),
-          ],
+      isLoading(false);
+      //Navigator.of(context).pop(true);
+      scaffoldKey.currentState!.showSnackBar(SnackBar(
+        content: Text(
+            "Sucessfully Booked Tutor \nplease go to notification page for any updateds"),
+        action: SnackBarAction(
+          label: 'OK',
+          onPressed: () {},
         ),
-      );
-      editstudentid(context);
+        backgroundColor: kPrimaryColor,
+        behavior: SnackBarBehavior.floating,
+        margin: EdgeInsets.all(50),
+        elevation: 30,
+      ));
+      //  editstudentid(context);
     }
   }
 
   openSnackBaredit(BuildContext context) async {
     scaffoldKey.currentState!.showSnackBar(SnackBar(
-      content: Text("profile Edited"),
+      content: Text("Booking "),
       action: SnackBarAction(
         label: 'OK',
         onPressed: () {},
@@ -289,25 +289,39 @@ class BookingeController extends GetxController with StateMixin {
     }
     return null;
   }
+}
 
-  void openAndCloseLoadingDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      barrierColor: Colors.grey.withOpacity(0.3),
-      builder: (_) => WillPopScope(
-        onWillPop: () async => false,
-        child: const Center(
-          child: SizedBox(
-            width: 30,
-            height: 30,
-            child: CircularProgressIndicator(
-              color: kPrimaryColor,
-              strokeWidth: 8,
-            ),
+void openAndCloseLoadingDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    barrierDismissible: false,
+    barrierColor: Colors.grey.withOpacity(0.3),
+    builder: (_) => WillPopScope(
+      onWillPop: () async => false,
+      child: const Center(
+        child: SizedBox(
+          width: 30,
+          height: 30,
+          child: CircularProgressIndicator(
+            color: kPrimaryColor,
+            strokeWidth: 8,
           ),
         ),
       ),
-    );
+    ),
+  );
+}
+
+class Dateandtime {
+  String date;
+  String time;
+
+  Dateandtime(this.date, this.time);
+
+  Map toJson() {
+    return {
+      'day': date,
+      'time': time,
+    };
   }
 }

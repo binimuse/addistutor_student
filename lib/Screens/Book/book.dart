@@ -117,6 +117,7 @@ class _EditPageState extends State<BookScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        key: bookingeController.scaffoldKey,
         appBar: AppBar(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           elevation: 1,

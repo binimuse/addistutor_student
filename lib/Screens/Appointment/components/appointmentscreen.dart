@@ -2,7 +2,7 @@
 
 import 'package:addistutor_student/Screens/Appointment/message_model.dart';
 import 'package:addistutor_student/Screens/Home/components/category_list_view.dart';
-import 'package:addistutor_student/Screens/Home/components/course_info_screen.dart';
+
 import 'package:addistutor_student/Screens/Home/components/course_info_screen_rating.dart';
 import 'package:addistutor_student/Screens/Home/components/design_course_app_theme.dart';
 import 'package:addistutor_student/Screens/Qr/qrcode.dart';
