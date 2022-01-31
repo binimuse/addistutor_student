@@ -100,7 +100,6 @@ class _EditPageState extends State<BookScreen> {
 
   final _formKey = GlobalKey<FormState>();
   bool showPassword = false;
-  bool _autovalidate = false;
 
   @override
   Widget build(BuildContext context) {
@@ -144,7 +143,7 @@ class _EditPageState extends State<BookScreen> {
             onRefresh: _onRefresh,
             onLoading: _onLoading,
             child: Container(
-              padding: EdgeInsets.only(left: 16, top: 25, right: 16),
+              padding: const EdgeInsets.only(left: 16, top: 25, right: 16),
               child: GestureDetector(
                 onTap: () {
                   FocusScope.of(context).unfocus();
@@ -645,9 +644,8 @@ class _EditPageState extends State<BookScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          // ignore: deprecated_member_use
                           OutlineButton(
-                            padding: EdgeInsets.symmetric(horizontal: 50),
+                            padding: const EdgeInsets.symmetric(horizontal: 50),
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20)),
                             onPressed: () {},
@@ -699,8 +697,8 @@ class _EditPageState extends State<BookScreen> {
                                                       // isLoading = false;
                                                     });
                                                   },
-                                                  child:
-                                                      Center(child: Text('ok')),
+                                                  child: const Center(
+                                                      child: Text('ok')),
                                                 ),
                                               ]),
                                         ),
@@ -708,35 +706,6 @@ class _EditPageState extends State<BookScreen> {
                                     ),
                                   );
                                 } else {
-                                  print(values);
-                                  // if (values[0] == true) {
-                                  //   bookingeController.selecteddate
-                                  //       .add("Sunday");
-                                  // } else if (values[1] == true) {
-                                  //   bookingeController.selecteddate
-                                  //       .add("Mondy");
-                                  // } else if (values[2] == true) {
-                                  //   bookingeController.selecteddate
-                                  //       .add("Thuesday");
-                                  // } else if (values[3] == true) {
-                                  //   bookingeController.selecteddate
-                                  //       .add("Wensday");
-                                  // } else if (values[4] == true) {
-                                  //   bookingeController.selecteddate
-                                  //       .add("Thursday");
-                                  // } else if (values[5] == true) {
-                                  //   bookingeController.selecteddate
-                                  //       .add("Friday");
-                                  // } else if (values[6] == true) {
-                                  //   bookingeController.selecteddate
-                                  //       .add("Saterday");
-                                  // } else if (values[7] == true) {
-                                  //   bookingeController.selecteddate
-                                  //       .add("Sunday");
-                                  // } else {
-                                  //   bookingeController.selecteddate.clear();
-                                  // }
-
                                   Cricular();
                                 }
                               } else {
@@ -775,8 +744,8 @@ class _EditPageState extends State<BookScreen> {
                                                     // isLoading = false;
                                                   });
                                                 },
-                                                child:
-                                                    Center(child: Text('ok')),
+                                                child: const Center(
+                                                    child: Text('ok')),
                                               ),
                                             ]),
                                       ),
@@ -847,7 +816,7 @@ class _EditPageState extends State<BookScreen> {
                       // isLoading = false;
                     });
                   },
-                  child: Center(child: Text('No')),
+                  child: const Center(child: Text('No')),
                 ),
                 FlatButton(
                   onPressed: () {
@@ -857,7 +826,7 @@ class _EditPageState extends State<BookScreen> {
                       // isLoading = false;
                     });
                   },
-                  child: Center(child: Text('Yes')),
+                  child: const Center(child: Text('Yes')),
                 ),
               ]),
             ),
@@ -871,14 +840,6 @@ class _EditPageState extends State<BookScreen> {
   printIntAsDay(int day) {
     print(
         'Received integer: $day. Corresponds to day: ${intDayToEnglish(day)}');
-    // if (intDayToEnglish(day) == "Monday") {
-
-    // }
-
-    // a.add(intDayToEnglish(day));
-
-    // // ignore: avoid_print
-    // print(a.length);
   }
 
   String intDayToEnglish(int day) {

@@ -2,13 +2,15 @@ import 'package:addistutor_student/Screens/connectvity.dart';
 
 import 'package:addistutor_student/constants.dart';
 import 'package:flutter/material.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:connectivity/connectivity.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'Screens/splash/error.dart';
 import 'Screens/splash/splash_screen.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);

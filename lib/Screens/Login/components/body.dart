@@ -1,3 +1,5 @@
+// ignore_for_file: import_of_legacy_library_into_null_safe, prefer_typing_uninitialized_variables, duplicate_ignore, deprecated_member_use
+
 import 'dart:convert';
 
 import 'package:addistutor_student/Screens/Profile/profile.dart';
@@ -8,14 +10,12 @@ import 'package:addistutor_student/Screens/Login/components/background.dart';
 import 'package:addistutor_student/Screens/Signup/signup_screen.dart';
 import 'package:addistutor_student/Screens/main/main.dart';
 import 'package:addistutor_student/components/already_have_an_account_acheck.dart';
-
 import 'package:flutter_svg/svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../../constants.dart';
 
 class Body extends StatefulWidget {
-  Body({
+  const Body({
     Key? key,
   }) : super(key: key);
 
@@ -27,7 +27,6 @@ class _LoginScreenState extends State<Body> {
   bool isLoading = false;
   SharedPreferences? localStorage;
   final _formKey = GlobalKey<FormState>();
-  GlobalKey<_LoginScreenState> _myKey = GlobalKey();
   var body;
   // ignore: prefer_typing_uninitialized_variables
   var email;
@@ -44,7 +43,7 @@ class _LoginScreenState extends State<Body> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text(
+              const Text(
                 "LOGIN",
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -60,7 +59,7 @@ class _LoginScreenState extends State<Body> {
               TextFieldContainer(
                 child: TextFormField(
                   cursorColor: kPrimaryColor,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: "Email",
                     icon: Icon(
                       Icons.email,
@@ -84,7 +83,7 @@ class _LoginScreenState extends State<Body> {
                 child: TextFormField(
                   obscureText: true,
                   cursorColor: kPrimaryColor,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: "Password",
                     icon: Icon(
                       Icons.lock,
@@ -168,12 +167,8 @@ class _LoginScreenState extends State<Body> {
     var data = {'email': email, 'password': password};
     var res = await Network().authData(data, "login-student");
     body = json.decode(res.body);
-    bool isupdated;
-    // ignore: avoid_print
 
-    //  print(body.toString());
     if (res.statusCode == 200) {
-      // commit();
       SharedPreferences localStorage = await SharedPreferences.getInstance();
       localStorage.setString("token", body["token"]);
 
@@ -186,7 +181,7 @@ class _LoginScreenState extends State<Body> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ProfileScreen(),
+            builder: (context) => const ProfileScreen(),
           ),
         );
       } else {
@@ -217,18 +212,18 @@ class _LoginScreenState extends State<Body> {
     } else if (res.statusCode == 401) {
       showDialog(
         context: context,
-        builder: (context) => new AlertDialog(
+        builder: (context) => AlertDialog(
           title: const Text('info'),
-          content: new Text(body["message"]),
+          content: Text(body["message"]),
           actions: <Widget>[
-            new FlatButton(
+            FlatButton(
               onPressed: () {
                 Navigator.of(context).pop(true);
                 setState(() {
                   isLoading = false;
                 });
               },
-              child: new Text('ok'),
+              child: const Text('ok'),
             ),
           ],
         ),
@@ -236,18 +231,18 @@ class _LoginScreenState extends State<Body> {
     } else {
       showDialog(
         context: context,
-        builder: (context) => new AlertDialog(
+        builder: (context) => AlertDialog(
           title: const Text('info'),
-          content: new Text(body["message"]),
+          content: Text(body["message"]),
           actions: <Widget>[
-            new FlatButton(
+            FlatButton(
               onPressed: () {
                 Navigator.of(context).pop(true);
                 setState(() {
                   isLoading = false;
                 });
               },
-              child: new Text('ok'),
+              child: const Text('ok'),
             ),
           ],
         ),
@@ -264,13 +259,13 @@ class _LoginScreenState extends State<Body> {
         context: context,
         builder: (context) => AlertDialog(
           elevation: 0,
-          backgroundColor: Color(0xffffffff),
+          backgroundColor: const Color(0xffffffff),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15.0),
           ),
-          title: Column(mainAxisSize: MainAxisSize.min, children: [
+          title: Column(mainAxisSize: MainAxisSize.min, children: const [
             SizedBox(height: 15),
-            const Text(
+            Text(
               'Error',
               style: TextStyle(
                 fontSize: 18.0,
@@ -283,9 +278,9 @@ class _LoginScreenState extends State<Body> {
               color: kPrimaryColor,
             ),
           ]),
-          content: Column(mainAxisSize: MainAxisSize.min, children: [
+          content: Column(mainAxisSize: MainAxisSize.min, children: const [
             SizedBox(height: 15),
-            const Text(
+            Text(
               'incorrect Email or Password',
               style: TextStyle(
                 fontSize: 18.0,

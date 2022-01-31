@@ -4,7 +4,7 @@ import 'package:addistutor_student/Screens/main/components/body.dart';
 class Main extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Home(),
     );
   }

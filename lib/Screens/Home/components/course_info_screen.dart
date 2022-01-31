@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'dart:convert';
 
 import 'package:addistutor_student/Screens/Book/book.dart';
@@ -32,7 +34,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
         duration: const Duration(milliseconds: 1000), vsync: this);
     animation = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
         parent: animationController!,
-        curve: Interval(0, 1.0, curve: Curves.fastOutSlowIn)));
+        curve: const Interval(0, 1.0, curve: Curves.fastOutSlowIn)));
     setData();
 
     _getsubject();
@@ -132,7 +134,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                                   " " +
                                   widget.hotelData!.middle_name,
                               textAlign: TextAlign.left,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: 22,
                                 letterSpacing: 0.27,
@@ -150,44 +152,33 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                                 Text(
                                   widget.hotelData!.gender,
                                   textAlign: TextAlign.left,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontWeight: FontWeight.w200,
                                     fontSize: 22,
                                     letterSpacing: 0.27,
                                     color: DesignCourseAppTheme.nearlyBlue,
                                   ),
                                 ),
-                                Container(
-                                  child: Row(
-                                    children: <Widget>[
-                                      // Text(
-                                      //    widget.hotelData!.rating,
-                                      //   textAlign: TextAlign.left,
-                                      //   style: TextStyle(
-                                      //     fontWeight: FontWeight.w200,
-                                      //     fontSize: 22,
-                                      //     letterSpacing: 0.27,
-                                      //     color: DesignCourseAppTheme.grey,
-                                      //   ),
-                                      // ),
+                                Row(
+                                  children: <Widget>[
+                                  
 
-                                      Text(
-                                        "4.5",
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w200,
-                                          fontSize: 22,
-                                          letterSpacing: 0.27,
-                                          color: DesignCourseAppTheme.grey,
-                                        ),
+                                    const Text(
+                                      "4.5",
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w200,
+                                        fontSize: 22,
+                                        letterSpacing: 0.27,
+                                        color: DesignCourseAppTheme.grey,
                                       ),
-                                      Icon(
-                                        Icons.star,
-                                        color: DesignCourseAppTheme.nearlyBlue,
-                                        size: 24,
-                                      ),
-                                    ],
-                                  ),
+                                    ),
+                                    Icon(
+                                      Icons.star,
+                                      color: DesignCourseAppTheme.nearlyBlue,
+                                      size: 24,
+                                    ),
+                                  ],
                                 )
                               ],
                             ),
@@ -217,7 +208,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                                   child: Text(
                                     widget.hotelData!.about,
                                     textAlign: TextAlign.justify,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontWeight: FontWeight.w300,
                                       fontSize: 16,
                                       fontFamily: 'WorkSans',
@@ -243,9 +234,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
 
                                 if (body["student_id"] != null) {
                                   Navigator.pop(context);
-                                  // isLoading(false);
-                                  //    openAndCloseLoadingDialog(context);
-                                  print("yess");
+                                
 
                                   Navigator.push<dynamic>(
                                     context,
@@ -290,11 +279,11 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                                               MaterialPageRoute<dynamic>(
                                                 builder:
                                                     (BuildContext context) =>
-                                                        EditPage(),
+                                                        const EditPage(),
                                               ),
                                             );
                                           },
-                                          child: new Text('ok'),
+                                          child:  const Text('ok'),
                                         ),
                                       ],
                                     ),
@@ -376,12 +365,10 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(80.0)),
                     elevation: 10.0,
-                    child: Container(
+                    child: SizedBox(
                       width: 70,
                       height: 70,
-                      //   child: Center(
-                      //       child: Image.asset("assets/images/userImage.png")),
-                      // ),
+                     
                       child: ClipRRect(
                           borderRadius: BorderRadius.circular(18.0),
                           child: Image.network(
@@ -402,7 +389,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                   child: InkWell(
                     borderRadius:
                         BorderRadius.circular(AppBar().preferredSize.height),
-                    child: Icon(
+                    child: const Icon(
                       Icons.arrow_back_ios,
                       color: DesignCourseAppTheme.nearlyBlack,
                     ),
@@ -443,7 +430,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
               Text(
                 text1,
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 14,
                   letterSpacing: 0.27,
@@ -453,7 +440,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
               Text(
                 txt2,
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.w200,
                   fontSize: 14,
                   letterSpacing: 0.27,

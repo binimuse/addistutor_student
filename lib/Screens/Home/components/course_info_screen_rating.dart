@@ -3,22 +3,22 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'design_course_app_theme.dart';
 
 class CourseInfoScreenRating extends StatefulWidget {
+  const CourseInfoScreenRating({Key? key}) : super(key: key);
+
   @override
   _CourseInfoScreenState createState() => _CourseInfoScreenState();
 }
 
 class _CourseInfoScreenState extends State<CourseInfoScreenRating>
     with TickerProviderStateMixin {
-  late final _ratingController;
-  double _initialRating = 2.0;
-  late double _rating;
+  final double _initialRating = 2.0;
   final double infoHeight = 364.0;
   AnimationController? animationController;
   Animation<double>? animation;
   double opacity1 = 0.0;
   double opacity2 = 0.0;
   double opacity3 = 0.0;
-  bool _isVertical = false;
+  final bool _isVertical = false;
   IconData? _selectedIcon;
   @override
   void initState() {
@@ -26,11 +26,9 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
         duration: const Duration(milliseconds: 1000), vsync: this);
     animation = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
         parent: animationController!,
-        curve: Interval(0, 1.0, curve: Curves.fastOutSlowIn)));
+        curve: const Interval(0, 1.0, curve: Curves.fastOutSlowIn)));
     setData();
     super.initState();
-    _ratingController = TextEditingController(text: '3.0');
-    _rating = _initialRating;
   }
 
   Future<void> setData() async {
@@ -105,9 +103,9 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                top: 32.0, left: 18, right: 16),
+                          const Padding(
+                            padding:
+                                EdgeInsets.only(top: 32.0, left: 18, right: 16),
                             child: Text(
                               'Robel Musema\n',
                               textAlign: TextAlign.left,
@@ -126,7 +124,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
-                                Text(
+                                const Text(
                                   '2800 birr',
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
@@ -136,26 +134,24 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
                                     color: DesignCourseAppTheme.nearlyBlue,
                                   ),
                                 ),
-                                Container(
-                                  child: Row(
-                                    children: <Widget>[
-                                      Text(
-                                        '4.3',
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w200,
-                                          fontSize: 22,
-                                          letterSpacing: 0.27,
-                                          color: DesignCourseAppTheme.grey,
-                                        ),
+                                Row(
+                                  children: <Widget>[
+                                    const Text(
+                                      '4.3',
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w200,
+                                        fontSize: 22,
+                                        letterSpacing: 0.27,
+                                        color: DesignCourseAppTheme.grey,
                                       ),
-                                      Icon(
-                                        Icons.star,
-                                        color: DesignCourseAppTheme.nearlyBlue,
-                                        size: 24,
-                                      ),
-                                    ],
-                                  ),
+                                    ),
+                                    Icon(
+                                      Icons.star,
+                                      color: DesignCourseAppTheme.nearlyBlue,
+                                      size: 24,
+                                    ),
+                                  ],
                                 )
                               ],
                             ),
@@ -178,8 +174,8 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
                             child: AnimatedOpacity(
                               duration: const Duration(milliseconds: 500),
                               opacity: opacity2,
-                              child: Padding(
-                                padding: const EdgeInsets.only(
+                              child: const Padding(
+                                padding: EdgeInsets.only(
                                     left: 16, right: 16, bottom: 18),
                                 child: Center(
                                   child: Text(
@@ -229,9 +225,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
                                         color: Colors.amber,
                                       ),
                                       onRatingUpdate: (rating) {
-                                        setState(() {
-                                          _rating = rating;
-                                        });
+                                        setState(() {});
                                       },
                                       updateOnDrag: true,
                                     ),
@@ -263,12 +257,9 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(80.0)),
                     elevation: 10.0,
-                    child: Container(
+                    child: SizedBox(
                       width: 120,
                       height: 120,
-                      //   child: Center(
-                      //       child: Image.asset("assets/images/userImage.png")),
-                      // ),
                       child: ClipRRect(
                           borderRadius: BorderRadius.circular(18.0),
                           child: Image.asset(
@@ -330,7 +321,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
               Text(
                 text1,
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 14,
                   letterSpacing: 0.27,

@@ -1,11 +1,8 @@
-// ignore_for_file: non_constant_identifier_names, duplicate_ignore, prefer_typing_uninitialized_variables, avoid_print, avoid_web_libraries_in_flutter
+// ignore_for_file: non_constant_identifier_names, duplicate_ignore, prefer_typing_uninitialized_variables, avoid_print, avoid_web_libraries_in_flutter, deprecated_member_use
 
 import 'dart:convert';
 
-import 'package:addistutor_student/Screens/Login/components/body.dart';
 import 'package:addistutor_student/Screens/Login/login_screen.dart';
-import 'package:addistutor_student/Screens/Profile/profile.dart';
-import 'package:addistutor_student/Screens/main/main.dart';
 import 'package:addistutor_student/constants.dart';
 import 'package:addistutor_student/remote_services/service.dart';
 import 'package:addistutor_student/remote_services/user.dart';
@@ -181,7 +178,7 @@ class EditprofileController extends GetxController with StateMixin {
     Navigator.of(context).pop();
     if (stat == false) {
       scaffoldKey.currentState!
-          .showSnackBar(SnackBar(content: Text("profile Not Edited")));
+          .showSnackBar(const SnackBar(content: Text("profile Not Edited")));
     } else {
       // ignore: deprecated_member_use
 
@@ -241,7 +238,7 @@ class EditprofileController extends GetxController with StateMixin {
                   }
                 }
               },
-              child: new Text('ok'),
+              child: const Text('ok'),
             ),
           ],
         ),
@@ -252,14 +249,14 @@ class EditprofileController extends GetxController with StateMixin {
 
   openSnackBaredit(BuildContext context) async {
     scaffoldKey.currentState!.showSnackBar(SnackBar(
-      content: Text("profile Edited"),
+      content: const Text("profile Edited"),
       action: SnackBarAction(
         label: 'OK',
         onPressed: () {},
       ),
       backgroundColor: kPrimaryColor,
       behavior: SnackBarBehavior.floating,
-      margin: EdgeInsets.all(50),
+      margin: const EdgeInsets.all(50),
       elevation: 30,
     ));
   }

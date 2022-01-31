@@ -91,19 +91,14 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
 
   void _onLoading() async {
     await Future.delayed(const Duration(milliseconds: 1000));
-    // if failed,use loadFailed(),if no data return,use LoadNodata()
-    //items.add((items.length+1).toString());
-    //if(mounted)
-    // setState(() {
 
-    // });
     _refreshController.loadComplete();
   }
 
   List<GetLocation> location = [];
   _getlocation() async {
     getLocationController.fetchLocation();
-    // ignore: invalid_use_of_protected_member
+
     location = getLocationController.listlocation.value;
     if (location != null && location.isNotEmpty) {
       setState(() {

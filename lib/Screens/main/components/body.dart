@@ -1,5 +1,4 @@
 import 'package:addistutor_student/Screens/Profile/profile.dart';
-import 'package:addistutor_student/remote_services/user.dart';
 import 'package:flutter/material.dart';
 import 'package:addistutor_student/Screens/Appointment/components/appointmentscreen.dart';
 
@@ -29,7 +28,6 @@ class _BottomNavPageState extends State<Home> {
   ];
   @override
   Widget build(BuildContext context) {
-    var dfdf;
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: PageView(
@@ -45,7 +43,7 @@ class _BottomNavPageState extends State<Home> {
             });
           }
         },
-        children: <Widget>[
+        children: const <Widget>[
           HomeScreen(),
           SerachPage(),
           AppointmentScreen(),

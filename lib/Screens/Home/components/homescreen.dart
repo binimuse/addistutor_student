@@ -1,5 +1,5 @@
 import 'package:addistutor_student/Screens/Home/components/category_list_view.dart';
-import 'package:addistutor_student/Screens/Home/components/course_info_screen.dart';
+
 import 'package:addistutor_student/Screens/Home/components/popular_course_list_view.dart';
 import 'package:addistutor_student/Screens/search/components/searchscreen.dart';
 import 'package:addistutor_student/controller/geteducationlevelcontroller.dart';
@@ -109,8 +109,6 @@ class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
     _refreshController.loadComplete();
   }
 
-  int _tabIndex = 0;
-
   CategoryType categoryType = CategoryType.ui;
 
   @override
@@ -135,7 +133,7 @@ class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
                     getAppBarUI(),
                     Expanded(
                       child: SingleChildScrollView(
-                        child: Container(
+                        child: SizedBox(
                           height: MediaQuery.of(context).size.height,
                           child: Column(
                             children: <Widget>[
@@ -327,7 +325,7 @@ class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Container(
+          SizedBox(
             width: MediaQuery.of(context).size.width * 0.75,
             height: 64,
             child: Padding(
@@ -429,7 +427,7 @@ class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
+              children: const <Widget>[
                 Text(
                   'Welcome to',
                   textAlign: TextAlign.left,
@@ -467,7 +465,6 @@ class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
   }
 
   refresh() {
-    print("object");
     // Navigator.pop(context); // pop current page
 
     Navigator.push(

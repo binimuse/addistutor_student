@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names, duplicate_ignore, prefer_typing_uninitialized_variables, avoid_print, avoid_web_libraries_in_flutter
+// ignore_for_file: non_constant_identifier_names, duplicate_ignore, prefer_typing_uninitialized_variables, avoid_print, avoid_web_libraries_in_flutter, unused_import, unnecessary_overrides, deprecated_member_use, empty_catches, prefer_const_constructors
 
 import 'dart:convert';
 
@@ -249,7 +249,7 @@ class BookingeController extends GetxController with StateMixin {
       isLoading(false);
       //Navigator.of(context).pop(true);
       scaffoldKey.currentState!.showSnackBar(SnackBar(
-        content: Text(
+        content: const Text(
             "Sucessfully Booked Tutor \nplease go to notification page for any updateds"),
         action: SnackBarAction(
           label: 'OK',

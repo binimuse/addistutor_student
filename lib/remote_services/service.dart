@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_brace_in_string_interps
+// ignore_for_file: unnecessary_brace_in_string_interps, unnecessary_null_comparison
 
 import 'dart:convert';
 
@@ -68,11 +68,6 @@ class RemoteServices {
   }
 
   static Future<bool> uploadImage(File image, String id) async {
-    // ignore: unnecessary_null_comparison
-
-    print("object");
-    print(image.toString());
-    print(id);
     if (image != null) {
       // ignore: deprecated_member_use
       var stream = http.ByteStream(DelegatingStream.typed(image.openRead()));
@@ -132,7 +127,6 @@ class RemoteServices {
     var body = json.decode(res.body);
 
     if (res.statusCode == 200) {
-      print(body["data"]);
       return body["data"]
           .map((e) => Search.fromJson(e))
           .toList()
@@ -150,8 +144,7 @@ class RemoteServices {
     res = await Network().getpassedData(data, "booking");
 
     body = json.decode(res.body);
-    print("body");
-    print(body);
+
     if (res.statusCode == 200) {
       return res.statusCode.toString();
     } else {
