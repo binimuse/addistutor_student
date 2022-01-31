@@ -161,124 +161,88 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
                 onRefresh: _onRefresh,
                 onLoading: _onLoading,
                 child: Scaffold(
-                  body: Stack(
-                    children: <Widget>[
-                      InkWell(
-                        splashColor: Colors.transparent,
-                        focusColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        onTap: () {
-                          FocusScope.of(context).requestFocus(FocusNode());
-                        },
-                        child: Column(
-                          children: <Widget>[
-                            getAppBarUI(),
-                            Expanded(
-                                child: NestedScrollView(
-                              controller: _scrollController,
-                              headerSliverBuilder: (BuildContext context,
-                                  bool innerBoxIsScrolled) {
-                                return <Widget>[
-                                  SliverList(
-                                    delegate: SliverChildBuilderDelegate(
-                                        (BuildContext context, int index) {
-                                      return Column(
-                                        children: <Widget>[
-                                          gradebarfilter(),
-                                          showsubject
-                                              ? subjectViewUI()
-                                              : Container(),
-                                          LocationFilter(),
-                                          genderViewUI(),
-                                          getSearchBarUI(),
-                                        ],
-                                      );
-                                    }, childCount: 1),
-                                  ),
-                                  SliverPersistentHeader(
-                                    pinned: true,
-                                    floating: true,
-                                    delegate: ContestTabHeader(
-                                      getFilterBarUI(),
-                                    ),
-                                  ),
-                                ];
-                              },
-                              body: searched
-                                  ? Container(
-                                      color: HotelAppTheme.buildLightTheme()
-                                          .backgroundColor,
-                                      child: FutureBuilder(
-                                          future: RemoteServices.search(
-                                              lid.toString(),
-                                              sid,
-                                              gender.toString()),
-                                          builder: (BuildContext context,
-                                              AsyncSnapshot snapshot) {
-                                            if (snapshot.hasError) {
-                                              found.value =
-                                                  snapshot.data.length;
-                                              return Center(
-                                                child: Text(
-                                                    snapshot.error.toString()),
-                                              );
-                                            }
-
-                                            if (snapshot.hasData) {
-                                              return Expanded(
-                                                child: ListView.builder(
-                                                  itemCount:
-                                                      snapshot.data.length,
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          top: 8),
-                                                  scrollDirection:
-                                                      Axis.vertical,
-                                                  itemBuilder:
-                                                      (BuildContext context,
-                                                          int index) {
-                                                    return HotelListView(
-                                                      callback: () {
-                                                        Navigator.push(
-                                                          context,
-                                                          PageRouteBuilder(
-                                                            pageBuilder:
-                                                                (context,
-                                                                    animation1,
-                                                                    animation2) {
-                                                              return CourseInfoScreen(
-                                                                hotelData:
-                                                                    snapshot.data[
-                                                                        index],
-                                                              );
-                                                            },
-                                                          ),
-                                                        );
-                                                      },
-                                                      hotelData:
-                                                          snapshot.data[index],
-                                                    );
-                                                  },
-                                                ),
-                                              );
-                                            } else {
-                                              return const Center(
-                                                child:
-                                                    CircularProgressIndicator(),
-                                              );
-                                            }
-                                          }))
-                                  : const Center(
-                                      child: Text("No Tutors found"),
-                                    ),
-                            ))
-                          ],
+                    body: NestedScrollView(
+                  controller: _scrollController,
+                  physics: const ScrollPhysics(parent: PageScrollPhysics()),
+                  headerSliverBuilder:
+                      (BuildContext context, bool innerBoxIsScrolled) {
+                    return <Widget>[
+                      SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                            (BuildContext context, int index) {
+                          return Column(
+                            children: <Widget>[
+                              getAppBarUI(),
+                              gradebarfilter(),
+                              showsubject ? subjectViewUI() : Container(),
+                              LocationFilter(),
+                              genderViewUI(),
+                              getSearchBarUI(),
+                            ],
+                          );
+                        }, childCount: 1),
+                      ),
+                      SliverPersistentHeader(
+                        pinned: true,
+                        floating: true,
+                        delegate: ContestTabHeader(
+                          getFilterBarUI(),
                         ),
                       ),
-                    ],
-                  ),
-                )))
+                    ];
+                  },
+                  body: searched
+                      ? Container(
+                          color:
+                              HotelAppTheme.buildLightTheme().backgroundColor,
+                          child: FutureBuilder(
+                              future: RemoteServices.search(
+                                  lid.toString(), sid, gender.toString()),
+                              builder: (BuildContext context,
+                                  AsyncSnapshot snapshot) {
+                                if (snapshot.hasError) {
+                                  found.value = snapshot.data.length;
+                                  return Center(
+                                    child: Text(snapshot.error.toString()),
+                                  );
+                                }
+
+                                if (snapshot.hasData) {
+                                  return ListView.builder(
+                                    itemCount: snapshot.data.length,
+                                    padding: const EdgeInsets.only(top: 8),
+                                    scrollDirection: Axis.vertical,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      return HotelListView(
+                                        callback: () {
+                                          Navigator.push(
+                                            context,
+                                            PageRouteBuilder(
+                                              pageBuilder: (context, animation1,
+                                                  animation2) {
+                                                return CourseInfoScreen(
+                                                  hotelData:
+                                                      snapshot.data[index],
+                                                );
+                                              },
+                                            ),
+                                          );
+                                        },
+                                        hotelData: snapshot.data[index],
+                                      );
+                                    },
+                                  );
+                                } else {
+                                  return const Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                }
+                              }))
+                      : const Center(
+                          child: Text("No Tutors found"),
+                        ),
+                ))))
         : const Center(child: CircularProgressIndicator()));
   }
 
@@ -571,40 +535,21 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
   }
 
   Widget getSearchBarUI() {
-    return Positioned(
-      top: 10,
-      bottom: 10,
-      child: Container(
-        decoration: BoxDecoration(
-          color: HotelAppTheme.buildLightTheme().primaryColor,
-          borderRadius: const BorderRadius.all(
-            Radius.circular(38.0),
-          ),
-          boxShadow: <BoxShadow>[
-            BoxShadow(
-                color: Colors.grey.withOpacity(0.4),
-                offset: const Offset(0, 2),
-                blurRadius: 8.0),
-          ],
+    return Material(
+      color: kPrimaryColor,
+      child: InkWell(
+        borderRadius: const BorderRadius.all(
+          Radius.circular(32.0),
         ),
-        child: Material(
-          color: Colors.transparent,
-          child: InkWell(
-            borderRadius: const BorderRadius.all(
-              Radius.circular(32.0),
-            ),
-            onTap: () {
-              setState(() {
-                searched = true;
-              });
-            },
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Icon(FontAwesomeIcons.search,
-                  size: 20,
-                  color: HotelAppTheme.buildLightTheme().backgroundColor),
-            ),
-          ),
+        onTap: () {
+          setState(() {
+            searched = true;
+          });
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Icon(FontAwesomeIcons.search,
+              size: 20, color: HotelAppTheme.buildLightTheme().backgroundColor),
         ),
       ),
     );
@@ -632,16 +577,14 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
         ),
         Container(
           color: HotelAppTheme.buildLightTheme().backgroundColor,
-          child: Center(
-            child: Expanded(
-              child: Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text(
-                  "Tutors Found",
-                  style: TextStyle(
-                    fontWeight: FontWeight.w100,
-                    fontSize: 16,
-                  ),
+          child: const Center(
+            child: Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text(
+                "Tutors Found",
+                style: TextStyle(
+                  fontWeight: FontWeight.w100,
+                  fontSize: 16,
                 ),
               ),
             ),

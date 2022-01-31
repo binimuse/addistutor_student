@@ -99,11 +99,11 @@ class _HomePageState extends State<Appointment>
         const SizedBox(
           height: 16,
         ),
-        CategoryListView(
-          callBack: () {
-            moveTo();
-          },
-        ),
+        // CategoryListView(
+        //   callBack: () {
+        //     moveTo();
+        //   },
+        // ),
       ],
     );
   }

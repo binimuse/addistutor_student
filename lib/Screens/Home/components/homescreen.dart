@@ -11,6 +11,7 @@ import 'package:addistutor_student/remote_services/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'design_course_app_theme.dart';
 
@@ -32,6 +33,8 @@ class Home extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
+
+late var gender = "";
 
 class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
   GetEducationlevelController getEducationlevelController =
@@ -83,42 +86,75 @@ class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
     }
   }
 
+  final RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
+
+  void _onRefresh() async {
+    // monitor network fetch
+    await Future.delayed(const Duration(milliseconds: 1000));
+    // if failed,use refreshFailed()
+
+    setState(() {});
+    _refreshController.refreshCompleted();
+  }
+
+  void _onLoading() async {
+    await Future.delayed(const Duration(milliseconds: 1000));
+    // if failed,use loadFailed(),if no data return,use LoadNodata()
+    //items.add((items.length+1).toString());
+    //if(mounted)
+    // setState(() {
+
+    // });
+    _refreshController.loadComplete();
+  }
+
   int _tabIndex = 0;
 
   CategoryType categoryType = CategoryType.ui;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: DesignCourseAppTheme.nearlyWhite,
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: Column(
-          children: <Widget>[
-            SizedBox(
-              height: MediaQuery.of(context).padding.top,
-            ),
-            getAppBarUI(),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Container(
-                  height: MediaQuery.of(context).size.height,
-                  child: Column(
-                    children: <Widget>[
-                      getSearchBarUI(),
-                      getCategoryUI(),
-                      Flexible(
-                        child: getPopularCourseUI(),
+    return Obx(() => getEducationlevelController.isfetchededucation.value
+        ? Container(
+            color: DesignCourseAppTheme.nearlyWhite,
+            child: SmartRefresher(
+              enablePullUp: true,
+
+              //cheak pull_to_refresh
+              controller: _refreshController,
+              onRefresh: _onRefresh,
+              onLoading: _onLoading,
+              child: Scaffold(
+                backgroundColor: Colors.transparent,
+                body: Column(
+                  children: <Widget>[
+                    SizedBox(
+                      height: MediaQuery.of(context).padding.top,
+                    ),
+                    getAppBarUI(),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Container(
+                          height: MediaQuery.of(context).size.height,
+                          child: Column(
+                            children: <Widget>[
+                              getSearchBarUI(),
+                              getCategoryUI(),
+                              Flexible(
+                                child: getPopularCourseUI(),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),
-          ],
-        ),
-      ),
-    );
+          )
+        : const Center(child: CircularProgressIndicator()));
   }
 
   Widget getCategoryUI() {
@@ -234,6 +270,24 @@ class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
               setState(() {
                 categoryType = categoryTypeData;
               });
+
+              if (txt == "Female") {
+                setState(() {
+                  searchController.homepagegender = "Female";
+                  // print(gender);
+                });
+              } else if (txt == "Male") {
+                setState(() {
+                  searchController.homepagegender = "Male";
+                  //   print(gender);
+                });
+              } else if (txt == "All") {
+                setState(() {
+                  searchController.homepagegender = " ";
+                  //   print(gender);
+                });
+              }
+              refresh();
             },
             child: Padding(
               padding: const EdgeInsets.only(
@@ -408,6 +462,20 @@ class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
             ),
           )
         ],
+      ),
+    );
+  }
+
+  refresh() {
+    print("object");
+    // Navigator.pop(context); // pop current page
+
+    Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) {
+          return const HomeScreen();
+        },
       ),
     );
   }

@@ -7,6 +7,7 @@ class SearchController extends GetxController {
   var isfetched = false.obs;
 
   var locationid;
+  var homepagegender = "";
 
   void fetch(lid, sid, gender) async {
     list.value = await RemoteServices.search(lid, sid, gender);
