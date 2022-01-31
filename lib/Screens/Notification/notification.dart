@@ -1,7 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
 import 'package:addistutor_student/Screens/Home/components/design_course_app_theme.dart';
-import 'package:addistutor_student/constants.dart';
 import 'package:flutter/material.dart';
 
 import 'activity_item_widget.dart';
@@ -27,7 +26,7 @@ class _ActivityPageState extends State<Notificationclass>
           color: Colors.white,
           child: InkWell(
             borderRadius: BorderRadius.circular(AppBar().preferredSize.height),
-            child: Icon(
+            child: const Icon(
               Icons.arrow_back_ios,
               color: DesignCourseAppTheme.nearlyBlack,
             ),
@@ -36,7 +35,7 @@ class _ActivityPageState extends State<Notificationclass>
             },
           ),
         ),
-        title: Text(
+        title: const Text(
           "Notification",
           style: TextStyle(
             fontSize: 25,

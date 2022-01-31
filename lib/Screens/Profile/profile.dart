@@ -1,4 +1,4 @@
-// ignore_for_file: import_of_legacy_library_into_null_safe
+// ignore_for_file: import_of_legacy_library_into_null_safe, prefer_typing_uninitialized_variables
 
 import 'dart:convert';
 
@@ -81,12 +81,7 @@ class _ProfilePageState extends State<ProfileS> {
   void _onLoading() async {
     // monitor network fetch
     await Future.delayed(const Duration(milliseconds: 1000));
-    // if failed,use loadFailed(),if no data return,use LoadNodata()
-    //items.add((items.length+1).toString());
-    //if(mounted)
-    // setState(() {
 
-    // });
     _refreshController.loadComplete();
   }
 
@@ -112,14 +107,6 @@ class _ProfilePageState extends State<ProfileS> {
 
   void _getlocation() {
     getLocationController.fetchLocation();
-
-    // if (getLocationController.isfetchedlocation.isTrue) {
-    //   print("hahah");
-    // } else {
-    //   print("noo");
-    // }
-
-    // ignore: invalid_use_of_protected_member
   }
 
   final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
@@ -136,7 +123,10 @@ class _ProfilePageState extends State<ProfileS> {
           onPressed: () {
             _key.currentState!.openDrawer();
           },
-          icon: const Icon(Icons.menu),
+          icon: const Icon(
+            Icons.menu,
+            color: kPrimaryColor,
+          ),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -234,7 +224,8 @@ class _ProfilePageState extends State<ProfileS> {
         child: Container(
           padding: const EdgeInsets.only(left: 16.0, right: 40),
           decoration: BoxDecoration(
-              color: primary, boxShadow: [BoxShadow(color: Colors.black45)]),
+              color: primary,
+              boxShadow: const [BoxShadow(color: Colors.black45)]),
           width: 300,
           child: SafeArea(
             child: SingleChildScrollView(
@@ -255,7 +246,7 @@ class _ProfilePageState extends State<ProfileS> {
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        gradient: LinearGradient(
+                        gradient: const LinearGradient(
                             colors: [kPrimaryColor, kPrimaryColor])),
                     child: CircleAvatar(
                       radius: 40,
@@ -265,7 +256,7 @@ class _ProfilePageState extends State<ProfileS> {
                   const SizedBox(height: 5.0),
                   Text(
                     fname.toString() + " " + lastname.toString(),
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: Colors.black,
                         fontSize: 18.0,
                         fontWeight: FontWeight.w600),
@@ -274,11 +265,10 @@ class _ProfilePageState extends State<ProfileS> {
                   GestureDetector(
                     onTap: () {
                       Navigator.push(
-                        // ignore: prefer_const_constructors
                         context,
                         PageRouteBuilder(
                           pageBuilder: (context, animation1, animation2) =>
-                              EditPage(),
+                              const EditPage(),
                           transitionDuration: Duration.zero,
                         ),
                       );
@@ -346,7 +336,7 @@ class _ProfilePageState extends State<ProfileS> {
                           context,
                           PageRouteBuilder(
                             pageBuilder: (context, animation1, animation2) =>
-                                HelpScreen(),
+                                const HelpScreen(),
                             transitionDuration: Duration.zero,
                           ),
                         );
@@ -359,15 +349,15 @@ class _ProfilePageState extends State<ProfileS> {
                           context: context,
                           builder: (context) => AlertDialog(
                             elevation: 0,
-                            backgroundColor: Color(0xffffffff),
+                            backgroundColor: const Color(0xffffffff),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15.0),
                             ),
                             title: Column(
                                 mainAxisSize: MainAxisSize.min,
-                                children: [
+                                children: const [
                                   SizedBox(height: 15),
-                                  const Text(
+                                  Text(
                                     'Message',
                                     style: TextStyle(
                                       fontSize: 18.0,
@@ -382,9 +372,9 @@ class _ProfilePageState extends State<ProfileS> {
                                 ]),
                             content: Column(
                                 mainAxisSize: MainAxisSize.min,
-                                children: [
+                                children: const [
                                   SizedBox(height: 15),
-                                  const Text(
+                                  Text(
                                     'Are You Sure you want to Log Out',
                                     style: TextStyle(
                                       fontSize: 18.0,
@@ -417,14 +407,14 @@ class _ProfilePageState extends State<ProfileS> {
                                 ),
                               ),
 
-                              Divider(
+                              const Divider(
                                 height: 1,
                               ),
-                              Container(
+                              SizedBox(
                                 width: MediaQuery.of(context).size.width,
                                 height: 50,
                                 child: InkWell(
-                                  borderRadius: BorderRadius.only(
+                                  borderRadius: const BorderRadius.only(
                                     bottomLeft: Radius.circular(15.0),
                                     bottomRight: Radius.circular(15.0),
                                   ),
@@ -432,7 +422,7 @@ class _ProfilePageState extends State<ProfileS> {
                                   onTap: () {
                                     Navigator.of(context).pop();
                                   },
-                                  child: Center(
+                                  child: const Center(
                                     child: Text(
                                       "Cancel",
                                       style: TextStyle(
@@ -474,12 +464,12 @@ class _ProfilePageState extends State<ProfileS> {
           icon,
           color: kPrimaryColor,
         ),
-        SizedBox(width: 10.0),
+        const SizedBox(width: 10.0),
         Text(
           title,
           style: tStyle,
         ),
-        Spacer(),
+        const Spacer(),
         if (showBadge)
           Material(
             color: kPrimaryColor,
@@ -494,7 +484,7 @@ class _ProfilePageState extends State<ProfileS> {
                 color: kPrimaryColor,
                 borderRadius: BorderRadius.circular(5.0),
               ),
-              child: Text(
+              child: const Text(
                 "10+",
                 style: TextStyle(
                     color: Colors.white,
@@ -519,7 +509,7 @@ class _ProfilePageState extends State<ProfileS> {
     Navigator.push(
       context,
       PageRouteBuilder(
-        pageBuilder: (context, animation1, animation2) => LoginScreen(),
+        pageBuilder: (context, animation1, animation2) => const LoginScreen(),
         transitionDuration: Duration.zero,
       ),
     );
@@ -543,13 +533,13 @@ class UserInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       child: Column(
         children: <Widget>[
           Container(
             padding: const EdgeInsets.only(left: 8.0, bottom: 4.0),
             alignment: Alignment.topLeft,
-            child: Text(
+            child: const Text(
               "User Information  \n ",
               style: TextStyle(
                 color: Colors.black87,

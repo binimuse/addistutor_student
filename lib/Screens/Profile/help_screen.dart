@@ -1,9 +1,6 @@
 // ignore: file_names
-// ignore_for_file: file_names, duplicate_ignore
+// ignore_for_file: file_names, duplicate_ignore, import_of_legacy_library_into_null_safe
 
-import 'package:addistutor_student/Screens/Profile/profile.dart';
-import 'package:addistutor_student/Screens/Profile/setting.dart';
-import 'package:addistutor_student/Screens/Welcome/welcome_screen.dart';
 import 'package:addistutor_student/constants.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -21,8 +18,8 @@ class HelpScreen extends StatelessWidget {
       SystemUiOverlayStyle.dark.copyWith(statusBarColor: Colors.transparent),
     );
 
-    return Scaffold(
-      body: const OnBoardingPage(),
+    return const Scaffold(
+      body: OnBoardingPage(),
     );
   }
 }
