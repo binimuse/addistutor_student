@@ -1,10 +1,4 @@
-// ignore_for_file: deprecated_member_use
-
-/**
- * Author: Aparna Dulal
- * profile: https://github.com/ambikadulal
-  */
-import 'dart:io';
+// ignore_for_file: deprecated_member_use, import_of_legacy_library_into_null_safe, invalid_use_of_protected_member
 
 import 'package:addistutor_student/Screens/Home/components/design_course_app_theme.dart';
 import 'package:addistutor_student/constants.dart';
@@ -14,9 +8,6 @@ import 'package:addistutor_student/remote_services/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:intl/intl.dart';
-import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:weekday_selector/weekday_selector.dart';
 
@@ -34,7 +25,6 @@ class BookScreen extends StatefulWidget {
 }
 
 GetSubjectController getSubjectController = Get.find();
-final ImagePicker _picker = ImagePicker();
 
 late bool weakdays3 = false;
 
@@ -44,13 +34,11 @@ late bool weakdays2 = false;
 late bool ispressd = false;
 late bool ispressd2 = false;
 late bool ispressd3 = false;
-final List<String> _tobeSent = [];
 
 // ignore: unused_element
 String? _selectedTime = "Time";
 
 TimeOfDay currentDate = TimeOfDay.now();
-var date;
 
 final values = <bool?>[false, false, false, false, false, false, false];
 
