@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, import_of_legacy_library_into_null_safe
 
 /**
  * Author: Aparna Dulal
@@ -437,7 +437,7 @@ class _EditPageState extends State<EditPage> {
                               floatingLabelBehavior:
                                   FloatingLabelBehavior.always,
                               hintText: editprofileController.email.text,
-                              hintStyle: TextStyle(
+                              hintStyle: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black,
@@ -538,39 +538,6 @@ class _EditPageState extends State<EditPage> {
                       const SizedBox(
                         height: 25,
                       ),
-                      // const Text(
-                      //   'Educational BackGround',
-                      //   style: TextStyle(color: Colors.black38),
-                      // ),
-                      // DropdownButton<String>(
-                      //   value: editprofileController.education.value,
-                      //   isExpanded: true,
-                      //   style: const TextStyle(
-                      //       color: Colors.black,
-                      //       fontSize: 16,
-                      //       fontWeight: FontWeight.w700),
-                      //   items: <String>[
-                      //     'Primary',
-                      //     'Secondary',
-                      //     'Preparatory',
-                      //   ].map<DropdownMenuItem<String>>((String value) {
-                      //     return DropdownMenuItem<String>(
-                      //       value: value,
-                      //       child: Text(
-                      //         value,
-                      //         style: const TextStyle(
-                      //             color: Colors.black,
-                      //             fontSize: 16,
-                      //             fontWeight: FontWeight.w700),
-                      //       ),
-                      //     );
-                      //   }).toList(),
-                      //   onChanged: (value) {
-                      //     setState(() {
-                      //       editprofileController.education.value = value!;
-                      //     });
-                      //   },
-                      // ),
                       const SizedBox(
                         height: 25,
                       ),

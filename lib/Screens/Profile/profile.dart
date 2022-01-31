@@ -1,3 +1,5 @@
+// ignore_for_file: import_of_legacy_library_into_null_safe
+
 import 'dart:convert';
 
 import 'package:addistutor_student/Screens/Login/login_screen.dart';
@@ -30,7 +32,7 @@ class ProfileScreen extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: ProfileS(),
+      home: const ProfileS(),
     );
   }
 }
@@ -102,12 +104,10 @@ class _ProfilePageState extends State<ProfileS> {
         editprofileController.fetchPf(int.parse(body["student_id"]));
       } else {
         var noid = "noid";
-        print("no Id");
+
         editprofileController.fetchPf(noid);
       }
-    } else {
-      print("no Token");
-    }
+    } else {}
   }
 
   void _getlocation() {
@@ -122,7 +122,6 @@ class _ProfilePageState extends State<ProfileS> {
     // ignore: invalid_use_of_protected_member
   }
 
-  static const String path = "lib/src/pages/profile/profile8.dart";
   final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
