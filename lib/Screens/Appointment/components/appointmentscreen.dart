@@ -228,13 +228,11 @@ class _HomePageState extends State<Appointment>
                                             ],
                                             shape: BoxShape.circle,
                                             color: Colors.white),
-                                        // child: Icon(
-                                        //   Icons.circle,
-                                        //   color: chat.
-                                        //       ? Colors.green
-                                        //       : Colors.red,
-                                        //   size: 10,
-                                        // ),
+                                        child: Icon(
+                                          Icons.circle,
+                                          color: Colors.red,
+                                          size: 10,
+                                        ),
                                       )),
                                 ],
                               ),
@@ -243,7 +241,9 @@ class _HomePageState extends State<Appointment>
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
                                   Text(
-                                    chat.teacher.first_name,
+                                    chat.teacher.first_name +
+                                        " " +
+                                        chat.teacher.last_name,
                                     // ignore: prefer_const_constructors
                                     style: TextStyle(
                                       color: kPrimaryColor,
@@ -251,63 +251,55 @@ class _HomePageState extends State<Appointment>
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
-                                  // Text(
-                                  //   chat.activeTime,
-                                  //   style: TextStyle(
-                                  //     color: Colors.grey.withOpacity(0.5),
-                                  //     fontSize: 12.0,
-                                  //     fontWeight: FontWeight.w500,
-                                  //   ),
-                                  // ),
+                                  Text(
+                                    chat.teacher.gender,
+                                    style: TextStyle(
+                                      color: Colors.grey.withOpacity(0.5),
+                                      fontSize: 12.0,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
                                   const SizedBox(height: 5.0),
                                   SizedBox(
                                     width: MediaQuery.of(context).size.width *
                                         0.45,
-                                    // child: Text(
-                                    //   chat.text,
-                                    //   // ignore: prefer_const_constructors
-                                    //   style: TextStyle(
-                                    //     color: Colors.blueGrey,
-                                    //     fontSize: 14.0,
-                                    //     fontWeight: FontWeight.w400,
-                                    //   ),
-                                    //   overflow: TextOverflow.ellipsis,
-                                    // ),
+                                    child: Text(
+                                      "teaching since" +
+                                          " " +
+                                          chat.teacher.teaching_since,
+                                      // ignore: prefer_const_constructors
+                                      style: TextStyle(
+                                        color: Colors.blueGrey,
+                                        fontSize: 14.0,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
                                   ),
                                 ],
                               ),
                             ],
                           ),
-                          // Column(
-                          //   children: <Widget>[
-                          //     chat.unread
-                          //         ? Container(
-                          //             width: 20.0,
-                          //             height: 20.0,
-                          //             decoration: const BoxDecoration(
-                          //                 color: Colors.green,
-                          //                 shape: BoxShape.circle),
-                          //             alignment: Alignment.center,
-                          //           )
-                          //         : Container(
-                          //             width: 20.0,
-                          //             height: 20.0,
-                          //             decoration: const BoxDecoration(
-                          //                 color: Colors.red,
-                          //                 shape: BoxShape.circle),
-                          //             alignment: Alignment.center,
-                          //           ),
-                          //     const SizedBox(height: 5.0),
-                          //     Text(
-                          //       chat.time,
-                          //       style: TextStyle(
-                          //         color: Colors.grey.withOpacity(0.5),
-                          //         fontSize: 12.0,
-                          //         fontWeight: FontWeight.w500,
-                          //       ),
-                          //     ),
-                          //   ],
-                          // ),
+                          Column(
+                            children: <Widget>[
+                              Container(
+                                width: 20.0,
+                                height: 20.0,
+                                decoration: const BoxDecoration(
+                                    color: Colors.red, shape: BoxShape.circle),
+                                alignment: Alignment.center,
+                              ),
+                              const SizedBox(height: 5.0),
+                              Text(
+                                "Not Accrepted",
+                                style: TextStyle(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  fontSize: 12.0,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ],
+                          ),
                         ],
                       ),
                     ),
