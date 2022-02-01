@@ -173,4 +173,18 @@ class RemoteServices {
       throw Exception('Failed to load Days' + res.statusCode.toString());
     }
   }
+
+  static Future<List<RequestedBooking>> getrequestedbooking(var id) async {
+    res = await Network().getData("student/${id}/bookings");
+    var body = json.decode(res.body);
+
+    if (res.statusCode == 200) {
+      return body["data"]
+          .map((e) => RequestedBooking.fromJson(e))
+          .toList()
+          .cast<RequestedBooking>();
+    } else {
+      throw Exception('Failed to load Comment');
+    }
+  }
 }

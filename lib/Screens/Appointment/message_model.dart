@@ -83,19 +83,12 @@ List<Message> chats = [
 // EXAMPLE CHATS ON HOME SCREEN
 List<Message> chats2 = [
   Message(
-      sender: olivia,
-      time: 'Pending',
-      text: '23th Sept 2021 ',
+      sender: greg,
+      time: 'Completed',
+      text: '1st Sept 2021',
       isLiked: false,
-      unread: false,
-      activeTime: ' 1200 birr'),
-  Message(
-      sender: john,
-      time: 'Pending',
-      text: '2nd Sept 2021',
-      isLiked: false,
-      unread: false,
-      activeTime: '1400 birr'),
+      unread: true,
+      activeTime: '1500 birr'),
   Message(
       sender: greg,
       time: 'Completed',
@@ -103,6 +96,20 @@ List<Message> chats2 = [
       isLiked: false,
       unread: true,
       activeTime: '1500 birr'),
+  Message(
+      sender: olivia,
+      time: 'Not Accepted',
+      text: '23th Sept 2021 ',
+      isLiked: false,
+      unread: false,
+      activeTime: ' 1200 birr'),
+  Message(
+      sender: john,
+      time: 'Not Accepted',
+      text: '2nd Sept 2021',
+      isLiked: false,
+      unread: false,
+      activeTime: '1400 birr'),
 ];
 
 // EXAMPLE CHATS ON HOME SCREEN

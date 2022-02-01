@@ -182,3 +182,41 @@ class Day {
     );
   }
 }
+
+class RequestedBooking {
+  int id;
+  String confirmation_code;
+  String session;
+  String message;
+  String verified_status;
+  String teacher_id;
+  String subject_id;
+  String student_id;
+  Search teacher;
+
+  RequestedBooking({
+    required this.id,
+    required this.confirmation_code,
+    required this.session,
+    required this.message,
+    required this.verified_status,
+    required this.teacher_id,
+    required this.subject_id,
+    required this.student_id,
+    required this.teacher,
+  });
+
+  factory RequestedBooking.fromJson(Map<String, dynamic> json) {
+    return RequestedBooking(
+      id: json["id"] as int,
+      confirmation_code: json["confirmation_code"],
+      session: json["session"],
+      message: json["message"],
+      verified_status: json["verified_status"],
+      teacher_id: json["teacher_id"],
+      subject_id: json["subject_id"],
+      student_id: json["student_id"],
+      teacher: Search.fromJson(json["teacher"]),
+    );
+  }
+}

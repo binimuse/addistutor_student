@@ -1,26 +1,22 @@
 // ignore_for_file: prefer_final_fields, unused_field, sized_box_for_whitespace, prefer_const_literals_to_create_immutables, prefer_const_constructors, duplicate_ignore
 
+import 'dart:convert';
+
 import 'package:addistutor_student/Screens/Appointment/message_model.dart';
+import 'package:addistutor_student/Screens/Home/components/category_list_view.dart';
 
 import 'package:addistutor_student/Screens/Home/components/course_info_screen_rating.dart';
 import 'package:addistutor_student/Screens/Home/components/design_course_app_theme.dart';
 import 'package:addistutor_student/Screens/Qr/qrcode.dart';
 import 'package:addistutor_student/constants.dart';
+import 'package:addistutor_student/controller/editprofilecontroller.dart';
+import 'package:addistutor_student/controller/getreqestedbookingcpntroller.dart';
+import 'package:addistutor_student/remote_services/user.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-class AppointmentScreen extends StatelessWidget {
-  const AppointmentScreen({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Appointment(),
-    );
-  }
-}
+import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Appointment extends StatefulWidget {
   const Appointment({Key? key}) : super(key: key);
@@ -29,8 +25,33 @@ class Appointment extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
+final EditprofileController editprofileController =
+    Get.put(EditprofileController());
+
+final GetReqBooking getReqBooking = Get.put(GetReqBooking());
+
 class _HomePageState extends State<Appointment>
     with SingleTickerProviderStateMixin {
+  @override
+  void initState() {
+    _fetchUser();
+    super.initState();
+  }
+
+  void _fetchUser() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    var token = localStorage.getString('user');
+
+    if (token != null) {
+      var body = json.decode(token);
+
+      // var id = editprofileController.fetchPf(body["student_id"]);
+      // print(body["student_id"]);
+
+      getReqBooking.fetchReqBooking(body["student_id"]);
+    }
+  }
+
   int _tabIndex = 0;
 
   CategoryType categoryType = CategoryType.ui;
@@ -38,35 +59,36 @@ class _HomePageState extends State<Appointment>
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: DesignCourseAppTheme.nearlyWhite,
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: Column(
-          children: <Widget>[
-            SizedBox(
-              height: MediaQuery.of(context).padding.top,
-            ),
-            getAppBarUI(),
-            _buildDivider(),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Container(
-                  height: MediaQuery.of(context).size.height,
-                  child: Column(
-                    children: <Widget>[
-                      getCategoryUI(),
-                      Flexible(
-                        child: getPopularCourseUI(),
+        color: DesignCourseAppTheme.nearlyWhite,
+        child: Obx(() => getReqBooking.isfetchedsubject.value
+            ? Scaffold(
+                backgroundColor: Colors.transparent,
+                body: Column(
+                  children: <Widget>[
+                    SizedBox(
+                      height: MediaQuery.of(context).padding.top,
+                    ),
+                    getAppBarUI(),
+                    _buildDivider(),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Container(
+                          height: MediaQuery.of(context).size.height,
+                          child: Column(
+                            children: <Widget>[
+                              getCategoryUI(),
+                              Flexible(
+                                child: getPopularCourseUI(),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+              )
+            : const Center(child: CircularProgressIndicator())));
   }
 
   final Color divider = Colors.grey.shade600;
@@ -85,7 +107,7 @@ class _HomePageState extends State<Appointment>
         Padding(
           padding: const EdgeInsets.only(top: 8.0, left: 18, right: 16),
           child: const Text(
-            'Upcoming Tutors',
+            'Recent Tutors',
             textAlign: TextAlign.center,
             style: TextStyle(
               fontWeight: FontWeight.w600,
@@ -98,11 +120,11 @@ class _HomePageState extends State<Appointment>
         const SizedBox(
           height: 16,
         ),
-        // CategoryListView(
-        //   callBack: () {
-        //     moveTo();
-        //   },
-        // ),
+        CategoryListView(
+          callBack: () {
+            moveTo();
+          },
+        ),
       ],
     );
   }
@@ -116,7 +138,7 @@ class _HomePageState extends State<Appointment>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             const Text(
-              'Book List',
+              'Reqested Tutor List',
               textAlign: TextAlign.right,
               style: TextStyle(
                 fontWeight: FontWeight.w600,
@@ -125,169 +147,173 @@ class _HomePageState extends State<Appointment>
                 color: DesignCourseAppTheme.darkerText,
               ),
             ),
-            ListView.builder(
-              physics: const ScrollPhysics(),
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              itemCount: 3,
-              itemBuilder: (BuildContext context, int index) {
-                final Message chat = chats2[index];
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.push<dynamic>(
-                      context,
-                      MaterialPageRoute<dynamic>(
-                        builder: (BuildContext context) =>
-                            CourseInfoScreenRating(),
+            SizedBox(
+              height: 400,
+              child: ListView.builder(
+                physics: const ScrollPhysics(),
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                itemCount: getReqBooking.listsubject.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final RequestedBooking chat =
+                      getReqBooking.listsubject[index];
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push<dynamic>(
+                        context,
+                        MaterialPageRoute<dynamic>(
+                          builder: (BuildContext context) =>
+                              CourseInfoScreenRating(),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.only(
+                          top: 5.0, bottom: 5.0, right: 20.0),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20.0, vertical: 10.0),
+                      // ignore: prefer_const_constructors
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: const BorderRadius.only(
+                          topRight: Radius.circular(20.0),
+                          bottomRight: Radius.circular(20.0),
+                        ),
                       ),
-                    );
-                  },
-                  child: Container(
-                    margin: const EdgeInsets.only(
-                        top: 5.0, bottom: 5.0, right: 20.0),
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20.0, vertical: 10.0),
-                    // ignore: prefer_const_constructors
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: const BorderRadius.only(
-                        topRight: Radius.circular(20.0),
-                        bottomRight: Radius.circular(20.0),
-                      ),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            Stack(
-                              children: [
-                                Container(
-                                  width: 30,
-                                  height: 70,
-                                  decoration: BoxDecoration(
-                                      border: Border.all(
-                                          width: 4,
-                                          color: Theme.of(context)
-                                              .scaffoldBackgroundColor),
-                                      boxShadow: [
-                                        BoxShadow(
-                                            spreadRadius: 2,
-                                            blurRadius: 10,
-                                            color:
-                                                Colors.black.withOpacity(0.1),
-                                            offset: const Offset(0, 10))
-                                      ],
-                                      shape: BoxShape.circle,
-                                      image: DecorationImage(
-                                          fit: BoxFit.cover,
-                                          image: AssetImage(
-                                              chat.sender.imageUrl))),
-                                ),
-                                Positioned(
-                                    bottom: 10,
-                                    right: 0,
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                              width: 2,
-                                              color: Theme.of(context)
-                                                  .scaffoldBackgroundColor),
-                                          boxShadow: [
-                                            BoxShadow(
-                                                spreadRadius: 2,
-                                                blurRadius: 10,
-                                                color: Colors.black
-                                                    .withOpacity(0.1),
-                                                offset: const Offset(0, 10))
-                                          ],
-                                          shape: BoxShape.circle,
-                                          color: Colors.white),
-                                      child: Icon(
-                                        Icons.circle,
-                                        color: chat.unread
-                                            ? Colors.green
-                                            : Colors.red,
-                                        size: 10,
-                                      ),
-                                    )),
-                              ],
-                            ),
-                            const SizedBox(width: 10.0),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(
-                                  chat.sender.name,
-                                  // ignore: prefer_const_constructors
-                                  style: TextStyle(
-                                    color: kPrimaryColor,
-                                    fontSize: 14.0,
-                                    fontWeight: FontWeight.w500,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Row(
+                            children: <Widget>[
+                              Stack(
+                                children: [
+                                  Container(
+                                    width: 30,
+                                    height: 70,
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                            width: 4,
+                                            color: Theme.of(context)
+                                                .scaffoldBackgroundColor),
+                                        boxShadow: [
+                                          BoxShadow(
+                                              spreadRadius: 2,
+                                              blurRadius: 10,
+                                              color:
+                                                  Colors.black.withOpacity(0.1),
+                                              offset: const Offset(0, 10))
+                                        ],
+                                        shape: BoxShape.circle,
+                                        image: DecorationImage(
+                                            fit: BoxFit.cover,
+                                            image: AssetImage(
+                                                "chat.sender.imageUrl"))),
                                   ),
-                                ),
-                                Text(
-                                  chat.activeTime,
-                                  style: TextStyle(
-                                    color: Colors.grey.withOpacity(0.5),
-                                    fontSize: 12.0,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                                const SizedBox(height: 5.0),
-                                SizedBox(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.45,
-                                  child: Text(
-                                    chat.text,
+                                  Positioned(
+                                      bottom: 10,
+                                      right: 0,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            border: Border.all(
+                                                width: 2,
+                                                color: Theme.of(context)
+                                                    .scaffoldBackgroundColor),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                  spreadRadius: 2,
+                                                  blurRadius: 10,
+                                                  color: Colors.black
+                                                      .withOpacity(0.1),
+                                                  offset: const Offset(0, 10))
+                                            ],
+                                            shape: BoxShape.circle,
+                                            color: Colors.white),
+                                        // child: Icon(
+                                        //   Icons.circle,
+                                        //   color: chat.
+                                        //       ? Colors.green
+                                        //       : Colors.red,
+                                        //   size: 10,
+                                        // ),
+                                      )),
+                                ],
+                              ),
+                              const SizedBox(width: 10.0),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Text(
+                                    chat.teacher.first_name,
                                     // ignore: prefer_const_constructors
                                     style: TextStyle(
-                                      color: Colors.blueGrey,
+                                      color: kPrimaryColor,
                                       fontSize: 14.0,
-                                      fontWeight: FontWeight.w400,
+                                      fontWeight: FontWeight.w500,
                                     ),
-                                    overflow: TextOverflow.ellipsis,
                                   ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        Column(
-                          children: <Widget>[
-                            chat.unread
-                                ? Container(
-                                    width: 20.0,
-                                    height: 20.0,
-                                    decoration: const BoxDecoration(
-                                        color: Colors.green,
-                                        shape: BoxShape.circle),
-                                    alignment: Alignment.center,
-                                  )
-                                : Container(
-                                    width: 20.0,
-                                    height: 20.0,
-                                    decoration: const BoxDecoration(
-                                        color: Colors.red,
-                                        shape: BoxShape.circle),
-                                    alignment: Alignment.center,
+                                  // Text(
+                                  //   chat.activeTime,
+                                  //   style: TextStyle(
+                                  //     color: Colors.grey.withOpacity(0.5),
+                                  //     fontSize: 12.0,
+                                  //     fontWeight: FontWeight.w500,
+                                  //   ),
+                                  // ),
+                                  const SizedBox(height: 5.0),
+                                  SizedBox(
+                                    width: MediaQuery.of(context).size.width *
+                                        0.45,
+                                    // child: Text(
+                                    //   chat.text,
+                                    //   // ignore: prefer_const_constructors
+                                    //   style: TextStyle(
+                                    //     color: Colors.blueGrey,
+                                    //     fontSize: 14.0,
+                                    //     fontWeight: FontWeight.w400,
+                                    //   ),
+                                    //   overflow: TextOverflow.ellipsis,
+                                    // ),
                                   ),
-                            const SizedBox(height: 5.0),
-                            Text(
-                              chat.time,
-                              style: TextStyle(
-                                color: Colors.grey.withOpacity(0.5),
-                                fontSize: 12.0,
-                                fontWeight: FontWeight.w500,
+                                ],
                               ),
-                            ),
-                          ],
-                        ),
-                      ],
+                            ],
+                          ),
+                          // Column(
+                          //   children: <Widget>[
+                          //     chat.unread
+                          //         ? Container(
+                          //             width: 20.0,
+                          //             height: 20.0,
+                          //             decoration: const BoxDecoration(
+                          //                 color: Colors.green,
+                          //                 shape: BoxShape.circle),
+                          //             alignment: Alignment.center,
+                          //           )
+                          //         : Container(
+                          //             width: 20.0,
+                          //             height: 20.0,
+                          //             decoration: const BoxDecoration(
+                          //                 color: Colors.red,
+                          //                 shape: BoxShape.circle),
+                          //             alignment: Alignment.center,
+                          //           ),
+                          //     const SizedBox(height: 5.0),
+                          //     Text(
+                          //       chat.time,
+                          //       style: TextStyle(
+                          //         color: Colors.grey.withOpacity(0.5),
+                          //         fontSize: 12.0,
+                          //         fontWeight: FontWeight.w500,
+                          //       ),
+                          //     ),
+                          //   ],
+                          // ),
+                        ],
+                      ),
                     ),
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             ),
           ],
         ),
