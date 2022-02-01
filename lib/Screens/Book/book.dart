@@ -1,9 +1,13 @@
 // ignore_for_file: deprecated_member_use, import_of_legacy_library_into_null_safe, invalid_use_of_protected_member
 
+import 'package:addistutor_student/Screens/Book/getavalablity.dart';
 import 'package:addistutor_student/Screens/Home/components/design_course_app_theme.dart';
 import 'package:addistutor_student/constants.dart';
 import 'package:addistutor_student/controller/bookingcontroller.dart';
 import 'package:addistutor_student/controller/getsubjectcontroller.dart';
+import 'package:addistutor_student/controller/getutoravlblitycontroller.dart';
+import 'package:addistutor_student/controller/getutoravlblitycontroller.dart';
+import 'package:addistutor_student/remote_services/service.dart';
 import 'package:addistutor_student/remote_services/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -25,7 +29,8 @@ class BookScreen extends StatefulWidget {
 }
 
 GetSubjectController getSubjectController = Get.find();
-
+GetTutorAvlblityController getTutorAvlblityController =
+    Get.put(GetTutorAvlblityController());
 late bool weakdays3 = false;
 
 late String sid = "";
@@ -40,7 +45,7 @@ String? _selectedTime = "Time";
 
 TimeOfDay currentDate = TimeOfDay.now();
 
-final values = <bool?>[false, false, false, false, false, false, false];
+var values = <bool?>[false, false, false, false, false, false, false];
 
 TimePickerEntryMode initialEntryMode = TimePickerEntryMode.dial;
 
@@ -50,7 +55,10 @@ class _EditPageState extends State<BookScreen> {
   void initState() {
     super.initState();
     _getsubject();
+    getTutorAvlblityController.fetchDay("2");
   }
+
+  List<String> avalbledate = [];
 
   @override
   void deactivate() {
@@ -642,31 +650,21 @@ class _EditPageState extends State<BookScreen> {
                             ])
                           : Container(),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          OutlineButton(
-                            padding: const EdgeInsets.symmetric(horizontal: 50),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20)),
-                            onPressed: () {},
-                            child: const Text("CANCEL",
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    letterSpacing: 2.2,
-                                    color: Colors.black)),
-                          ),
-                          RaisedButton(
-                            onPressed: () {
-                              var value;
-                              value =
-                                  values.where((item) => item == true).length;
-                              if (value != 0) {
-                                if (value > 3) {
+                          Center(
+                            child: RaisedButton(
+                              onPressed: () {
+                                var value;
+                                value =
+                                    values.where((item) => item == true).length;
+                                if (value != 0) {
+                                  Cricular();
+                                } else {
                                   showDialog(
                                     context: context,
                                     builder: (context) => AlertDialog(
                                       title: const Text(
-                                        'Error Please Select only 3 days',
+                                        'Error ',
                                         style: TextStyle(
                                           fontSize: 13,
                                           fontWeight: FontWeight.w500,
@@ -675,7 +673,7 @@ class _EditPageState extends State<BookScreen> {
                                         ),
                                       ),
                                       content: const Text(
-                                        'You canot book one date more than 3 days /weak',
+                                        'Please Select  days',
                                         style: TextStyle(
                                           fontSize: 13,
                                           fontWeight: FontWeight.w500,
@@ -705,70 +703,63 @@ class _EditPageState extends State<BookScreen> {
                                       ],
                                     ),
                                   );
-                                } else {
-                                  Cricular();
                                 }
-                              } else {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) => AlertDialog(
-                                    title: const Text(
-                                      'Error Please Select  3 days',
-                                      style: TextStyle(
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.red,
-                                        fontFamily: 'WorkSans',
-                                      ),
-                                    ),
-                                    content: const Text(
-                                      'You canot book one date more than 3 days /weak',
-                                      style: TextStyle(
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.black,
-                                        fontFamily: 'WorkSans',
-                                      ),
-                                    ),
-                                    actions: <Widget>[
-                                      Center(
-                                        child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              FlatButton(
-                                                onPressed: () {
-                                                  Navigator.of(context)
-                                                      .pop(true);
-                                                  setState(() {
-                                                    // isLoading = false;
-                                                  });
-                                                },
-                                                child: const Center(
-                                                    child: Text('ok')),
-                                              ),
-                                            ]),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              }
-                            },
-                            color: kPrimaryColor,
-                            padding: const EdgeInsets.symmetric(horizontal: 50),
-                            elevation: 2,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20)),
-                            child: const Text(
-                              "Book",
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  letterSpacing: 2.2,
-                                  color: Colors.white),
+                                setState(() {
+                                  values = <bool?>[
+                                    false,
+                                    false,
+                                    false,
+                                    false,
+                                    false,
+                                    false,
+                                    false
+                                  ];
+                                });
+                              },
+                              color: kPrimaryColor,
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 50),
+                              elevation: 2,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20)),
+                              child: const Text(
+                                "Book",
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    letterSpacing: 2.2,
+                                    color: Colors.white),
+                              ),
                             ),
-                          )
+                          ),
+                          FutureBuilder(
+                              future: RemoteServices.getAvalbledate("1"),
+                              builder: (BuildContext context,
+                                  AsyncSnapshot snapshot) {
+                                if (snapshot.hasError) {
+                                  return Center(
+                                    child: Text(snapshot.error.toString()),
+                                  );
+                                }
+                                if (snapshot.hasData) {
+                                  return Expanded(
+                                    child: ListView.builder(
+                                      shrinkWrap: true,
+                                      physics: const BouncingScrollPhysics(),
+                                      itemBuilder: (context, index) {
+                                        return FollowedList(
+                                            day: snapshot.data[index]);
+                                      },
+                                      itemCount: snapshot.data.length,
+                                    ),
+                                  );
+                                } else {
+                                  return const Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                }
+                              }),
                         ],
-                      )
+                      ),
                     ],
                   ),
                 ]),
@@ -822,9 +813,6 @@ class _EditPageState extends State<BookScreen> {
                   onPressed: () {
                     Navigator.of(context).pop(true);
                     bookingeController.Booking(context, widget.hotelData!.id);
-                    setState(() {
-                      // isLoading = false;
-                    });
                   },
                   child: const Center(child: Text('Yes')),
                 ),
@@ -843,7 +831,7 @@ class _EditPageState extends State<BookScreen> {
   }
 
   String intDayToEnglish(int day) {
-    if (day % 7 == DateTime.monday % 7) return 'Monday';
+    if (day % 7 == DateTime.monday % 7) return 'monday';
     if (day % 7 == DateTime.tuesday % 7) return 'Tuesday';
     if (day % 7 == DateTime.wednesday % 7) return 'Wednesday';
     if (day % 7 == DateTime.thursday % 7) return 'Thursday';
@@ -851,5 +839,39 @@ class _EditPageState extends State<BookScreen> {
     if (day % 7 == DateTime.saturday % 7) return 'Saturday';
     if (day % 7 == DateTime.sunday % 7) return 'Sunday';
     throw '🐞 This should never have happened: $day';
+  }
+}
+
+class FollowedList extends StatefulWidget {
+  final Day? day;
+
+  const FollowedList({
+    Key? key,
+    required this.day,
+  }) : super(key: key);
+
+  @override
+  _SettingsScreenState2 createState() => _SettingsScreenState2();
+}
+
+final BookingeController bookingeController = Get.find();
+
+class _SettingsScreenState2 extends State<FollowedList> {
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    if (widget.day!.day != null) {
+      print(widget.day!.day);
+      bookingeController.daylist.add(widget.day!.day);
+      // values.clear();
+    } else {}
+
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(child: Container());
   }
 }

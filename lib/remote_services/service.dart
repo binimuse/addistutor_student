@@ -160,4 +160,17 @@ class RemoteServices {
       }
     }
   }
+
+  static Future<List<Day>> getAvalbledate(var id) async {
+    // print("id.toString()");
+    //print(id.toString());
+    res = await Network().getData("teacher/${id}/availability");
+
+    var body = json.decode(res.body);
+    if (res.statusCode == 200) {
+      return body["data"].map((e) => Day.fromJson(e)).toList().cast<Day>();
+    } else {
+      throw Exception('Failed to load Days' + res.statusCode.toString());
+    }
+  }
 }

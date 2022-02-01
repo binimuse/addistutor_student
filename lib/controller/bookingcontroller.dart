@@ -6,6 +6,7 @@ import 'package:addistutor_student/Screens/Login/components/body.dart';
 import 'package:addistutor_student/Screens/Login/login_screen.dart';
 import 'package:addistutor_student/Screens/Profile/profile.dart';
 import 'package:addistutor_student/Screens/main/main.dart';
+import 'package:addistutor_student/Screens/search/components/searchscreen.dart';
 import 'package:addistutor_student/constants.dart';
 import 'package:addistutor_student/remote_services/service.dart';
 import 'package:addistutor_student/remote_services/user.dart';
@@ -40,9 +41,7 @@ class BookingeController extends GetxController with StateMixin {
   late var tuetime2 = "16:30";
   late var wentime3 = "16:30";
   late var thetime4 = "16:30";
-
   late var fritime5 = "16:30";
-
   late var suntime2 = "09:00";
   late var sattime = '09:00';
 
@@ -53,12 +52,6 @@ class BookingeController extends GetxController with StateMixin {
   bool isfri = false;
   bool issat = false;
   bool issun = false;
-
-  late var days = "Mon".obs;
-  late var days2 = "Mon".obs;
-  late var days3 = "Mon".obs;
-
-  final List<String> daylist = [];
 
   GetLocation? locaion;
   late var education = "Primary".obs;
@@ -78,19 +71,28 @@ class BookingeController extends GetxController with StateMixin {
   }
 
   List<String> selecteddate = [];
+  List<String> daylist = [];
   var day0;
   var day1;
   var day2;
+  var day3;
+  var day4;
+  var day5;
+  var day6;
   var day0time;
   var day1time;
   var day2time;
+  var day3time;
+  var day4time;
+  var day5time;
+  var day6time;
 
   var fetched;
   late var isValid;
   void Booking(BuildContext context, int id) async {
     teacherid = id.toString();
     if (ismonday) {
-      day0 = "Monday";
+      day0 = "monday";
       selecteddate.add(day0);
     }
     if (istue) {
@@ -99,7 +101,7 @@ class BookingeController extends GetxController with StateMixin {
     }
 
     if (iswen) {
-      day0 = "Wensday";
+      day0 = "wednesday";
       selecteddate.add(day0);
     }
 
@@ -126,15 +128,19 @@ class BookingeController extends GetxController with StateMixin {
       day0 = selecteddate[0];
       day1 = selecteddate[1];
       day2 = selecteddate[2];
+      day3 = selecteddate[3];
+      day4 = selecteddate[4];
+      day5 = selecteddate[5];
+      day6 = selecteddate[6];
     } catch (e) {
-      selecteddate.clear();
+      // selecteddate.clear();
     }
 
-    if (day0 == "Monday") {
+    if (day0 == "monday") {
       day0time = motime;
     } else if (day0 == "Tuesday") {
       day0time = tuetime2;
-    } else if (day0 == "Wensday") {
+    } else if (day0 == "wednesday") {
       day0time = wentime3;
     } else if (day0 == "Thursday") {
       day0time = thetime4;
@@ -146,11 +152,11 @@ class BookingeController extends GetxController with StateMixin {
       day0time = suntime2;
     }
 
-    if (day1 == "Monday") {
+    if (day1 == "monday") {
       day1time = motime;
     } else if (day1 == "Tuesday") {
       day1time = tuetime2;
-    } else if (day1 == "Wensday") {
+    } else if (day1 == "wednesday") {
       day1time = wentime3;
     } else if (day1 == "Thursday") {
       day1time = thetime4;
@@ -158,15 +164,15 @@ class BookingeController extends GetxController with StateMixin {
       day1time = fritime5;
     } else if (day1 == "Saterday") {
       day1time = sattime;
-    } else if (day0 == "Sunday") {
+    } else if (day1 == "Sunday") {
       day1time = suntime2;
     }
 
-    if (day2 == "Monday") {
+    if (day2 == "monday") {
       day2time = motime;
     } else if (day2 == "Tuesday") {
       day2time = tuetime2;
-    } else if (day2 == "Wensday") {
+    } else if (day2 == "wednesday") {
       day2time = wentime3;
     } else if (day2 == "Thursday") {
       day2time = thetime4;
@@ -178,17 +184,87 @@ class BookingeController extends GetxController with StateMixin {
       day2time = suntime2;
     }
 
-    // print(sessionsd.value);
-    // print(day0);
-    // print(day0time);
-    // print(day1);
-    // print(day1time);
-    // print(day2);
-    // print(day2time);
-    // print(subjectid.toString());
-    // print(teacherid.toString());
+    if (day3 == "monday") {
+      day3time = motime;
+    } else if (day3 == "Tuesday") {
+      day3time = tuetime2;
+    } else if (day3 == "wednesday") {
+      day3time = wentime3;
+    } else if (day3 == "Thursday") {
+      day3time = thetime4;
+    } else if (day3 == "Friday") {
+      day3time = fritime5;
+    } else if (day3 == "Saterday") {
+      day3time = sattime;
+    } else if (day3 == "Sunday") {
+      day3time = suntime2;
+    }
 
-    await seteditInfo(context);
+    if (day4 == "monday") {
+      day4time = motime;
+    } else if (day4 == "Tuesday") {
+      day4time = tuetime2;
+    } else if (day4 == "wednesday") {
+      day4time = wentime3;
+    } else if (day4 == "Thursday") {
+      day4time = thetime4;
+    } else if (day4 == "Friday") {
+      day4time = fritime5;
+    } else if (day4 == "Saterday") {
+      day4time = sattime;
+    } else if (day4 == "Sunday") {
+      day4time = suntime2;
+    }
+
+    if (day5 == "monday") {
+      day5time = motime;
+    } else if (day5 == "Tuesday") {
+      day5time = tuetime2;
+    } else if (day5 == "wednesday") {
+      day5time = wentime3;
+    } else if (day5 == "Thursday") {
+      day5time = thetime4;
+    } else if (day5 == "Friday") {
+      day5time = fritime5;
+    } else if (day5 == "Saterday") {
+      day5time = sattime;
+    } else if (day5 == "Sunday") {
+      day5time = suntime2;
+    }
+
+    if (day6 == "monday") {
+      day6time = motime;
+    } else if (day6 == "Tuesday") {
+      day6time = tuetime2;
+    } else if (day6 == "wednesday") {
+      day6time = wentime3;
+    } else if (day6 == "Thursday") {
+      day6time = thetime4;
+    } else if (day6 == "Friday") {
+      day6time = fritime5;
+    } else if (day6 == "Saterday") {
+      day6time = sattime;
+    } else if (day6 == "Sunday") {
+      day6time = suntime2;
+    }
+
+    //cheak
+
+    print(daylist);
+    print(selecteddate);
+
+    if (selecteddate.every((element) => daylist.contains(element))) {
+      await seteditInfo(context);
+      // daylist.clear();
+    } else {
+      scaffoldKey.currentState!.showSnackBar(SnackBar(
+          backgroundColor: Colors.red,
+          content: Text(
+              "Tutor not avalble in the selected days please try to change the selected to :  " +
+                  daylist.toString())));
+
+      //  daylist.clear();
+    }
   }
 
   var image;
@@ -196,23 +272,59 @@ class BookingeController extends GetxController with StateMixin {
   Future<void> seteditInfo(BuildContext context) async {
     // openAndCloseLoadingDialog(context);
     try {
-      if (day1 || day2 == null) {
+      if (day1 == null) {
         tags = [
           Dateandtime(day0, day0time),
-          // Dateandtime(day1, day1time),
-          // Dateandtime(day2, day2time)
+        ];
+      } else if (day2 == null) {
+        tags = [
+          Dateandtime(day0, day0time),
+          Dateandtime(day1, day1time),
+        ];
+      } else if (day3 == null) {
+        tags = [
+          Dateandtime(day0, day0time),
+          Dateandtime(day1, day1time),
+          Dateandtime(day2, day2time),
+        ];
+      } else if (day4 == null) {
+        tags = [
+          Dateandtime(day0, day0time),
+          Dateandtime(day1, day1time),
+          Dateandtime(day2, day2time),
+          Dateandtime(day3, day3time),
+        ];
+      } else if (day5 == null) {
+        tags = [
+          Dateandtime(day0, day0time),
+          Dateandtime(day1, day1time),
+          Dateandtime(day2, day2time),
+          Dateandtime(day3, day3time),
+          Dateandtime(day4, day4time),
+        ];
+      } else if (day6 == null) {
+        tags = [
+          Dateandtime(day0, day0time),
+          Dateandtime(day1, day1time),
+          Dateandtime(day2, day2time),
+          Dateandtime(day3, day3time),
+          Dateandtime(day4, day4time),
+          Dateandtime(day5, day5time),
         ];
       } else {
         tags = [
           Dateandtime(day0, day0time),
-          Dateandtime(day1, day1time),
-          Dateandtime(day2, day2time)
+          Dateandtime(day2, day2time),
+          Dateandtime(day3, day3time),
+          Dateandtime(day4, day4time),
+          Dateandtime(day5, day5time),
+          Dateandtime(day6, day6time),
         ];
       }
     } catch (e) {}
 
     String jsonTags = jsonEncode(tags);
-    print(jsonTags.toString());
+
     var data = {
       "session": sessionsd.value,
       "subject_id": subjectid,
@@ -225,11 +337,18 @@ class BookingeController extends GetxController with StateMixin {
     inforesponse = await RemoteServices.booking(data);
 
     if (inforesponse.toString() == "200") {
-      closeDialog(true, '', context);
+      closeDialog(true, inforesponse);
+      tags.clear();
+      data.clear();
       isLoading(false);
     } else {
       print("noo");
-      closeDialog(false, inforesponse, context);
+      tags.clear();
+      data.clear();
+      closeDialog(
+        false,
+        inforesponse,
+      );
     }
   }
 
@@ -237,10 +356,13 @@ class BookingeController extends GetxController with StateMixin {
 
 // }
 
-  closeDialog(bool stat, String data, BuildContext context) {
+  closeDialog(
+    bool stat,
+    String data,
+  ) {
     Future.delayed(const Duration(seconds: 1));
     // Dismiss CircularProgressIndicator
-    //Navigator.of(context).pop();
+
     if (stat == false) {
       scaffoldKey.currentState!.showSnackBar(
           SnackBar(content: Text(data + "Not successfully  Booked")));
@@ -253,7 +375,12 @@ class BookingeController extends GetxController with StateMixin {
             "Sucessfully Booked Tutor \nplease go to notification page for any updateds"),
         action: SnackBarAction(
           label: 'OK',
-          onPressed: () {},
+          onPressed: () {
+            // Navigator.push(
+            //   Get.context!,
+            //   MaterialPageRoute(builder: (context) => const SerachPage()),
+            // );
+          },
         ),
         backgroundColor: kPrimaryColor,
         behavior: SnackBarBehavior.floating,
@@ -263,58 +390,6 @@ class BookingeController extends GetxController with StateMixin {
       //  editstudentid(context);
     }
   }
-
-  openSnackBaredit(BuildContext context) async {
-    scaffoldKey.currentState!.showSnackBar(SnackBar(
-      content: Text("Booking "),
-      action: SnackBarAction(
-        label: 'OK',
-        onPressed: () {},
-      ),
-      backgroundColor: kPrimaryColor,
-      behavior: SnackBarBehavior.floating,
-      margin: EdgeInsets.all(50),
-      elevation: 30,
-    ));
-  }
-
-  var body;
-  Future<void> editstudentid(BuildContext context) async {}
-
-  String? validateEmail(String value) {
-    if (!GetUtils.isEmail(value)) {
-      return "Provide a valid Email";
-    }
-    return null;
-  }
-
-  String? validateName(String value) {
-    if (value.isEmpty) {
-      return "please Provide a name";
-    }
-    return null;
-  }
-}
-
-void openAndCloseLoadingDialog(BuildContext context) {
-  showDialog(
-    context: context,
-    barrierDismissible: false,
-    barrierColor: Colors.grey.withOpacity(0.3),
-    builder: (_) => WillPopScope(
-      onWillPop: () async => false,
-      child: const Center(
-        child: SizedBox(
-          width: 30,
-          height: 30,
-          child: CircularProgressIndicator(
-            color: kPrimaryColor,
-            strokeWidth: 8,
-          ),
-        ),
-      ),
-    ),
-  );
 }
 
 class Dateandtime {

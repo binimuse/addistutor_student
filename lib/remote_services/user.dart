@@ -161,3 +161,24 @@ class Search {
         location_id: json["location_id"]);
   }
 }
+
+class Day {
+  int id;
+
+  String day;
+  String teacher_id;
+
+  Day({
+    required this.id,
+    required this.day,
+    required this.teacher_id,
+  });
+
+  factory Day.fromJson(Map<String, dynamic> json) {
+    return Day(
+      id: json["id"] as int,
+      day: json["day"],
+      teacher_id: json["teacher_id"],
+    );
+  }
+}
