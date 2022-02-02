@@ -254,8 +254,9 @@ class BookingeController extends GetxController with StateMixin {
     print(selecteddate);
 
     if (selecteddate.every((element) => daylist.contains(element))) {
+      book.currentState!.save();
       await seteditInfo(context);
-      // daylist.clear();
+      daylist.clear();
     } else {
       scaffoldKey.currentState!.showSnackBar(SnackBar(
           backgroundColor: Colors.red,
@@ -263,7 +264,7 @@ class BookingeController extends GetxController with StateMixin {
               "Tutor not avalble in the selected days please try to change the selected to :  " +
                   daylist.toString())));
 
-      //  daylist.clear();
+      daylist.clear();
     }
   }
 
@@ -337,7 +338,7 @@ class BookingeController extends GetxController with StateMixin {
     inforesponse = await RemoteServices.booking(data);
 
     if (inforesponse.toString() == "200") {
-      closeDialog(true, inforesponse);
+      closeDialog(true, inforesponse, context);
       tags.clear();
       data.clear();
       isLoading(false);
@@ -345,10 +346,7 @@ class BookingeController extends GetxController with StateMixin {
       print("noo");
       tags.clear();
       data.clear();
-      closeDialog(
-        false,
-        inforesponse,
-      );
+      closeDialog(false, inforesponse, context);
     }
   }
 
@@ -356,37 +354,75 @@ class BookingeController extends GetxController with StateMixin {
 
 // }
 
-  closeDialog(
-    bool stat,
-    String data,
-  ) {
-    Future.delayed(const Duration(seconds: 1));
+  closeDialog(bool stat, String data, BuildContext context) async {
+    await Future.delayed(const Duration(seconds: 1));
     // Dismiss CircularProgressIndicator
-
+    Navigator.of(context).pop();
     if (stat == false) {
       scaffoldKey.currentState!.showSnackBar(
           SnackBar(content: Text(data + "Not successfully  Booked")));
     } else {
       // ignore: deprecated_member_use
-      isLoading(false);
-      //Navigator.of(context).pop(true);
-      scaffoldKey.currentState!.showSnackBar(SnackBar(
-        content: const Text(
-            "Sucessfully Booked Tutor \nplease go to notification page for any updateds"),
-        action: SnackBarAction(
-          label: 'OK',
-          onPressed: () {
-            // Navigator.push(
-            //   Get.context!,
-            //   MaterialPageRoute(builder: (context) => const SerachPage()),
-            // );
-          },
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text(
+            'Booked Sucesss',
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w500,
+              color: Colors.black,
+              fontFamily: 'WorkSans',
+            ),
+          ),
+          content: const Text(
+            'Sucessfully Booked Tutor \nplease go to notification page for any updateds',
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w500,
+              color: Colors.black,
+              fontFamily: 'WorkSans',
+            ),
+          ),
+          actions: <Widget>[
+            // ignore: deprecated_member_use
+            FlatButton(
+              onPressed: () async {
+                isLoading(false);
+                Navigator.of(context).pop(true);
+                Navigator.pop(context);
+                // Navigator.push(
+                //   context,
+                //   PageRouteBuilder(
+                //     pageBuilder: (context, animation1, animation2) {
+                //       return SerachPage();
+                //     },
+                //   ),
+                // );
+              },
+              child: const Text('ok'),
+            ),
+          ],
         ),
-        backgroundColor: kPrimaryColor,
-        behavior: SnackBarBehavior.floating,
-        margin: EdgeInsets.all(50),
-        elevation: 30,
-      ));
+      );
+
+      // scaffoldKey.currentState!.showSnackBar(SnackBar(
+      //   content: const Text(
+      //       "Sucessfully Booked Tutor \nplease go to notification page for any updateds"),
+      //   action: SnackBarAction(
+      //     label: 'OK',
+      //     onPressed: () {
+      //       // Navigator.push(
+      //       //   Get.context!,
+      //       //   MaterialPageRoute(builder: (context) => const SerachPage()),
+      //       // );
+      //     },
+      //   ),
+      //   backgroundColor: kPrimaryColor,
+      //   behavior: SnackBarBehavior.floating,
+      //   margin: EdgeInsets.all(50),
+      //   elevation: 30,
+      // ));
       //  editstudentid(context);
     }
   }
