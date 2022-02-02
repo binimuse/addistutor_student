@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "74077910788",
+    "project_id": "nextgenstudent-87b6e",
+    "storage_bucket": "nextgenstudent-87b6e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:74077910788:android:31dba3d08525bb8a6dc251",
+        "android_client_info": {
+          "package_name": "com.example.addistutor_student"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "74077910788-2vqhgf635he1hb9fjm5mlavtevkh9bbl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.addistutor_student",
+            "certificate_hash": "3bb79baf44eb35819c5055130e4b2a9cad11ee20"
+          }
+        },
+        {
+          "client_id": "74077910788-bq3guuifo3icdvla1i77lf88fkq8132i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCT8N7qpA2rJuQMtCJuka5TNSH1_GJ8mhI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "74077910788-bq3guuifo3icdvla1i77lf88fkq8132i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
