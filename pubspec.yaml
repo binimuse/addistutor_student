@@ -52,6 +52,7 @@ dependencies:
   multi_select_flutter: ^4.0.0
   need_resume: ^1.0.6
   weekday_selector: ^1.0.0
+  google_sign_in: ^5.0.1
   
 
 

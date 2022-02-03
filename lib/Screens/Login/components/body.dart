@@ -3,6 +3,8 @@
 import 'dart:convert';
 
 import 'package:addistutor_student/Screens/Profile/profile.dart';
+import 'package:addistutor_student/Screens/Signup/components/or_divider.dart';
+import 'package:addistutor_student/Screens/Signup/components/social_icon.dart';
 import 'package:addistutor_student/components/text_field_container.dart';
 import 'package:addistutor_student/remote_services/api.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +13,7 @@ import 'package:addistutor_student/Screens/Signup/signup_screen.dart';
 import 'package:addistutor_student/Screens/main/main.dart';
 import 'package:addistutor_student/components/already_have_an_account_acheck.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../constants.dart';
 
@@ -23,7 +26,18 @@ class Body extends StatefulWidget {
   _LoginScreenState createState() => _LoginScreenState();
 }
 
+bool _isLoggedIn = false;
+late GoogleSignInAccount _userObj;
+GoogleSignIn _googleSignIn = GoogleSignIn();
+late TextEditingController emailcon;
+
 class _LoginScreenState extends State<Body> {
+  @override
+  void initState() {
+    super.initState();
+    emailcon = TextEditingController();
+  }
+
   bool isLoading = false;
   SharedPreferences? localStorage;
   final _formKey = GlobalKey<FormState>();
@@ -58,6 +72,7 @@ class _LoginScreenState extends State<Body> {
               SizedBox(height: size.height * 0.03),
               TextFieldContainer(
                 child: TextFormField(
+                  controller: emailcon,
                   cursorColor: kPrimaryColor,
                   decoration: const InputDecoration(
                     hintText: "Email",
@@ -153,11 +168,144 @@ class _LoginScreenState extends State<Body> {
                   );
                 },
               ),
+              OrDivider(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  SocalIcon(
+                    iconSrc: "assets/icons/google-plus.svg",
+                    press: () {
+                      _googleSignIn.signIn().then((userData) {
+                        setState(() {
+                          _isLoggedIn = true;
+                          _userObj = userData!;
+                        });
+
+                        emailcon.text = _userObj.email;
+
+                        if (_isLoggedIn) {
+                          if (_formKey.currentState!.validate()) {
+                            _loginwithgoogle();
+                          }
+                        }
+
+                        // register();
+                      }).catchError((e) {
+                        _googleSignIn.signOut().then((value) {
+                          setState(() {
+                            _isLoggedIn = false;
+                          });
+                        }).catchError((e) {});
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: const Text('Error'),
+                            content: Text(e.toString()),
+                            actions: <Widget>[
+                              // ignore: deprecated_member_use
+                              FlatButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop(true);
+                                  setState(() {
+                                    isLoading = false;
+                                  });
+                                },
+                                child: const Text('ok'),
+                              ),
+                            ],
+                          ),
+                        );
+                        print(e);
+                      });
+                    },
+                  ),
+                ],
+              )
             ],
           ),
         ),
       ),
     );
+  }
+
+  void _loginwithgoogle() async {
+    setState(() {
+      isLoading = true;
+    });
+    var data = {'email': emailcon, 'password': password};
+    var res = await Network().authData(data, "login-student");
+    body = json.decode(res.body);
+
+    if (res.statusCode == 200) {
+      SharedPreferences localStorage = await SharedPreferences.getInstance();
+      localStorage.setString("token", body["token"]);
+
+      localStorage.setString('user', json.encode(body['user']));
+
+      var token = localStorage.getString('user');
+      var bodys = json.decode(token!);
+
+      if (bodys["student_id"] == null) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const ProfileScreen(),
+          ),
+        );
+      } else {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Main(),
+          ),
+        );
+      }
+
+      isLoading = false;
+    } else if (res.statusCode == 401) {
+      _googleSignIn.signOut().then((value) {
+        setState(() {
+          _isLoggedIn = false;
+        });
+      }).catchError((e) {});
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('info'),
+          content: Text(body["message"]),
+          actions: <Widget>[
+            FlatButton(
+              onPressed: () {
+                Navigator.of(context).pop(true);
+                setState(() {
+                  isLoading = false;
+                });
+              },
+              child: const Text('ok'),
+            ),
+          ],
+        ),
+      );
+    } else {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('info'),
+          content: Text(body["message"]),
+          actions: <Widget>[
+            FlatButton(
+              onPressed: () {
+                Navigator.of(context).pop(true);
+                setState(() {
+                  isLoading = false;
+                });
+              },
+              child: const Text('ok'),
+            ),
+          ],
+        ),
+      );
+    }
   }
 
   void _login() async {
@@ -192,24 +340,14 @@ class _LoginScreenState extends State<Body> {
           ),
         );
       }
-      // if (isupdated!) {
-      //   Navigator.push(
-      //     context,
-      //     MaterialPageRoute(
-      //       builder: (context) => Main(),
-      //     ),
-      //   );
-      // } else {
-      //   Navigator.push(
-      //     context,
-      //     MaterialPageRoute(
-      //       builder: (context) => ProfileScreen(),
-      //     ),
-      //   );
-      // }
 
       isLoading = false;
     } else if (res.statusCode == 401) {
+      _googleSignIn.signOut().then((value) {
+        setState(() {
+          _isLoggedIn = false;
+        });
+      }).catchError((e) {});
       showDialog(
         context: context,
         builder: (context) => AlertDialog(

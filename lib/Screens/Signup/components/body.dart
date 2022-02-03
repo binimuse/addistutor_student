@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:addistutor_student/Screens/main/main.dart';
 import 'package:addistutor_student/controller/signupcontroller.dart';
 import 'package:addistutor_student/remote_services/api.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,7 @@ import 'package:flutter/services.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../constants.dart';
@@ -31,6 +33,10 @@ class _SplashScreenState extends State<Body> {
 
   bool isLoading = false;
   var inforesponse;
+
+  bool _isLoggedIn = false;
+  late GoogleSignInAccount _userObj;
+  GoogleSignIn _googleSignIn = GoogleSignIn();
 
   @override
   Widget build(BuildContext context) {
@@ -213,16 +219,57 @@ class _SplashScreenState extends State<Body> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   SocalIcon(
-                    iconSrc: "assets/icons/facebook.svg",
-                    press: () {},
-                  ),
-                  SocalIcon(
-                    iconSrc: "assets/icons/twitter.svg",
-                    press: () {},
-                  ),
-                  SocalIcon(
                     iconSrc: "assets/icons/google-plus.svg",
-                    press: () {},
+                    press: () {
+                      _googleSignIn.signIn().then((userData) {
+                        setState(() {
+                          _isLoggedIn = true;
+                          _userObj = userData!;
+                        });
+
+                        print(_userObj.displayName);
+                        print(_userObj.email);
+
+                        signupController.email.text = _userObj.email;
+                        signupController.fullname.text = _userObj.displayName!;
+
+                        print("after");
+
+                        print(signupController.email.text);
+                        print(signupController.fullname.text);
+                        if (_isLoggedIn) {
+                          registerbygoogle();
+                        }
+
+                        // register();
+                      }).catchError((e) {
+                        _googleSignIn.signOut().then((value) {
+                          setState(() {
+                            _isLoggedIn = false;
+                          });
+                        }).catchError((e) {});
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: const Text('Error'),
+                            content: Text(e.toString()),
+                            actions: <Widget>[
+                              // ignore: deprecated_member_use
+                              FlatButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop(true);
+                                  setState(() {
+                                    isLoading = false;
+                                  });
+                                },
+                                child: const Text('ok'),
+                              ),
+                            ],
+                          ),
+                        );
+                        print(e);
+                      });
+                    },
                   ),
                 ],
               )
@@ -231,6 +278,63 @@ class _SplashScreenState extends State<Body> {
         ),
       ),
     );
+  }
+
+  registerbygoogle() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    var data = {
+      "email": signupController.email.text,
+      "full_name": signupController.fullname.text,
+    };
+
+    var res = await Network().authData(data, 'register-student');
+    var body = json.decode(res.body);
+
+    print(res.statusCode);
+    //print(body.toString());
+    if (res.statusCode == 200) {
+      SharedPreferences localStorage = await SharedPreferences.getInstance();
+      localStorage.setString("token", body["token"]);
+
+      localStorage.setString('user', json.encode(body['user']));
+
+      closeDialoggoogle(true, '');
+      isLoading = false;
+    } else if (res.statusCode == 422) {
+      _googleSignIn.signOut().then((value) {
+        setState(() {
+          _isLoggedIn = false;
+        });
+      }).catchError((e) {});
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Error'),
+          content: Text(body["errors"].toString()),
+          actions: <Widget>[
+            // ignore: deprecated_member_use
+            FlatButton(
+              onPressed: () {
+                Navigator.of(context).pop(true);
+                setState(() {
+                  isLoading = false;
+                });
+              },
+              child: const Text('ok'),
+            ),
+          ],
+        ),
+      );
+    } else {
+      closeDialoggoogle(false, res);
+    }
+
+    setState(() {
+      isLoading = false;
+    });
   }
 
   register() async {
@@ -285,6 +389,145 @@ class _SplashScreenState extends State<Body> {
     setState(() {
       isLoading = false;
     });
+  }
+
+  Future<void> closeDialoggoogle(bool stat, var data) async {
+    await Future.delayed(const Duration(seconds: 1));
+    // Dismiss CircularProgressIndicator
+    // Navigator.of(Get.context!).pop();
+    if (stat == false) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          elevation: 0,
+          backgroundColor: Color(0xffffffff),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          title: Column(mainAxisSize: MainAxisSize.min, children: [
+            SizedBox(height: 15),
+            const Text(
+              'Errorr',
+              style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 15),
+            Divider(
+              height: 1,
+              color: kPrimaryColor,
+            ),
+          ]),
+          content: Column(mainAxisSize: MainAxisSize.min, children: [
+            SizedBox(height: 15),
+            Text(
+              "Running TO a probelm please try again",
+              style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 15),
+          ]),
+          actions: <Widget>[
+            // ignore: deprecated_member_use
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: 50,
+              child: InkWell(
+                highlightColor: Colors.grey[200],
+                onTap: () {
+                  Navigator.of(context).pop(true);
+                  setState(() {
+                    isLoading = false;
+                  });
+                },
+                child: Center(
+                  child: Text(
+                    "Ok",
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      color: Theme.of(context).primaryColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    } else {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          elevation: 0,
+          backgroundColor: Color(0xffffffff),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          title: Column(mainAxisSize: MainAxisSize.min, children: [
+            SizedBox(height: 15),
+            const Text(
+              'Success',
+              style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 15),
+            Divider(
+              height: 1,
+              color: kPrimaryColor,
+            ),
+          ]),
+          content: Column(mainAxisSize: MainAxisSize.min, children: [
+            SizedBox(height: 15),
+            const Text(
+              'Successfully registerd',
+              style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 15),
+          ]),
+          actions: <Widget>[
+            // ignore: deprecated_member_use
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: 50,
+              child: InkWell(
+                highlightColor: Colors.grey[200],
+                onTap: () {
+                  Navigator.of(context).pop(true);
+                  setState(() {
+                    isLoading = false;
+                  });
+                  Navigator.push<dynamic>(
+                    context,
+                    MaterialPageRoute<dynamic>(
+                      builder: (BuildContext context) => Main(),
+                    ),
+                  );
+                },
+                child: Center(
+                  child: Text(
+                    "Ok",
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      color: Theme.of(context).primaryColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
   }
 
   Future<void> closeDialog(bool stat, var data) async {

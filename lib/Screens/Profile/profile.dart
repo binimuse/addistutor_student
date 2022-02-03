@@ -12,6 +12,7 @@ import 'package:addistutor_student/controller/getsubjectcontroller.dart';
 import 'package:addistutor_student/controller/searchcontroller.dart';
 import 'package:addistutor_student/controller/signupcontroller.dart';
 import 'package:addistutor_student/constants.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -36,6 +37,9 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 }
+
+bool _isLoggedIn = false;
+GoogleSignIn _googleSignIn = GoogleSignIn();
 
 class ProfileS extends StatefulWidget {
   const ProfileS({Key? key}) : super(key: key);
@@ -513,6 +517,12 @@ class _ProfilePageState extends State<ProfileS> {
         transitionDuration: Duration.zero,
       ),
     );
+
+    _googleSignIn.signOut().then((value) {
+      setState(() {
+        _isLoggedIn = false;
+      });
+    }).catchError((e) {});
   }
 }
 
