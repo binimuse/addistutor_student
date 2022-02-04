@@ -252,20 +252,19 @@ class BookingeController extends GetxController with StateMixin {
 
     print(daylist);
     print(selecteddate);
+    book.currentState!.save();
+    await seteditInfo(context);
+    // if (selecteddate.every((element) => daylist.contains(element))) {
+    //   daylist.clear();
+    // } else {
+    //   scaffoldKey.currentState!.showSnackBar(SnackBar(
+    //       backgroundColor: Colors.red,
+    //       content: Text(
+    //           "Tutor not avalble in the selected days please try to change the selected to :  " +
+    //               daylist.toString())));
 
-    if (selecteddate.every((element) => daylist.contains(element))) {
-      book.currentState!.save();
-      await seteditInfo(context);
-      daylist.clear();
-    } else {
-      scaffoldKey.currentState!.showSnackBar(SnackBar(
-          backgroundColor: Colors.red,
-          content: Text(
-              "Tutor not avalble in the selected days please try to change the selected to :  " +
-                  daylist.toString())));
-
-      daylist.clear();
-    }
+    //   daylist.clear();
+    // }
   }
 
   var image;

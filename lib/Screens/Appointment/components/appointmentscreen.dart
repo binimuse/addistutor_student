@@ -15,7 +15,9 @@ import 'package:addistutor_student/remote_services/user.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Appointment extends StatefulWidget {
@@ -38,6 +40,12 @@ class _HomePageState extends State<Appointment>
     super.initState();
   }
 
+  @override
+  void deactivate() {
+    EasyLoading.dismiss();
+    super.deactivate();
+  }
+
   void _fetchUser() async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     var token = localStorage.getString('user');
@@ -56,39 +64,85 @@ class _HomePageState extends State<Appointment>
 
   CategoryType categoryType = CategoryType.ui;
 
+  final RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
+
+  void _onRefresh() async {
+    // monitor network fetch
+    await Future.delayed(const Duration(milliseconds: 1000));
+    // if failed,use refreshFailed()
+
+    setState(() {
+      // _getlocation();
+      _fetchUser();
+    });
+    _refreshController.refreshCompleted();
+  }
+
+  void _onLoading() async {
+    // monitor network fetch
+    await Future.delayed(const Duration(milliseconds: 1000));
+
+    _refreshController.loadComplete();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
         color: DesignCourseAppTheme.nearlyWhite,
         child: Obx(() => getReqBooking.isfetchedsubject.value
-            ? Scaffold(
-                backgroundColor: Colors.transparent,
-                body: Column(
-                  children: <Widget>[
-                    SizedBox(
-                      height: MediaQuery.of(context).padding.top,
-                    ),
-                    getAppBarUI(),
-                    _buildDivider(),
-                    Expanded(
-                      child: SingleChildScrollView(
-                        child: Container(
-                          height: MediaQuery.of(context).size.height,
-                          child: Column(
-                            children: <Widget>[
-                              getCategoryUI(),
-                              Flexible(
-                                child: getPopularCourseUI(),
+            ? SmartRefresher(
+                enablePullDown: true,
+                enablePullUp: true,
+
+                //cheak pull_to_refresh
+                controller: _refreshController,
+                onRefresh: _onRefresh,
+                onLoading: _onLoading,
+                child: Scaffold(
+                    backgroundColor: Colors.transparent,
+                    body: Column(
+                      children: <Widget>[
+                        SizedBox(
+                          height: MediaQuery.of(context).padding.top,
+                        ),
+                        getAppBarUI(),
+                        _buildDivider(),
+                        Expanded(
+                          child: SingleChildScrollView(
+                            child: Container(
+                              height: MediaQuery.of(context).size.height,
+                              child: Column(
+                                children: <Widget>[
+                                  getCategoryUI(),
+                                  Flexible(
+                                    child: getPopularCourseUI(),
+                                  ),
+                                ],
                               ),
-                            ],
+                            ),
                           ),
                         ),
-                      ),
-                    ),
-                  ],
-                ),
-              )
-            : const Center(child: CircularProgressIndicator())));
+                      ],
+                    )))
+            : Center(
+                child: Padding(
+                padding: const EdgeInsets.only(top: 406),
+                child: Column(children: [
+                  CircularProgressIndicator(),
+                  Center(child: Text("Can't Find any appointment"))
+                ]),
+              ))));
+  }
+
+  loadData() {
+    // Here you can write your code for open new view
+    EasyLoading.show();
+    Future.delayed(const Duration(milliseconds: 500), () {
+// Here you can write your code
+
+      EasyLoading.dismiss();
+    });
   }
 
   final Color divider = Colors.grey.shade600;

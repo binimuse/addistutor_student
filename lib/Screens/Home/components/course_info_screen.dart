@@ -130,9 +130,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                             padding:
                                 EdgeInsets.only(top: 32.0, left: 18, right: 16),
                             child: Text(
-                              widget.hotelData!.first_name +
-                                  " " +
-                                  widget.hotelData!.middle_name,
+                              widget.hotelData!.first_name,
                               textAlign: TextAlign.left,
                               style: const TextStyle(
                                 fontWeight: FontWeight.w600,
@@ -161,8 +159,6 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                                 ),
                                 Row(
                                   children: <Widget>[
-                                  
-
                                     const Text(
                                       "4.5",
                                       textAlign: TextAlign.left,
@@ -197,30 +193,53 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                               ),
                             ),
                           ),
-                          Expanded(
-                            child: AnimatedOpacity(
-                              duration: const Duration(milliseconds: 500),
-                              opacity: opacity2,
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 16, right: 16, bottom: 18),
-                                child: Center(
-                                  child: Text(
-                                    widget.hotelData!.about,
-                                    textAlign: TextAlign.justify,
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.w300,
-                                      fontSize: 16,
-                                      fontFamily: 'WorkSans',
-                                      color: DesignCourseAppTheme.grey,
+                          widget.hotelData!.about != null
+                              ? Expanded(
+                                  child: AnimatedOpacity(
+                                    duration: Duration(milliseconds: 500),
+                                    opacity: opacity2,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 16, right: 16, bottom: 18),
+                                      child: Center(
+                                          child: Text(
+                                        widget.hotelData!.about,
+                                        textAlign: TextAlign.justify,
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.w300,
+                                          fontSize: 16,
+                                          fontFamily: 'WorkSans',
+                                          color: DesignCourseAppTheme.grey,
+                                        ),
+                                        maxLines: 10,
+                                        overflow: TextOverflow.ellipsis,
+                                      )),
                                     ),
-                                    maxLines: 10,
-                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                )
+                              : Expanded(
+                                  child: AnimatedOpacity(
+                                    duration: Duration(milliseconds: 500),
+                                    opacity: opacity2,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 16, right: 16, bottom: 18),
+                                      child: Center(
+                                          child: Text(
+                                        "No About",
+                                        textAlign: TextAlign.justify,
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.w300,
+                                          fontSize: 16,
+                                          fontFamily: 'WorkSans',
+                                          color: DesignCourseAppTheme.grey,
+                                        ),
+                                        maxLines: 10,
+                                        overflow: TextOverflow.ellipsis,
+                                      )),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ),
-                          ),
                           GestureDetector(
                             onTap: () async {
                               SharedPreferences localStorage =
@@ -234,7 +253,6 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
 
                                 if (body["student_id"] != null) {
                                   Navigator.pop(context);
-                                
 
                                   Navigator.push<dynamic>(
                                     context,
@@ -283,7 +301,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                                               ),
                                             );
                                           },
-                                          child:  const Text('ok'),
+                                          child: const Text('ok'),
                                         ),
                                       ],
                                     ),
@@ -368,7 +386,6 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                     child: SizedBox(
                       width: 70,
                       height: 70,
-                     
                       child: ClipRRect(
                           borderRadius: BorderRadius.circular(18.0),
                           child: Image.network(

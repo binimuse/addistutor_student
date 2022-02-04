@@ -58,7 +58,32 @@ class _EditPageState extends State<BookScreen>
   }
 
   List<String> avalbledate = [];
+  List<String> avalbledate2 = [];
+  final selectedIndexes = [];
 
+  List<String> monday = [
+    "monday",
+  ];
+  List<String> tuesday = [
+    "tuesday",
+  ];
+  List<String> wednesday = [
+    "wednesday",
+  ];
+  List<String> thursday = [
+    "thursday",
+  ];
+  List<String> friday = [
+    "friday",
+  ];
+
+  List<String> saturday = [
+    "saturday",
+  ];
+
+  List<String> sunday = [
+    "sunday",
+  ];
   @override
   void deactivate() {
     EasyLoading.dismiss();
@@ -306,83 +331,236 @@ class _EditPageState extends State<BookScreen>
                           const SizedBox(
                             height: 10,
                           ),
-                          WeekdaySelector(
-                              selectedFillColor: kPrimaryColor,
-                              onChanged: (v) {
-                                bookingeController.selecteddate.clear();
-                                printIntAsDay(v);
-
-                                setState(() {
-                                  values[v % 7] = !values[v % 7]!;
-                                  //    mon;
-                                });
-
-                                if (values[1] == true) {
-                                  bookingeController.ismonday = true;
-                                } else if (values[1] == false) {
-                                  bookingeController.ismonday = false;
-                                  bookingeController.Mon = "";
+                          FutureBuilder(
+                              future: RemoteServices.getAvalbledate(
+                                  widget.hotelData!.id),
+                              builder: (BuildContext context,
+                                  AsyncSnapshot snapshot) {
+                                if (snapshot.hasError) {
+                                  return Center(
+                                    child: Text(snapshot.error.toString()),
+                                  );
                                 }
+                                if (snapshot.hasData) {
+                                  return SizedBox(
+                                      height: 100,
+                                      child: ListView.builder(
+                                          scrollDirection: Axis.horizontal,
+                                          itemBuilder: (_, index) {
+                                            return Container(
+                                              child: Column(
+                                                children: [
+                                                  Checkbox(
+                                                    value: selectedIndexes
+                                                        .contains(index),
+                                                    onChanged: (value) {
+                                                      if (selectedIndexes
+                                                          .contains(index)) {
+                                                        selectedIndexes
+                                                            .remove(index);
+                                                        avalbledate2.remove(
+                                                            snapshot
+                                                                .data[index]!
+                                                                .day);
+                                                        // unselect
+                                                      } else {
+                                                        selectedIndexes.add(
+                                                            index); // select
 
-                                //    thu;
-                                if (values[2] == true) {
-                                  bookingeController.istue = true;
-                                } else if (values[2] == false) {
-                                  bookingeController.istue = false;
-                                  bookingeController.Tue = "";
-                                }
+                                                        avalbledate2.add(
+                                                            snapshot
+                                                                .data[index]!
+                                                                .day);
+                                                      }
+                                                      setState(() {
+                                                        print(avalbledate2);
+                                                        if (avalbledate2.any(
+                                                            (element) =>
+                                                                monday.contains(
+                                                                    element))) {
+                                                          bookingeController
+                                                              .ismonday = true;
+                                                        } else {
+                                                          bookingeController
+                                                              .ismonday = false;
+                                                          bookingeController
+                                                              .Mon = "";
+                                                        }
 
-                                //    Wen;
-                                if (values[3] == true) {
-                                  bookingeController.iswen = true;
-                                } else if (values[3] == false) {
-                                  bookingeController.iswen = false;
-                                  bookingeController.Wed = "";
-                                }
+                                                        if (avalbledate2.any(
+                                                            (element) => tuesday
+                                                                .contains(
+                                                                    element))) {
+                                                          bookingeController
+                                                              .istue = true;
+                                                        } else {
+                                                          bookingeController
+                                                              .istue = false;
+                                                          bookingeController
+                                                              .Tue = "";
+                                                        }
 
-                                //    The;
-                                if (values[4] == true) {
-                                  bookingeController.isthe = true;
-                                } else if (values[4] == false) {
-                                  bookingeController.isthe = false;
-                                  bookingeController.Thu = "";
-                                }
-                                //    fri;
-                                if (values[5] == true) {
-                                  bookingeController.isfri = true;
-                                } else if (values[5] == false) {
-                                  bookingeController.isfri = false;
-                                  bookingeController.Fri = "";
-                                }
+                                                        if (avalbledate2.any(
+                                                            (element) => wednesday
+                                                                .contains(
+                                                                    element))) {
+                                                          bookingeController
+                                                              .iswen = true;
+                                                        } else {
+                                                          bookingeController
+                                                              .iswen = false;
+                                                          bookingeController
+                                                              .Wed = "";
+                                                        }
 
-                                //    sat;
-                                if (values[6] == true) {
-                                  bookingeController.issat = true;
-                                } else if (values[6] == false) {
-                                  bookingeController.issat = false;
-                                  bookingeController.Sat = "";
-                                }
+                                                        if (avalbledate2.any(
+                                                            (element) => thursday
+                                                                .contains(
+                                                                    element))) {
+                                                          bookingeController
+                                                              .isthe = true;
+                                                        } else {
+                                                          bookingeController
+                                                              .isthe = false;
+                                                          bookingeController
+                                                              .Thu = "";
+                                                        }
 
-                                if (values[0] == true) {
-                                  bookingeController.issun = true;
-                                } else if (values[0] == false) {
-                                  bookingeController.issun = false;
-                                  bookingeController.Sun = "";
+                                                        if (avalbledate2.any(
+                                                            (element) =>
+                                                                friday.contains(
+                                                                    element))) {
+                                                          bookingeController
+                                                              .isfri = true;
+                                                        } else {
+                                                          bookingeController
+                                                              .isfri = false;
+                                                          bookingeController
+                                                              .Fri = "";
+                                                        }
+
+                                                        if (avalbledate2.any(
+                                                            (element) => saturday
+                                                                .contains(
+                                                                    element))) {
+                                                          bookingeController
+                                                              .issat = true;
+                                                        } else {
+                                                          bookingeController
+                                                              .issat = false;
+                                                          bookingeController
+                                                              .Sat = "";
+                                                        }
+                                                        if (avalbledate2.any(
+                                                            (element) =>
+                                                                sunday.contains(
+                                                                    element))) {
+                                                          bookingeController
+                                                              .issun = true;
+                                                        } else {
+                                                          bookingeController
+                                                              .issun = false;
+                                                          bookingeController
+                                                              .Sun = "";
+                                                        }
+                                                      });
+                                                    },
+                                                    checkColor: Colors.white,
+                                                    activeColor: kPrimaryColor,
+                                                  ),
+                                                  Text(
+                                                    snapshot.data[index]!.day,
+                                                    style: TextStyle(
+                                                        fontSize: 12.0),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          },
+                                          itemCount: snapshot.data.length));
+                                } else {
+                                  return const Center(
+                                    child: CircularProgressIndicator(),
+                                  );
                                 }
-                              },
-                              values: values,
-                              selectedElevation: 15,
-                              elevation: 5,
-                              disabledElevation: 0,
-                              shortWeekdays: const [
-                                'Sun', // Sunday
-                                'Mon', // MOONday
-                                'Tue', // https://en.wikipedia.org/wiki/Names_of_the_days_of_the_week
-                                'Wed', // I ran out of ideas...
-                                'Thur', // Thirst-day
-                                'Fri', // It's Friday, Friday, Gotta get down on Friday!
-                                'Sat', // Everybody's lookin' forward to the weekend, weekend
-                              ]),
+                              }),
+                          // WeekdaySelector(
+                          //     selectedFillColor: kPrimaryColor,
+                          //     onChanged: (v) {
+                          //       bookingeController.selecteddate.clear();
+                          //       printIntAsDay(v);
+
+                          //       setState(() {
+                          //         values[v % 7] = !values[v % 7]!;
+                          //         //    mon;
+                          //       });
+
+                          //       // if (values[1] == true) {
+                          //       //   bookingeController.ismonday = true;
+                          //       // } else if (values[1] == false) {
+                          //       //   bookingeController.ismonday = false;
+                          //       //   bookingeController.Mon = "";
+                          //       // }
+
+                          //       // //    thu;
+                          //       // if (values[2] == true) {
+                          //       //   bookingeController.istue = true;
+                          //       // } else if (values[2] == false) {
+                          //       //   bookingeController.istue = false;
+                          //       //   bookingeController.Tue = "";
+                          //       // }
+
+                          //       // //    Wen;
+                          //       // if (values[3] == true) {
+                          //       //   bookingeController.iswen = true;
+                          //       // } else if (values[3] == false) {
+                          //       //   bookingeController.iswen = false;
+                          //       //   bookingeController.Wed = "";
+                          //       // }
+
+                          //       // //    The;
+                          //       // if (values[4] == true) {
+                          //       //   bookingeController.isthe = true;
+                          //       // } else if (values[4] == false) {
+                          //       //   bookingeController.isthe = false;
+                          //       //   bookingeController.Thu = "";
+                          //       // }
+                          //       // //    fri;
+                          //       // if (values[5] == true) {
+                          //       //   bookingeController.isfri = true;
+                          //       // } else if (values[5] == false) {
+                          //       //   bookingeController.isfri = false;
+                          //       //   bookingeController.Fri = "";
+                          //       // }
+
+                          //       // //    sat;
+                          //       // if (values[6] == true) {
+                          //       //   bookingeController.issat = true;
+                          //       // } else if (values[6] == false) {
+                          //       //   bookingeController.issat = false;
+                          //       //   bookingeController.Sat = "";
+                          //       // }
+
+                          //       // if (values[0] == true) {
+                          //       //   bookingeController.issun = true;
+                          //       // } else if (values[0] == false) {
+                          //       //   bookingeController.issun = false;
+                          //       //   bookingeController.Sun = "";
+                          //       // }
+                          //     },
+                          //     values: values,
+                          //     selectedElevation: 15,
+                          //     elevation: 5,
+                          //     disabledElevation: 0,
+                          //     shortWeekdays: const [
+                          //       'Sun', // Sunday
+                          //       'Mon', // MOONday
+                          //       'Tue', // https://en.wikipedia.org/wiki/Names_of_the_days_of_the_week
+                          //       'Wed', // I ran out of ideas...
+                          //       'Thur', // Thirst-day
+                          //       'Fri', // It's Friday, Friday, Gotta get down on Friday!
+                          //       'Sat', // Everybody's lookin' forward to the weekend, weekend
+                          //     ]),
                           const SizedBox(height: 20),
                           bookingeController.ismonday
                               ? Row(children: [
@@ -415,7 +593,7 @@ class _EditPageState extends State<BookScreen>
                                     onChanged: (value) {
                                       setState(() {
                                         bookingeController.motime = value!;
-                                        bookingeController.Mon = "Monday";
+                                        bookingeController.Mon = "monday";
                                       });
                                     },
                                   ),
@@ -452,7 +630,7 @@ class _EditPageState extends State<BookScreen>
                                     onChanged: (value2) {
                                       setState(() {
                                         bookingeController.tuetime2 = value2!;
-                                        bookingeController.Tue = "Tuesday";
+                                        bookingeController.Tue = "tuesday";
                                       });
                                     },
                                   ),
@@ -489,7 +667,7 @@ class _EditPageState extends State<BookScreen>
                                     onChanged: (value3) {
                                       setState(() {
                                         bookingeController.wentime3 = value3!;
-                                        bookingeController.Wed = "Wednesday";
+                                        bookingeController.Wed = "wednesday";
                                       });
                                     },
                                   ),
@@ -526,7 +704,7 @@ class _EditPageState extends State<BookScreen>
                                     onChanged: (value4) {
                                       setState(() {
                                         bookingeController.thetime4 = value4!;
-                                        bookingeController.Thu = "Thursday";
+                                        bookingeController.Thu = "thursday";
                                       });
                                     },
                                   ),
@@ -563,7 +741,7 @@ class _EditPageState extends State<BookScreen>
                                     onChanged: (value4) {
                                       setState(() {
                                         bookingeController.fritime5 = value4!;
-                                        bookingeController.Fri = "Friday";
+                                        bookingeController.Fri = "friday";
                                       });
                                     },
                                   ),
@@ -605,7 +783,7 @@ class _EditPageState extends State<BookScreen>
                                     onChanged: (value) {
                                       setState(() {
                                         bookingeController.sattime = value!;
-                                        bookingeController.Sat = "Saturday";
+                                        bookingeController.Sat = "saturday";
                                       });
                                     },
                                   )
@@ -647,7 +825,7 @@ class _EditPageState extends State<BookScreen>
                                     onChanged: (value) {
                                       setState(() {
                                         bookingeController.suntime2 = value!;
-                                        bookingeController.Sun = "Sunday";
+                                        bookingeController.Sun = "sunday";
                                       });
                                     },
                                   )
@@ -657,13 +835,22 @@ class _EditPageState extends State<BookScreen>
                             children: [
                               Center(
                                 child: RaisedButton(
-                                  onPressed: () {
+                                  onPressed: () async {
                                     var value;
                                     value = values
                                         .where((item) => item == true)
                                         .length;
-                                    if (value != 0) {
+                                    if (avalbledate2.isNotEmpty) {
                                       Cricular();
+                                      await Future.delayed(
+                                          const Duration(seconds: 3));
+                                      bookingeController.ismonday = false;
+                                      bookingeController.istue = false;
+                                      bookingeController.iswen = false;
+                                      bookingeController.isthe = false;
+                                      bookingeController.isfri = false;
+                                      bookingeController.issat = false;
+                                      bookingeController.issun = false;
                                     } else {
                                       showDialog(
                                         context: context,
