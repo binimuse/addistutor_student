@@ -1,6 +1,8 @@
 import 'package:addistutor_student/Screens/Home/components/design_course_app_theme.dart';
 import 'package:addistutor_student/constants.dart';
+import 'package:addistutor_student/controller/feedbackcontroller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'app_theme.dart';
 
@@ -12,126 +14,136 @@ class FeedbackScreen extends StatefulWidget {
 }
 
 class _FeedbackScreenState extends State<FeedbackScreen> {
+  final FeedBackScreencontroller feedBackScreencontroller =
+      Get.put(FeedBackScreencontroller());
   @override
   void initState() {
     super.initState();
+    feedBackScreencontroller.isFetched(true);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: AppTheme.nearlyWhite,
-      child: SafeArea(
-        top: false,
-        child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.white,
-            leading: Material(
-              color: Colors.white,
-              child: InkWell(
-                borderRadius:
-                    BorderRadius.circular(AppBar().preferredSize.height),
-                child: Icon(
-                  Icons.arrow_back_ios,
-                  color: DesignCourseAppTheme.nearlyBlack,
+    return Obx(() => feedBackScreencontroller.isFetched.value
+        ? Container(
+            color: AppTheme.nearlyWhite,
+            child: SafeArea(
+              top: false,
+              child: Scaffold(
+                appBar: AppBar(
+                  backgroundColor: Colors.white,
+                  leading: Material(
+                    color: Colors.white,
+                    child: InkWell(
+                      borderRadius:
+                          BorderRadius.circular(AppBar().preferredSize.height),
+                      child: Icon(
+                        Icons.arrow_back_ios,
+                        color: DesignCourseAppTheme.nearlyBlack,
+                      ),
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ),
+                  title: Text(
+                    "FeedBack",
+                    style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black,
+                      fontFamily: 'WorkSans',
+                    ),
+                  ),
                 ),
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-            ),
-            title: Text(
-              "FeedBack",
-              style: TextStyle(
-                fontSize: 25,
-                fontWeight: FontWeight.w500,
-                color: Colors.black,
-                fontFamily: 'WorkSans',
-              ),
-            ),
-          ),
-          resizeToAvoidBottomInset: true,
-          backgroundColor: AppTheme.nearlyWhite,
-          body: SingleChildScrollView(
-            child: SizedBox(
-              height: MediaQuery.of(context).size.height,
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    padding: EdgeInsets.only(
-                        top: MediaQuery.of(context).padding.top,
-                        left: 16,
-                        right: 16),
-                    child: Image.asset('assets/images/feedbackImage.png'),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.only(top: 8),
-                    child: const Text(
-                      'Your FeedBack',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.only(top: 16),
-                    child: const Text(
-                      'Give your best time for this moment.',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                  _buildComposer(),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 16),
-                    child: Center(
-                      child: Container(
-                        width: 120,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(4.0)),
-                          boxShadow: <BoxShadow>[
-                            BoxShadow(
-                                color: Colors.grey.withOpacity(0.6),
-                                offset: const Offset(4, 4),
-                                blurRadius: 8.0),
-                          ],
-                        ),
-                        child: Material(
-                          color: kPrimaryColor,
-                          child: InkWell(
-                            onTap: () {
-                              FocusScope.of(context).requestFocus(FocusNode());
-                            },
+                resizeToAvoidBottomInset: true,
+                backgroundColor: AppTheme.nearlyWhite,
+                body: Form(
+                  key: feedBackScreencontroller.Formkey,
+                  child: SingleChildScrollView(
+                    child: SizedBox(
+                      height: MediaQuery.of(context).size.height,
+                      child: Column(
+                        children: <Widget>[
+                          Container(
+                            padding: EdgeInsets.only(
+                                top: MediaQuery.of(context).padding.top,
+                                left: 16,
+                                right: 16),
+                            child:
+                                Image.asset('assets/images/feedbackImage.png'),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.only(top: 8),
+                            child: const Text(
+                              'Your FeedBack',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.only(top: 16),
+                            child: const Text(
+                              'Give your best time for this moment.',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                          _buildComposer(),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 16),
                             child: Center(
-                              child: Padding(
-                                padding: const EdgeInsets.all(4.0),
-                                child: const Text(
-                                  'Send',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.white,
+                              child: Container(
+                                width: 120,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                  color: Colors.blue,
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(4.0)),
+                                  boxShadow: <BoxShadow>[
+                                    BoxShadow(
+                                        color: Colors.grey.withOpacity(0.6),
+                                        offset: const Offset(4, 4),
+                                        blurRadius: 8.0),
+                                  ],
+                                ),
+                                child: Material(
+                                  color: kPrimaryColor,
+                                  child: InkWell(
+                                    onTap: () {
+                                      feedBackScreencontroller
+                                          .editProf(context);
+                                    },
+                                    child: Center(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(4.0),
+                                        child: const Text(
+                                          'Send',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                        ),
+                          )
+                        ],
                       ),
                     ),
-                  )
-                ],
+                  ),
+                ),
               ),
             ),
-          ),
-        ),
-      ),
-    );
+          )
+        : const Center(child: CircularProgressIndicator()));
   }
 
   Widget _buildComposer() {
@@ -157,18 +169,21 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
             child: SingleChildScrollView(
               padding:
                   const EdgeInsets.only(left: 10, right: 10, top: 0, bottom: 0),
-              child: TextField(
-                maxLines: null,
-                onChanged: (String txt) {},
-                style: const TextStyle(
+              child: TextFormField(
+                controller: feedBackScreencontroller.feedback,
+                decoration: InputDecoration(
+                    fillColor: kPrimaryColor,
+                    border: InputBorder.none,
+                    hintText: 'Enter your feedback...'),
+                style: TextStyle(
                   fontFamily: AppTheme.fontName,
                   fontSize: 16,
                   color: AppTheme.dark_grey,
                 ),
                 cursorColor: Colors.blue,
-                decoration: const InputDecoration(
-                    border: InputBorder.none,
-                    hintText: 'Enter your feedback...'),
+                validator: (value) {
+                  return feedBackScreencontroller.validateName(value!);
+                },
               ),
             ),
           ),
