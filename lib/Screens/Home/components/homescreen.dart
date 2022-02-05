@@ -69,9 +69,6 @@ class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
     getEducationlevelController.fetchLocation();
     getSubjectController.fetchLocation("1");
     getLocationController.fetchLocation();
-
-    //
-    // ignore: invalid_use_of_protected_member
   }
 
   List<GetLocation> location = [];
@@ -285,7 +282,7 @@ class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
                   //   print(gender);
                 });
               }
-              refresh();
+              //  refresh();
             },
             child: Padding(
               padding: const EdgeInsets.only(

@@ -183,6 +183,30 @@ class Day {
   }
 }
 
+class Bookingschedule {
+  int id;
+
+  String day;
+  String time;
+  String booking_id;
+
+  Bookingschedule({
+    required this.id,
+    required this.day,
+    required this.time,
+    required this.booking_id,
+  });
+
+  factory Bookingschedule.fromJson(Map<String, dynamic> json) {
+    return Bookingschedule(
+      id: json["id"] as int,
+      day: json["day"],
+      time: json["time"],
+      booking_id: json["booking_id"],
+    );
+  }
+}
+
 class RequestedBooking {
   int id;
   String confirmation_code;
@@ -194,6 +218,8 @@ class RequestedBooking {
   String student_id;
   Search teacher;
 
+  List<Bookingschedule> booking_schedule;
+
   RequestedBooking({
     required this.id,
     required this.confirmation_code,
@@ -204,6 +230,7 @@ class RequestedBooking {
     required this.subject_id,
     required this.student_id,
     required this.teacher,
+    required this.booking_schedule,
   });
 
   factory RequestedBooking.fromJson(Map<String, dynamic> json) {
@@ -217,6 +244,28 @@ class RequestedBooking {
       subject_id: json["subject_id"],
       student_id: json["student_id"],
       teacher: Search.fromJson(json["teacher"]),
+      booking_schedule: List<Bookingschedule>.from(
+          json["booking_schedule"].map((x) => Bookingschedule.fromJson(x))),
+    );
+  }
+}
+
+class ContactUS {
+  String name;
+  String email;
+  String phone;
+
+  ContactUS({
+    required this.name,
+    required this.email,
+    required this.phone,
+  });
+
+  factory ContactUS.fromJson(Map<String, dynamic> json) {
+    return ContactUS(
+      name: json["name"],
+      email: json["email"],
+      phone: json["phone"],
     );
   }
 }

@@ -270,7 +270,7 @@ class BookingeController extends GetxController with StateMixin {
   var image;
   late List<Dateandtime> tags = [];
   Future<void> seteditInfo(BuildContext context) async {
-    // openAndCloseLoadingDialog(context);
+    openAndCloseLoadingDialog(context);
     try {
       if (day1 == null) {
         tags = [
@@ -358,8 +358,30 @@ class BookingeController extends GetxController with StateMixin {
     // Dismiss CircularProgressIndicator
     Navigator.of(context).pop();
     if (stat == false) {
-      scaffoldKey.currentState!.showSnackBar(
-          SnackBar(content: Text(data + "Not successfully  Booked")));
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(
+            "Booking Not Sucesss \n" + data.toString(),
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w500,
+              color: Colors.black,
+              fontFamily: 'WorkSans',
+            ),
+          ),
+          actions: <Widget>[
+            FlatButton(
+              onPressed: () async {
+                isLoading(false);
+                Navigator.of(context).pop(true);
+                Navigator.pop(context);
+              },
+              child: new Text('ok'),
+            ),
+          ],
+        ),
+      );
     } else {
       // ignore: deprecated_member_use
       showDialog(
@@ -390,14 +412,6 @@ class BookingeController extends GetxController with StateMixin {
                 isLoading(false);
                 Navigator.of(context).pop(true);
                 Navigator.pop(context);
-                // Navigator.push(
-                //   context,
-                //   PageRouteBuilder(
-                //     pageBuilder: (context, animation1, animation2) {
-                //       return SerachPage();
-                //     },
-                //   ),
-                // );
               },
               child: const Text('ok'),
             ),
@@ -424,6 +438,27 @@ class BookingeController extends GetxController with StateMixin {
       // ));
       //  editstudentid(context);
     }
+  }
+
+  void openAndCloseLoadingDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      barrierColor: Colors.grey.withOpacity(0.3),
+      builder: (_) => WillPopScope(
+        onWillPop: () async => false,
+        child: const Center(
+          child: SizedBox(
+            width: 30,
+            height: 30,
+            child: CircularProgressIndicator(
+              color: kPrimaryColor,
+              strokeWidth: 8,
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
 

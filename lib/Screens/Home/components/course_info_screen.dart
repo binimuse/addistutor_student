@@ -126,20 +126,35 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Padding(
-                            padding:
-                                EdgeInsets.only(top: 32.0, left: 18, right: 16),
-                            child: Text(
-                              widget.hotelData!.first_name,
-                              textAlign: TextAlign.left,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 22,
-                                letterSpacing: 0.27,
-                                color: DesignCourseAppTheme.darkerText,
-                              ),
-                            ),
-                          ),
+                          widget.hotelData!.first_name != null
+                              ? Padding(
+                                  padding: EdgeInsets.only(
+                                      top: 32.0, left: 18, right: 16),
+                                  child: Text(
+                                    widget.hotelData!.first_name,
+                                    textAlign: TextAlign.left,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 22,
+                                      letterSpacing: 0.27,
+                                      color: DesignCourseAppTheme.darkerText,
+                                    ),
+                                  ),
+                                )
+                              : Padding(
+                                  padding: EdgeInsets.only(
+                                      top: 32.0, left: 18, right: 16),
+                                  child: Text(
+                                    "first_name",
+                                    textAlign: TextAlign.left,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 22,
+                                      letterSpacing: 0.27,
+                                      color: DesignCourseAppTheme.darkerText,
+                                    ),
+                                  ),
+                                ),
                           Padding(
                             padding: const EdgeInsets.only(
                                 left: 16, right: 16, bottom: 8, top: 16),
@@ -147,16 +162,29 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
-                                Text(
-                                  widget.hotelData!.gender,
-                                  textAlign: TextAlign.left,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.w200,
-                                    fontSize: 22,
-                                    letterSpacing: 0.27,
-                                    color: DesignCourseAppTheme.nearlyBlue,
-                                  ),
-                                ),
+                                widget.hotelData!.gender != null
+                                    ? Text(
+                                        widget.hotelData!.gender,
+                                        textAlign: TextAlign.left,
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.w200,
+                                          fontSize: 22,
+                                          letterSpacing: 0.27,
+                                          color:
+                                              DesignCourseAppTheme.nearlyBlue,
+                                        ),
+                                      )
+                                    : Text(
+                                        "gender",
+                                        textAlign: TextAlign.left,
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.w200,
+                                          fontSize: 22,
+                                          letterSpacing: 0.27,
+                                          color:
+                                              DesignCourseAppTheme.nearlyBlue,
+                                        ),
+                                      ),
                                 Row(
                                   children: <Widget>[
                                     const Text(
@@ -186,7 +214,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                               padding: const EdgeInsets.all(8),
                               child: Row(
                                 children: <Widget>[
-                                  getTimeBoxUI('4', 'Subject'),
+                                  getTimeBoxUI("1", 'Subject'),
                                   getTimeBoxUI('2hours', 'Time'),
                                   getTimeBoxUI('6', 'Studnets'),
                                 ],
@@ -221,14 +249,14 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                                   child: AnimatedOpacity(
                                     duration: Duration(milliseconds: 500),
                                     opacity: opacity2,
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
+                                    child: const Padding(
+                                      padding: EdgeInsets.only(
                                           left: 16, right: 16, bottom: 18),
                                       child: Center(
                                           child: Text(
                                         "No About",
                                         textAlign: TextAlign.justify,
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           fontWeight: FontWeight.w300,
                                           fontSize: 16,
                                           fontFamily: 'WorkSans',

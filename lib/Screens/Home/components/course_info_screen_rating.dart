@@ -1,10 +1,16 @@
+import 'package:addistutor_student/Screens/Appointment/components/appointmentscreen.dart';
+import 'package:addistutor_student/constants.dart';
+import 'package:addistutor_student/remote_services/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'design_course_app_theme.dart';
 
 class CourseInfoScreenRating extends StatefulWidget {
-  const CourseInfoScreenRating({Key? key}) : super(key: key);
-
+  const CourseInfoScreenRating({
+    Key? key,
+    this.hotelData,
+  }) : super(key: key);
+  final RequestedBooking? hotelData;
   @override
   _CourseInfoScreenState createState() => _CourseInfoScreenState();
 }
@@ -19,6 +25,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
   double opacity2 = 0.0;
   double opacity3 = 0.0;
   final bool _isVertical = false;
+  bool rating = false;
   IconData? _selectedIcon;
   @override
   void initState() {
@@ -103,11 +110,13 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          const Padding(
+                          Padding(
                             padding:
                                 EdgeInsets.only(top: 32.0, left: 18, right: 16),
                             child: Text(
-                              'Robel Musema\n',
+                              widget.hotelData!.teacher.first_name +
+                                  " " +
+                                  widget.hotelData!.teacher.last_name,
                               textAlign: TextAlign.left,
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
@@ -124,8 +133,8 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
-                                const Text(
-                                  '2800 birr',
+                                Text(
+                                  widget.hotelData!.teacher.gender,
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
                                     fontWeight: FontWeight.w200,
@@ -163,36 +172,41 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
                               padding: const EdgeInsets.all(8),
                               child: Row(
                                 children: <Widget>[
-                                  getTimeBoxUI('4', 'Subject'),
-                                  getTimeBoxUI('2hours', 'Time'),
-                                  getTimeBoxUI('6', 'Studnets'),
+                                  getTimeBoxUI(
+                                      widget.hotelData!.booking_schedule.length
+                                          .toString(),
+                                      'Subject'),
+                                  getTimeBoxUI(
+                                      widget.hotelData!.session.toString(),
+                                      'session'),
                                 ],
                               ),
                             ),
                           ),
-                          Expanded(
-                            child: AnimatedOpacity(
-                              duration: const Duration(milliseconds: 500),
-                              opacity: opacity2,
-                              child: const Padding(
-                                padding: EdgeInsets.only(
-                                    left: 16, right: 16, bottom: 18),
-                                child: Center(
-                                  child: Text(
-                                    'Lorem ipsum is simply dummy text of printing & typesetting industry, Lorem ipsum is simply dummy text of printing & typesetting industry Lorem ipsum is simply dummy text of printing & typesetting industryLorem ipsum is simply dummy text of printing & typesetting industryLorem ipsum is simply dummy text of printing & typesetting inLorem ipsum is simply dummy text of printing & typesetting industryLorem ipsum is simply dummy text of printing & typesetting industryLorem ipsum is simply dummy text of printing & typesetting industryLorem ipsum is simply dummy text of printing & typesetting industryLorem ipsum isLorem ipsum is simply dummy text of printing & typesetting industryLorem ipsum is simply dummy text of printing & typesetting industryLorem ipsum is simply dummy text of printing & typesetting industryLorem ipsum is simply dummy text of printing & typesetting industryLorem ipsum is simply dummy text of printing & typesetting industry simply dummy text of printing & typesetting industrydustry.',
-                                    textAlign: TextAlign.justify,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w300,
-                                      fontSize: 16,
-                                      fontFamily: 'WorkSans',
-                                      color: DesignCourseAppTheme.grey,
-                                    ),
-                                    maxLines: 10,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                              ),
+                          Center(
+                            child: Text(
+                              "Days Booked",
+                              style: TextStyle(color: Colors.black38),
                             ),
+                          ),
+                          const SizedBox(
+                            height: 18,
+                          ),
+                          Expanded(
+                            child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (_, index) {
+                                  return Container(
+                                    child: Column(
+                                      children: [
+                                        getTimeBoxUIday(widget.hotelData!
+                                            .booking_schedule[index].day),
+                                      ],
+                                    ),
+                                  );
+                                },
+                                itemCount:
+                                    widget.hotelData!.booking_schedule.length),
                           ),
                           AnimatedOpacity(
                             duration: const Duration(milliseconds: 500),
@@ -207,29 +221,26 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
                                   const SizedBox(
                                     width: 16,
                                   ),
-                                  Center(
-                                    child: RatingBar.builder(
-                                      initialRating: _initialRating,
-                                      minRating: 1,
-                                      direction: _isVertical
-                                          ? Axis.vertical
-                                          : Axis.horizontal,
-                                      allowHalfRating: true,
-                                      unratedColor: Colors.amber.withAlpha(50),
-                                      itemCount: 5,
-                                      itemSize: 20.0,
-                                      itemPadding:
-                                          EdgeInsets.symmetric(horizontal: 4.0),
-                                      itemBuilder: (context, _) => Icon(
-                                        _selectedIcon ?? Icons.star,
-                                        color: Colors.amber,
-                                      ),
-                                      onRatingUpdate: (rating) {
-                                        setState(() {});
-                                      },
-                                      updateOnDrag: true,
+                                  GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        giverating();
+                                      });
+                                    },
+                                    child: Center(
+                                      child: Row(children: [
+                                        const Icon(
+                                          Icons.star,
+                                          color: kPrimaryColor,
+                                        ),
+                                        const SizedBox(width: 10.0),
+                                        Text(
+                                          "Rate Tutor",
+                                        ),
+                                      ]),
                                     ),
-                                  )
+                                  ),
+                                  rating ? giverating() : Container(),
                                 ],
                               ),
                             ),
@@ -252,22 +263,14 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
                   scale: CurvedAnimation(
                       parent: animationController!,
                       curve: Curves.fastOutSlowIn),
-                  child: Card(
-                    color: DesignCourseAppTheme.nearlyBlue,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(80.0)),
-                    elevation: 10.0,
-                    child: SizedBox(
-                      width: 120,
-                      height: 120,
-                      child: ClipRRect(
-                          borderRadius: BorderRadius.circular(18.0),
-                          child: Image.asset(
-                            "assets/images/userImage.png",
-                            height: 190.0,
-                            width: 200.0,
-                          )),
-                    ),
+                  child: SizedBox(
+                    width: 100,
+                    height: 70,
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.circular(18.0),
+                        child: Image.network(
+                          "https://tutor.oddatech.com/api/teacher-profile-picture/${widget.hotelData!.teacher.id}",
+                        )),
                   )),
             ),
             Padding(
@@ -292,6 +295,44 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
               ),
             )
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget getTimeBoxUIday(String txt2) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        decoration: BoxDecoration(
+          color: DesignCourseAppTheme.nearlyWhite,
+          borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+                color: DesignCourseAppTheme.grey.withOpacity(0.2),
+                offset: const Offset(1.1, 1.1),
+                blurRadius: 8.0),
+          ],
+        ),
+        child: Padding(
+          padding: const EdgeInsets.only(
+              left: 18.0, right: 18.0, top: 12.0, bottom: 12.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                txt2,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontWeight: FontWeight.w200,
+                  fontSize: 14,
+                  letterSpacing: 0.27,
+                  color: DesignCourseAppTheme.grey,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -341,6 +382,74 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  final Color active = Colors.grey.shade800;
+  buildRow(
+    IconData icon,
+    String title,
+  ) {
+    final TextStyle tStyle =
+        TextStyle(color: active, fontSize: 16.0, fontFamily: "WorkSans");
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 5.0),
+      child: Row(children: [
+        Icon(
+          icon,
+          color: kPrimaryColor,
+        ),
+        const SizedBox(width: 10.0),
+        Text(
+          title,
+          style: tStyle,
+        ),
+        const Spacer(),
+      ]),
+    );
+  }
+
+  giverating() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Center(
+          child: RatingBar.builder(
+            initialRating: _initialRating,
+            minRating: 1,
+            direction: _isVertical ? Axis.vertical : Axis.horizontal,
+            allowHalfRating: true,
+            unratedColor: Colors.amber.withAlpha(50),
+            itemCount: 5,
+            itemSize: 20.0,
+            itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+            itemBuilder: (context, _) => Icon(
+              _selectedIcon ?? Icons.star,
+              color: Colors.amber,
+            ),
+            onRatingUpdate: (rating) {
+              setState(() {
+                getReqBooking.ratings = rating.toString();
+
+                print(getReqBooking.ratings);
+                print(widget.hotelData!.booking_schedule[0].booking_id);
+              });
+            },
+            updateOnDrag: true,
+          ),
+        ),
+        actions: <Widget>[
+          FlatButton(
+            onPressed: () async {
+              getReqBooking.rating(
+                  context, widget.hotelData!.booking_schedule[0].booking_id);
+              Navigator.of(context).pop(true);
+              // Navigator.pop(context);
+            },
+            child: Center(child: new Text('ok')),
+          ),
+        ],
       ),
     );
   }

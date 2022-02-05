@@ -3,6 +3,7 @@
 import 'dart:convert';
 
 import 'package:addistutor_student/Screens/Login/login_screen.dart';
+import 'package:addistutor_student/Screens/Profile/contactus.dart';
 import 'package:addistutor_student/Screens/Profile/help_screen.dart';
 import 'package:addistutor_student/Screens/Profile/setting.dart';
 import 'package:addistutor_student/Screens/Notification/notification.dart';
@@ -331,7 +332,19 @@ class _ProfilePageState extends State<ProfileS> {
                         showBadge: true),
                   ),
                   _buildDivider(),
-                  _buildRow(Icons.email, "Contact us"),
+                  GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          // ignore: prefer_const_constructors
+                          context,
+                          PageRouteBuilder(
+                            pageBuilder: (context, animation1, animation2) =>
+                                ContactDetailsView(),
+                            transitionDuration: Duration.zero,
+                          ),
+                        );
+                      },
+                      child: _buildRow(Icons.email, "Contact us")),
                   _buildDivider(),
                   GestureDetector(
                       onTap: () {

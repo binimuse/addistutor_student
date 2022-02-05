@@ -1,3 +1,4 @@
+import 'package:addistutor_student/Screens/Profile/localstring.dart';
 import 'package:addistutor_student/Screens/connectvity.dart';
 
 import 'package:addistutor_student/constants.dart';
@@ -60,8 +61,10 @@ class _MyHomePageState extends State<MyApp> {
 
     }
     return isconected
-        ? MaterialApp(
+        ? GetMaterialApp(
             debugShowCheckedModeBanner: false,
+            translations: LocaleString(),
+            locale: const Locale('en', 'US'),
             title: 'Flutter Auth',
             theme: ThemeData(
               primaryColor: kPrimaryColor,

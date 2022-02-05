@@ -130,7 +130,7 @@ class _HomePageState extends State<Appointment>
                 padding: const EdgeInsets.only(top: 406),
                 child: Column(children: [
                   CircularProgressIndicator(),
-                  Center(child: Text("Can't Find any appointment"))
+                  Center(child: Text("Load"))
                 ]),
               ))));
   }
@@ -217,7 +217,7 @@ class _HomePageState extends State<Appointment>
                         context,
                         MaterialPageRoute<dynamic>(
                           builder: (BuildContext context) =>
-                              CourseInfoScreenRating(),
+                              CourseInfoScreenRating(hotelData: chat),
                         ),
                       );
                     },
@@ -284,7 +284,7 @@ class _HomePageState extends State<Appointment>
                                             color: Colors.white),
                                         child: Icon(
                                           Icons.circle,
-                                          color: Colors.red,
+                                          color: Colors.yellow,
                                           size: 10,
                                         ),
                                       )),
@@ -340,12 +340,13 @@ class _HomePageState extends State<Appointment>
                                 width: 20.0,
                                 height: 20.0,
                                 decoration: const BoxDecoration(
-                                    color: Colors.red, shape: BoxShape.circle),
+                                    color: Colors.yellow,
+                                    shape: BoxShape.circle),
                                 alignment: Alignment.center,
                               ),
                               const SizedBox(height: 5.0),
                               Text(
-                                "Not Accrepted",
+                                "Pending",
                                 style: TextStyle(
                                   color: Colors.grey.withOpacity(0.5),
                                   fontSize: 12.0,

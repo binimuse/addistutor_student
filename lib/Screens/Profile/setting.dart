@@ -1,4 +1,5 @@
 import 'package:addistutor_student/Screens/Home/components/design_course_app_theme.dart';
+import 'package:addistutor_student/Screens/Profile/changepassword.dart';
 import 'package:addistutor_student/constants.dart';
 import 'package:flutter/cupertino.dart';
 /**
@@ -6,12 +7,36 @@ import 'package:flutter/cupertino.dart';
  * profile: https://github.com/ambikadulal
   */
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SettingsFourPage extends StatefulWidget {
   static final String path = "lib/src/pages/settings/settings4.dart";
 
   @override
   _SettingsFourPageState createState() => _SettingsFourPageState();
+}
+
+bool isActive = true;
+
+final List locale = [
+  {'name': 'English', 'locale': const Locale('en', 'US')},
+  {'name': 'Hindi', 'locale': const Locale('hi', 'IN')},
+  {'name': 'Arabic', 'locale': const Locale('ar', 'IN')},
+  {'name': 'Amahric', 'locale': const Locale('am', 'IN')},
+  {'name': 'deutch', 'locale': const Locale('de', 'IN')},
+  {'name': 'Espaoal', 'locale': const Locale('es', 'IN')},
+  {'name': 'French', 'locale': const Locale('fr', 'IN')},
+  {'name': 'Indonesia', 'locale': const Locale('in', 'IN')},
+  {'name': 'China', 'locale': const Locale('ch', 'IN')},
+  {'name': 'Malaysia', 'locale': const Locale('ma', 'IN')},
+  {'name': 'Turkia', 'locale': const Locale('tu', 'IN')},
+  {'name': 'Italia', 'locale': const Locale('it', 'IN')},
+  {'name': 'portugal', 'locale': const Locale('po', 'IN')},
+  {'name': 'Somlia', 'locale': const Locale('so', 'IN')},
+];
+updateLanguage(Locale locale) {
+  Get.back();
+  Get.updateLocale(locale);
 }
 
 class _SettingsFourPageState extends State<SettingsFourPage> {
@@ -54,7 +79,7 @@ class _SettingsFourPageState extends State<SettingsFourPage> {
                   color: kPrimaryColor,
                 ),
                 SizedBox(
-                  width: 8,
+                  width: 10,
                 ),
                 Text(
                   "Account",
@@ -67,10 +92,72 @@ class _SettingsFourPageState extends State<SettingsFourPage> {
               thickness: 2,
             ),
             SizedBox(
-              height: 10,
+              height: 20,
             ),
-            buildAccountOptionRow(context, "Change password"),
-            buildAccountOptionRow(context, "Language"),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  // ignore: prefer_const_constructors
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation1, animation2) =>
+                        ChangePassword(),
+                    transitionDuration: Duration.zero,
+                  ),
+                );
+              },
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Change password",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.grey[600],
+                      ),
+                    ),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      color: Colors.grey,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            GestureDetector(
+              onTap: () {
+                buildLanguageDialog(context);
+              },
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Language",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.grey[600],
+                      ),
+                    ),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      color: Colors.grey,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
             buildAccountOptionRow(context, "Privacy and Policy"),
             SizedBox(
               height: 40,
@@ -95,7 +182,7 @@ class _SettingsFourPageState extends State<SettingsFourPage> {
               height: 10,
             ),
             buildNotificationOptionRow("New update", true),
-            buildNotificationOptionRow("Account Status", false),
+            buildNotificationOptionRow("Account Status", isActive),
             SizedBox(
               height: 50,
             ),
@@ -105,7 +192,7 @@ class _SettingsFourPageState extends State<SettingsFourPage> {
     );
   }
 
-  Row buildNotificationOptionRow(String title, bool isActive) {
+  Row buildNotificationOptionRow(String title, isActive) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -116,12 +203,18 @@ class _SettingsFourPageState extends State<SettingsFourPage> {
               fontWeight: FontWeight.w500,
               color: Colors.grey[600]),
         ),
-        Transform.scale(
-            scale: 0.7,
-            child: CupertinoSwitch(
-              value: isActive,
-              onChanged: (bool val) {},
-            ))
+        GestureDetector(
+          child: Transform.scale(
+              scale: 0.7,
+              child: CupertinoSwitch(
+                value: isActive,
+                onChanged: (bool val) {
+                  setState(() {
+                    isActive == false;
+                  });
+                },
+              )),
+        )
       ],
     );
   }
@@ -129,28 +222,14 @@ class _SettingsFourPageState extends State<SettingsFourPage> {
   GestureDetector buildAccountOptionRow(BuildContext context, String title) {
     return GestureDetector(
       onTap: () {
-        showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: Text(title),
-                content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text("Option A"),
-                    Text("Option B"),
-                    Text("Option C"),
-                  ],
-                ),
-                actions: [
-                  FlatButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: Text("Close")),
-                ],
-              );
-            });
+        // Navigator.push(
+        //   // ignore: prefer_const_constructors
+        //   context,
+        //   PageRouteBuilder(
+        //     pageBuilder: (context, animation1, animation2) => ChangePassword(),
+        //     transitionDuration: Duration.zero,
+        //   ),
+        // );
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -173,5 +252,37 @@ class _SettingsFourPageState extends State<SettingsFourPage> {
         ),
       ),
     );
+  }
+
+  buildLanguageDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (builder) {
+          return AlertDialog(
+            title: const Text('Choose Your Language'),
+            content: SizedBox(
+              width: double.maxFinite,
+              child: ListView.separated(
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: GestureDetector(
+                        child: Text(locale[index]['name']),
+                        onTap: () {
+                          updateLanguage(locale[index]['locale']);
+                        },
+                      ),
+                    );
+                  },
+                  separatorBuilder: (context, index) {
+                    return const Divider(
+                      color: kPrimaryColor,
+                    );
+                  },
+                  itemCount: locale.length),
+            ),
+          );
+        });
   }
 }

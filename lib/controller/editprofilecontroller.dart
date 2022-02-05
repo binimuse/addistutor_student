@@ -15,6 +15,7 @@ class EditprofileController extends GetxController with StateMixin {
   // ignore: non_constant_identifier_names
   GlobalKey<FormState> EditProf = GlobalKey<FormState>();
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  final GlobalKey<FormState> changePass = GlobalKey<FormState>();
 
   // ignore: prefer_typing_uninitialized_variables
   var inforesponse;
@@ -26,6 +27,13 @@ class EditprofileController extends GetxController with StateMixin {
   late TextEditingController parent_last_name;
   late TextEditingController phone;
   late TextEditingController email;
+
+  //update pass
+  late TextEditingController passControl;
+  late TextEditingController newpassControl;
+  late TextEditingController confirmpassControl;
+  var pass = '';
+
   late var macthgender = "".obs;
   GetLocation? locaion;
   late var education = "Primary".obs;
@@ -49,7 +57,114 @@ class EditprofileController extends GetxController with StateMixin {
     phone = TextEditingController();
     About = TextEditingController();
 
+    //update pass
+    passControl = TextEditingController();
+    newpassControl = TextEditingController();
+    confirmpassControl = TextEditingController();
+
     super.onInit();
+  }
+
+  void changepass(BuildContext context) async {
+    try {
+      final isValid = changePass.currentState!.validate();
+
+      if (isValid == true) {
+        isLoading(true);
+        changePass.currentState!.save();
+        await updatePass(context);
+      }
+    } finally {
+      // TODO
+    }
+  }
+
+  var edited = "";
+  Future<void> updatePass(context) async {
+    openAndCloseLoadingDialog(context);
+
+    var data = {
+      "old_password": passControl.text,
+      "password": newpassControl.text,
+      "password_confirmation": confirmpassControl.text,
+    };
+    print(data);
+    edited = await RemoteServices.updatepass(data);
+    //print(edited.toString());
+    if (edited.toString() == "200") {
+      closeDialogpassword(true, edited, context);
+      isLoading(false);
+      print("yess");
+    } else {
+      //inforesponse = edited;
+      closeDialogpassword(false, edited, context);
+      print("noo");
+      //  print(edited.toString());
+    }
+  }
+
+  closeDialogpassword(bool stat, String data, BuildContext context) {
+    Future.delayed(const Duration(seconds: 1));
+    // Dismiss CircularProgressIndicator
+    Navigator.of(context).pop();
+    if (stat == false) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(
+            'Password Not Updated \n ' + data.toString(),
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w500,
+              color: Colors.black,
+              fontFamily: 'WorkSans',
+            ),
+          ),
+          actions: <Widget>[
+            FlatButton(
+              onPressed: () async {
+                Navigator.of(context).pop(true);
+                Navigator.pop(context);
+                isLoading(false);
+              },
+              child: new Text('ok'),
+            ),
+          ],
+        ),
+      );
+    } else {
+      // ignore: deprecated_member_use
+
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text(
+            'Password Edited',
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w500,
+              color: Colors.black,
+              fontFamily: 'WorkSans',
+            ),
+          ),
+          actions: <Widget>[
+            // ignore: deprecated_member_use
+            FlatButton(
+              onPressed: () async {
+                isLoading(false);
+                Navigator.of(context).pop(true);
+
+                Navigator.pop(context);
+                isLoading(false);
+                //    openAndCloseLoadingDialog(context);
+                print("yess");
+              },
+              child: new Text('ok'),
+            ),
+          ],
+        ),
+      );
+    }
   }
 
   var fetched;
@@ -231,7 +346,7 @@ class EditprofileController extends GetxController with StateMixin {
                       context,
                       PageRouteBuilder(
                         pageBuilder: (context, animation1, animation2) {
-                          return LoginScreen();
+                          return const LoginScreen();
                         },
                       ),
                     );
@@ -274,6 +389,13 @@ class EditprofileController extends GetxController with StateMixin {
   String? validateName(String value) {
     if (value.isEmpty) {
       return "please Provide a name";
+    }
+    return null;
+  }
+
+  String? validateNamep(String value) {
+    if (value.isEmpty) {
+      return "please Provide a Password";
     }
     return null;
   }

@@ -36,21 +36,21 @@ class HotelListView extends StatelessWidget {
             children: <Widget>[
               Column(
                 children: <Widget>[
-                  // AspectRatio(
-                  //   aspectRatio: 2,
-                  //   child: Image.network(
-                  //     "https://tutor.oddatech.com/api/student-profile-picture/${1}",
-                  //     fit: BoxFit.cover,
-                  //   ),
-                  // ),
-
-                  AspectRatio(
-                    aspectRatio: 2,
-                    child: Image.asset(
-                      "assets/images/profile2.jpg",
-                      fit: BoxFit.cover,
-                    ),
-                  ),
+                  hotelData!.profile_img != null
+                      ? AspectRatio(
+                          aspectRatio: 2,
+                          child: Image.network(
+                            "https://tutor.oddatech.com/api/teacher-profile-picture/${hotelData!.id}",
+                            fit: BoxFit.cover,
+                          ),
+                        )
+                      : AspectRatio(
+                          aspectRatio: 2,
+                          child: Image.asset(
+                            "assets/images/profile2.jpg",
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                   Container(
                     color: HotelAppTheme.buildLightTheme().backgroundColor,
                     child: Row(

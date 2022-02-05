@@ -98,14 +98,14 @@ List<Message> chats2 = [
       activeTime: '1500 birr'),
   Message(
       sender: olivia,
-      time: 'Not Accepted',
+      time: 'Pending',
       text: '23th Sept 2021 ',
       isLiked: false,
       unread: false,
       activeTime: ' 1200 birr'),
   Message(
       sender: john,
-      time: 'Not Accepted',
+      time: 'Pending',
       text: '2nd Sept 2021',
       isLiked: false,
       unread: false,
