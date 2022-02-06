@@ -448,7 +448,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
                 color: Colors.black, fontSize: 16, fontWeight: FontWeight.w700),
             items: <String>[
               '',
-              'male',
+              'Male',
               'Female',
             ].map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(

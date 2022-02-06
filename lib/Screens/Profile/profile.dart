@@ -7,9 +7,15 @@ import 'package:addistutor_student/Screens/Profile/contactus.dart';
 import 'package:addistutor_student/Screens/Profile/help_screen.dart';
 import 'package:addistutor_student/Screens/Profile/setting.dart';
 import 'package:addistutor_student/Screens/Notification/notification.dart';
+import 'package:addistutor_student/controller/bookingcontroller.dart';
+import 'package:addistutor_student/controller/contactuscontroller.dart';
 import 'package:addistutor_student/controller/editprofilecontroller.dart';
+import 'package:addistutor_student/controller/feedbackcontroller.dart';
+import 'package:addistutor_student/controller/geteducationlevelcontroller.dart';
 import 'package:addistutor_student/controller/getlocationcontroller.dart';
+import 'package:addistutor_student/controller/getreqestedbookingcpntroller.dart';
 import 'package:addistutor_student/controller/getsubjectcontroller.dart';
+import 'package:addistutor_student/controller/getutoravlblitycontroller.dart';
 import 'package:addistutor_student/controller/searchcontroller.dart';
 import 'package:addistutor_student/controller/signupcontroller.dart';
 import 'package:addistutor_student/constants.dart';
@@ -100,7 +106,10 @@ class _ProfilePageState extends State<ProfileS> {
       var body = json.decode(token);
 
       if (body["student_id"] != null) {
-        ids = int.parse(body["student_id"]);
+        setState(() {
+          ids = int.parse(body["student_id"]);
+        });
+
         editprofileController.fetchPf(int.parse(body["student_id"]));
       } else {
         var noid = "noid";
@@ -522,6 +531,15 @@ class _ProfilePageState extends State<ProfileS> {
     Get.delete<GetLocationController>();
     Get.delete<GetSubjectController>();
     Get.delete<SearchController>();
+    Get.delete<BookingeController>();
+    Get.delete<ContactUSContolller>();
+    Get.delete<FeedBackScreencontroller>();
+    Get.delete<GetEducationlevelController>();
+    Get.delete<GetLocationController>();
+    Get.delete<GetReqBooking>();
+
+    Get.delete<GetTutorAvlblityController>();
+    Get.delete<GetTutorAvlblityController>();
 
     Navigator.push(
       context,

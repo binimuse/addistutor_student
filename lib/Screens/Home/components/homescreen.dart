@@ -106,7 +106,7 @@ class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
     _refreshController.loadComplete();
   }
 
-  CategoryType categoryType = CategoryType.ui;
+  CategoryType categoryType = CategoryType.coding;
 
   @override
   Widget build(BuildContext context) {

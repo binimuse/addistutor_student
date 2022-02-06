@@ -84,6 +84,7 @@ class _EditPageState extends State<BookScreen>
   List<String> sunday = [
     "sunday",
   ];
+  String isselected = "";
   @override
   void deactivate() {
     EasyLoading.dismiss();
@@ -189,13 +190,78 @@ class _EditPageState extends State<BookScreen>
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
+                              // Padding(
+                              //   padding: const EdgeInsets.only(left: 18.0),
+                              //   child: DropdownButton<GetSubject>(
+                              //       hint: Text(
+                              //         getSubjectController.sub.toString(),
+                              //         style: const TextStyle(
+                              //             color: Colors.black,
+                              //             fontSize: 16,
+                              //             fontWeight: FontWeight.w400),
+                              //       ),
+                              //       isExpanded: true,
+                              //       style: const TextStyle(
+                              //           color: Colors.black,
+                              //           fontSize: 16,
+                              //           fontWeight: FontWeight.w700),
+                              //       items: subject
+                              //           .map((e) => DropdownMenuItem(
+                              //                 child: Column(children: [
+                              //                   Text(
+                              //                     e.title,
+                              //                     textAlign: TextAlign.left,
+                              //                     style: const TextStyle(
+                              //                         color: Colors.black,
+                              //                         fontSize: 16,
+                              //                         fontWeight:
+                              //                             FontWeight.w400),
+                              //                   ),
+                              //                 ]),
+                              //                 value: e,
+                              //               ))
+                              //           .toList(),
+                              //       onChanged: (value) {
+                              //         setState(() {
+                              //           getSubjectController.sub = value!;
+                              //           bookingeController.subjectid = value.id;
+                              //           //     sid = ("");
+                              //         });
+                              //       },
+                              //       value: getSubjectController.sub),
+                              // ),
+                              Container(
+                                height: 100,
+                                child: ListView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    itemBuilder: (_, index) {
+                                      return Column(
+                                        children: [
+                                          getTimeBoxUIday(
+                                            widget
+                                                .hotelData!
+                                                .preferred_tutoring_subjects[
+                                                    index]
+                                                .title,
+                                            widget
+                                                .hotelData!
+                                                .preferred_tutoring_subjects[
+                                                    index]
+                                                .id,
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                    itemCount: widget.hotelData!
+                                        .preferred_tutoring_subjects.length),
+                              ),
                               Padding(
                                 padding: const EdgeInsets.all(16.0),
                                 child: Text(
-                                  'Subject:',
+                                  'Selected Subject:' + " " + isselected,
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
-                                      color: Colors.grey,
+                                      color: Colors.black,
                                       fontSize:
                                           MediaQuery.of(context).size.width >
                                                   360
@@ -204,54 +270,9 @@ class _EditPageState extends State<BookScreen>
                                       fontWeight: FontWeight.normal),
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 18.0),
-                                child: DropdownButton<GetSubject>(
-                                    hint: Text(
-                                      getSubjectController.sub.toString(),
-                                      style: const TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w400),
-                                    ),
-                                    isExpanded: true,
-                                    style: const TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w700),
-                                    items: subject
-                                        .map((e) => DropdownMenuItem(
-                                              child: Column(children: [
-                                                Text(
-                                                  e.title,
-                                                  textAlign: TextAlign.left,
-                                                  style: const TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16,
-                                                      fontWeight:
-                                                          FontWeight.w400),
-                                                ),
-                                              ]),
-                                              value: e,
-                                            ))
-                                        .toList(),
-                                    onChanged: (value) {
-                                      setState(() {
-                                        getSubjectController.sub = value!;
-                                        bookingeController.subjectid = value.id;
-                                        //     sid = ("");
-                                      });
-                                    },
-                                    value: getSubjectController.sub),
-                              ),
-                              const SizedBox(
-                                height: 8,
-                              )
                             ],
                           ),
-                          const SizedBox(
-                            height: 8,
-                          ),
+
                           const SizedBox(
                             height: 35,
                           ),
@@ -962,6 +983,53 @@ class _EditPageState extends State<BookScreen>
               ),
             ))
         : const Center(child: CircularProgressIndicator()));
+  }
+
+  Widget getTimeBoxUIday(String txt2, id) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          isselected = txt2;
+          //  getSubjectController.sub = txt2! as GetSubject?;
+          bookingeController.subjectid = id;
+        });
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          decoration: BoxDecoration(
+            color: DesignCourseAppTheme.nearlyWhite,
+            borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+            boxShadow: <BoxShadow>[
+              BoxShadow(
+                  color: DesignCourseAppTheme.grey.withOpacity(0.2),
+                  offset: const Offset(1.1, 1.1),
+                  blurRadius: 8.0),
+            ],
+          ),
+          child: Padding(
+            padding: const EdgeInsets.only(
+                left: 18.0, right: 18.0, top: 12.0, bottom: 12.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  txt2,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w200,
+                    fontSize: 14,
+                    letterSpacing: 0.27,
+                    color: DesignCourseAppTheme.grey,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
   void Cricular() async {

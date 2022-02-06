@@ -4,6 +4,7 @@ import 'package:addistutor_student/Screens/Home/components/course_info_screen.da
 import 'package:addistutor_student/Screens/Home/components/design_course_app_theme.dart';
 import 'package:addistutor_student/Screens/Home/components/homescreen.dart';
 import 'package:addistutor_student/Screens/Home/models/category.dart';
+import 'package:addistutor_student/Screens/search/components/hotel_app_theme.dart';
 import 'package:addistutor_student/controller/geteducationlevelcontroller.dart';
 import 'package:addistutor_student/controller/searchcontroller.dart';
 import 'package:addistutor_student/remote_services/service.dart';
@@ -201,21 +202,36 @@ class CategoryView extends StatelessWidget {
                                                           CrossAxisAlignment
                                                               .center,
                                                       children: <Widget>[
-                                                        Text(
-                                                          '${category!.gender}',
-                                                          textAlign:
-                                                              TextAlign.left,
-                                                          style:
-                                                              const TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.w200,
-                                                            fontSize: 12,
-                                                            letterSpacing: 0.27,
-                                                            color:
-                                                                DesignCourseAppTheme
-                                                                    .grey,
+                                                        Row(children: [
+                                                          Text(
+                                                            ' ${category!.gender}',
+                                                            style: TextStyle(
+                                                                fontSize: 14,
+                                                                color: Colors
+                                                                    .grey
+                                                                    .withOpacity(
+                                                                        0.8)),
                                                           ),
-                                                        ),
+                                                          const SizedBox(
+                                                            width: 10,
+                                                          ),
+                                                          Icon(
+                                                            Icons.location_pin,
+                                                            color: HotelAppTheme
+                                                                    .buildLightTheme()
+                                                                .primaryColor,
+                                                            size: 10,
+                                                          ),
+                                                          // Text(
+                                                          //   ' ${category!.location.name}',
+                                                          //   style: TextStyle(
+                                                          //       fontSize: 14,
+                                                          //       color: Colors
+                                                          //           .grey
+                                                          //           .withOpacity(
+                                                          //               0.8)),
+                                                          // ),
+                                                        ]),
                                                         Row(
                                                           children: <Widget>[
                                                             const Text(

@@ -116,6 +116,27 @@ class GetSubject {
   }
 }
 
+class Qualification {
+  int id;
+
+  String title;
+  String description;
+
+  Qualification({
+    required this.id,
+    required this.title,
+    required this.description,
+  });
+
+  factory Qualification.fromJson(Map<String, dynamic> json) {
+    return Qualification(
+      id: json["id"] as int,
+      title: json["title"],
+      description: json["description"],
+    );
+  }
+}
+
 class Search {
   int id;
   String user_id;
@@ -125,10 +146,14 @@ class Search {
   String phone_no;
   String gender;
   String about;
-  String subject_id;
+  String rating;
+
   String location_id;
   String profile_img;
   String teaching_since;
+  GetLocation location;
+  Qualification qualification_id;
+  List<GetSubject> preferred_tutoring_subjects;
 
   Search({
     required this.id,
@@ -139,26 +164,37 @@ class Search {
     required this.phone_no,
     required this.gender,
     required this.about,
-    required this.subject_id,
+    required this.rating,
     required this.location_id,
     required this.profile_img,
     required this.teaching_since,
+    required this.location,
+    required this.qualification_id,
+    required this.preferred_tutoring_subjects,
   });
 
   factory Search.fromJson(Map<String, dynamic> json) {
     return Search(
-        id: json["id"],
-        user_id: json["user_id"],
-        first_name: json["first_name"],
-        middle_name: json["middle_name"],
-        last_name: json["last_name"],
-        phone_no: json["phone_no"],
-        gender: json["gender"],
-        about: json["about"],
-        subject_id: json["subject_id"],
-        profile_img: json["profile_img"],
-        teaching_since: json["teaching_since"],
-        location_id: json["location_id"]);
+      id: json["id"],
+      user_id: json["user_id"],
+      first_name: json["first_name"],
+      middle_name: json["middle_name"],
+      last_name: json["last_name"],
+      phone_no: json["phone_no"],
+      gender: json["gender"],
+      about: json["about"],
+      rating: json["rating"],
+      profile_img: json["profile_img"],
+      teaching_since: json["teaching_since"],
+      location_id: json["location_id"],
+      location: GetLocation.fromJson(json["location"]),
+      qualification_id: Qualification.fromJson(
+        json["qualification_id"],
+      ),
+      preferred_tutoring_subjects: List<GetSubject>.from(
+          json["preferred_tutoring_subjects"]
+              .map((x) => GetSubject.fromJson(x))),
+    );
   }
 }
 
@@ -207,6 +243,56 @@ class Bookingschedule {
   }
 }
 
+class ReqTech {
+  int id;
+
+  String first_name;
+  String middle_name;
+  String last_name;
+  String phone_no;
+  String gender;
+  String birth_date;
+
+  String about;
+  String rating;
+
+  String location_id;
+  String profile_img;
+  String teaching_since;
+
+  ReqTech({
+    required this.id,
+    required this.first_name,
+    required this.middle_name,
+    required this.last_name,
+    required this.phone_no,
+    required this.gender,
+    required this.birth_date,
+    required this.about,
+    required this.rating,
+    required this.location_id,
+    required this.profile_img,
+    required this.teaching_since,
+  });
+
+  factory ReqTech.fromJson(Map<String, dynamic> json) {
+    return ReqTech(
+      id: json["id"],
+      first_name: json["first_name"],
+      middle_name: json["middle_name"],
+      last_name: json["last_name"],
+      phone_no: json["phone_no"],
+      gender: json["gender"],
+      birth_date: json["birth_date"],
+      about: json["about"],
+      rating: json["rating"],
+      profile_img: json["profile_img"],
+      teaching_since: json["teaching_since"],
+      location_id: json["location_id"],
+    );
+  }
+}
+
 class RequestedBooking {
   int id;
   String confirmation_code;
@@ -214,11 +300,10 @@ class RequestedBooking {
   String message;
   String verified_status;
   String teacher_id;
-  String subject_id;
-  String student_id;
-  Search teacher;
 
+  String student_id;
   List<Bookingschedule> booking_schedule;
+  ReqTech teacher;
 
   RequestedBooking({
     required this.id,
@@ -227,7 +312,6 @@ class RequestedBooking {
     required this.message,
     required this.verified_status,
     required this.teacher_id,
-    required this.subject_id,
     required this.student_id,
     required this.teacher,
     required this.booking_schedule,
@@ -241,9 +325,8 @@ class RequestedBooking {
       message: json["message"],
       verified_status: json["verified_status"],
       teacher_id: json["teacher_id"],
-      subject_id: json["subject_id"],
       student_id: json["student_id"],
-      teacher: Search.fromJson(json["teacher"]),
+      teacher: ReqTech.fromJson(json["teacher"]),
       booking_schedule: List<Bookingschedule>.from(
           json["booking_schedule"].map((x) => Bookingschedule.fromJson(x))),
     );
@@ -266,6 +349,67 @@ class ContactUS {
       name: json["name"],
       email: json["email"],
       phone: json["phone"],
+    );
+  }
+}
+
+class NotificationData {
+  String message;
+  String redirect_url;
+  String notification_type;
+
+  String teacher_name;
+  // String teacher_id;
+  String student_name;
+
+  NotificationData({
+    required this.message,
+    required this.redirect_url,
+    required this.notification_type,
+    required this.teacher_name,
+    // required this.teacher_id,
+    required this.student_name,
+  });
+
+  factory NotificationData.fromJson(Map<String, dynamic> json) {
+    return NotificationData(
+      message: json["message"],
+      redirect_url: json["redirect_url"],
+      notification_type: json["notification_type"],
+      teacher_name: json["teacher_name"],
+      //   teacher_id: json["teacher_id"],
+      student_name: json["student_name"],
+    );
+  }
+}
+
+class Notifications {
+  String id;
+  String type;
+  String notifiable_type;
+  String notifiable_id;
+  String read_at;
+  String created_at;
+  NotificationData data;
+  Notifications({
+    required this.id,
+    required this.type,
+    required this.notifiable_type,
+    required this.notifiable_id,
+    required this.read_at,
+    required this.created_at,
+    required this.data,
+  });
+
+  factory Notifications.fromJson(Map<String, dynamic> json) {
+    return Notifications(
+      id: json["id"],
+      type: json["type"],
+      notifiable_type: json["notifiable_type"],
+      notifiable_id: json["notifiable_id"],
+      read_at: json["read_at"],
+      created_at: json["created_at"],
+      data: NotificationData.fromJson(json["data"]),
     );
   }
 }

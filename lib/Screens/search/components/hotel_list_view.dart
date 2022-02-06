@@ -36,21 +36,13 @@ class HotelListView extends StatelessWidget {
             children: <Widget>[
               Column(
                 children: <Widget>[
-                  hotelData!.profile_img != null
-                      ? AspectRatio(
-                          aspectRatio: 2,
-                          child: Image.network(
-                            "https://tutor.oddatech.com/api/teacher-profile-picture/${hotelData!.id}",
-                            fit: BoxFit.cover,
-                          ),
-                        )
-                      : AspectRatio(
-                          aspectRatio: 2,
-                          child: Image.asset(
-                            "assets/images/profile2.jpg",
-                            fit: BoxFit.cover,
-                          ),
-                        ),
+                  AspectRatio(
+                    aspectRatio: 2,
+                    child: Image.network(
+                      "https://tutor.oddatech.com/api/teacher-profile-picture/${hotelData!.id}",
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                   Container(
                     color: HotelAppTheme.buildLightTheme().backgroundColor,
                     child: Row(
@@ -79,12 +71,29 @@ class HotelListView extends StatelessWidget {
                                   const SizedBox(
                                     height: 4,
                                   ),
-                                  Text(
-                                    ' ${hotelData!.gender}',
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.grey.withOpacity(0.8)),
-                                  ),
+                                  Row(children: [
+                                    Text(
+                                      ' ${hotelData!.gender}',
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.grey.withOpacity(0.8)),
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Icon(
+                                      Icons.location_pin,
+                                      color: HotelAppTheme.buildLightTheme()
+                                          .primaryColor,
+                                      size: 10,
+                                    ),
+                                    Text(
+                                      ' ${hotelData!.location.name}',
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.grey.withOpacity(0.8)),
+                                    ),
+                                  ]),
                                   const SizedBox(
                                     height: 4,
                                   ),
@@ -100,7 +109,7 @@ class HotelListView extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: <Widget>[
                               Text(
-                                'teaching_since : ${hotelData!.teaching_since} ',
+                                'Qualification : ${hotelData!.qualification_id.title} ',
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
                                   fontWeight: FontWeight.w600,

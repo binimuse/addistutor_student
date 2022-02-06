@@ -200,7 +200,10 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
                                     child: Column(
                                       children: [
                                         getTimeBoxUIday(widget.hotelData!
-                                            .booking_schedule[index].day),
+                                                .booking_schedule[index].day +
+                                            " " +
+                                            widget.hotelData!
+                                                .booking_schedule[index].time),
                                       ],
                                     ),
                                   );
@@ -264,14 +267,14 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
                       parent: animationController!,
                       curve: Curves.fastOutSlowIn),
                   child: SizedBox(
-                    width: 100,
-                    height: 70,
-                    child: ClipRRect(
+                      width: 100,
+                      height: 70,
+                      child: ClipRRect(
                         borderRadius: BorderRadius.circular(18.0),
-                        child: Image.network(
-                          "https://tutor.oddatech.com/api/teacher-profile-picture/${widget.hotelData!.teacher.id}",
-                        )),
-                  )),
+                        // child: Image.network(
+                        //   "https://tutor.oddatech.com/api/teacher-profile-picture/${widget.hotelData!.teacher.profile_img}",
+                        // )),
+                      ))),
             ),
             Padding(
               padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),

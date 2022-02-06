@@ -27,4 +27,11 @@ class GetSubjectController extends GetxController with StateMixin {
       isfetchedsubject(true);
     }
   }
+
+  var psubj = <Search>[].obs;
+  late List<Search> psubject;
+  List<MultiSelectItem<Search>> phobItem = [];
+  void prefred(var lid, sid, gender) async {
+    psubj.value = await RemoteServices.search(lid, sid, gender);
+  }
 }

@@ -130,7 +130,7 @@ class _HomePageState extends State<Appointment>
                 padding: const EdgeInsets.only(top: 406),
                 child: Column(children: [
                   CircularProgressIndicator(),
-                  Center(child: Text("Load"))
+                  Center(child: Text("Loading"))
                 ]),
               ))));
   }

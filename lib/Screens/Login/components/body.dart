@@ -26,6 +26,9 @@ class Body extends StatefulWidget {
   _LoginScreenState createState() => _LoginScreenState();
 }
 
+bool showPassword1 = true;
+bool isPasswordTextField1 = true;
+
 bool _isLoggedIn = false;
 late GoogleSignInAccount _userObj;
 GoogleSignIn _googleSignIn = GoogleSignIn();
@@ -94,22 +97,39 @@ class _LoginScreenState extends State<Body> {
                   // },
                 ),
               ),
+
               TextFieldContainer(
                 child: TextFormField(
-                  obscureText: true,
+                  obscureText: isPasswordTextField1 ? showPassword1 : false,
                   cursorColor: kPrimaryColor,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     hintText: "Password",
                     icon: Icon(
                       Icons.lock,
                       color: kPrimaryColor,
                     ),
-                    suffixIcon: Icon(
-                      Icons.visibility,
-                      color: kPrimaryColor,
+                    suffixIcon: isPasswordTextField1
+                        ? IconButton(
+                            onPressed: () {
+                              setState(() {
+                                showPassword1 = !showPassword1;
+                              });
+                            },
+                            icon: Icon(
+                              Icons.remove_red_eye,
+                              color: kPrimaryColor,
+                            ),
+                          )
+                        : null,
+                    contentPadding: EdgeInsets.all(10),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide:
+                          const BorderSide(color: kPrimaryColor, width: 2.0),
+                      borderRadius: BorderRadius.circular(12),
                     ),
                     border: InputBorder.none,
                   ),
+                  onSaved: (value) {},
                   validator: (passwordval) {
                     if (passwordval!.isEmpty) {
                       return "Please put your Password";
@@ -119,6 +139,31 @@ class _LoginScreenState extends State<Body> {
                   },
                 ),
               ),
+              // TextFieldContainer(
+              //   child: TextFormField(
+              //     obscureText: true,
+              //     cursorColor: kPrimaryColor,
+              //     decoration: const InputDecoration(
+              //       hintText: "Password",
+              //       icon: Icon(
+              //         Icons.lock,
+              //         color: kPrimaryColor,
+              //       ),
+              //       suffixIcon: Icon(
+              //         Icons.visibility,
+              //         color: kPrimaryColor,
+              //       ),
+              //       border: InputBorder.none,
+              //     ),
+              //     validator: (passwordval) {
+              //       if (passwordval!.isEmpty) {
+              //         return "Please put your Password";
+              //       }
+              //       password = passwordval.toString();
+              //       return null;
+              //     },
+              //   ),
+              // ),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 30),
                 // ignore: deprecated_member_use

@@ -83,16 +83,6 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                               ),
                             ),
                           ),
-                          Container(
-                            padding: const EdgeInsets.only(top: 16),
-                            child: const Text(
-                              'Give your best time for this moment.',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 16,
-                              ),
-                            ),
-                          ),
                           _buildComposer(),
                           Padding(
                             padding: const EdgeInsets.only(top: 16),

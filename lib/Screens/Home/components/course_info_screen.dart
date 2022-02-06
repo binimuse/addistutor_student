@@ -131,7 +131,9 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                                   padding: EdgeInsets.only(
                                       top: 32.0, left: 18, right: 16),
                                   child: Text(
-                                    widget.hotelData!.first_name,
+                                    widget.hotelData!.first_name +
+                                        " " +
+                                        widget.hotelData!.last_name,
                                     textAlign: TextAlign.left,
                                     style: const TextStyle(
                                       fontWeight: FontWeight.w600,
@@ -214,12 +216,32 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                               padding: const EdgeInsets.all(8),
                               child: Row(
                                 children: <Widget>[
-                                  getTimeBoxUI("1", 'Subject'),
-                                  getTimeBoxUI('2hours', 'Time'),
-                                  getTimeBoxUI('6', 'Studnets'),
+                                  getTimeBoxUI("location",
+                                      widget.hotelData!.location.name),
+                                  getTimeBoxUI(
+                                      widget.hotelData!
+                                          .preferred_tutoring_subjects.length
+                                          .toString(),
+                                      'Subject'),
                                 ],
                               ),
                             ),
+                          ),
+                          Expanded(
+                            child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (_, index) {
+                                  return Column(
+                                    children: [
+                                      getTimeBoxUIday(widget
+                                          .hotelData!
+                                          .preferred_tutoring_subjects[index]
+                                          .title),
+                                    ],
+                                  );
+                                },
+                                itemCount: widget.hotelData!
+                                    .preferred_tutoring_subjects.length),
                           ),
                           widget.hotelData!.about != null
                               ? Expanded(
@@ -446,6 +468,44 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
               ),
             )
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget getTimeBoxUIday(String txt2) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        decoration: BoxDecoration(
+          color: DesignCourseAppTheme.nearlyWhite,
+          borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+                color: DesignCourseAppTheme.grey.withOpacity(0.2),
+                offset: const Offset(1.1, 1.1),
+                blurRadius: 8.0),
+          ],
+        ),
+        child: Padding(
+          padding: const EdgeInsets.only(
+              left: 18.0, right: 18.0, top: 12.0, bottom: 12.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                txt2,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontWeight: FontWeight.w200,
+                  fontSize: 14,
+                  letterSpacing: 0.27,
+                  color: DesignCourseAppTheme.grey,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

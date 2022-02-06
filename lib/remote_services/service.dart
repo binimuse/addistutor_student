@@ -123,7 +123,10 @@ class RemoteServices {
       var locationid, var subjectid, var gender) async {
     res = await Network().getData(
         "tutors?location_id=${locationid}&subject_id=${subjectid}&gender=${gender}");
-    //  res = await Network().getData("tutors?location_id=l&subject_id=2");
+    print("locationid");
+    print(locationid);
+    print(subjectid);
+    print(gender);
     var body = json.decode(res.body);
 
     if (res.statusCode == 200) {
@@ -266,6 +269,20 @@ class RemoteServices {
 
         return errors.join("\n").toString();
       }
+    }
+  }
+
+  static Future<List<Notifications>> getActivity() async {
+    res = await Network().getData("student-notification");
+    var body = json.decode(res.body);
+
+    if (res.statusCode == 200) {
+      return body["data"]
+          .map((e) => Notifications.fromJson(e))
+          .toList()
+          .cast<Notifications>();
+    } else {
+      throw Exception('Failed to load Comment');
     }
   }
 }
