@@ -30,6 +30,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
             child: SafeArea(
               top: false,
               child: Scaffold(
+                resizeToAvoidBottomInset: false,
                 appBar: AppBar(
                   backgroundColor: Colors.white,
                   leading: Material(
@@ -37,7 +38,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                     child: InkWell(
                       borderRadius:
                           BorderRadius.circular(AppBar().preferredSize.height),
-                      child: Icon(
+                      child: const Icon(
                         Icons.arrow_back_ios,
                         color: DesignCourseAppTheme.nearlyBlack,
                       ),
@@ -46,7 +47,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                       },
                     ),
                   ),
-                  title: Text(
+                  title: const Text(
                     "FeedBack",
                     style: TextStyle(
                       fontSize: 25,
@@ -56,7 +57,6 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                     ),
                   ),
                 ),
-                resizeToAvoidBottomInset: true,
                 backgroundColor: AppTheme.nearlyWhite,
                 body: Form(
                   key: feedBackScreencontroller.Formkey,

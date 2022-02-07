@@ -7,6 +7,7 @@ import 'package:addistutor_student/Screens/Home/components/category_list_view.da
 
 import 'package:addistutor_student/Screens/Home/components/course_info_screen_rating.dart';
 import 'package:addistutor_student/Screens/Home/components/design_course_app_theme.dart';
+import 'package:addistutor_student/Screens/Home/components/ongoingtutors.dart';
 import 'package:addistutor_student/Screens/Qr/qrcode.dart';
 import 'package:addistutor_student/constants.dart';
 import 'package:addistutor_student/controller/editprofilecontroller.dart';
@@ -161,7 +162,7 @@ class _HomePageState extends State<Appointment>
         Padding(
           padding: const EdgeInsets.only(top: 8.0, left: 18, right: 16),
           child: const Text(
-            'Recent Tutors',
+            'OnGoing Tutors',
             textAlign: TextAlign.center,
             style: TextStyle(
               fontWeight: FontWeight.w600,
@@ -174,7 +175,7 @@ class _HomePageState extends State<Appointment>
         const SizedBox(
           height: 16,
         ),
-        CategoryListView(
+        OnGoingTutors(
           callBack: () {
             moveTo();
           },
@@ -242,8 +243,8 @@ class _HomePageState extends State<Appointment>
                               Stack(
                                 children: [
                                   Container(
-                                    width: 30,
-                                    height: 70,
+                                    width: 40,
+                                    height: 80,
                                     decoration: BoxDecoration(
                                         border: Border.all(
                                             width: 4,
@@ -259,35 +260,10 @@ class _HomePageState extends State<Appointment>
                                         ],
                                         shape: BoxShape.circle,
                                         image: DecorationImage(
-                                            fit: BoxFit.cover,
-                                            image: AssetImage(
-                                                "chat.sender.imageUrl"))),
+                                            fit: BoxFit.contain,
+                                            image: NetworkImage(
+                                                "https://tutor.oddatech.com/api/teacher-profile-picture/${chat.id}"))),
                                   ),
-                                  Positioned(
-                                      bottom: 10,
-                                      right: 0,
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                            border: Border.all(
-                                                width: 2,
-                                                color: Theme.of(context)
-                                                    .scaffoldBackgroundColor),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                  spreadRadius: 2,
-                                                  blurRadius: 10,
-                                                  color: Colors.black
-                                                      .withOpacity(0.1),
-                                                  offset: const Offset(0, 10))
-                                            ],
-                                            shape: BoxShape.circle,
-                                            color: Colors.white),
-                                        child: Icon(
-                                          Icons.circle,
-                                          color: Colors.yellow,
-                                          size: 10,
-                                        ),
-                                      )),
                                 ],
                               ),
                               const SizedBox(width: 10.0),
@@ -334,27 +310,71 @@ class _HomePageState extends State<Appointment>
                               ),
                             ],
                           ),
-                          Column(
-                            children: <Widget>[
-                              Container(
-                                width: 20.0,
-                                height: 20.0,
-                                decoration: const BoxDecoration(
-                                    color: Colors.yellow,
-                                    shape: BoxShape.circle),
-                                alignment: Alignment.center,
-                              ),
-                              const SizedBox(height: 5.0),
-                              Text(
-                                "Pending",
-                                style: TextStyle(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ],
-                          ),
+                          chat.is_active == null
+                              ? Column(
+                                  children: <Widget>[
+                                    Container(
+                                      width: 20.0,
+                                      height: 20.0,
+                                      decoration: const BoxDecoration(
+                                          color: Colors.yellow,
+                                          shape: BoxShape.circle),
+                                      alignment: Alignment.center,
+                                    ),
+                                    const SizedBox(height: 5.0),
+                                    Text(
+                                      "Pending",
+                                      style: TextStyle(
+                                        color: Colors.grey.withOpacity(0.5),
+                                        fontSize: 12.0,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              : chat.is_active != "0"
+                                  ? Column(
+                                      children: <Widget>[
+                                        Container(
+                                          width: 20.0,
+                                          height: 20.0,
+                                          decoration: const BoxDecoration(
+                                              color: Colors.green,
+                                              shape: BoxShape.circle),
+                                          alignment: Alignment.center,
+                                        ),
+                                        const SizedBox(height: 5.0),
+                                        Text(
+                                          "Accepted",
+                                          style: TextStyle(
+                                            color: Colors.grey.withOpacity(0.5),
+                                            fontSize: 12.0,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  : Column(
+                                      children: <Widget>[
+                                        Container(
+                                          width: 20.0,
+                                          height: 20.0,
+                                          decoration: const BoxDecoration(
+                                              color: Colors.red,
+                                              shape: BoxShape.circle),
+                                          alignment: Alignment.center,
+                                        ),
+                                        const SizedBox(height: 5.0),
+                                        Text(
+                                          "Declied",
+                                          style: TextStyle(
+                                            color: Colors.grey.withOpacity(0.5),
+                                            fontSize: 12.0,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                      ],
+                                    )
                         ],
                       ),
                     ),
@@ -463,36 +483,11 @@ class _HomePageState extends State<Appointment>
             ),
           ),
           GestureDetector(
-            onTap: () {
-              Navigator.push<dynamic>(
-                context,
-                MaterialPageRoute<dynamic>(
-                  builder: (BuildContext context) => CodeScreen(),
-                ),
-              );
-            },
+            onTap: () {},
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    'Qr Code',
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 17,
-                      letterSpacing: 0.2,
-                      color: DesignCourseAppTheme.darkerText,
-                    ),
-                  ),
-                  Center(
-                    child: Icon(
-                      Icons.qr_code,
-                      color: kPrimaryColor,
-                      size: 20,
-                    ),
-                  ),
-                ]),
+                children: []),
           ),
         ],
       ),

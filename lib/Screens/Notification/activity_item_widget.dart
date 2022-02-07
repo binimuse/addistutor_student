@@ -18,7 +18,7 @@ class ActivityItemWidget extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 16),
             child: Row(
               children: <Widget>[
-                Icon(Icons.notification_add, color: kPrimaryColor),
+                const Icon(Icons.notification_add, color: kPrimaryColor),
                 data!.data.message == "Booking accepted"
                     ? Expanded(
                         child: Container(
@@ -42,7 +42,7 @@ class ActivityItemWidget extends StatelessWidget {
                                           fontWeight: FontWeight.bold,
                                           fontSize: 16)),
                               TextSpan(
-                                  text: ' at 11 pm',
+                                  text: " " + data!.created_at,
                                   style: Theme.of(context).textTheme.subtitle1),
                             ]))))
                     : Expanded(
@@ -59,7 +59,7 @@ class ActivityItemWidget extends StatelessWidget {
                                           fontWeight: FontWeight.bold,
                                           fontSize: 16)),
                               TextSpan(
-                                  text: ' 11 pm',
+                                  text: " " + data!.created_at,
                                   style: Theme.of(context).textTheme.subtitle1),
                             ])))),
               ],

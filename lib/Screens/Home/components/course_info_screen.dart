@@ -189,8 +189,8 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                                       ),
                                 Row(
                                   children: <Widget>[
-                                    const Text(
-                                      "4.5",
+                                    Text(
+                                      widget.hotelData!.rating,
                                       textAlign: TextAlign.left,
                                       style: TextStyle(
                                         fontWeight: FontWeight.w200,

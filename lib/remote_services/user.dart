@@ -295,11 +295,12 @@ class ReqTech {
 
 class RequestedBooking {
   int id;
-  String confirmation_code;
+
   String session;
   String message;
   String verified_status;
   String teacher_id;
+  String is_active;
 
   String student_id;
   List<Bookingschedule> booking_schedule;
@@ -307,8 +308,8 @@ class RequestedBooking {
 
   RequestedBooking({
     required this.id,
-    required this.confirmation_code,
     required this.session,
+    required this.is_active,
     required this.message,
     required this.verified_status,
     required this.teacher_id,
@@ -320,7 +321,7 @@ class RequestedBooking {
   factory RequestedBooking.fromJson(Map<String, dynamic> json) {
     return RequestedBooking(
       id: json["id"] as int,
-      confirmation_code: json["confirmation_code"],
+      is_active: json["is_active"],
       session: json["session"],
       message: json["message"],
       verified_status: json["verified_status"],
@@ -410,6 +411,20 @@ class Notifications {
       read_at: json["read_at"],
       created_at: json["created_at"],
       data: NotificationData.fromJson(json["data"]),
+    );
+  }
+}
+
+class Qr {
+  String data;
+
+  Qr({
+    required this.data,
+  });
+
+  factory Qr.fromJson(Map<String, dynamic> json) {
+    return Qr(
+      data: json["data"],
     );
   }
 }

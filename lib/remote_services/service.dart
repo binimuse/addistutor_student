@@ -177,8 +177,10 @@ class RemoteServices {
     }
   }
 
-  static Future<List<RequestedBooking>> getrequestedbooking(var id) async {
-    res = await Network().getData("student/${id}/bookings");
+  static Future<List<RequestedBooking>> getrequestedbooking(
+      var id, var status) async {
+    print(id);
+    res = await Network().getData("student/${id}/bookings?status=${status}");
     var body = json.decode(res.body);
 
     if (res.statusCode == 200) {
@@ -283,6 +285,20 @@ class RemoteServices {
           .cast<Notifications>();
     } else {
       throw Exception('Failed to load Comment');
+    }
+  }
+
+  static Future<Qr> getqr(var b_id) async {
+    // print("id.toString()");
+    //print(id.toString());
+    res = await Network().getData("booking/${b_id}/qr-code");
+
+    var body = json.decode(res.body);
+    if (res.statusCode == 200) {
+      //  print(body);
+      return Qr.fromJson(body);
+    } else {
+      throw Exception('Failed to load User' + res.statusCode.toString());
     }
   }
 }

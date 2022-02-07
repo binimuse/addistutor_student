@@ -145,8 +145,8 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
                                 ),
                                 Row(
                                   children: <Widget>[
-                                    const Text(
-                                      '4.3',
+                                    Text(
+                                      widget.hotelData!.teacher.rating,
                                       textAlign: TextAlign.left,
                                       style: TextStyle(
                                         fontWeight: FontWeight.w200,
@@ -210,43 +210,6 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
                                 },
                                 itemCount:
                                     widget.hotelData!.booking_schedule.length),
-                          ),
-                          AnimatedOpacity(
-                            duration: const Duration(milliseconds: 500),
-                            opacity: opacity3,
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 16, bottom: 16, right: 16),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: <Widget>[
-                                  const SizedBox(
-                                    width: 16,
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        giverating();
-                                      });
-                                    },
-                                    child: Center(
-                                      child: Row(children: [
-                                        const Icon(
-                                          Icons.star,
-                                          color: kPrimaryColor,
-                                        ),
-                                        const SizedBox(width: 10.0),
-                                        Text(
-                                          "Rate Tutor",
-                                        ),
-                                      ]),
-                                    ),
-                                  ),
-                                  rating ? giverating() : Container(),
-                                ],
-                              ),
-                            ),
                           ),
                           SizedBox(
                             height: MediaQuery.of(context).padding.bottom,

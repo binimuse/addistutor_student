@@ -13,7 +13,7 @@ class GetReqBooking extends GetxController with StateMixin {
   List<MultiSelectItem<GetSubject>> hobItem = [];
   var isLoading = false.obs;
   void fetchReqBooking(var id) async {
-    listsubject.value = await RemoteServices.getrequestedbooking(id);
+    listsubject.value = await RemoteServices.getrequestedbooking(id, "");
 
     if (listsubject.isNotEmpty) {
       //print(list.length.toString());

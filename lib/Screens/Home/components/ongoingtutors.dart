@@ -1,5 +1,8 @@
 // ignore_for_file: prefer_typing_uninitialized_variables, prefer_const_literals_to_create_immutables
 
+import 'dart:convert';
+
+import 'package:addistutor_student/Screens/Home/components/course_info_qr.dart';
 import 'package:addistutor_student/Screens/Home/components/course_info_screen.dart';
 import 'package:addistutor_student/Screens/Home/components/design_course_app_theme.dart';
 import 'package:addistutor_student/Screens/Home/components/homescreen.dart';
@@ -11,9 +14,10 @@ import 'package:addistutor_student/remote_services/service.dart';
 import 'package:addistutor_student/remote_services/user.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class CategoryListView extends StatefulWidget {
-  const CategoryListView({
+class OnGoingTutors extends StatefulWidget {
+  const OnGoingTutors({
     Key? key,
     this.callBack,
   }) : super(key: key);
@@ -27,7 +31,7 @@ class CategoryListView extends StatefulWidget {
 var found;
 SearchController searchController = Get.put(SearchController());
 
-class _CategoryListViewState extends State<CategoryListView>
+class _CategoryListViewState extends State<OnGoingTutors>
     with TickerProviderStateMixin {
   AnimationController? animationController;
 
@@ -36,7 +40,23 @@ class _CategoryListViewState extends State<CategoryListView>
     animationController = AnimationController(
         duration: const Duration(milliseconds: 2000), vsync: this);
     searchController.isfetched(true);
+    _fetchUser();
     super.initState();
+  }
+
+  var ids;
+  void _fetchUser() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    var token = localStorage.getString('user');
+
+    if (token != null) {
+      var body = json.decode(token);
+      setState(() {
+        ids = int.parse(body["student_id"]);
+      });
+
+      //  getReqBooking.fetchReqBooking(body["student_id"]);
+    }
   }
 
   Future<bool> getData() async {
@@ -59,8 +79,7 @@ class _CategoryListViewState extends State<CategoryListView>
                 height: 134,
                 width: double.infinity,
                 child: FutureBuilder(
-                    future: RemoteServices.search(
-                        "", "", searchController.homepagegender),
+                    future: RemoteServices.getrequestedbooking(ids, "1"),
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
                       if (snapshot.hasData) {
                         return ListView.builder(
@@ -90,7 +109,7 @@ class _CategoryListViewState extends State<CategoryListView>
                                   PageRouteBuilder(
                                     pageBuilder:
                                         (context, animation1, animation2) {
-                                      return CourseInfoScreen(
+                                      return CourseInfoQr(
                                         hotelData: snapshot.data[index],
                                       );
                                     },
@@ -124,7 +143,7 @@ class CategoryView extends StatelessWidget {
       : super(key: key);
 
   final VoidCallback? callback;
-  final Search? category;
+  final RequestedBooking? category;
   final AnimationController? animationController;
   final Animation<double>? animation;
 
@@ -164,7 +183,7 @@ class CategoryView extends StatelessWidget {
                                         width: 48 + 24.0,
                                       ),
                                       // ignore: unnecessary_null_comparison
-                                      category!.first_name != null
+                                      category!.teacher.first_name != null
                                           ? Expanded(
                                               child: Column(
                                                 children: <Widget>[
@@ -173,7 +192,8 @@ class CategoryView extends StatelessWidget {
                                                         const EdgeInsets.only(
                                                             top: 16),
                                                     child: Text(
-                                                      category!.first_name,
+                                                      category!
+                                                          .teacher.first_name,
                                                       textAlign: TextAlign.left,
                                                       style: const TextStyle(
                                                         fontWeight:
@@ -204,7 +224,7 @@ class CategoryView extends StatelessWidget {
                                                       children: <Widget>[
                                                         Row(children: [
                                                           Text(
-                                                            ' ${category!.gender}',
+                                                            ' ${category!.teacher.gender}',
                                                             style: TextStyle(
                                                                 fontSize: 14,
                                                                 color: Colors
@@ -226,7 +246,8 @@ class CategoryView extends StatelessWidget {
                                                         Row(
                                                           children: <Widget>[
                                                             Text(
-                                                              category!.rating,
+                                                              category!.teacher
+                                                                  .rating,
                                                               textAlign:
                                                                   TextAlign
                                                                       .left,
