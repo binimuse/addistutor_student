@@ -36,14 +36,15 @@ class BookingeController extends GetxController with StateMixin {
   late var Sun = "";
   late int? subjectid = 1;
   late String teacherid = "";
+  late String startdate = "";
 
-  late var motime = '16:30';
-  late var tuetime2 = "16:30";
-  late var wentime3 = "16:30";
-  late var thetime4 = "16:30";
-  late var fritime5 = "16:30";
-  late var suntime2 = "09:00";
-  late var sattime = '09:00';
+  late var motime = "4:30 pm";
+  late var tuetime2 = "4:30 pm";
+  late var wentime3 = "4:30 pm";
+  late var thetime4 = "4:30 pm";
+  late var fritime5 = "4:30 pm";
+  late var suntime2 = "09:00 am";
+  late var sattime = "09:00 am";
 
   bool ismonday = false;
   bool istue = false;
@@ -329,6 +330,7 @@ class BookingeController extends GetxController with StateMixin {
       "session": sessionsd.value,
       "subject_id": subjectid,
       "teacher_id": teacherid,
+      "Startdate": startdate,
       'dates': jsonTags.toString()
     };
 

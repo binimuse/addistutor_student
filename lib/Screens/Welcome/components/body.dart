@@ -17,7 +17,7 @@ class Body extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
-              "Welcome to AddisTutor",
+              "Welcome to NextGen",
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: kPrimaryColor,

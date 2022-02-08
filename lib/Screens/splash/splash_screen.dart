@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:addistutor_student/Screens/Home/components/homescreen.dart';
 import 'package:addistutor_student/Screens/Progress/progress.dart';
 import 'package:addistutor_student/Screens/Welcome/welcome_screen.dart';
@@ -91,8 +93,8 @@ class _SplashScreenState extends State<SplashScreen> {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     var token = localStorage.getString('token');
     var user = localStorage.getString('user');
-
-    if (token != null) {
+    var bodys = json.decode(user!);
+    if (token != null && bodys["email_verified_at"] != null) {
       // print(user);
       // print("token login");
       setState(() {

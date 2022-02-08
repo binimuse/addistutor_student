@@ -301,4 +301,28 @@ class RemoteServices {
       throw Exception('Failed to load User' + res.statusCode.toString());
     }
   }
+
+  static Future<String> forgott(
+    var data,
+  ) async {
+    List<String> errors = [];
+    // ignore: unnecessary_brace_in_string_interps
+    res = await Network().getpassedData(data, "password/email");
+    body = json.decode(res.body);
+    print(body);
+    if (res.statusCode == 200) {
+      return res.statusCode.toString();
+    } else {
+      if (body["message"] != null) {
+        return body["message"].toString();
+      } else {
+        Map<String, dynamic> map = body["errors"];
+        map.forEach((key, value) {
+          errors.add(value[0].toString());
+        });
+
+        return errors.join("\n").toString();
+      }
+    }
+  }
 }

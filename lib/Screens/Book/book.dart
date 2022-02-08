@@ -118,6 +118,8 @@ class _EditPageState extends State<BookScreen>
     _refreshController.loadComplete();
   }
 
+  String date = "";
+  DateTime selectedDate = DateTime.now();
   List<GetSubject> subject = [];
   _getsubject() {
     getSubjectController.fetchLocation(" ");
@@ -272,7 +274,6 @@ class _EditPageState extends State<BookScreen>
                               ),
                             ],
                           ),
-
                           const SizedBox(
                             height: 35,
                           ),
@@ -505,83 +506,6 @@ class _EditPageState extends State<BookScreen>
                                   );
                                 }
                               }),
-                          // WeekdaySelector(
-                          //     selectedFillColor: kPrimaryColor,
-                          //     onChanged: (v) {
-                          //       bookingeController.selecteddate.clear();
-                          //       printIntAsDay(v);
-
-                          //       setState(() {
-                          //         values[v % 7] = !values[v % 7]!;
-                          //         //    mon;
-                          //       });
-
-                          //       // if (values[1] == true) {
-                          //       //   bookingeController.ismonday = true;
-                          //       // } else if (values[1] == false) {
-                          //       //   bookingeController.ismonday = false;
-                          //       //   bookingeController.Mon = "";
-                          //       // }
-
-                          //       // //    thu;
-                          //       // if (values[2] == true) {
-                          //       //   bookingeController.istue = true;
-                          //       // } else if (values[2] == false) {
-                          //       //   bookingeController.istue = false;
-                          //       //   bookingeController.Tue = "";
-                          //       // }
-
-                          //       // //    Wen;
-                          //       // if (values[3] == true) {
-                          //       //   bookingeController.iswen = true;
-                          //       // } else if (values[3] == false) {
-                          //       //   bookingeController.iswen = false;
-                          //       //   bookingeController.Wed = "";
-                          //       // }
-
-                          //       // //    The;
-                          //       // if (values[4] == true) {
-                          //       //   bookingeController.isthe = true;
-                          //       // } else if (values[4] == false) {
-                          //       //   bookingeController.isthe = false;
-                          //       //   bookingeController.Thu = "";
-                          //       // }
-                          //       // //    fri;
-                          //       // if (values[5] == true) {
-                          //       //   bookingeController.isfri = true;
-                          //       // } else if (values[5] == false) {
-                          //       //   bookingeController.isfri = false;
-                          //       //   bookingeController.Fri = "";
-                          //       // }
-
-                          //       // //    sat;
-                          //       // if (values[6] == true) {
-                          //       //   bookingeController.issat = true;
-                          //       // } else if (values[6] == false) {
-                          //       //   bookingeController.issat = false;
-                          //       //   bookingeController.Sat = "";
-                          //       // }
-
-                          //       // if (values[0] == true) {
-                          //       //   bookingeController.issun = true;
-                          //       // } else if (values[0] == false) {
-                          //       //   bookingeController.issun = false;
-                          //       //   bookingeController.Sun = "";
-                          //       // }
-                          //     },
-                          //     values: values,
-                          //     selectedElevation: 15,
-                          //     elevation: 5,
-                          //     disabledElevation: 0,
-                          //     shortWeekdays: const [
-                          //       'Sun', // Sunday
-                          //       'Mon', // MOONday
-                          //       'Tue', // https://en.wikipedia.org/wiki/Names_of_the_days_of_the_week
-                          //       'Wed', // I ran out of ideas...
-                          //       'Thur', // Thirst-day
-                          //       'Fri', // It's Friday, Friday, Gotta get down on Friday!
-                          //       'Sat', // Everybody's lookin' forward to the weekend, weekend
-                          //     ]),
                           const SizedBox(height: 20),
                           bookingeController.ismonday
                               ? Row(children: [
@@ -593,11 +517,11 @@ class _EditPageState extends State<BookScreen>
                                         fontSize: 16,
                                         fontWeight: FontWeight.w700),
                                     items: <String>[
-                                      '16:30',
-                                      '17:00',
-                                      '17:30',
-                                      '18:00',
-                                      '18:30',
+                                      "4:30 pm",
+                                      "5:00 pm",
+                                      "5:30 pm",
+                                      "6:00 pm",
+                                      "6:30 pm",
                                     ].map<DropdownMenuItem<String>>(
                                         (String value) {
                                       return DropdownMenuItem<String>(
@@ -630,11 +554,11 @@ class _EditPageState extends State<BookScreen>
                                         fontSize: 16,
                                         fontWeight: FontWeight.w700),
                                     items: <String>[
-                                      '16:30',
-                                      '17:00',
-                                      '17:30',
-                                      '18:00',
-                                      '18:30',
+                                      "4:30 pm",
+                                      "5:00 pm",
+                                      "5:30 pm",
+                                      "6:00 pm",
+                                      "6:30 pm",
                                     ].map<DropdownMenuItem<String>>(
                                         (String value2) {
                                       return DropdownMenuItem<String>(
@@ -667,11 +591,11 @@ class _EditPageState extends State<BookScreen>
                                         fontSize: 16,
                                         fontWeight: FontWeight.w700),
                                     items: <String>[
-                                      '16:30',
-                                      '17:00',
-                                      '17:30',
-                                      '18:00',
-                                      '18:30',
+                                      "4:30 pm",
+                                      "5:00 pm",
+                                      "5:30 pm",
+                                      "6:00 pm",
+                                      "6:30 pm",
                                     ].map<DropdownMenuItem<String>>(
                                         (String value3) {
                                       return DropdownMenuItem<String>(
@@ -704,11 +628,11 @@ class _EditPageState extends State<BookScreen>
                                         fontSize: 16,
                                         fontWeight: FontWeight.w700),
                                     items: <String>[
-                                      '16:30',
-                                      '17:00',
-                                      '17:30',
-                                      '18:00',
-                                      '18:30',
+                                      "4:30 pm",
+                                      "5:00 pm",
+                                      "5:30 pm",
+                                      "6:00 pm",
+                                      "6:30 pm",
                                     ].map<DropdownMenuItem<String>>(
                                         (String value4) {
                                       return DropdownMenuItem<String>(
@@ -741,11 +665,11 @@ class _EditPageState extends State<BookScreen>
                                         fontSize: 16,
                                         fontWeight: FontWeight.w700),
                                     items: <String>[
-                                      '16:30',
-                                      '17:00',
-                                      '17:30',
-                                      '18:00',
-                                      '18:30',
+                                      "4:30 pm",
+                                      "5:00 pm",
+                                      "5:30 pm",
+                                      "6:00 pm",
+                                      "6:30 pm",
                                     ].map<DropdownMenuItem<String>>(
                                         (String value4) {
                                       return DropdownMenuItem<String>(
@@ -778,16 +702,16 @@ class _EditPageState extends State<BookScreen>
                                         fontSize: 16,
                                         fontWeight: FontWeight.w700),
                                     items: <String>[
-                                      '09:00',
-                                      '10:00',
-                                      '11:00',
-                                      '12:00',
-                                      '13:00',
-                                      '14:00',
-                                      '15:00',
-                                      '16:00',
-                                      '17:00',
-                                      '18:00',
+                                      "09:00 am",
+                                      "10:00 am",
+                                      "11:00 am",
+                                      "12:00 pm",
+                                      "1:00 pm",
+                                      "2:00 pm",
+                                      "3:00 pm",
+                                      "4:00 pm",
+                                      "5:00 pm",
+                                      "6:00 pm",
                                     ].map<DropdownMenuItem<String>>(
                                         (String value) {
                                       return DropdownMenuItem<String>(
@@ -820,16 +744,16 @@ class _EditPageState extends State<BookScreen>
                                         fontSize: 16,
                                         fontWeight: FontWeight.w700),
                                     items: <String>[
-                                      '09:00',
-                                      '10:00',
-                                      '11:00',
-                                      '12:00',
-                                      '13:00',
-                                      '14:00',
-                                      '15:00',
-                                      '16:00',
-                                      '17:00',
-                                      '18:00',
+                                      "09:00 am",
+                                      "10:00 am",
+                                      "11:00 am",
+                                      "12:00 pm",
+                                      "1:00 pm",
+                                      "2:00 pm",
+                                      "3:00 pm",
+                                      "4:00 pm",
+                                      "5:00 pm",
+                                      "6:00 pm",
                                     ].map<DropdownMenuItem<String>>(
                                         (String value) {
                                       return DropdownMenuItem<String>(
@@ -853,97 +777,130 @@ class _EditPageState extends State<BookScreen>
                                 ])
                               : Container(),
                           Row(
-                            children: [
-                              Center(
-                                child: RaisedButton(
-                                  onPressed: () async {
-                                    var value;
-                                    value = values
-                                        .where((item) => item == true)
-                                        .length;
-                                    if (avalbledate2.isNotEmpty) {
-                                      Cricular();
-                                      await Future.delayed(
-                                          const Duration(seconds: 3));
-                                      bookingeController.ismonday = false;
-                                      bookingeController.istue = false;
-                                      bookingeController.iswen = false;
-                                      bookingeController.isthe = false;
-                                      bookingeController.isfri = false;
-                                      bookingeController.issat = false;
-                                      bookingeController.issun = false;
-                                    } else {
-                                      showDialog(
-                                        context: context,
-                                        builder: (context) => AlertDialog(
-                                          title: const Text(
-                                            'Error ',
-                                            style: TextStyle(
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.red,
-                                              fontFamily: 'WorkSans',
-                                            ),
-                                          ),
-                                          content: const Text(
-                                            'Please Select  days',
-                                            style: TextStyle(
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.black,
-                                              fontFamily: 'WorkSans',
-                                            ),
-                                          ),
-                                          actions: <Widget>[
-                                            Center(
-                                              child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    FlatButton(
-                                                      onPressed: () {
-                                                        Navigator.of(context)
-                                                            .pop(true);
-                                                        setState(() {
-                                                          // isLoading = false;
-                                                        });
-                                                      },
-                                                      child: const Center(
-                                                          child: Text('ok')),
-                                                    ),
-                                                  ]),
-                                            ),
-                                          ],
-                                        ),
-                                      );
-                                    }
-                                    setState(() {
-                                      values = <bool?>[
-                                        false,
-                                        false,
-                                        false,
-                                        false,
-                                        false,
-                                        false,
-                                        false
-                                      ];
-                                    });
-                                  },
-                                  color: kPrimaryColor,
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 50),
-                                  elevation: 2,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(20)),
-                                  child: const Text(
-                                    "Book",
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        letterSpacing: 2.2,
-                                        color: Colors.white),
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  shadowColor: kPrimaryColor,
+                                  primary: Colors.teal,
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 10),
+                                  textStyle: TextStyle(
+                                    fontWeight: FontWeight.w200,
+                                    fontSize: 14,
+                                    letterSpacing: 0.27,
+                                    color: Colors.teal,
                                   ),
                                 ),
+                                onPressed: () {
+                                  _selectDate(context);
+                                },
+                                child: Text("Choose tutor Start  Date"),
                               ),
+                              SizedBox(
+                                width: 20,
+                              ),
+                              Text(
+                                  "${selectedDate.day}/${selectedDate.month}/${selectedDate.year}")
+                            ],
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Center(
+                            child: RaisedButton(
+                              onPressed: () async {
+                                var value;
+                                value =
+                                    values.where((item) => item == true).length;
+                                if (avalbledate2.isNotEmpty) {
+                                  Cricular();
+                                  await Future.delayed(
+                                      const Duration(seconds: 3));
+                                  bookingeController.ismonday = false;
+                                  bookingeController.istue = false;
+                                  bookingeController.iswen = false;
+                                  bookingeController.isthe = false;
+                                  bookingeController.isfri = false;
+                                  bookingeController.issat = false;
+                                  bookingeController.issun = false;
+                                } else {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => AlertDialog(
+                                      title: const Text(
+                                        'Error ',
+                                        style: TextStyle(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w500,
+                                          color: Colors.red,
+                                          fontFamily: 'WorkSans',
+                                        ),
+                                      ),
+                                      content: const Text(
+                                        'Please Select  days',
+                                        style: TextStyle(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w500,
+                                          color: Colors.black,
+                                          fontFamily: 'WorkSans',
+                                        ),
+                                      ),
+                                      actions: <Widget>[
+                                        Center(
+                                          child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                FlatButton(
+                                                  onPressed: () {
+                                                    Navigator.of(context)
+                                                        .pop(true);
+                                                    setState(() {
+                                                      // isLoading = false;
+                                                    });
+                                                  },
+                                                  child: const Center(
+                                                      child: Text('ok')),
+                                                ),
+                                              ]),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                }
+                                setState(() {
+                                  values = <bool?>[
+                                    false,
+                                    false,
+                                    false,
+                                    false,
+                                    false,
+                                    false,
+                                    false
+                                  ];
+                                });
+                              },
+                              color: kPrimaryColor,
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 50),
+                              elevation: 2,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20)),
+                              child: const Text(
+                                "Book",
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    letterSpacing: 2.2,
+                                    color: Colors.white),
+                              ),
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Center(),
                               FutureBuilder(
                                   future: RemoteServices.getAvalbledate(
                                       widget.hotelData!.id),
@@ -1105,6 +1062,28 @@ class _EditPageState extends State<BookScreen>
     if (day % 7 == DateTime.saturday % 7) return 'Saturday';
     if (day % 7 == DateTime.sunday % 7) return 'Sunday';
     throw '🐞 This should never have happened: $day';
+  }
+
+  _selectDate(BuildContext context) async {
+    final DateTime? selected = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(selectedDate.day),
+        lastDate: DateTime(2025),
+        helpText: "Select Tutor starting date",
+        cancelText: "NOT NOW",
+        confirmText: "BOOK NOW",
+        errorFormatText: "Enter a Valid Date",
+        fieldHintText: "DATE/MONTH/YEAR",
+        fieldLabelText: "BOOKING DATE",
+        initialDatePickerMode: DatePickerMode.day,
+        errorInvalidText: "Date Out of Range");
+    if (selected != null && selected != selectedDate)
+      setState(() {
+        selectedDate = selected;
+        bookingeController.startdate = selected.day.toString();
+        print(selected.toString());
+      });
   }
 }
 

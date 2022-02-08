@@ -12,8 +12,8 @@ class GetQrCode extends GetxController with StateMixin {
 
     if (qr != null) {
       getqr = qr.data;
-      print("getqr.toString()");
-      print(getqr + "\n" + b_id.toString());
+      // print("getqr.toString()");
+      // print(getqr + "\n" + b_id.toString());
       isfetchedsubject(true);
     }
   }
