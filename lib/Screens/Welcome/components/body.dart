@@ -1,3 +1,5 @@
+// ignore_for_file: import_of_legacy_library_into_null_safe
+
 import 'package:flutter/material.dart';
 import 'package:addistutor_student/Screens/Login/login_screen.dart';
 import 'package:addistutor_student/Screens/Signup/signup_screen.dart';
@@ -7,6 +9,8 @@ import 'package:addistutor_student/constants.dart';
 import 'package:flutter_svg/svg.dart';
 
 class Body extends StatelessWidget {
+  const Body({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -23,7 +27,7 @@ class Body extends StatelessWidget {
                   color: kPrimaryColor,
                   fontSize: 23),
             ),
-            Text(
+            const Text(
               "Student Applicaion",
               style: TextStyle(
                   fontWeight: FontWeight.normal,
@@ -43,7 +47,7 @@ class Body extends StatelessWidget {
                   context,
                   PageRouteBuilder(
                     pageBuilder: (context, animation1, animation2) {
-                      return LoginScreen();
+                      return const LoginScreen();
                     },
                   ),
                 );
@@ -58,7 +62,7 @@ class Body extends StatelessWidget {
                   context,
                   PageRouteBuilder(
                     pageBuilder: (context, animation1, animation2) {
-                      return SignUpScreen();
+                      return const SignUpScreen();
                     },
                   ),
                 );

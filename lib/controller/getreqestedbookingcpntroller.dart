@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_typing_uninitialized_variables, non_constant_identifier_names, deprecated_member_use, duplicate_ignore
+
 import 'package:addistutor_student/constants.dart';
 import 'package:addistutor_student/remote_services/user.dart';
 import 'package:flutter/material.dart';
@@ -28,17 +30,16 @@ class GetReqBooking extends GetxController with StateMixin {
     var data = {
       "rating": ratings,
     };
-    print(data);
+
     edited = await RemoteServices.rating(data, b_id);
     //print(edited.toString());
     if (edited.toString() == "200") {
       closeDialogpassword(true, edited, context);
       isLoading(false);
-      print("yess");
     } else {
       //inforesponse = edited;
       closeDialogpassword(false, edited, context);
-      print("noo");
+
       //  print(edited.toString());
     }
   }
@@ -53,7 +54,7 @@ class GetReqBooking extends GetxController with StateMixin {
         builder: (context) => AlertDialog(
           title: Text(
             'Rating  Not Updated \n ' + data.toString(),
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 13,
               fontWeight: FontWeight.w500,
               color: Colors.black,
@@ -67,7 +68,7 @@ class GetReqBooking extends GetxController with StateMixin {
                 Navigator.pop(context);
                 isLoading(false);
               },
-              child: new Text('ok'),
+              child: const Text('ok'),
             ),
           ],
         ),
@@ -96,10 +97,8 @@ class GetReqBooking extends GetxController with StateMixin {
 
                 Navigator.pop(context);
                 isLoading(false);
-                //    openAndCloseLoadingDialog(context);
-                print("yess");
               },
-              child: new Text('ok'),
+              child: const Text('ok'),
             ),
           ],
         ),

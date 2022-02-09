@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_typing_uninitialized_variables, deprecated_member_use, duplicate_ignore
+
 import 'package:addistutor_student/remote_services/service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -7,6 +9,7 @@ import 'package:flutter/material.dart';
 import '../constants.dart';
 
 class FeedBackScreencontroller extends GetxController with StateMixin {
+  // ignore: non_constant_identifier_names
   GlobalKey<FormState> Formkey = GlobalKey<FormState>();
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   late TextEditingController feedback;
@@ -38,7 +41,7 @@ class FeedBackScreencontroller extends GetxController with StateMixin {
 
   Future<void> seteditInfo(BuildContext context) async {
     openAndCloseLoadingDialog(context);
-    print(feedback.value);
+
     var data = {
       "message": feedback.text,
     };
@@ -75,7 +78,7 @@ class FeedBackScreencontroller extends GetxController with StateMixin {
                 isLoading(false);
                 Navigator.of(context).pop(true);
               },
-              child: new Text('ok'),
+              child: const Text('ok'),
             ),
           ],
         ),
@@ -107,7 +110,7 @@ class FeedBackScreencontroller extends GetxController with StateMixin {
                 //       builder: (context) => const ProfileScreen()),
                 // );
               },
-              child: new Text('ok'),
+              child: const Text('ok'),
             ),
           ],
         ),

@@ -1,17 +1,14 @@
-// ignore_for_file: prefer_typing_uninitialized_variables
-
-import 'dart:convert';
+// ignore_for_file: prefer_typing_uninitialized_variables, unnecessary_null_comparison, deprecated_member_use
 
 import 'package:addistutor_student/Screens/Appointment/components/appointmentscreen.dart';
-import 'package:addistutor_student/Screens/Book/book.dart';
-import 'package:addistutor_student/Screens/Profile/editprofile.dart';
+
 import 'package:addistutor_student/controller/getqrcontroller.dart';
 import 'package:addistutor_student/remote_services/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 import '../../../constants.dart';
 import 'design_course_app_theme.dart';
 
@@ -134,7 +131,7 @@ class _CourseInfoScreenState extends State<CourseInfoQr>
                               children: <Widget>[
                                 widget.hotelData!.teacher.first_name != null
                                     ? Padding(
-                                        padding: EdgeInsets.only(
+                                        padding: const EdgeInsets.only(
                                             top: 32.0, left: 18, right: 16),
                                         child: Text(
                                           widget.hotelData!.teacher.first_name +
@@ -151,13 +148,13 @@ class _CourseInfoScreenState extends State<CourseInfoQr>
                                           ),
                                         ),
                                       )
-                                    : Padding(
+                                    : const Padding(
                                         padding: EdgeInsets.only(
                                             top: 32.0, left: 18, right: 16),
                                         child: Text(
                                           "first_name",
                                           textAlign: TextAlign.left,
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                             fontWeight: FontWeight.w600,
                                             fontSize: 22,
                                             letterSpacing: 0.27,
@@ -233,12 +230,12 @@ class _CourseInfoScreenState extends State<CourseInfoQr>
                                             });
                                           },
                                           child: Center(
-                                            child: Row(children: [
-                                              const Icon(
+                                            child: Row(children: const [
+                                              Icon(
                                                 Icons.star,
                                                 color: kPrimaryColor,
                                               ),
-                                              const SizedBox(width: 10.0),
+                                              SizedBox(width: 10.0),
                                               Text(
                                                 "Rate Tutor",
                                               ),
@@ -328,7 +325,7 @@ class _CourseInfoScreenState extends State<CourseInfoQr>
             unratedColor: Colors.amber.withAlpha(50),
             itemCount: 5,
             itemSize: 20.0,
-            itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+            itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
             itemBuilder: (context, _) => Icon(
               _selectedIcon ?? Icons.star,
               color: Colors.amber,
@@ -337,7 +334,6 @@ class _CourseInfoScreenState extends State<CourseInfoQr>
               setState(() {
                 getReqBooking.ratings = rating.toString();
 
-                print(getReqBooking.ratings);
                 //    print(widget.hotelData!.booking_schedule[0].booking_id);
               });
             },
@@ -351,7 +347,7 @@ class _CourseInfoScreenState extends State<CourseInfoQr>
               Navigator.of(context).pop(true);
               // Navigator.pop(context);
             },
-            child: Center(child: new Text('ok')),
+            child: const Center(child: Text('ok')),
           ),
         ],
       ),
@@ -382,7 +378,7 @@ class _CourseInfoScreenState extends State<CourseInfoQr>
               Text(
                 txt2,
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.w200,
                   fontSize: 14,
                   letterSpacing: 0.27,

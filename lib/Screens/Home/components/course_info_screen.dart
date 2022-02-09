@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_typing_uninitialized_variables
+// ignore_for_file: prefer_typing_uninitialized_variables, invalid_use_of_protected_member, unnecessary_null_comparison
 
 import 'dart:convert';
 
@@ -128,7 +128,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                         children: <Widget>[
                           widget.hotelData!.first_name != null
                               ? Padding(
-                                  padding: EdgeInsets.only(
+                                  padding: const EdgeInsets.only(
                                       top: 32.0, left: 18, right: 16),
                                   child: Text(
                                     widget.hotelData!.first_name +
@@ -143,13 +143,13 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                                     ),
                                   ),
                                 )
-                              : Padding(
+                              : const Padding(
                                   padding: EdgeInsets.only(
                                       top: 32.0, left: 18, right: 16),
                                   child: Text(
                                     "first_name",
                                     textAlign: TextAlign.left,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 22,
                                       letterSpacing: 0.27,
@@ -176,10 +176,10 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                                               DesignCourseAppTheme.nearlyBlue,
                                         ),
                                       )
-                                    : Text(
+                                    : const Text(
                                         "gender",
                                         textAlign: TextAlign.left,
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           fontWeight: FontWeight.w200,
                                           fontSize: 22,
                                           letterSpacing: 0.27,
@@ -192,14 +192,14 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                                     Text(
                                       widget.hotelData!.rating,
                                       textAlign: TextAlign.left,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontWeight: FontWeight.w200,
                                         fontSize: 22,
                                         letterSpacing: 0.27,
                                         color: DesignCourseAppTheme.grey,
                                       ),
                                     ),
-                                    Icon(
+                                    const Icon(
                                       Icons.star,
                                       color: DesignCourseAppTheme.nearlyBlue,
                                       size: 24,
@@ -218,35 +218,34 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                                 children: <Widget>[
                                   getTimeBoxUI("location",
                                       widget.hotelData!.location.name),
-                                  getTimeBoxUI(
-                                      widget.hotelData!
-                                          .preferred_tutoring_subjects.length
-                                          .toString(),
-                                      'Subject'),
+                                  getTimeBoxUI(1.toString(), 'Subject'),
                                 ],
                               ),
                             ),
                           ),
-                          Expanded(
-                            child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemBuilder: (_, index) {
-                                  return Column(
-                                    children: [
-                                      getTimeBoxUIday(widget
-                                          .hotelData!
-                                          .preferred_tutoring_subjects[index]
-                                          .title),
-                                    ],
-                                  );
-                                },
-                                itemCount: widget.hotelData!
-                                    .preferred_tutoring_subjects.length),
-                          ),
+
+                          getTimeBoxUIday(widget.hotelData!.subject_id.title),
+
+                          // Expanded(
+                          //   child: ListView.builder(
+                          //       scrollDirection: Axis.horizontal,
+                          //       itemBuilder: (_, index) {
+                          //         return Column(
+                          //           children: [
+                          //             getTimeBoxUIday(widget
+                          //                 .hotelData!
+                          //                 .subject_id
+                          //                 .title),
+                          //           ],
+                          //         );
+                          //       },
+                          //       itemCount: widget.hotelData!
+                          //           .preferred_tutoring_subjects.length),
+                          // ),
                           widget.hotelData!.about != null
                               ? Expanded(
                                   child: AnimatedOpacity(
-                                    duration: Duration(milliseconds: 500),
+                                    duration: const Duration(milliseconds: 500),
                                     opacity: opacity2,
                                     child: Padding(
                                       padding: const EdgeInsets.only(
@@ -269,7 +268,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                                 )
                               : Expanded(
                                   child: AnimatedOpacity(
-                                    duration: Duration(milliseconds: 500),
+                                    duration: const Duration(milliseconds: 500),
                                     opacity: opacity2,
                                     child: const Padding(
                                       padding: EdgeInsets.only(
@@ -497,7 +496,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
               Text(
                 txt2,
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.w200,
                   fontSize: 14,
                   letterSpacing: 0.27,

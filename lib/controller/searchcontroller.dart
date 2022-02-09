@@ -9,7 +9,7 @@ class SearchController extends GetxController {
   var isfetched = false.obs;
 
   var locationid;
-  var homepagegender = "Female";
+  var homepagegender = "";
 
   void fetch(lid, sid, gender) async {
     list.value = await RemoteServices.search(lid, sid, gender);
@@ -22,21 +22,4 @@ class SearchController extends GetxController {
       print("Noo");
     }
   }
-
-  //   void getpreferdsubject (var id) async {
-  //   listsubject.value = await RemoteServices.getsubject(id);
-
-  //   if (listsubject.isNotEmpty) {
-  //     subject = listsubject;
-  //     // ignore: unnecessary_null_comparison
-  //     if (subject != null) {
-  //       hobItem = subject
-  //           .map((hobbies) =>
-  //               MultiSelectItem<GetSubject>(hobbies, hobbies.title))
-  //           .toList();
-  //     }
-  //     isfetchedsubject(true);
-  //   }
-  // }
-
 }

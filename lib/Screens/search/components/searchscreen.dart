@@ -1,3 +1,5 @@
+// ignore_for_file: import_of_legacy_library_into_null_safe, invalid_use_of_protected_member, unnecessary_null_comparison, duplicate_ignore
+
 import 'package:addistutor_student/Screens/Home/components/course_info_screen.dart';
 import 'package:addistutor_student/Screens/search/components/hotel_list_view.dart';
 import 'package:addistutor_student/Screens/search/components/model/hotel_list_data.dart';
@@ -14,16 +16,11 @@ import 'package:multi_select_flutter/chip_display/multi_select_chip_display.dart
 import 'package:multi_select_flutter/util/multi_select_list_type.dart';
 
 import 'dart:ui';
-import 'package:need_resume/need_resume.dart';
-import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../../constants.dart';
-import 'calendar_popup_view.dart';
-import 'filters_screen.dart';
 import 'hotel_app_theme.dart';
 
 class SerachPage extends StatefulWidget {
@@ -56,7 +53,7 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
   final List<String> _tobeSent = [];
   late String sid = "";
   late var macthgender = "Any".obs;
-  var lid = 1, gender = "";
+  var lid = "", gender = "";
   RxInt found = 0.obs;
   bool showsubject = false;
   bool searched = false;
@@ -242,7 +239,6 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
   }
 
   Widget genderViewUI() {
-    var grade;
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -303,7 +299,6 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
 
   // ignore: non_constant_identifier_names
   Widget LocationFilter() {
-    var grade;
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -348,7 +343,7 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
             onChanged: (value) {
               setState(() {
                 getLocationController.location = value!;
-                lid = value.id;
+                lid = value.id.toString();
               });
 
               // pop current page
@@ -460,7 +455,6 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
   }
 
   Widget gradebarfilter() {
-    var grade;
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -617,7 +611,7 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
               alignment: Alignment.centerLeft,
               height: AppBar().preferredSize.height,
             ),
-            Center(
+            const Center(
               child: Text(
                 'Search the best Tutors',
                 style: TextStyle(

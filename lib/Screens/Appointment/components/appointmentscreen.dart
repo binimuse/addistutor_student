@@ -1,14 +1,11 @@
-// ignore_for_file: prefer_final_fields, unused_field, sized_box_for_whitespace, prefer_const_literals_to_create_immutables, prefer_const_constructors, duplicate_ignore
+// ignore_for_file: prefer_final_fields, unused_field, sized_box_for_whitespace, prefer_const_literals_to_create_immutables, prefer_const_constructors, duplicate_ignore, import_of_legacy_library_into_null_safe, unnecessary_null_comparison, prefer_adjacent_string_concatenation
 
 import 'dart:convert';
-
-import 'package:addistutor_student/Screens/Appointment/message_model.dart';
-import 'package:addistutor_student/Screens/Home/components/category_list_view.dart';
 
 import 'package:addistutor_student/Screens/Home/components/course_info_screen_rating.dart';
 import 'package:addistutor_student/Screens/Home/components/design_course_app_theme.dart';
 import 'package:addistutor_student/Screens/Home/components/ongoingtutors.dart';
-import 'package:addistutor_student/Screens/Qr/qrcode.dart';
+
 import 'package:addistutor_student/constants.dart';
 import 'package:addistutor_student/controller/editprofilecontroller.dart';
 import 'package:addistutor_student/controller/getreqestedbookingcpntroller.dart';

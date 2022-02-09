@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:addistutor_student/Screens/Home/components/homescreen.dart';
 
 import 'package:flutter/material.dart';
@@ -23,7 +25,7 @@ class HotelAppTheme {
   }
 
   static ThemeData buildLightTheme() {
-    final Color primaryColor = Color(0xFF6F35A5);
+    const Color primaryColor = Color(0xFF6F35A5);
 
     final Color secondaryColor = HexColor('#54D3C2');
     final ColorScheme colorScheme = const ColorScheme.light().copyWith(

@@ -3,7 +3,6 @@ import 'package:addistutor_student/Screens/Profile/app_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import '../../constants.dart';
 
 class CodeScreen extends StatefulWidget {
   const CodeScreen({Key? key}) : super(key: key);
@@ -32,7 +31,7 @@ class _FeedbackScreenState extends State<CodeScreen> {
               child: InkWell(
                 borderRadius:
                     BorderRadius.circular(AppBar().preferredSize.height),
-                child: Icon(
+                child: const Icon(
                   Icons.arrow_back_ios,
                   color: DesignCourseAppTheme.nearlyBlack,
                 ),
@@ -41,7 +40,7 @@ class _FeedbackScreenState extends State<CodeScreen> {
                 },
               ),
             ),
-            title: Text(
+            title: const Text(
               "Qr code ",
               style: TextStyle(
                 fontSize: 25,

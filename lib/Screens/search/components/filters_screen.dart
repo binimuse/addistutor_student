@@ -1,5 +1,5 @@
-import 'package:addistutor_student/Screens/search/components/searchscreen.dart';
-import 'package:addistutor_student/controller/editprofilecontroller.dart';
+// ignore_for_file: prefer_typing_uninitialized_variables, unnecessary_null_comparison, invalid_use_of_protected_member, duplicate_ignore, unused_local_variable, unnecessary_string_interpolations
+
 import 'package:addistutor_student/controller/geteducationlevelcontroller.dart';
 import 'package:addistutor_student/controller/getlocationcontroller.dart';
 import 'package:addistutor_student/controller/getsubjectcontroller.dart';
@@ -12,12 +12,11 @@ import 'package:get/get.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../../constants.dart';
-import 'range_slider_view.dart';
-import 'slider_view.dart';
 import 'hotel_app_theme.dart';
-import 'model/popular_filter_list.dart';
 
 class FiltersScreen extends StatefulWidget {
+  const FiltersScreen({Key? key}) : super(key: key);
+
   @override
   _FiltersScreenState createState() => _FiltersScreenState();
 }
@@ -29,7 +28,6 @@ class _FiltersScreenState extends State<FiltersScreen> {
 
   SearchController searchController = Get.put(SearchController());
 
-  RangeValues _values = const RangeValues(100, 600);
   double distValue = 50.0;
   var lid, gender;
   List<GetEducationlevel> education = [];
@@ -202,8 +200,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
                                                   children: [
                                                     FutureBuilder(
                                                         future: RemoteServices
-                                                            .search("1", "1",
-                                                                "female"),
+                                                            .search("", "", ""),
                                                         builder: (BuildContext
                                                                 context,
                                                             AsyncSnapshot
@@ -574,14 +571,14 @@ class _FiltersScreenState extends State<FiltersScreen> {
                   onTap: () {
                     Navigator.pop(context);
                   },
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                  child: const Padding(
+                    padding: EdgeInsets.all(8.0),
                     child: Icon(Icons.close),
                   ),
                 ),
               ),
             ),
-            Expanded(
+            const Expanded(
               child: Center(
                 child: Text(
                   'Filters',
@@ -592,7 +589,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
                 ),
               ),
             ),
-            Container(
+            SizedBox(
               width: AppBar().preferredSize.height + 40,
               height: AppBar().preferredSize.height,
             )

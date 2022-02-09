@@ -3,10 +3,8 @@
 import 'dart:convert';
 
 import 'package:addistutor_student/Screens/Home/components/course_info_qr.dart';
-import 'package:addistutor_student/Screens/Home/components/course_info_screen.dart';
 import 'package:addistutor_student/Screens/Home/components/design_course_app_theme.dart';
 import 'package:addistutor_student/Screens/Home/components/homescreen.dart';
-import 'package:addistutor_student/Screens/Home/models/category.dart';
 import 'package:addistutor_student/Screens/search/components/hotel_app_theme.dart';
 import 'package:addistutor_student/controller/geteducationlevelcontroller.dart';
 import 'package:addistutor_student/controller/searchcontroller.dart';
@@ -251,7 +249,8 @@ class CategoryView extends StatelessWidget {
                                                               textAlign:
                                                                   TextAlign
                                                                       .left,
-                                                              style: TextStyle(
+                                                              style:
+                                                                  const TextStyle(
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w200,
@@ -263,7 +262,7 @@ class CategoryView extends StatelessWidget {
                                                                         .grey,
                                                               ),
                                                             ),
-                                                            Icon(
+                                                            const Icon(
                                                               Icons.star,
                                                               color:
                                                                   DesignCourseAppTheme
@@ -315,14 +314,13 @@ class CategoryView extends StatelessWidget {
                                           : Expanded(
                                               child: Column(
                                                 children: <Widget>[
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            top: 16),
+                                                  const Padding(
+                                                    padding: EdgeInsets.only(
+                                                        top: 16),
                                                     child: Text(
                                                       "First Name",
                                                       textAlign: TextAlign.left,
-                                                      style: const TextStyle(
+                                                      style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.w600,
                                                         fontSize: 16,
@@ -349,12 +347,11 @@ class CategoryView extends StatelessWidget {
                                                           CrossAxisAlignment
                                                               .center,
                                                       children: <Widget>[
-                                                        Text(
+                                                        const Text(
                                                           'Gender',
                                                           textAlign:
                                                               TextAlign.left,
-                                                          style:
-                                                              const TextStyle(
+                                                          style: TextStyle(
                                                             fontWeight:
                                                                 FontWeight.w200,
                                                             fontSize: 12,
@@ -383,7 +380,7 @@ class CategoryView extends StatelessWidget {
                                                                         .grey,
                                                               ),
                                                             ),
-                                                            Icon(
+                                                            const Icon(
                                                               Icons.star,
                                                               color:
                                                                   DesignCourseAppTheme

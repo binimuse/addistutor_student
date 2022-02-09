@@ -105,7 +105,7 @@ class _LoginScreenState extends State<Body> {
                   cursorColor: kPrimaryColor,
                   decoration: InputDecoration(
                     hintText: "Password",
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.lock,
                       color: kPrimaryColor,
                     ),
@@ -116,13 +116,13 @@ class _LoginScreenState extends State<Body> {
                                 showPassword1 = !showPassword1;
                               });
                             },
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.remove_red_eye,
                               color: kPrimaryColor,
                             ),
                           )
                         : null,
-                    contentPadding: EdgeInsets.all(10),
+                    contentPadding: const EdgeInsets.all(10),
                     focusedBorder: OutlineInputBorder(
                       borderSide:
                           const BorderSide(color: kPrimaryColor, width: 2.0),
@@ -208,7 +208,7 @@ class _LoginScreenState extends State<Body> {
                     context,
                     PageRouteBuilder(
                       pageBuilder: (context, animation1, animation2) {
-                        return ForgotPassword();
+                        return const ForgotPassword();
                       },
                     ),
                   );
@@ -231,13 +231,13 @@ class _LoginScreenState extends State<Body> {
                     context,
                     PageRouteBuilder(
                       pageBuilder: (context, animation1, animation2) {
-                        return SignUpScreen();
+                        return const SignUpScreen();
                       },
                     ),
                   );
                 },
               ),
-              OrDivider(),
+              const OrDivider(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -284,7 +284,6 @@ class _LoginScreenState extends State<Body> {
                             ],
                           ),
                         );
-                        print(e);
                       });
                     },
                   ),
@@ -325,7 +324,7 @@ class _LoginScreenState extends State<Body> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => Main(),
+            builder: (context) => const Main(),
           ),
         );
       }
@@ -396,18 +395,18 @@ class _LoginScreenState extends State<Body> {
       if (bodys["email_verified_at"] == null) {
         showDialog(
           context: context,
-          builder: (context) => new AlertDialog(
+          builder: (context) => AlertDialog(
             title: const Text('info'),
-            content: Text("Please Varify Your email"),
+            content: const Text("Please Varify Your email"),
             actions: <Widget>[
-              new FlatButton(
+              FlatButton(
                 onPressed: () {
                   Navigator.of(context).pop(true);
                   setState(() {
                     isLoading = false;
                   });
                 },
-                child: new Text('ok'),
+                child: const Text('ok'),
               ),
             ],
           ),
@@ -424,7 +423,7 @@ class _LoginScreenState extends State<Body> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => Main(),
+              builder: (context) => const Main(),
             ),
           );
         }

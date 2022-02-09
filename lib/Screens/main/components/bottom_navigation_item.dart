@@ -1,11 +1,10 @@
-// ignore_for_file: constant_identifier_names, use_key_in_widget_constructors
+// ignore_for_file: constant_identifier_names, use_key_in_widget_constructors, import_of_legacy_library_into_null_safe
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'dart:developer' as developer;
 
-// ignore: import_of_legacy_library_into_null_safe
 import 'package:tuple/tuple.dart';
 
 import '../../../constants.dart';

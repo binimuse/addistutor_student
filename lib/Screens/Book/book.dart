@@ -1,18 +1,17 @@
-// ignore_for_file: deprecated_member_use, import_of_legacy_library_into_null_safe, invalid_use_of_protected_member
+// ignore_for_file: deprecated_member_use, import_of_legacy_library_into_null_safe, invalid_use_of_protected_member, prefer_typing_uninitialized_variables, unnecessary_null_comparison, unnecessary_brace_in_string_interps, non_constant_identifier_names
 
 import 'package:addistutor_student/Screens/Home/components/design_course_app_theme.dart';
 import 'package:addistutor_student/constants.dart';
 import 'package:addistutor_student/controller/bookingcontroller.dart';
 import 'package:addistutor_student/controller/getsubjectcontroller.dart';
 import 'package:addistutor_student/controller/getutoravlblitycontroller.dart';
-import 'package:addistutor_student/controller/getutoravlblitycontroller.dart';
+
 import 'package:addistutor_student/remote_services/service.dart';
 import 'package:addistutor_student/remote_services/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:weekday_selector/weekday_selector.dart';
 
 class BookScreen extends StatefulWidget {
   const BookScreen({
@@ -119,6 +118,8 @@ class _EditPageState extends State<BookScreen>
   }
 
   String date = "";
+  var totalprice;
+
   DateTime selectedDate = DateTime.now();
   List<GetSubject> subject = [];
   _getsubject() {
@@ -232,7 +233,7 @@ class _EditPageState extends State<BookScreen>
                               //       },
                               //       value: getSubjectController.sub),
                               // ),
-                              Container(
+                              SizedBox(
                                 height: 100,
                                 child: ListView.builder(
                                     scrollDirection: Axis.horizontal,
@@ -240,27 +241,18 @@ class _EditPageState extends State<BookScreen>
                                       return Column(
                                         children: [
                                           getTimeBoxUIday(
-                                            widget
-                                                .hotelData!
-                                                .preferred_tutoring_subjects[
-                                                    index]
-                                                .title,
-                                            widget
-                                                .hotelData!
-                                                .preferred_tutoring_subjects[
-                                                    index]
-                                                .id,
-                                          ),
+                                              widget
+                                                  .hotelData!.subject_id.title,
+                                              widget.hotelData!.subject_id.id),
                                         ],
                                       );
                                     },
-                                    itemCount: widget.hotelData!
-                                        .preferred_tutoring_subjects.length),
+                                    itemCount: 1),
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(16.0),
                                 child: Text(
-                                  'Selected Subject:' + " " + isselected,
+                                  'Selected Subject:' " " + isselected,
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
                                       color: Colors.black,
@@ -336,9 +328,24 @@ class _EditPageState extends State<BookScreen>
                             onChanged: (value) {
                               setState(() {
                                 bookingeController.sessionsd.value = value!;
+                                var val = int.parse(value);
+                                var val2 = int.parse(widget.hotelData!.price);
+
+                                totalprice = val2 * val;
                               });
                             },
                           ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          totalprice != null
+                              ? Text(
+                                  "Total price:- ${totalprice}",
+                                  style: const TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                                )
+                              : Container(),
                           const SizedBox(
                             height: 25,
                           ),
@@ -370,6 +377,7 @@ class _EditPageState extends State<BookScreen>
                                           scrollDirection: Axis.horizontal,
                                           itemBuilder: (_, index) {
                                             return Container(
+                                              margin: const EdgeInsets.all(5),
                                               child: Column(
                                                 children: [
                                                   Checkbox(
@@ -395,7 +403,6 @@ class _EditPageState extends State<BookScreen>
                                                                 .day);
                                                       }
                                                       setState(() {
-                                                        print(avalbledate2);
                                                         if (avalbledate2.any(
                                                             (element) =>
                                                                 monday.contains(
@@ -492,7 +499,7 @@ class _EditPageState extends State<BookScreen>
                                                   ),
                                                   Text(
                                                     snapshot.data[index]!.day,
-                                                    style: TextStyle(
+                                                    style: const TextStyle(
                                                         fontSize: 12.0),
                                                   ),
                                                 ],
@@ -783,9 +790,9 @@ class _EditPageState extends State<BookScreen>
                                 style: ElevatedButton.styleFrom(
                                   shadowColor: kPrimaryColor,
                                   primary: Colors.teal,
-                                  padding: EdgeInsets.symmetric(
+                                  padding: const EdgeInsets.symmetric(
                                       horizontal: 20, vertical: 10),
-                                  textStyle: TextStyle(
+                                  textStyle: const TextStyle(
                                     fontWeight: FontWeight.w200,
                                     fontSize: 14,
                                     letterSpacing: 0.27,
@@ -795,24 +802,21 @@ class _EditPageState extends State<BookScreen>
                                 onPressed: () {
                                   _selectDate(context);
                                 },
-                                child: Text("Choose tutor Start  Date"),
+                                child: const Text("Choose tutor Start  Date"),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 20,
                               ),
                               Text(
                                   "${selectedDate.day}/${selectedDate.month}/${selectedDate.year}")
                             ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 15,
                           ),
                           Center(
                             child: RaisedButton(
                               onPressed: () async {
-                                var value;
-                                value =
-                                    values.where((item) => item == true).length;
                                 if (avalbledate2.isNotEmpty) {
                                   Cricular();
                                   await Future.delayed(
@@ -900,7 +904,7 @@ class _EditPageState extends State<BookScreen>
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Center(),
+                              const Center(),
                               FutureBuilder(
                                   future: RemoteServices.getAvalbledate(
                                       widget.hotelData!.id),
@@ -974,7 +978,7 @@ class _EditPageState extends State<BookScreen>
                 Text(
                   txt2,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.w200,
                     fontSize: 14,
                     letterSpacing: 0.27,
@@ -1049,6 +1053,7 @@ class _EditPageState extends State<BookScreen>
   }
 
   printIntAsDay(int day) {
+    // ignore: avoid_print
     print(
         'Received integer: $day. Corresponds to day: ${intDayToEnglish(day)}');
   }
@@ -1078,12 +1083,12 @@ class _EditPageState extends State<BookScreen>
         fieldLabelText: "BOOKING DATE",
         initialDatePickerMode: DatePickerMode.day,
         errorInvalidText: "Date Out of Range");
-    if (selected != null && selected != selectedDate)
+    if (selected != null && selected != selectedDate) {
       setState(() {
         selectedDate = selected;
         bookingeController.startdate = selected.day.toString();
-        print(selected.toString());
       });
+    }
   }
 }
 
@@ -1104,10 +1109,7 @@ final BookingeController bookingeController = Get.find();
 class _SettingsScreenState2 extends State<FollowedList> {
   @override
   void initState() {
-    // TODO: implement initState
-
     if (widget.day!.day != null) {
-      print(widget.day!.day);
       bookingeController.daylist.add(widget.day!.day);
       // values.clear();
     } else {}

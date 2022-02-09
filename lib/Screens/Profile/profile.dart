@@ -1,4 +1,4 @@
-// ignore_for_file: import_of_legacy_library_into_null_safe, prefer_typing_uninitialized_variables
+// ignore_for_file: import_of_legacy_library_into_null_safe, prefer_typing_uninitialized_variables, unused_element, prefer_if_null_operators
 
 import 'dart:convert';
 
@@ -165,9 +165,9 @@ class _ProfilePageState extends State<ProfileS> {
                     children: <Widget>[
                       ProfileHeader(
                         avatar: NetworkImage(
-                            "https://tutor.oddatech.com/api/student-profile-picture/${ids}"),
+                            "https://tutor.oddatech.com/api/student-profile-picture/$ids"),
                         coverImage: NetworkImage(
-                            "https://tutor.oddatech.com/api/student-profile-picture/${ids}"),
+                            "https://tutor.oddatech.com/api/student-profile-picture/$ids"),
                         title: editprofileController.firstname.text.toString() +
                             " " +
                             editprofileController.lastname.text.toString(),
@@ -230,7 +230,7 @@ class _ProfilePageState extends State<ProfileS> {
   final Color divider = Colors.grey.shade600;
   _buildDrawer(BuildContext context, String fname, String lastname, ids) {
     final String image =
-        "https://tutor.oddatech.com/api/student-profile-picture/${ids}";
+        "https://tutor.oddatech.com/api/student-profile-picture/$ids";
 
     return ClipPath(
       clipper: OvalRightBorderClipper(),
@@ -258,9 +258,9 @@ class _ProfilePageState extends State<ProfileS> {
                   Container(
                     height: 90,
                     alignment: Alignment.center,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         shape: BoxShape.circle,
-                        gradient: const LinearGradient(
+                        gradient: LinearGradient(
                             colors: [kPrimaryColor, kPrimaryColor])),
                     child: CircleAvatar(
                       radius: 40,
@@ -318,7 +318,7 @@ class _ProfilePageState extends State<ProfileS> {
                           context,
                           PageRouteBuilder(
                             pageBuilder: (context, animation1, animation2) =>
-                                SettingsFourPage(),
+                                const SettingsFourPage(),
                             transitionDuration: Duration.zero,
                           ),
                         );
@@ -348,7 +348,7 @@ class _ProfilePageState extends State<ProfileS> {
                           context,
                           PageRouteBuilder(
                             pageBuilder: (context, animation1, animation2) =>
-                                ContactDetailsView(),
+                                const ContactDetailsView(),
                             transitionDuration: Duration.zero,
                           ),
                         );
@@ -544,7 +544,7 @@ class _ProfilePageState extends State<ProfileS> {
     Navigator.push(
       context,
       PageRouteBuilder(
-        pageBuilder: (context, animation1, animation2) => LoginScreen(),
+        pageBuilder: (context, animation1, animation2) => const LoginScreen(),
         transitionDuration: Duration.zero,
       ),
     );
@@ -593,7 +593,7 @@ class UserInfo extends StatelessWidget {
           Card(
             child: Container(
               alignment: Alignment.topLeft,
-              padding: EdgeInsets.all(15),
+              padding: const EdgeInsets.all(15),
               child: Column(
                 children: <Widget>[
                   Column(
@@ -602,30 +602,31 @@ class UserInfo extends StatelessWidget {
                         color: Colors.grey,
                         tiles: [
                           ListTile(
-                            leading: Icon(
+                            leading: const Icon(
                               Icons.phone,
                               color: kPrimaryColor,
                             ),
-                            title: Text("Phone"),
+                            title: const Text("Phone"),
                             subtitle: Text(phone.toString()),
                           ),
                           ListTile(
-                            leading: Icon(Icons.email, color: kPrimaryColor),
-                            title: Text("Email"),
+                            leading:
+                                const Icon(Icons.email, color: kPrimaryColor),
+                            title: const Text("Email"),
                             subtitle: Text(email.toString()),
                           ),
                           ListTile(
-                            leading:
-                                Icon(Icons.male_sharp, color: kPrimaryColor),
-                            title: Text("Gender"),
+                            leading: const Icon(Icons.male_sharp,
+                                color: kPrimaryColor),
+                            title: const Text("Gender"),
                             subtitle: Text(gender.toString()),
                           ),
                           ListTile(
-                            leading: Icon(
+                            leading: const Icon(
                               Icons.person,
                               color: kPrimaryColor,
                             ),
-                            title: Text("About Me"),
+                            title: const Text("About Me"),
                             subtitle: Text(about.toString()),
                           ),
                         ],
@@ -670,7 +671,7 @@ class ProfileHeader extends StatelessWidget {
         ),
         Ink(
           height: 200,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: Colors.black38,
           ),
         ),

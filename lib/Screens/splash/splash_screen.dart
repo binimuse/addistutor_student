@@ -1,8 +1,8 @@
+// ignore_for_file: invalid_use_of_protected_member, unnecessary_null_comparison, duplicate_ignore
+
 import 'dart:convert';
 
-import 'package:addistutor_student/Screens/Home/components/homescreen.dart';
 import 'package:addistutor_student/Screens/Progress/progress.dart';
-import 'package:addistutor_student/Screens/Welcome/welcome_screen.dart';
 import 'package:addistutor_student/Screens/main/main.dart';
 import 'package:addistutor_student/controller/geteducationlevelcontroller.dart';
 import 'package:addistutor_student/controller/getlocationcontroller.dart';
@@ -41,7 +41,7 @@ class _SplashScreenState extends State<SplashScreen> {
         context,
         MaterialPageRoute(
           builder: (context) => Scaffold(
-            body: isAuth ? Main() : const MyPages(),
+            body: isAuth ? const Main() : const MyPages(),
           ),
         ),
         (route) => false,
@@ -128,7 +128,7 @@ class _SplashScreenState extends State<SplashScreen> {
             color: Color(0xFF4A6572),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         const Text(

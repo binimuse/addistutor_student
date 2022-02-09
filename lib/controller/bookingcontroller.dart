@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:addistutor_student/Screens/Appointment/components/appointmentscreen.dart';
 import 'package:addistutor_student/Screens/Login/components/body.dart';
 import 'package:addistutor_student/Screens/Login/login_screen.dart';
 import 'package:addistutor_student/Screens/Profile/profile.dart';
@@ -379,7 +380,7 @@ class BookingeController extends GetxController with StateMixin {
                 Navigator.of(context).pop(true);
                 Navigator.pop(context);
               },
-              child: new Text('ok'),
+              child: Text('ok'),
             ),
           ],
         ),
@@ -399,7 +400,7 @@ class BookingeController extends GetxController with StateMixin {
             ),
           ),
           content: const Text(
-            'Sucessfully Booked Tutor \nplease go to notification page for any updateds',
+            'Sucessfully Booked Tutor \nplease go to your Dashbord for any updateds',
             style: TextStyle(
               fontSize: 13,
               fontWeight: FontWeight.w500,
@@ -414,6 +415,16 @@ class BookingeController extends GetxController with StateMixin {
                 isLoading(false);
                 Navigator.of(context).pop(true);
                 Navigator.pop(context);
+
+                Navigator.push(
+                  // ignore: prefer_const_constructors
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation1, animation2) =>
+                        const Appointment(),
+                    transitionDuration: Duration.zero,
+                  ),
+                );
               },
               child: const Text('ok'),
             ),

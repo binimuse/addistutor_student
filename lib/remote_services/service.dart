@@ -123,10 +123,7 @@ class RemoteServices {
       var locationid, var subjectid, var gender) async {
     res = await Network().getData(
         "tutors?location_id=${locationid}&subject_id=${subjectid}&gender=${gender}");
-    print("locationid");
-    print(locationid);
-    print(subjectid);
-    print(gender);
+
     var body = json.decode(res.body);
 
     if (res.statusCode == 200) {
@@ -179,7 +176,6 @@ class RemoteServices {
 
   static Future<List<RequestedBooking>> getrequestedbooking(
       var id, var status) async {
-    print(id);
     res = await Network().getData("student/${id}/bookings?status=${status}");
     var body = json.decode(res.body);
 
@@ -231,10 +227,10 @@ class RemoteServices {
     var data,
   ) async {
     List<String> errors = [];
-    // ignore: unnecessary_brace_in_string_interps
+
     res = await Network().getpassedData(data, "change-password");
     body = json.decode(res.body);
-    print(body);
+
     if (res.statusCode == 200) {
       return res.statusCode.toString();
     } else {
@@ -251,10 +247,10 @@ class RemoteServices {
     }
   }
 
-  static Future<String> rating(var data, var b_id) async {
+  static Future<String> rating(var data, var bId) async {
     List<String> errors = [];
     // create multipart request
-    res = await Network().getpassedData(data, "rating/${b_id}");
+    res = await Network().getpassedData(data, "rating/${bId}");
 
     body = json.decode(res.body);
 
@@ -288,10 +284,10 @@ class RemoteServices {
     }
   }
 
-  static Future<Qr> getqr(var b_id) async {
+  static Future<Qr> getqr(var bId) async {
     // print("id.toString()");
     //print(id.toString());
-    res = await Network().getData("booking/${b_id}/qr-code");
+    res = await Network().getData("booking/${bId}/qr-code");
 
     var body = json.decode(res.body);
     if (res.statusCode == 200) {
@@ -306,10 +302,10 @@ class RemoteServices {
     var data,
   ) async {
     List<String> errors = [];
-    // ignore: unnecessary_brace_in_string_interps
+
     res = await Network().getpassedData(data, "password/email");
     body = json.decode(res.body);
-    print(body);
+
     if (res.statusCode == 200) {
       return res.statusCode.toString();
     } else {

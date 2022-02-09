@@ -81,9 +81,7 @@ class EditprofileController extends GetxController with StateMixin {
         forgot.currentState!.save();
         await forgott(context);
       }
-    } finally {
-      // TODO
-    }
+    } finally {}
   }
 
   var emailadd = "";
@@ -118,7 +116,7 @@ class EditprofileController extends GetxController with StateMixin {
         builder: (context) => AlertDialog(
           title: Text(
             data.toString(),
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 13,
               fontWeight: FontWeight.w500,
               color: Colors.black,
@@ -132,7 +130,7 @@ class EditprofileController extends GetxController with StateMixin {
                 Navigator.pop(context);
                 isLoading(false);
               },
-              child: new Text('ok'),
+              child: const Text('ok'),
             ),
           ],
         ),
@@ -164,7 +162,7 @@ class EditprofileController extends GetxController with StateMixin {
                 //    openAndCloseLoadingDialog(context);
                 print("yess");
               },
-              child: new Text('ok'),
+              child: const Text('ok'),
             ),
           ],
         ),
@@ -182,6 +180,7 @@ class EditprofileController extends GetxController with StateMixin {
         await updatePass(context);
       }
     } finally {
+      // ignore: todo
       // TODO
     }
   }
@@ -220,7 +219,7 @@ class EditprofileController extends GetxController with StateMixin {
         builder: (context) => AlertDialog(
           title: Text(
             'Password Not Updated \n ' + data.toString(),
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 13,
               fontWeight: FontWeight.w500,
               color: Colors.black,
@@ -234,7 +233,7 @@ class EditprofileController extends GetxController with StateMixin {
                 Navigator.pop(context);
                 isLoading(false);
               },
-              child: new Text('ok'),
+              child: const Text('ok'),
             ),
           ],
         ),
@@ -266,7 +265,7 @@ class EditprofileController extends GetxController with StateMixin {
                 //    openAndCloseLoadingDialog(context);
                 print("yess");
               },
-              child: new Text('ok'),
+              child: const Text('ok'),
             ),
           ],
         ),

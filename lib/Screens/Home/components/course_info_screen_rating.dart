@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:addistutor_student/Screens/Appointment/components/appointmentscreen.dart';
 import 'package:addistutor_student/constants.dart';
 import 'package:addistutor_student/remote_services/user.dart';
@@ -111,14 +113,14 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Padding(
-                            padding:
-                                EdgeInsets.only(top: 32.0, left: 18, right: 16),
+                            padding: const EdgeInsets.only(
+                                top: 32.0, left: 18, right: 16),
                             child: Text(
                               widget.hotelData!.teacher.first_name +
                                   " " +
                                   widget.hotelData!.teacher.last_name,
                               textAlign: TextAlign.left,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: 22,
                                 letterSpacing: 0.27,
@@ -136,7 +138,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
                                 Text(
                                   widget.hotelData!.teacher.gender,
                                   textAlign: TextAlign.left,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontWeight: FontWeight.w200,
                                     fontSize: 22,
                                     letterSpacing: 0.27,
@@ -148,14 +150,14 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
                                     Text(
                                       widget.hotelData!.teacher.rating,
                                       textAlign: TextAlign.left,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontWeight: FontWeight.w200,
                                         fontSize: 22,
                                         letterSpacing: 0.27,
                                         color: DesignCourseAppTheme.grey,
                                       ),
                                     ),
-                                    Icon(
+                                    const Icon(
                                       Icons.star,
                                       color: DesignCourseAppTheme.nearlyBlue,
                                       size: 24,
@@ -183,7 +185,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
                               ),
                             ),
                           ),
-                          Center(
+                          const Center(
                             child: Text(
                               "Days Booked",
                               style: TextStyle(color: Colors.black38),
@@ -196,16 +198,14 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
                             child: ListView.builder(
                                 scrollDirection: Axis.horizontal,
                                 itemBuilder: (_, index) {
-                                  return Container(
-                                    child: Column(
-                                      children: [
-                                        getTimeBoxUIday(widget.hotelData!
-                                                .booking_schedule[index].day +
-                                            " " +
-                                            widget.hotelData!
-                                                .booking_schedule[index].time),
-                                      ],
-                                    ),
+                                  return Column(
+                                    children: [
+                                      getTimeBoxUIday(widget.hotelData!
+                                              .booking_schedule[index].day +
+                                          " " +
+                                          widget.hotelData!
+                                              .booking_schedule[index].time),
+                                    ],
                                   );
                                 },
                                 itemCount:
@@ -249,7 +249,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
                   child: InkWell(
                     borderRadius:
                         BorderRadius.circular(AppBar().preferredSize.height),
-                    child: Icon(
+                    child: const Icon(
                       Icons.arrow_back_ios,
                       color: DesignCourseAppTheme.nearlyBlack,
                     ),
@@ -290,7 +290,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
               Text(
                 txt2,
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.w200,
                   fontSize: 14,
                   letterSpacing: 0.27,
@@ -338,7 +338,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
               Text(
                 txt2,
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.w200,
                   fontSize: 14,
                   letterSpacing: 0.27,
@@ -389,7 +389,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
             unratedColor: Colors.amber.withAlpha(50),
             itemCount: 5,
             itemSize: 20.0,
-            itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+            itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
             itemBuilder: (context, _) => Icon(
               _selectedIcon ?? Icons.star,
               color: Colors.amber,
@@ -397,9 +397,6 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
             onRatingUpdate: (rating) {
               setState(() {
                 getReqBooking.ratings = rating.toString();
-
-                print(getReqBooking.ratings);
-                print(widget.hotelData!.booking_schedule[0].booking_id);
               });
             },
             updateOnDrag: true,
@@ -413,7 +410,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
               Navigator.of(context).pop(true);
               // Navigator.pop(context);
             },
-            child: Center(child: new Text('ok')),
+            child: const Center(child: Text('ok')),
           ),
         ],
       ),

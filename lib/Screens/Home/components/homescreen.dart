@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_use_of_protected_member, unnecessary_null_comparison, duplicate_ignore
+
 import 'package:addistutor_student/Screens/Home/components/category_list_view.dart';
 
 import 'package:addistutor_student/Screens/Home/components/popular_course_list_view.dart';
@@ -106,7 +108,7 @@ class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
     _refreshController.loadComplete();
   }
 
-  CategoryType categoryType = CategoryType.coding;
+  CategoryType categoryType = CategoryType.ui;
 
   @override
   Widget build(BuildContext context) {
@@ -345,7 +347,7 @@ class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
                         child: GestureDetector(
                           onTap: () {},
                           child: TextFormField(
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontFamily: 'WorkSans',
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
@@ -449,7 +451,7 @@ class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
               ],
             ),
           ),
-          Container(
+          SizedBox(
             width: 100,
             height: 100,
             child: Image.asset(

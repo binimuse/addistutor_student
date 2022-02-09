@@ -147,6 +147,7 @@ class Search {
   String gender;
   String about;
   String rating;
+  String price;
 
   String location_id;
   String profile_img;
@@ -154,6 +155,7 @@ class Search {
   GetLocation location;
   Qualification qualification_id;
   List<GetSubject> preferred_tutoring_subjects;
+  GetSubject subject_id;
 
   Search({
     required this.id,
@@ -164,6 +166,7 @@ class Search {
     required this.phone_no,
     required this.gender,
     required this.about,
+    required this.price,
     required this.rating,
     required this.location_id,
     required this.profile_img,
@@ -171,6 +174,7 @@ class Search {
     required this.location,
     required this.qualification_id,
     required this.preferred_tutoring_subjects,
+    required this.subject_id,
   });
 
   factory Search.fromJson(Map<String, dynamic> json) {
@@ -183,6 +187,7 @@ class Search {
       phone_no: json["phone_no"],
       gender: json["gender"],
       about: json["about"],
+      price: json["price"],
       rating: json["rating"],
       profile_img: json["profile_img"],
       teaching_since: json["teaching_since"],
@@ -190,6 +195,9 @@ class Search {
       location: GetLocation.fromJson(json["location"]),
       qualification_id: Qualification.fromJson(
         json["qualification_id"],
+      ),
+      subject_id: GetSubject.fromJson(
+        json["subject_id"],
       ),
       preferred_tutoring_subjects: List<GetSubject>.from(
           json["preferred_tutoring_subjects"]

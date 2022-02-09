@@ -1,9 +1,4 @@
-// ignore_for_file: deprecated_member_use, import_of_legacy_library_into_null_safe
-
-/**
- * Author: Aparna Dulal
- * profile: https://github.com/ambikadulal
-  */
+// ignore_for_file: deprecated_member_use, import_of_legacy_library_into_null_safe, unnecessary_null_comparison, prefer_typing_uninitialized_variables
 
 import 'dart:convert';
 import 'dart:io';
@@ -88,9 +83,7 @@ class _EditPageState extends State<EditPage> {
         var noid = "noid";
         editprofileController.fetchPf(noid);
       }
-    } else {
-      print("cant");
-    }
+    } else {}
   }
 
   @override
@@ -426,11 +419,11 @@ class _EditPageState extends State<EditPage> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(bottom: 35.0),
+                        padding: const EdgeInsets.only(bottom: 35.0),
                         child: TextFormField(
                           controller: editprofileController.email,
                           decoration: InputDecoration(
-                              contentPadding: EdgeInsets.only(bottom: 3),
+                              contentPadding: const EdgeInsets.only(bottom: 3),
                               labelText: "Email",
                               focusColor: kPrimaryColor,
                               fillColor: kPrimaryColor,
@@ -488,14 +481,14 @@ class _EditPageState extends State<EditPage> {
                         style: TextStyle(color: Colors.black38),
                       ),
                       OutlineButton(
-                        padding: EdgeInsets.symmetric(horizontal: 50),
+                        padding: const EdgeInsets.symmetric(horizontal: 50),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20)),
                         onPressed: () {
                           _selectDate(context);
                         },
                         child: Text(editprofileController.date.toString(),
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 14,
                                 letterSpacing: 2.2,
                                 color: Colors.black)),
@@ -510,7 +503,7 @@ class _EditPageState extends State<EditPage> {
                       DropdownButton<GetLocation>(
                         hint: Text(
                           editprofileController.locaion.toString(),
-                          style: TextStyle(
+                          style: const TextStyle(
                               color: Colors.black,
                               fontSize: 16,
                               fontWeight: FontWeight.w300),
@@ -687,7 +680,6 @@ class _EditPageState extends State<EditPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          // ignore: deprecated_member_use
                           OutlineButton(
                             padding: const EdgeInsets.symmetric(horizontal: 50),
                             shape: RoundedRectangleBorder(
@@ -703,7 +695,6 @@ class _EditPageState extends State<EditPage> {
                           ),
                           RaisedButton(
                             onPressed: () {
-                              print(id);
                               editprofileController.editProf(id, context);
                             },
                             color: kPrimaryColor,
@@ -815,7 +806,6 @@ class _EditPageState extends State<EditPage> {
   }
 
   refresh() {
-    print("object");
     Navigator.pop(context); // pop current page
 
     Navigator.push(

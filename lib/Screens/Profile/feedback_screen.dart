@@ -108,10 +108,10 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                                       feedBackScreencontroller
                                           .editProf(context);
                                     },
-                                    child: Center(
+                                    child: const Center(
                                       child: Padding(
-                                        padding: const EdgeInsets.all(4.0),
-                                        child: const Text(
+                                        padding: EdgeInsets.all(4.0),
+                                        child: Text(
                                           'Send',
                                           style: TextStyle(
                                             fontWeight: FontWeight.w500,
@@ -161,11 +161,11 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                   const EdgeInsets.only(left: 10, right: 10, top: 0, bottom: 0),
               child: TextFormField(
                 controller: feedBackScreencontroller.feedback,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                     fillColor: kPrimaryColor,
                     border: InputBorder.none,
                     hintText: 'Enter your feedback...'),
-                style: TextStyle(
+                style: const TextStyle(
                   fontFamily: AppTheme.fontName,
                   fontSize: 16,
                   color: AppTheme.dark_grey,
