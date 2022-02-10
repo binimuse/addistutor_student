@@ -321,4 +321,18 @@ class RemoteServices {
       }
     }
   }
+
+  static Future<List<Search>> getpopular() async {
+    res = await Network().getData("top-tutors");
+    var body = json.decode(res.body);
+
+    if (res.statusCode == 200) {
+      return body["data"]
+          .map((e) => Search.fromJson(e))
+          .toList()
+          .cast<Search>();
+    } else {
+      throw Exception('Failed to load Comment');
+    }
+  }
 }

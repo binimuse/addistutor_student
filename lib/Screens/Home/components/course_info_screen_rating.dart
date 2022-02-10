@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, unnecessary_null_comparison
 
 import 'package:addistutor_student/Screens/Appointment/components/appointmentscreen.dart';
 import 'package:addistutor_student/constants.dart';
@@ -62,6 +62,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
     super.dispose();
   }
 
+  final Color divider = Colors.grey.shade600;
   @override
   Widget build(BuildContext context) {
     final double tempHeight = MediaQuery.of(context).size.height -
@@ -112,17 +113,16 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                top: 32.0, left: 18, right: 16),
+                          const Padding(
+                            padding:
+                                EdgeInsets.only(top: 32.0, left: 18, right: 16),
                             child: Text(
-                              widget.hotelData!.teacher.first_name +
-                                  " " +
-                                  widget.hotelData!.teacher.last_name,
+                              "Tutor info",
                               textAlign: TextAlign.left,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: 22,
+                                fontFamily: 'WorkSans',
                                 letterSpacing: 0.27,
                                 color: DesignCourseAppTheme.darkerText,
                               ),
@@ -132,29 +132,42 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
                             padding: const EdgeInsets.only(
                                 left: 16, right: 16, bottom: 8, top: 16),
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
+                                Text(
+                                  widget.hotelData!.teacher.first_name +
+                                      " " +
+                                      widget.hotelData!.teacher.last_name,
+                                  textAlign: TextAlign.left,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w200,
+                                    fontSize: 15,
+                                    fontFamily: 'WorkSans',
+                                    letterSpacing: 0.27,
+                                    color: DesignCourseAppTheme.grey,
+                                  ),
+                                ),
                                 Text(
                                   widget.hotelData!.teacher.gender,
                                   textAlign: TextAlign.left,
                                   style: const TextStyle(
                                     fontWeight: FontWeight.w200,
-                                    fontSize: 22,
+                                    fontSize: 15,
+                                    fontFamily: 'WorkSans',
                                     letterSpacing: 0.27,
-                                    color: DesignCourseAppTheme.nearlyBlue,
+                                    color: DesignCourseAppTheme.grey,
                                   ),
                                 ),
                                 Row(
                                   children: <Widget>[
                                     Text(
                                       widget.hotelData!.teacher.rating,
-                                      textAlign: TextAlign.left,
                                       style: const TextStyle(
                                         fontWeight: FontWeight.w200,
-                                        fontSize: 22,
+                                        fontSize: 15,
+                                        fontFamily: 'WorkSans',
                                         letterSpacing: 0.27,
-                                        color: DesignCourseAppTheme.grey,
                                       ),
                                     ),
                                     const Icon(
@@ -163,8 +176,39 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
                                       size: 24,
                                     ),
                                   ],
-                                )
+                                ),
                               ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                top: 10.0, left: 18, right: 16),
+                            child: Text(
+                              widget.hotelData!.teacher.about,
+                              textAlign: TextAlign.left,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w200,
+                                fontSize: 15,
+                                fontFamily: 'WorkSans',
+                                letterSpacing: 0.27,
+                                color: DesignCourseAppTheme.grey,
+                              ),
+                            ),
+                          ),
+                          _buildDivider(),
+                          const Padding(
+                            padding:
+                                EdgeInsets.only(top: 10.0, left: 18, right: 16),
+                            child: Text(
+                              "Booking info",
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 22,
+                                fontFamily: 'WorkSans',
+                                letterSpacing: 0.27,
+                                color: DesignCourseAppTheme.darkerText,
+                              ),
                             ),
                           ),
                           AnimatedOpacity(
@@ -181,6 +225,12 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
                                   getTimeBoxUI(
                                       widget.hotelData!.session.toString(),
                                       'session'),
+                                  widget.hotelData!.subject.title != null
+                                      ? getTimeBoxUIday(
+                                          widget.hotelData!.subject.title +
+                                              "subject ")
+                                      : getTimeBoxUIday(
+                                          "subject not defind" " "),
                                 ],
                               ),
                             ),
@@ -192,7 +242,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
                             ),
                           ),
                           const SizedBox(
-                            height: 18,
+                            height: 8,
                           ),
                           Expanded(
                             child: ListView.builder(
@@ -203,8 +253,10 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
                                       getTimeBoxUIday(widget.hotelData!
                                               .booking_schedule[index].day +
                                           " " +
-                                          widget.hotelData!
-                                              .booking_schedule[index].time),
+                                          widget
+                                              .hotelData!
+                                              .booking_schedule[index]
+                                              .readable_time),
                                     ],
                                   );
                                 },
@@ -233,11 +285,10 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
                       width: 100,
                       height: 70,
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(18.0),
-                        // child: Image.network(
-                        //   "https://tutor.oddatech.com/api/teacher-profile-picture/${widget.hotelData!.teacher.profile_img}",
-                        // )),
-                      ))),
+                          borderRadius: BorderRadius.circular(18.0),
+                          child: Image.network(
+                            "https://tutor.oddatech.com/api/teacher-profile-picture/${widget.hotelData!.teacher.id}",
+                          )))),
             ),
             Padding(
               padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
@@ -263,6 +314,12 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
           ],
         ),
       ),
+    );
+  }
+
+  Divider _buildDivider() {
+    return Divider(
+      color: divider,
     );
   }
 

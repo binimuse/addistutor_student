@@ -231,13 +231,13 @@ class Bookingschedule {
   int id;
 
   String day;
-  String time;
+  String readable_time;
   String booking_id;
 
   Bookingschedule({
     required this.id,
     required this.day,
-    required this.time,
+    required this.readable_time,
     required this.booking_id,
   });
 
@@ -245,7 +245,7 @@ class Bookingschedule {
     return Bookingschedule(
       id: json["id"] as int,
       day: json["day"],
-      time: json["time"],
+      readable_time: json["readable_time"],
       booking_id: json["booking_id"],
     );
   }
@@ -309,7 +309,7 @@ class RequestedBooking {
   String verified_status;
   String teacher_id;
   String is_active;
-
+  GetSubject subject;
   String student_id;
   List<Bookingschedule> booking_schedule;
   ReqTech teacher;
@@ -323,6 +323,7 @@ class RequestedBooking {
     required this.teacher_id,
     required this.student_id,
     required this.teacher,
+    required this.subject,
     required this.booking_schedule,
   });
 
@@ -335,6 +336,7 @@ class RequestedBooking {
       verified_status: json["verified_status"],
       teacher_id: json["teacher_id"],
       student_id: json["student_id"],
+      subject: GetSubject.fromJson(json["subject"]),
       teacher: ReqTech.fromJson(json["teacher"]),
       booking_schedule: List<Bookingschedule>.from(
           json["booking_schedule"].map((x) => Bookingschedule.fromJson(x))),

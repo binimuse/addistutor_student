@@ -76,6 +76,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
     super.dispose();
   }
 
+  final Color divider = Colors.grey.shade600;
   @override
   Widget build(BuildContext context) {
     final double tempHeight = MediaQuery.of(context).size.height -
@@ -126,122 +127,104 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          widget.hotelData!.first_name != null
-                              ? Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 32.0, left: 18, right: 16),
-                                  child: Text(
-                                    widget.hotelData!.first_name +
-                                        " " +
-                                        widget.hotelData!.last_name,
-                                    textAlign: TextAlign.left,
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 22,
-                                      letterSpacing: 0.27,
-                                      color: DesignCourseAppTheme.darkerText,
-                                    ),
-                                  ),
-                                )
-                              : const Padding(
-                                  padding: EdgeInsets.only(
-                                      top: 32.0, left: 18, right: 16),
-                                  child: Text(
-                                    "first_name",
-                                    textAlign: TextAlign.left,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 22,
-                                      letterSpacing: 0.27,
-                                      color: DesignCourseAppTheme.darkerText,
-                                    ),
-                                  ),
-                                ),
+                          const Padding(
+                            padding:
+                                EdgeInsets.only(top: 32.0, left: 18, right: 16),
+                            child: Text(
+                              "Tutor info",
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 22,
+                                fontFamily: 'WorkSans',
+                                letterSpacing: 0.27,
+                                color: DesignCourseAppTheme.darkerText,
+                              ),
+                            ),
+                          ),
                           Padding(
                             padding: const EdgeInsets.only(
-                                left: 16, right: 16, bottom: 8, top: 16),
+                                top: 32.0, left: 18, right: 16),
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                widget.hotelData!.gender != null
-                                    ? Text(
-                                        widget.hotelData!.gender,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  widget.hotelData!.first_name != null
+                                      ? Text(
+                                          widget.hotelData!.first_name +
+                                              " " +
+                                              widget.hotelData!.last_name,
+                                          textAlign: TextAlign.left,
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 15,
+                                            fontFamily: 'WorkSans',
+                                            letterSpacing: 0.27,
+                                            color:
+                                                DesignCourseAppTheme.darkerText,
+                                          ),
+                                        )
+                                      : const Padding(
+                                          padding: EdgeInsets.only(
+                                              top: 32.0, left: 18, right: 16),
+                                          child: Text(
+                                            "first_name",
+                                            textAlign: TextAlign.left,
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 22,
+                                              letterSpacing: 0.27,
+                                              color: DesignCourseAppTheme
+                                                  .darkerText,
+                                            ),
+                                          ),
+                                        ),
+                                  widget.hotelData!.gender != null
+                                      ? Text(
+                                          widget.hotelData!.gender,
+                                          textAlign: TextAlign.left,
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.w200,
+                                            fontSize: 22,
+                                            letterSpacing: 0.27,
+                                            color:
+                                                DesignCourseAppTheme.nearlyBlue,
+                                          ),
+                                        )
+                                      : const Text(
+                                          "gender",
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w200,
+                                            fontSize: 22,
+                                            letterSpacing: 0.27,
+                                            color:
+                                                DesignCourseAppTheme.nearlyBlue,
+                                          ),
+                                        ),
+                                  Row(
+                                    children: <Widget>[
+                                      Text(
+                                        widget.hotelData!.rating,
                                         textAlign: TextAlign.left,
                                         style: const TextStyle(
                                           fontWeight: FontWeight.w200,
                                           fontSize: 22,
                                           letterSpacing: 0.27,
-                                          color:
-                                              DesignCourseAppTheme.nearlyBlue,
-                                        ),
-                                      )
-                                    : const Text(
-                                        "gender",
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w200,
-                                          fontSize: 22,
-                                          letterSpacing: 0.27,
-                                          color:
-                                              DesignCourseAppTheme.nearlyBlue,
+                                          color: DesignCourseAppTheme.grey,
                                         ),
                                       ),
-                                Row(
-                                  children: <Widget>[
-                                    Text(
-                                      widget.hotelData!.rating,
-                                      textAlign: TextAlign.left,
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.w200,
-                                        fontSize: 22,
-                                        letterSpacing: 0.27,
-                                        color: DesignCourseAppTheme.grey,
+                                      const Icon(
+                                        Icons.star,
+                                        color: DesignCourseAppTheme.nearlyBlue,
+                                        size: 24,
                                       ),
-                                    ),
-                                    const Icon(
-                                      Icons.star,
-                                      color: DesignCourseAppTheme.nearlyBlue,
-                                      size: 24,
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
-                          ),
-                          AnimatedOpacity(
-                            duration: const Duration(milliseconds: 500),
-                            opacity: opacity1,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8),
-                              child: Row(
-                                children: <Widget>[
-                                  getTimeBoxUI("location",
-                                      widget.hotelData!.location.name),
-                                  getTimeBoxUI(1.toString(), 'Subject'),
-                                ],
-                              ),
-                            ),
+                                    ],
+                                  )
+                                ]),
                           ),
 
-                          getTimeBoxUIday(widget.hotelData!.subject_id.title),
-
-                          // Expanded(
-                          //   child: ListView.builder(
-                          //       scrollDirection: Axis.horizontal,
-                          //       itemBuilder: (_, index) {
-                          //         return Column(
-                          //           children: [
-                          //             getTimeBoxUIday(widget
-                          //                 .hotelData!
-                          //                 .subject_id
-                          //                 .title),
-                          //           ],
-                          //         );
-                          //       },
-                          //       itemCount: widget.hotelData!
-                          //           .preferred_tutoring_subjects.length),
-                          // ),
                           widget.hotelData!.about != null
                               ? Expanded(
                                   child: AnimatedOpacity(
@@ -289,6 +272,57 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                                     ),
                                   ),
                                 ),
+                          _buildDivider(),
+
+                          const Padding(
+                            padding:
+                                EdgeInsets.only(top: 10.0, left: 18, right: 16),
+                            child: Text(
+                              "Booking info",
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 22,
+                                fontFamily: 'WorkSans',
+                                letterSpacing: 0.27,
+                                color: DesignCourseAppTheme.darkerText,
+                              ),
+                            ),
+                          ),
+                          AnimatedOpacity(
+                            duration: const Duration(milliseconds: 500),
+                            opacity: opacity1,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8),
+                              child: Row(
+                                children: <Widget>[
+                                  getTimeBoxUI("location",
+                                      widget.hotelData!.location.name),
+                                  getTimeBoxUI(1.toString(), 'Subject'),
+                                ],
+                              ),
+                            ),
+                          ),
+
+                          getTimeBoxUIday(widget.hotelData!.subject_id.title),
+
+                          // Expanded(
+                          //   child: ListView.builder(
+                          //       scrollDirection: Axis.horizontal,
+                          //       itemBuilder: (_, index) {
+                          //         return Column(
+                          //           children: [
+                          //             getTimeBoxUIday(widget
+                          //                 .hotelData!
+                          //                 .subject_id
+                          //                 .title),
+                          //           ],
+                          //         );
+                          //       },
+                          //       itemCount: widget.hotelData!
+                          //           .preferred_tutoring_subjects.length),
+                          // ),
+
                           GestureDetector(
                             onTap: () async {
                               SharedPreferences localStorage =
@@ -420,31 +454,22 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
               ),
             ),
             Positioned(
-              top: (MediaQuery.of(context).size.width / 1.2) - 24.0 - 35,
-              right: 35,
-              child: ScaleTransition(
-                  alignment: Alignment.center,
-                  scale: CurvedAnimation(
-                      parent: animationController!,
-                      curve: Curves.fastOutSlowIn),
-                  child: Card(
-                    color: DesignCourseAppTheme.nearlyBlue,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(80.0)),
-                    elevation: 10.0,
+                top: (MediaQuery.of(context).size.width / 1.2) - 24.0 - 35,
+                right: 35,
+                child: ScaleTransition(
+                    alignment: Alignment.center,
+                    scale: CurvedAnimation(
+                        parent: animationController!,
+                        curve: Curves.fastOutSlowIn),
                     child: SizedBox(
-                      width: 70,
-                      height: 70,
+                      width: 120,
+                      height: 78,
                       child: ClipRRect(
                           borderRadius: BorderRadius.circular(18.0),
                           child: Image.network(
                             "https://tutor.oddatech.com/api/teacher-profile-picture/${widget.hotelData!.id}",
-                            height: 100.0,
-                            width: 110.0,
                           )),
-                    ),
-                  )),
-            ),
+                    ))),
             Padding(
               padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
               child: SizedBox(
@@ -469,6 +494,12 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
           ],
         ),
       ),
+    );
+  }
+
+  Divider _buildDivider() {
+    return Divider(
+      color: divider,
     );
   }
 

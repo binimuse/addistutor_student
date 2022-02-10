@@ -354,7 +354,7 @@ class _EditPageState extends State<BookScreen>
                             style: TextStyle(color: Colors.black38),
                           ),
                           const Text(
-                            'Preferred study date and  starting from what time? (24-hour clock)',
+                            'Preferred study date and  starting from what time? ',
                             style: TextStyle(color: Colors.black38),
                           ),
                           const SizedBox(
@@ -789,15 +789,14 @@ class _EditPageState extends State<BookScreen>
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                   shadowColor: kPrimaryColor,
-                                  primary: Colors.teal,
+                                  primary: kPrimaryColor,
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 20, vertical: 10),
                                   textStyle: const TextStyle(
-                                    fontWeight: FontWeight.w200,
-                                    fontSize: 14,
-                                    letterSpacing: 0.27,
-                                    color: Colors.teal,
-                                  ),
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 14,
+                                      letterSpacing: 0.27,
+                                      color: Colors.white),
                                 ),
                                 onPressed: () {
                                   _selectDate(context);

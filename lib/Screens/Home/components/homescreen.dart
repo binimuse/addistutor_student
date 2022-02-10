@@ -1,5 +1,7 @@
 // ignore_for_file: invalid_use_of_protected_member, unnecessary_null_comparison, duplicate_ignore
 
+import 'dart:io';
+
 import 'package:addistutor_student/Screens/Home/components/category_list_view.dart';
 
 import 'package:addistutor_student/Screens/Home/components/popular_course_list_view.dart';
@@ -109,7 +111,7 @@ class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
   }
 
   CategoryType categoryType = CategoryType.ui;
-
+  GlobalKey<NavigatorState> _key = GlobalKey();
   @override
   Widget build(BuildContext context) {
     return Obx(() => getEducationlevelController.isfetchededucation.value
@@ -122,36 +124,94 @@ class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
               controller: _refreshController,
               onRefresh: _onRefresh,
               onLoading: _onLoading,
-              child: Scaffold(
-                backgroundColor: Colors.transparent,
-                body: Column(
-                  children: <Widget>[
-                    SizedBox(
-                      height: MediaQuery.of(context).padding.top,
-                    ),
-                    getAppBarUI(),
-                    Expanded(
-                      child: SingleChildScrollView(
-                        child: SizedBox(
-                          height: MediaQuery.of(context).size.height,
-                          child: Column(
-                            children: <Widget>[
-                              getSearchBarUI(),
-                              getCategoryUI(),
-                              Flexible(
-                                child: getPopularCourseUI(),
-                              ),
-                            ],
+              child: WillPopScope(
+                onWillPop: _onBackPressed,
+                child: Scaffold(
+                  backgroundColor: Colors.transparent,
+                  body: Column(
+                    children: <Widget>[
+                      SizedBox(
+                        height: MediaQuery.of(context).padding.top,
+                      ),
+                      getAppBarUI(),
+                      Expanded(
+                        child: SingleChildScrollView(
+                          child: SizedBox(
+                            height: MediaQuery.of(context).size.height * 2,
+                            child: Column(
+                              children: <Widget>[
+                                getSearchBarUI(),
+                                getCategoryUI(),
+                                Flexible(
+                                  child: getPopularCourseUI(),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
           )
         : const Center(child: CircularProgressIndicator()));
+  }
+
+  Future<bool> _onBackPressed() async {
+    return await showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return WillPopScope(
+          onWillPop: () async => false,
+          child: AlertDialog(
+            title: const Text(
+              'Exit',
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w500,
+                color: Colors.green,
+                fontFamily: 'WorkSans',
+              ),
+            ),
+            content: const Text(
+              'Are You Sure you want to Exit This App',
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w500,
+                color: Colors.black,
+                fontFamily: 'WorkSans',
+              ),
+            ),
+            actions: <Widget>[
+              Center(
+                child:
+                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  FlatButton(
+                    onPressed: () {
+                      //Navigator.of(context).pop(true);
+                      Navigator.pop(context);
+                    },
+                    child: const Center(child: Text('No')),
+                  ),
+                  FlatButton(
+                    onPressed: () async {
+                      //
+
+                      exit(0);
+                      //  Navigator.of(context).pop(true);
+                    },
+                    child: const Center(child: Text('Yes')),
+                  ),
+                ]),
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 
   Widget getCategoryUI() {

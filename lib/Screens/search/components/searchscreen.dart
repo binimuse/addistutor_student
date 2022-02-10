@@ -1,5 +1,7 @@
 // ignore_for_file: import_of_legacy_library_into_null_safe, invalid_use_of_protected_member, unnecessary_null_comparison, duplicate_ignore
 
+import 'dart:io';
+
 import 'package:addistutor_student/Screens/Home/components/course_info_screen.dart';
 import 'package:addistutor_student/Screens/search/components/hotel_list_view.dart';
 import 'package:addistutor_student/Screens/search/components/model/hotel_list_data.dart';
@@ -152,90 +154,148 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
                 controller: _refreshController,
                 onRefresh: _onRefresh,
                 onLoading: _onLoading,
-                child: Scaffold(
-                    body: NestedScrollView(
-                  controller: _scrollController,
-                  physics: const ScrollPhysics(parent: PageScrollPhysics()),
-                  headerSliverBuilder:
-                      (BuildContext context, bool innerBoxIsScrolled) {
-                    return <Widget>[
-                      SliverList(
-                        delegate: SliverChildBuilderDelegate(
-                            (BuildContext context, int index) {
-                          return Column(
-                            children: <Widget>[
-                              getAppBarUI(),
-                              gradebarfilter(),
-                              showsubject ? subjectViewUI() : Container(),
-                              LocationFilter(),
-                              genderViewUI(),
-                              getSearchBarUI(),
-                            ],
-                          );
-                        }, childCount: 1),
-                      ),
-                      SliverPersistentHeader(
-                        pinned: true,
-                        floating: true,
-                        delegate: ContestTabHeader(
-                          getFilterBarUI(),
+                child: WillPopScope(
+                  onWillPop: _onBackPressed,
+                  child: Scaffold(
+                      body: NestedScrollView(
+                    controller: _scrollController,
+                    physics: const ScrollPhysics(parent: PageScrollPhysics()),
+                    headerSliverBuilder:
+                        (BuildContext context, bool innerBoxIsScrolled) {
+                      return <Widget>[
+                        SliverList(
+                          delegate: SliverChildBuilderDelegate(
+                              (BuildContext context, int index) {
+                            return Column(
+                              children: <Widget>[
+                                getAppBarUI(),
+                                gradebarfilter(),
+                                showsubject ? subjectViewUI() : Container(),
+                                LocationFilter(),
+                                genderViewUI(),
+                                getSearchBarUI(),
+                              ],
+                            );
+                          }, childCount: 1),
                         ),
-                      ),
-                    ];
-                  },
-                  body: searched
-                      ? Container(
-                          color:
-                              HotelAppTheme.buildLightTheme().backgroundColor,
-                          child: FutureBuilder(
-                              future: RemoteServices.search(
-                                  lid.toString(), sid, gender.toString()),
-                              builder: (BuildContext context,
-                                  AsyncSnapshot snapshot) {
-                                if (snapshot.hasError) {
-                                  found.value = snapshot.data.length;
-                                  return Center(
-                                    child: Text(snapshot.error.toString()),
-                                  );
-                                }
+                        SliverPersistentHeader(
+                          pinned: true,
+                          floating: true,
+                          delegate: ContestTabHeader(
+                            getFilterBarUI(),
+                          ),
+                        ),
+                      ];
+                    },
+                    body: searched
+                        ? Container(
+                            color:
+                                HotelAppTheme.buildLightTheme().backgroundColor,
+                            child: FutureBuilder(
+                                future: RemoteServices.search(
+                                    lid.toString(), sid, gender.toString()),
+                                builder: (BuildContext context,
+                                    AsyncSnapshot snapshot) {
+                                  if (snapshot.hasError) {
+                                    found.value = snapshot.data.length;
+                                    return Center(
+                                      child: Text(snapshot.error.toString()),
+                                    );
+                                  }
 
-                                if (snapshot.hasData) {
-                                  return ListView.builder(
-                                    itemCount: snapshot.data.length,
-                                    padding: const EdgeInsets.only(top: 8),
-                                    scrollDirection: Axis.vertical,
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
-                                      return HotelListView(
-                                        callback: () {
-                                          Navigator.push(
-                                            context,
-                                            PageRouteBuilder(
-                                              pageBuilder: (context, animation1,
-                                                  animation2) {
-                                                return CourseInfoScreen(
-                                                  hotelData:
-                                                      snapshot.data[index],
-                                                );
-                                              },
-                                            ),
-                                          );
-                                        },
-                                        hotelData: snapshot.data[index],
-                                      );
-                                    },
-                                  );
-                                } else {
-                                  return const Center(
-                                    child: CircularProgressIndicator(),
-                                  );
-                                }
-                              }))
-                      : const Center(
-                          child: Text("No Tutors found"),
-                        ),
-                ))))
+                                  if (snapshot.hasData) {
+                                    return ListView.builder(
+                                      itemCount: snapshot.data.length,
+                                      padding: const EdgeInsets.only(top: 8),
+                                      scrollDirection: Axis.vertical,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        return HotelListView(
+                                          callback: () {
+                                            Navigator.push(
+                                              context,
+                                              PageRouteBuilder(
+                                                pageBuilder: (context,
+                                                    animation1, animation2) {
+                                                  return CourseInfoScreen(
+                                                    hotelData:
+                                                        snapshot.data[index],
+                                                  );
+                                                },
+                                              ),
+                                            );
+                                          },
+                                          hotelData: snapshot.data[index],
+                                        );
+                                      },
+                                    );
+                                  } else {
+                                    return const Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  }
+                                }))
+                        : const Center(
+                            child: Text("No Tutors found"),
+                          ),
+                  )),
+                )))
         : const Center(child: CircularProgressIndicator()));
+  }
+
+  Future<bool> _onBackPressed() async {
+    return await showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return WillPopScope(
+          onWillPop: () async => false,
+          child: AlertDialog(
+            title: const Text(
+              'Exit',
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w500,
+                color: Colors.green,
+                fontFamily: 'WorkSans',
+              ),
+            ),
+            content: const Text(
+              'Are You Sure you want to Exit This App',
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w500,
+                color: Colors.black,
+                fontFamily: 'WorkSans',
+              ),
+            ),
+            actions: <Widget>[
+              Center(
+                child:
+                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  FlatButton(
+                    onPressed: () {
+                      //Navigator.of(context).pop(true);
+                      Navigator.pop(context);
+                    },
+                    child: const Center(child: Text('No')),
+                  ),
+                  FlatButton(
+                    onPressed: () async {
+                      //
+
+                      exit(0);
+                      //  Navigator.of(context).pop(true);
+                    },
+                    child: const Center(child: Text('Yes')),
+                  ),
+                ]),
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 
   Widget genderViewUI() {

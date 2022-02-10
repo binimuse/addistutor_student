@@ -1,3 +1,4 @@
+import 'package:addistutor_student/Screens/Home/components/design_course_app_theme.dart';
 import 'package:addistutor_student/constants.dart';
 import 'package:addistutor_student/remote_services/user.dart';
 import 'package:flutter/material.dart';
@@ -27,23 +28,31 @@ class ActivityItemWidget extends StatelessWidget {
                                 text: TextSpan(children: [
                               TextSpan(
                                   text: data!.data.message,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .subtitle1
-                                      ?.copyWith(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16)),
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 15,
+                                    fontFamily: 'WorkSans',
+                                    letterSpacing: 0.27,
+                                    color: DesignCourseAppTheme.darkText,
+                                  )),
                               TextSpan(
                                   text: "\nby " + data!.data.teacher_name,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .subtitle1
-                                      ?.copyWith(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16)),
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 15,
+                                    fontFamily: 'WorkSans',
+                                    letterSpacing: 0.27,
+                                    color: DesignCourseAppTheme.darkText,
+                                  )),
                               TextSpan(
                                   text: " " + data!.created_at,
-                                  style: Theme.of(context).textTheme.subtitle1),
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w200,
+                                    fontSize: 15,
+                                    fontFamily: 'WorkSans',
+                                    letterSpacing: 0.27,
+                                    color: DesignCourseAppTheme.grey,
+                                  ))
                             ]))))
                     : Expanded(
                         child: Container(
@@ -52,15 +61,31 @@ class ActivityItemWidget extends StatelessWidget {
                                 text: TextSpan(children: [
                               TextSpan(
                                   text: data!.data.message,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .subtitle1
-                                      ?.copyWith(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16)),
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 15,
+                                    fontFamily: 'WorkSans',
+                                    letterSpacing: 0.27,
+                                    color: DesignCourseAppTheme.darkText,
+                                  )),
+                              TextSpan(
+                                  text: "\nby " + data!.data.teacher_name,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 15,
+                                    fontFamily: 'WorkSans',
+                                    letterSpacing: 0.27,
+                                    color: DesignCourseAppTheme.darkText,
+                                  )),
                               TextSpan(
                                   text: " " + data!.created_at,
-                                  style: Theme.of(context).textTheme.subtitle1),
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w200,
+                                    fontSize: 15,
+                                    fontFamily: 'WorkSans',
+                                    letterSpacing: 0.27,
+                                    color: DesignCourseAppTheme.grey,
+                                  )),
                             ])))),
               ],
             ),

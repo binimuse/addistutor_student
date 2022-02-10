@@ -416,15 +416,14 @@ class BookingeController extends GetxController with StateMixin {
                 Navigator.of(context).pop(true);
                 Navigator.pop(context);
 
-                Navigator.push(
-                  // ignore: prefer_const_constructors
-                  context,
-                  PageRouteBuilder(
-                    pageBuilder: (context, animation1, animation2) =>
-                        const Appointment(),
-                    transitionDuration: Duration.zero,
-                  ),
-                );
+                // Navigator.push(
+                //   context,
+                //   PageRouteBuilder(
+                //     pageBuilder: (context, animation1, animation2) {
+                //       return const Appointment();
+                //     },
+                //   ),
+                // );
               },
               child: const Text('ok'),
             ),

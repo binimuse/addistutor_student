@@ -265,23 +265,14 @@ class _CourseInfoScreenState extends State<CourseInfoQr>
                         scale: CurvedAnimation(
                             parent: animationController!,
                             curve: Curves.fastOutSlowIn),
-                        child: Card(
-                          color: DesignCourseAppTheme.nearlyBlue,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(80.0)),
-                          elevation: 10.0,
-                          child: SizedBox(
-                            width: 70,
+                        child: SizedBox(
+                            width: 100,
                             height: 70,
                             child: ClipRRect(
                                 borderRadius: BorderRadius.circular(18.0),
                                 child: Image.network(
-                                  "https://tutor.oddatech.com/api/teacher-profile-picture/${widget.hotelData!.id}",
-                                  height: 100.0,
-                                  width: 110.0,
-                                )),
-                          ),
-                        )),
+                                  "https://tutor.oddatech.com/api/teacher-profile-picture/${widget.hotelData!.teacher.id}",
+                                )))),
                   ),
                   Padding(
                     padding: EdgeInsets.only(

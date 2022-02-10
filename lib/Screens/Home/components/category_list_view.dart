@@ -177,8 +177,9 @@ class CategoryView extends StatelessWidget {
                                                       textAlign: TextAlign.left,
                                                       style: const TextStyle(
                                                         fontWeight:
-                                                            FontWeight.w600,
+                                                            FontWeight.w700,
                                                         fontSize: 16,
+                                                        fontFamily: 'WorkSans',
                                                         letterSpacing: 0.27,
                                                         color:
                                                             DesignCourseAppTheme
@@ -197,7 +198,7 @@ class CategoryView extends StatelessWidget {
                                                     child: Row(
                                                       mainAxisAlignment:
                                                           MainAxisAlignment
-                                                              .spaceBetween,
+                                                              .spaceEvenly,
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
                                                               .start,
@@ -207,6 +208,8 @@ class CategoryView extends StatelessWidget {
                                                             ' ${category!.gender}',
                                                             style: TextStyle(
                                                                 fontSize: 12,
+                                                                fontFamily:
+                                                                    'WorkSans',
                                                                 color: Colors
                                                                     .grey
                                                                     .withOpacity(
@@ -215,36 +218,53 @@ class CategoryView extends StatelessWidget {
                                                           const SizedBox(
                                                             width: 10,
                                                           ),
-                                                        ]),
-                                                        Row(
-                                                          children: <Widget>[
-                                                            Text(
-                                                              category!.rating,
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .left,
-                                                              style:
-                                                                  const TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w200,
-                                                                fontSize: 18,
-                                                                letterSpacing:
-                                                                    0.27,
-                                                                color:
-                                                                    DesignCourseAppTheme
-                                                                        .grey,
+                                                          Row(
+                                                            children: <Widget>[
+                                                              Text(
+                                                                ' ${category!.rating}',
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        12,
+                                                                    fontFamily:
+                                                                        'WorkSans',
+                                                                    color: Colors
+                                                                        .grey
+                                                                        .withOpacity(
+                                                                            0.8)),
                                                               ),
+                                                              const Icon(
+                                                                Icons.star,
+                                                                color: DesignCourseAppTheme
+                                                                    .nearlyBlue,
+                                                                size: 20,
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          const SizedBox(
+                                                            width: 10,
+                                                          ),
+                                                          Row(children: [
+                                                            Text(
+                                                              ' ${category!.location.name}',
+                                                              style: TextStyle(
+                                                                  fontSize: 12,
+                                                                  fontFamily:
+                                                                      'WorkSans',
+                                                                  color: Colors
+                                                                      .grey
+                                                                      .withOpacity(
+                                                                          0.8)),
                                                             ),
-                                                            const Icon(
-                                                              Icons.star,
-                                                              color:
-                                                                  DesignCourseAppTheme
-                                                                      .nearlyBlue,
-                                                              size: 20,
+                                                            Icon(
+                                                              Icons
+                                                                  .location_pin,
+                                                              color: HotelAppTheme
+                                                                      .buildLightTheme()
+                                                                  .primaryColor,
+                                                              size: 10,
                                                             ),
-                                                          ],
-                                                        )
+                                                          ]),
+                                                        ]),
                                                       ],
                                                     ),
                                                   ),
@@ -255,23 +275,8 @@ class CategoryView extends StatelessWidget {
                                                             right: 26),
                                                     child: Row(
                                                       children: <Widget>[
-                                                        Text(
-                                                          ' ${category!.location.name}',
-                                                          style: TextStyle(
-                                                              fontSize: 14,
-                                                              color: Colors.grey
-                                                                  .withOpacity(
-                                                                      0.8)),
-                                                        ),
                                                         const SizedBox(
                                                             width: 10),
-                                                        Icon(
-                                                          Icons.location_pin,
-                                                          color: HotelAppTheme
-                                                                  .buildLightTheme()
-                                                              .primaryColor,
-                                                          size: 10,
-                                                        ),
                                                       ],
                                                     ),
                                                   ),

@@ -1,6 +1,7 @@
 // ignore_for_file: import_of_legacy_library_into_null_safe, prefer_typing_uninitialized_variables, unused_element, prefer_if_null_operators
 
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:addistutor_student/Screens/Login/login_screen.dart';
 import 'package:addistutor_student/Screens/Profile/contactus.dart';
@@ -126,92 +127,96 @@ class _ProfilePageState extends State<ProfileS> {
   final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _key,
-      backgroundColor: Colors.grey.shade100,
-      extendBodyBehindAppBar: true,
-      extendBody: true,
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        leading: IconButton(
-          onPressed: () {
-            _key.currentState!.openDrawer();
-          },
-          icon: const Icon(
-            Icons.menu,
-            color: kPrimaryColor,
+    return WillPopScope(
+      onWillPop: _onBackPressed,
+      child: Scaffold(
+        key: _key,
+        backgroundColor: Colors.grey.shade100,
+        extendBodyBehindAppBar: true,
+        extendBody: true,
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          leading: IconButton(
+            onPressed: () {
+              _key.currentState!.openDrawer();
+            },
+            icon: const Icon(
+              Icons.menu,
+              color: kPrimaryColor,
+            ),
           ),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
         ),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
-      drawer: _buildDrawer(
-        context,
-        editprofileController.firstname.text.toString(),
-        editprofileController.lastname.text.toString(),
-        ids,
-      ),
-      body: editprofileController.obx(
-          (editForm) => SmartRefresher(
-                enablePullDown: true,
-                enablePullUp: true,
+        drawer: _buildDrawer(
+          context,
+          editprofileController.firstname.text.toString(),
+          editprofileController.lastname.text.toString(),
+          ids,
+        ),
+        body: editprofileController.obx(
+            (editForm) => SmartRefresher(
+                  enablePullDown: true,
+                  enablePullUp: true,
 
-                //cheak pull_to_refresh
-                controller: _refreshController,
-                onRefresh: _onRefresh,
-                onLoading: _onLoading,
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: <Widget>[
-                      ProfileHeader(
-                        avatar: NetworkImage(
-                            "https://tutor.oddatech.com/api/student-profile-picture/$ids"),
-                        coverImage: NetworkImage(
-                            "https://tutor.oddatech.com/api/student-profile-picture/$ids"),
-                        title: editprofileController.firstname.text.toString() +
-                            " " +
-                            editprofileController.lastname.text.toString(),
-                        subtitle: "Grade" " " +
-                            editprofileController.Grade.toString(),
-                        actions: <Widget>[
-                          MaterialButton(
-                            color: Colors.white,
-                            shape: const CircleBorder(),
-                            elevation: 0,
-                            child: const Icon(
-                              Icons.edit,
-                              color: kPrimaryColor,
-                            ),
-                            onPressed: () {
-                              Navigator.push(
-                                // ignore: prefer_const_constructors
-                                context,
-                                PageRouteBuilder(
-                                  pageBuilder:
-                                      (context, animation1, animation2) =>
-                                          const EditPage(),
-                                  transitionDuration: Duration.zero,
-                                ),
-                              );
-                            },
-                          )
-                        ],
-                      ),
-                      const SizedBox(height: 10.0),
-                      UserInfo(
-                        phone: editprofileController.phone.text.toString(),
-                        email: editprofileController.email.text.toString(),
-                        gender:
-                            editprofileController.macthgender.value.toString(),
-                        about: editprofileController.About.text.toString(),
-                      ),
-                    ],
+                  //cheak pull_to_refresh
+                  controller: _refreshController,
+                  onRefresh: _onRefresh,
+                  onLoading: _onLoading,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: <Widget>[
+                        ProfileHeader(
+                          avatar: NetworkImage(
+                              "https://tutor.oddatech.com/api/student-profile-picture/$ids"),
+                          coverImage: NetworkImage(
+                              "https://tutor.oddatech.com/api/student-profile-picture/$ids"),
+                          title: editprofileController.firstname.text
+                                  .toString() +
+                              " " +
+                              editprofileController.lastname.text.toString(),
+                          subtitle: "Grade" " " +
+                              editprofileController.Grade.toString(),
+                          actions: <Widget>[
+                            MaterialButton(
+                              color: Colors.white,
+                              shape: const CircleBorder(),
+                              elevation: 0,
+                              child: const Icon(
+                                Icons.edit,
+                                color: kPrimaryColor,
+                              ),
+                              onPressed: () {
+                                Navigator.push(
+                                  // ignore: prefer_const_constructors
+                                  context,
+                                  PageRouteBuilder(
+                                    pageBuilder:
+                                        (context, animation1, animation2) =>
+                                            const EditPage(),
+                                    transitionDuration: Duration.zero,
+                                  ),
+                                );
+                              },
+                            )
+                          ],
+                        ),
+                        const SizedBox(height: 10.0),
+                        UserInfo(
+                          phone: editprofileController.phone.text.toString(),
+                          email: editprofileController.email.text.toString(),
+                          gender: editprofileController.macthgender.value
+                              .toString(),
+                          about: editprofileController.About.text.toString(),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-          onLoading: Center(child: loadData()),
-          onEmpty: const Text("Can't fetch data"),
-          onError: (error) => Center(child: Text(error.toString()))),
+            onLoading: Center(child: loadData()),
+            onEmpty: const Text("Can't fetch data"),
+            onError: (error) => Center(child: Text(error.toString()))),
+      ),
     );
   }
 
@@ -223,6 +228,61 @@ class _ProfilePageState extends State<ProfileS> {
 
       EasyLoading.dismiss();
     });
+  }
+
+  Future<bool> _onBackPressed() async {
+    return await showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return WillPopScope(
+          onWillPop: () async => false,
+          child: AlertDialog(
+            title: const Text(
+              'Exit',
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w500,
+                color: Colors.green,
+                fontFamily: 'WorkSans',
+              ),
+            ),
+            content: const Text(
+              'Are You Sure you want to Exit This App',
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w500,
+                color: Colors.black,
+                fontFamily: 'WorkSans',
+              ),
+            ),
+            actions: <Widget>[
+              Center(
+                child:
+                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  FlatButton(
+                    onPressed: () {
+                      //Navigator.of(context).pop(true);
+                      Navigator.pop(context);
+                    },
+                    child: const Center(child: Text('No')),
+                  ),
+                  FlatButton(
+                    onPressed: () async {
+                      //
+
+                      exit(0);
+                      //  Navigator.of(context).pop(true);
+                    },
+                    child: const Center(child: Text('Yes')),
+                  ),
+                ]),
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 
   final Color primary = Colors.white;
@@ -496,29 +556,6 @@ class _ProfilePageState extends State<ProfileS> {
           style: tStyle,
         ),
         const Spacer(),
-        if (showBadge)
-          Material(
-            color: kPrimaryColor,
-            elevation: 5.0,
-            shadowColor: Colors.red,
-            borderRadius: BorderRadius.circular(5.0),
-            child: Container(
-              width: 25,
-              height: 25,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: kPrimaryColor,
-                borderRadius: BorderRadius.circular(5.0),
-              ),
-              child: const Text(
-                "10+",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 12.0,
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-          )
       ]),
     );
   }

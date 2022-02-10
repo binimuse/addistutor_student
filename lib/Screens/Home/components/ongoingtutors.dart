@@ -204,8 +204,8 @@ class CategoryView extends StatelessWidget {
                                                       ),
                                                     ),
                                                   ),
-                                                  const Expanded(
-                                                    child: SizedBox(),
+                                                  SizedBox(
+                                                    height: 50,
                                                   ),
                                                   Padding(
                                                     padding:
@@ -218,59 +218,42 @@ class CategoryView extends StatelessWidget {
                                                               .spaceBetween,
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
-                                                              .center,
+                                                              .start,
                                                       children: <Widget>[
                                                         Row(children: [
                                                           Text(
                                                             ' ${category!.teacher.gender}',
                                                             style: TextStyle(
-                                                                fontSize: 14,
+                                                                fontSize: 12,
+                                                                fontFamily:
+                                                                    'WorkSans',
                                                                 color: Colors
                                                                     .grey
                                                                     .withOpacity(
                                                                         0.8)),
                                                           ),
-                                                          const SizedBox(
-                                                            width: 10,
+                                                          SizedBox(
+                                                            width: 15,
                                                           ),
                                                           Icon(
-                                                            Icons.location_pin,
+                                                            Icons.phone,
                                                             color: HotelAppTheme
                                                                     .buildLightTheme()
                                                                 .primaryColor,
-                                                            size: 10,
+                                                            size: 7,
+                                                          ),
+                                                          Text(
+                                                            ' ${category!.teacher.phone_no}',
+                                                            style: TextStyle(
+                                                                fontSize: 12,
+                                                                fontFamily:
+                                                                    'WorkSans',
+                                                                color: Colors
+                                                                    .grey
+                                                                    .withOpacity(
+                                                                        0.8)),
                                                           ),
                                                         ]),
-                                                        Row(
-                                                          children: <Widget>[
-                                                            Text(
-                                                              category!.teacher
-                                                                  .rating,
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .left,
-                                                              style:
-                                                                  const TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w200,
-                                                                fontSize: 18,
-                                                                letterSpacing:
-                                                                    0.27,
-                                                                color:
-                                                                    DesignCourseAppTheme
-                                                                        .grey,
-                                                              ),
-                                                            ),
-                                                            const Icon(
-                                                              Icons.star,
-                                                              color:
-                                                                  DesignCourseAppTheme
-                                                                      .nearlyBlue,
-                                                              size: 20,
-                                                            ),
-                                                          ],
-                                                        )
                                                       ],
                                                     ),
                                                   ),
@@ -286,26 +269,7 @@ class CategoryView extends StatelessWidget {
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
                                                               .start,
-                                                      children: <Widget>[
-                                                        Container(
-                                                          decoration:
-                                                              const BoxDecoration(
-                                                            color:
-                                                                DesignCourseAppTheme
-                                                                    .nearlyBlue,
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .all(Radius
-                                                                        .circular(
-                                                                            8.0)),
-                                                          ),
-                                                          child: const Padding(
-                                                            padding:
-                                                                EdgeInsets.all(
-                                                                    4.0),
-                                                          ),
-                                                        )
-                                                      ],
+                                                      children: <Widget>[],
                                                     ),
                                                   ),
                                                 ],

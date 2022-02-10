@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_final_fields, unused_field, sized_box_for_whitespace, prefer_const_literals_to_create_immutables, prefer_const_constructors, duplicate_ignore, import_of_legacy_library_into_null_safe, unnecessary_null_comparison, prefer_adjacent_string_concatenation
 
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:addistutor_student/Screens/Home/components/course_info_screen_rating.dart';
 import 'package:addistutor_student/Screens/Home/components/design_course_app_theme.dart';
@@ -97,32 +98,35 @@ class _HomePageState extends State<Appointment>
                 controller: _refreshController,
                 onRefresh: _onRefresh,
                 onLoading: _onLoading,
-                child: Scaffold(
-                    backgroundColor: Colors.transparent,
-                    body: Column(
-                      children: <Widget>[
-                        SizedBox(
-                          height: MediaQuery.of(context).padding.top,
-                        ),
-                        getAppBarUI(),
-                        _buildDivider(),
-                        Expanded(
-                          child: SingleChildScrollView(
-                            child: Container(
-                              height: MediaQuery.of(context).size.height,
-                              child: Column(
-                                children: <Widget>[
-                                  getCategoryUI(),
-                                  Flexible(
-                                    child: getPopularCourseUI(),
-                                  ),
-                                ],
+                child: WillPopScope(
+                  onWillPop: _onBackPressed,
+                  child: Scaffold(
+                      backgroundColor: Colors.transparent,
+                      body: Column(
+                        children: <Widget>[
+                          SizedBox(
+                            height: MediaQuery.of(context).padding.top,
+                          ),
+                          getAppBarUI(),
+                          _buildDivider(),
+                          Expanded(
+                            child: SingleChildScrollView(
+                              child: Container(
+                                height: MediaQuery.of(context).size.height,
+                                child: Column(
+                                  children: <Widget>[
+                                    getCategoryUI(),
+                                    Flexible(
+                                      child: getPopularCourseUI(),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
-                    )))
+                        ],
+                      )),
+                ))
             : Center(
                 child: Padding(
                 padding: const EdgeInsets.only(top: 406),
@@ -147,6 +151,61 @@ class _HomePageState extends State<Appointment>
   Divider _buildDivider() {
     return Divider(
       color: divider,
+    );
+  }
+
+  Future<bool> _onBackPressed() async {
+    return await showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return WillPopScope(
+          onWillPop: () async => false,
+          child: AlertDialog(
+            title: const Text(
+              'Exit',
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w500,
+                color: Colors.green,
+                fontFamily: 'WorkSans',
+              ),
+            ),
+            content: const Text(
+              'Are You Sure you want to Exit This App',
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w500,
+                color: Colors.black,
+                fontFamily: 'WorkSans',
+              ),
+            ),
+            actions: <Widget>[
+              Center(
+                child:
+                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  FlatButton(
+                    onPressed: () {
+                      //Navigator.of(context).pop(true);
+                      Navigator.pop(context);
+                    },
+                    child: const Center(child: Text('No')),
+                  ),
+                  FlatButton(
+                    onPressed: () async {
+                      //
+
+                      exit(0);
+                      //  Navigator.of(context).pop(true);
+                    },
+                    child: const Center(child: Text('Yes')),
+                  ),
+                ]),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 
@@ -200,7 +259,6 @@ class _HomePageState extends State<Appointment>
               ),
             ),
             SizedBox(
-              height: 400,
               child: ListView.builder(
                 physics: const ScrollPhysics(),
                 scrollDirection: Axis.vertical,
@@ -259,7 +317,7 @@ class _HomePageState extends State<Appointment>
                                         image: DecorationImage(
                                             fit: BoxFit.contain,
                                             image: NetworkImage(
-                                                "https://tutor.oddatech.com/api/teacher-profile-picture/${chat.id}"))),
+                                                "https://tutor.oddatech.com/api/teacher-profile-picture/${chat.teacher.id}"))),
                                   ),
                                 ],
                               ),
