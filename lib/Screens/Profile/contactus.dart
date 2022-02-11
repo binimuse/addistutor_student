@@ -82,9 +82,13 @@ class _HomePageState extends State<ContactDetailsView>
                       children: [
                         ListTile(
                             title: const Text(
-                              'Mobile',
+                              'Phone',
                               style: TextStyle(
-                                  fontWeight: FontWeight.w600, fontSize: 18),
+                                fontSize: 17,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black,
+                                fontFamily: 'WorkSans',
+                              ),
                             ),
                             subtitle: Text(
                               contactUSContolller.phone,
@@ -112,7 +116,11 @@ class _HomePageState extends State<ContactDetailsView>
                             title: const Text(
                               'Email',
                               style: TextStyle(
-                                  fontWeight: FontWeight.w600, fontSize: 18),
+                                fontSize: 17,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black,
+                                fontFamily: 'WorkSans',
+                              ),
                             ),
                             subtitle: Text(
                               contactUSContolller.email,
@@ -140,14 +148,20 @@ class _HomePageState extends State<ContactDetailsView>
                             title: const Text(
                               'Website',
                               style: TextStyle(
-                                  fontWeight: FontWeight.w600, fontSize: 18),
+                                fontSize: 17,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black,
+                                fontFamily: 'WorkSans',
+                              ),
                             ),
                             subtitle: const Text(
                               "https://nextgeneducation.et/",
                               style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 16,
-                                  color: Color(0xf3333333)),
+                                fontSize: 17,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black,
+                                fontFamily: 'WorkSans',
+                              ),
                             ),
                             trailing: Row(
                               mainAxisSize: MainAxisSize.min,
@@ -171,8 +185,12 @@ class _HomePageState extends State<ContactDetailsView>
                     padding: EdgeInsets.all(16.0),
                     child: Text(
                       'Account Linked',
-                      style:
-                          TextStyle(fontWeight: FontWeight.w800, fontSize: 18),
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.black,
+                        fontFamily: 'WorkSans',
+                      ),
                     ),
                   ),
                   Container(
@@ -182,17 +200,79 @@ class _HomePageState extends State<ContactDetailsView>
                         ListTile(
                           title: const Text(
                             'Telegram',
-                            style: TextStyle(fontSize: 18),
+                            style: TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.w300,
+                              color: Colors.black,
+                              fontFamily: 'WorkSans',
+                            ),
                           ),
                           trailing: Image.asset('assets/images/telegram.png'),
                         ),
                         ListTile(
                           title: const Text(
-                            'WhatsApp',
-                            style: TextStyle(fontSize: 18),
+                            'Facebook',
+                            style: TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.w300,
+                              color: Colors.black,
+                              fontFamily: 'WorkSans',
+                            ),
                           ),
-                          trailing: Image.asset('assets/images/whatsapp.png'),
-                        )
+                          trailing: Image.asset(
+                            'assets/images/fb.jpg',
+                            width: 40,
+                            height: 40,
+                          ),
+                        ),
+                        ListTile(
+                          title: const Text(
+                            'twitter',
+                            style: TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.w300,
+                              color: Colors.black,
+                              fontFamily: 'WorkSans',
+                            ),
+                          ),
+                          trailing: Image.asset(
+                            'assets/images/tw.jpg',
+                            width: 40,
+                            height: 40,
+                          ),
+                        ),
+                        ListTile(
+                          title: const Text(
+                            'Instagram',
+                            style: TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.w300,
+                              color: Colors.black,
+                              fontFamily: 'WorkSans',
+                            ),
+                          ),
+                          trailing: Image.asset(
+                            'assets/images/in.jpg',
+                            width: 40,
+                            height: 40,
+                          ),
+                        ),
+                        ListTile(
+                          title: const Text(
+                            'LinkedIn',
+                            style: TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.black,
+                              fontFamily: 'WorkSans',
+                            ),
+                          ),
+                          trailing: Image.asset(
+                            'assets/images/lin.jpg',
+                            width: 40,
+                            height: 40,
+                          ),
+                        ),
                       ],
                     ),
                   ),

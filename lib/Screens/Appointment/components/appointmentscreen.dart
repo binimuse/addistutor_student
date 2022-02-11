@@ -421,7 +421,7 @@ class _HomePageState extends State<Appointment>
                                         ),
                                         const SizedBox(height: 5.0),
                                         Text(
-                                          "Declied",
+                                          "Declined",
                                           style: TextStyle(
                                             color: Colors.grey.withOpacity(0.5),
                                             fontSize: 12.0,

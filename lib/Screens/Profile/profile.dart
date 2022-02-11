@@ -305,15 +305,8 @@ class _ProfilePageState extends State<ProfileS> {
             child: SingleChildScrollView(
               child: Column(
                 children: <Widget>[
-                  Container(
-                    alignment: Alignment.centerRight,
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.power_settings_new,
-                        color: active,
-                      ),
-                      onPressed: () {},
-                    ),
+                  SizedBox(
+                    height: 30,
                   ),
                   Container(
                     height: 90,

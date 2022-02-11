@@ -531,56 +531,6 @@ class _EditPageState extends State<EditPage> {
                       const SizedBox(
                         height: 25,
                       ),
-                      const SizedBox(
-                        height: 25,
-                      ),
-                      const Text(
-                        'Study Purpose',
-                        style: TextStyle(color: Colors.black38),
-                      ),
-                      DropdownButton<String>(
-                        value: editprofileController.studyperpose.value,
-                        isExpanded: true,
-                        style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700),
-                        items: <String>[
-                          'Regular support',
-                          'Exam preparation',
-                          'Specific support',
-                          'Other',
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              style: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w700),
-                            ),
-                          );
-                        }).toList(),
-                        onChanged: (value) {
-                          setState(() {
-                            editprofileController.studyperpose.value = value!;
-                            if (editprofileController.studyperpose.value ==
-                                "Specific support") {
-                              supportbool = true;
-                            } else if (editprofileController
-                                    .studyperpose.value ==
-                                "Other") {
-                              supportbool = true;
-                            } else {
-                              supportbool = false;
-                            }
-                          });
-                        },
-                      ),
-                      const SizedBox(
-                        height: 25,
-                      ),
                       supportbool
                           ? Padding(
                               padding: const EdgeInsets.only(bottom: 35.0),
