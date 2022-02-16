@@ -161,7 +161,7 @@ class CategoryView extends StatelessWidget {
                                   child: Row(
                                     children: <Widget>[
                                       const SizedBox(
-                                        width: 48 + 24.0,
+                                        width: 38 + 14.0,
                                       ),
                                       // ignore: unnecessary_null_comparison
                                       category!.first_name != null
@@ -193,7 +193,7 @@ class CategoryView extends StatelessWidget {
                                                   Padding(
                                                     padding:
                                                         const EdgeInsets.only(
-                                                            right: 5,
+                                                            right: 0,
                                                             bottom: 8),
                                                     child: Row(
                                                       mainAxisAlignment:

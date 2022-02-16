@@ -348,11 +348,19 @@ class ContactUS {
   String name;
   String email;
   String phone;
+  String facebook;
+  String twitter;
+  String instagram;
+  String linkedin;
 
   ContactUS({
     required this.name,
     required this.email,
     required this.phone,
+    required this.facebook,
+    required this.twitter,
+    required this.instagram,
+    required this.linkedin,
   });
 
   factory ContactUS.fromJson(Map<String, dynamic> json) {
@@ -360,6 +368,10 @@ class ContactUS {
       name: json["name"],
       email: json["email"],
       phone: json["phone"],
+      facebook: json["facebook"],
+      twitter: json["twitter"],
+      instagram: json["instagram"],
+      linkedin: json["linkedin"],
     );
   }
 }
@@ -370,7 +382,7 @@ class NotificationData {
   String notification_type;
 
   String teacher_name;
-  // String teacher_id;
+  int booking_id;
   String student_name;
 
   NotificationData({
@@ -378,7 +390,7 @@ class NotificationData {
     required this.redirect_url,
     required this.notification_type,
     required this.teacher_name,
-    // required this.teacher_id,
+    required this.booking_id,
     required this.student_name,
   });
 
@@ -388,7 +400,7 @@ class NotificationData {
       redirect_url: json["redirect_url"],
       notification_type: json["notification_type"],
       teacher_name: json["teacher_name"],
-      //   teacher_id: json["teacher_id"],
+      booking_id: json["booking_id"],
       student_name: json["student_name"],
     );
   }
@@ -400,6 +412,7 @@ class Notifications {
   String notifiable_type;
   String notifiable_id;
   String read_at;
+
   String created_at;
   NotificationData data;
   Notifications({

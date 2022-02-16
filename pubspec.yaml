@@ -54,7 +54,7 @@ dependencies:
   weekday_selector: ^1.0.0
   google_sign_in: ^5.0.1
   abushakir: "^0.0.1"
-  
+  url_launcher: ^6.0.20
   
 
 

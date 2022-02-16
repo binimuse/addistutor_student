@@ -26,7 +26,7 @@ class BookingeController extends GetxController with StateMixin {
   var isLoading = false.obs;
   // ignore: non_constant_identifier_names
 
-  var sessionsd = "3".obs;
+  var sessionsd = "1".obs;
 
   late var Mon = "Monday";
   late var Tue = "";
@@ -39,13 +39,13 @@ class BookingeController extends GetxController with StateMixin {
   late String teacherid = "";
   late String startdate = "";
 
-  late var motime = "4:30 pm";
-  late var tuetime2 = "4:30 pm";
-  late var wentime3 = "4:30 pm";
-  late var thetime4 = "4:30 pm";
-  late var fritime5 = "4:30 pm";
-  late var suntime2 = "09:00 am";
-  late var sattime = "09:00 am";
+  late var motime = "10:30(afternoon)";
+  late var tuetime2 = "10:30(afternoon)";
+  late var wentime3 = "10:30(afternoon)";
+  late var thetime4 = "10:30(afternoon)";
+  late var fritime5 = "10:30(afternoon)";
+  late var suntime2 = "04:00(morning)";
+  late var sattime = "04:00(morning)";
 
   bool ismonday = false;
   bool istue = false;

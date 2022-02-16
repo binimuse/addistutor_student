@@ -4,6 +4,7 @@ import 'package:addistutor_student/controller/contactuscontroller.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ContactDetailsView extends StatefulWidget {
   const ContactDetailsView({
@@ -209,68 +210,88 @@ class _HomePageState extends State<ContactDetailsView>
                           ),
                           trailing: Image.asset('assets/images/telegram.png'),
                         ),
-                        ListTile(
-                          title: const Text(
-                            'Facebook',
-                            style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w300,
-                              color: Colors.black,
-                              fontFamily: 'WorkSans',
+                        GestureDetector(
+                          onTap: () {
+                            _launchURLfb(contactUSContolller.facebook);
+                          },
+                          child: ListTile(
+                            title: const Text(
+                              'Facebook',
+                              style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.w300,
+                                color: Colors.black,
+                                fontFamily: 'WorkSans',
+                              ),
                             ),
-                          ),
-                          trailing: Image.asset(
-                            'assets/images/fb.jpg',
-                            width: 40,
-                            height: 40,
+                            trailing: Image.asset(
+                              'assets/images/fb.jpg',
+                              width: 40,
+                              height: 40,
+                            ),
                           ),
                         ),
-                        ListTile(
-                          title: const Text(
-                            'twitter',
-                            style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w300,
-                              color: Colors.black,
-                              fontFamily: 'WorkSans',
+                        GestureDetector(
+                          onTap: () {
+                            _launchURLfb(contactUSContolller.twitter);
+                          },
+                          child: ListTile(
+                            title: const Text(
+                              'twitter',
+                              style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.w300,
+                                color: Colors.black,
+                                fontFamily: 'WorkSans',
+                              ),
                             ),
-                          ),
-                          trailing: Image.asset(
-                            'assets/images/tw.jpg',
-                            width: 40,
-                            height: 40,
+                            trailing: Image.asset(
+                              'assets/images/tw.jpg',
+                              width: 40,
+                              height: 40,
+                            ),
                           ),
                         ),
-                        ListTile(
-                          title: const Text(
-                            'Instagram',
-                            style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w300,
-                              color: Colors.black,
-                              fontFamily: 'WorkSans',
+                        GestureDetector(
+                          onTap: () {
+                            _launchURLfb(contactUSContolller.instagram);
+                          },
+                          child: ListTile(
+                            title: const Text(
+                              'Instagram',
+                              style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.w300,
+                                color: Colors.black,
+                                fontFamily: 'WorkSans',
+                              ),
                             ),
-                          ),
-                          trailing: Image.asset(
-                            'assets/images/in.jpg',
-                            width: 40,
-                            height: 40,
+                            trailing: Image.asset(
+                              'assets/images/in.jpg',
+                              width: 40,
+                              height: 40,
+                            ),
                           ),
                         ),
-                        ListTile(
-                          title: const Text(
-                            'LinkedIn',
-                            style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.black,
-                              fontFamily: 'WorkSans',
+                        GestureDetector(
+                          onTap: () {
+                            _launchURLfb(contactUSContolller.linkedin);
+                          },
+                          child: ListTile(
+                            title: const Text(
+                              'LinkedIn',
+                              style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black,
+                                fontFamily: 'WorkSans',
+                              ),
                             ),
-                          ),
-                          trailing: Image.asset(
-                            'assets/images/lin.jpg',
-                            width: 40,
-                            height: 40,
+                            trailing: Image.asset(
+                              'assets/images/lin.jpg',
+                              width: 40,
+                              height: 40,
+                            ),
                           ),
                         ),
                       ],
@@ -279,5 +300,14 @@ class _HomePageState extends State<ContactDetailsView>
                 ],
               )
             : const Center(child: CircularProgressIndicator())));
+  }
+
+  _launchURLfb(String facebook) async {
+    var url = facebook.toString();
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }

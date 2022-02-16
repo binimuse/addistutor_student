@@ -12,12 +12,12 @@ class Notificationclass extends StatefulWidget {
   static const ROUTE_NAME = 'ActivityPage';
 
   const Notificationclass({Key? key}) : super(key: key);
+
   @override
   _ActivityPageState createState() => _ActivityPageState();
 }
 
-class _ActivityPageState extends State<Notificationclass>
-    with AutomaticKeepAliveClientMixin {
+class _ActivityPageState extends State<Notificationclass> {
   GetNotigicationController getNotigicationController =
       Get.put(GetNotigicationController());
   @override
@@ -112,7 +112,4 @@ class _ActivityPageState extends State<Notificationclass>
             child: CircularProgressIndicator(),
           ));
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }

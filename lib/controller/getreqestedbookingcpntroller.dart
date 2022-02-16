@@ -23,6 +23,44 @@ class GetReqBooking extends GetxController with StateMixin {
     }
   }
 
+  var listsubject5;
+  var isfetchedsubject5 = false.obs;
+
+  var fname;
+  var mname;
+  var genders;
+  var facebook;
+  var ratingt;
+  var id;
+  var bid;
+
+//booking_schedule
+  var day;
+  var is_active;
+
+  var title;
+
+  getsingle(var id) async {
+    await Future.delayed(const Duration(milliseconds: 500));
+    listsubject5 = await RemoteServices.getsinglebooking(id);
+
+    if (listsubject5 != null) {
+      //print(list.length.toString());
+      bid = listsubject5!.id.toString();
+      fname = listsubject5!.teacher.first_name.toString();
+      mname = listsubject5!.teacher.middle_name.toString();
+      genders = listsubject5!.teacher.gender.toString();
+      ratingt = listsubject5!.teacher.rating.toString();
+      id = listsubject5!.teacher.id.toString();
+      //
+      // day = listsubject5!.booking_schedule.day.toString();
+      is_active = listsubject5!.is_active.toString();
+      title = listsubject5!.subject.title.toString();
+
+      isfetchedsubject5(true);
+    }
+  }
+
   var edited = "";
   Future<void> rating(context, b_id) async {
     openAndCloseLoadingDialog(context);

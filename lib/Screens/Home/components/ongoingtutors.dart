@@ -160,7 +160,7 @@ class CategoryView extends StatelessWidget {
                     splashColor: Colors.transparent,
                     onTap: callback,
                     child: SizedBox(
-                      width: 280,
+                      width: 300,
                       child: Stack(
                         children: <Widget>[
                           Row(
@@ -178,7 +178,7 @@ class CategoryView extends StatelessWidget {
                                   child: Row(
                                     children: <Widget>[
                                       const SizedBox(
-                                        width: 48 + 24.0,
+                                        width: 48,
                                       ),
                                       // ignore: unnecessary_null_comparison
                                       category!.teacher.first_name != null
@@ -190,9 +190,13 @@ class CategoryView extends StatelessWidget {
                                                         const EdgeInsets.only(
                                                             top: 16),
                                                     child: Text(
-                                                      category!
-                                                          .teacher.first_name,
-                                                      textAlign: TextAlign.left,
+                                                      category!.teacher
+                                                              .first_name +
+                                                          " " +
+                                                          category!.teacher
+                                                              .middle_name,
+                                                      textAlign:
+                                                          TextAlign.center,
                                                       style: const TextStyle(
                                                         fontWeight:
                                                             FontWeight.w600,
@@ -205,7 +209,7 @@ class CategoryView extends StatelessWidget {
                                                     ),
                                                   ),
                                                   SizedBox(
-                                                    height: 50,
+                                                    height: 30,
                                                   ),
                                                   Padding(
                                                     padding:
@@ -257,21 +261,35 @@ class CategoryView extends StatelessWidget {
                                                       ],
                                                     ),
                                                   ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            bottom: 16,
-                                                            right: 16),
-                                                    child: Row(
+                                                  Row(
                                                       mainAxisAlignment:
                                                           MainAxisAlignment
-                                                              .spaceBetween,
+                                                              .start,
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
-                                                              .start,
-                                                      children: <Widget>[],
-                                                    ),
-                                                  ),
+                                                              .center,
+                                                      children: [
+                                                        SizedBox(
+                                                          width: 15,
+                                                        ),
+                                                        Icon(
+                                                          Icons.star,
+                                                          color: HotelAppTheme
+                                                                  .buildLightTheme()
+                                                              .primaryColor,
+                                                          size: 7,
+                                                        ),
+                                                        Text(
+                                                          ' ${category!.teacher.rating}',
+                                                          style: TextStyle(
+                                                              fontSize: 12,
+                                                              fontFamily:
+                                                                  'WorkSans',
+                                                              color: Colors.grey
+                                                                  .withOpacity(
+                                                                      0.8)),
+                                                        ),
+                                                      ]),
                                                 ],
                                               ),
                                             )
@@ -418,7 +436,7 @@ class CategoryView extends StatelessWidget {
                                 image: DecorationImage(
                                     fit: BoxFit.cover,
                                     image: NetworkImage(
-                                        "https://tutor.oddatech.com/api/teacher-profile-picture/${category!.id}"))),
+                                        "https://tutor.oddatech.com/api/teacher-profile-picture/${category!.teacher.id}"))),
                           ),
                         ],
                       ),

@@ -14,6 +14,8 @@ import 'package:addistutor_student/controller/editprofilecontroller.dart';
 import 'package:addistutor_student/controller/feedbackcontroller.dart';
 import 'package:addistutor_student/controller/geteducationlevelcontroller.dart';
 import 'package:addistutor_student/controller/getlocationcontroller.dart';
+import 'package:addistutor_student/controller/getnotificationcontoller.dart';
+import 'package:addistutor_student/controller/getqrcontroller.dart';
 import 'package:addistutor_student/controller/getreqestedbookingcpntroller.dart';
 import 'package:addistutor_student/controller/getsubjectcontroller.dart';
 import 'package:addistutor_student/controller/getutoravlblitycontroller.dart';
@@ -567,9 +569,9 @@ class _ProfilePageState extends State<ProfileS> {
     Get.delete<GetEducationlevelController>();
     Get.delete<GetLocationController>();
     Get.delete<GetReqBooking>();
-
     Get.delete<GetTutorAvlblityController>();
-    Get.delete<GetTutorAvlblityController>();
+    Get.delete<GetQrCode>();
+    Get.delete<GetNotigicationController>();
 
     Navigator.push(
       context,

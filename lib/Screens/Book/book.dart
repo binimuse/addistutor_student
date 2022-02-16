@@ -48,12 +48,38 @@ var values = <bool?>[false, false, false, false, false, false, false];
 class _EditPageState extends State<BookScreen>
     with SingleTickerProviderStateMixin {
   final BookingeController bookingeController = Get.put(BookingeController());
+
+  List<String> _monthList = [];
+
+  String? _expiredMonth;
+
   @override
   void initState() {
-    super.initState();
     _getsubject();
+    _initForLang();
     // getTutorAvlblityController.fetchDay("2");
     bookingeController.isFetched(true);
+    super.initState();
+  }
+
+  late var motime;
+  late var tuetime2;
+  late var wentime3;
+  late var thetime4;
+  late var fritime5;
+  late var sattime;
+  late var suntime2;
+
+  void _initForLang() {
+    setState(() {
+      motime = "10:30(afternoon)";
+      tuetime2 = "10:30(afternoon)";
+      wentime3 = "10:30(afternoon)";
+      thetime4 = "10:30(afternoon)";
+      fritime5 = "10:30(afternoon)";
+      suntime2 = "03:00(morning)";
+      sattime = "03:00(morning)";
+    });
   }
 
   List<String> avalbledate = [];
@@ -193,46 +219,6 @@ class _EditPageState extends State<BookScreen>
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              // Padding(
-                              //   padding: const EdgeInsets.only(left: 18.0),
-                              //   child: DropdownButton<GetSubject>(
-                              //       hint: Text(
-                              //         getSubjectController.sub.toString(),
-                              //         style: const TextStyle(
-                              //             color: Colors.black,
-                              //             fontSize: 16,
-                              //             fontWeight: FontWeight.w400),
-                              //       ),
-                              //       isExpanded: true,
-                              //       style: const TextStyle(
-                              //           color: Colors.black,
-                              //           fontSize: 16,
-                              //           fontWeight: FontWeight.w700),
-                              //       items: subject
-                              //           .map((e) => DropdownMenuItem(
-                              //                 child: Column(children: [
-                              //                   Text(
-                              //                     e.title,
-                              //                     textAlign: TextAlign.left,
-                              //                     style: const TextStyle(
-                              //                         color: Colors.black,
-                              //                         fontSize: 16,
-                              //                         fontWeight:
-                              //                             FontWeight.w400),
-                              //                   ),
-                              //                 ]),
-                              //                 value: e,
-                              //               ))
-                              //           .toList(),
-                              //       onChanged: (value) {
-                              //         setState(() {
-                              //           getSubjectController.sub = value!;
-                              //           bookingeController.subjectid = value.id;
-                              //           //     sid = ("");
-                              //         });
-                              //       },
-                              //       value: getSubjectController.sub),
-                              // ),
                               SizedBox(
                                 height: 100,
                                 child: ListView.builder(
@@ -274,7 +260,7 @@ class _EditPageState extends State<BookScreen>
                             style: TextStyle(color: Colors.black45),
                           ),
                           const Text(
-                            'A session is 90 minutes long and you can buy starting from three sessions. ',
+                            'A session is 60 minutes long and you can buy starting from one sessions. ',
                             style: TextStyle(color: Colors.black38),
                           ),
                           DropdownButton<String>(
@@ -285,6 +271,8 @@ class _EditPageState extends State<BookScreen>
                                 fontSize: 16,
                                 fontWeight: FontWeight.w700),
                             items: <String>[
+                              '1',
+                              '2',
                               '3',
                               '4',
                               '5',
@@ -518,17 +506,17 @@ class _EditPageState extends State<BookScreen>
                               ? Row(children: [
                                   const Text("Monday time:-  "),
                                   DropdownButton<String>(
-                                    value: bookingeController.motime,
+                                    value: motime,
                                     style: const TextStyle(
                                         color: Colors.black,
                                         fontSize: 16,
                                         fontWeight: FontWeight.w700),
                                     items: <String>[
-                                      "4:30 pm",
-                                      "5:00 pm",
-                                      "5:30 pm",
-                                      "6:00 pm",
-                                      "6:30 pm",
+                                      "10:30(afternoon)",
+                                      "11:00(afternoon)",
+                                      "11:30(afternoon)",
+                                      "12:00(afternoon)",
+                                      "12:30(afternoon)",
                                     ].map<DropdownMenuItem<String>>(
                                         (String value) {
                                       return DropdownMenuItem<String>(
@@ -544,8 +532,33 @@ class _EditPageState extends State<BookScreen>
                                     }).toList(),
                                     onChanged: (value) {
                                       setState(() {
-                                        bookingeController.motime = value!;
-                                        bookingeController.Mon = "monday";
+                                        //        "4:30 pm",
+                                        // "5:00 pm",
+                                        // "5:30 pm",
+                                        // "6:00 pm",
+                                        // "6:30 pm",
+                                        motime = value;
+                                        if (value!
+                                            .contains("10:30(afternoon)")) {
+                                          bookingeController.motime = "4:30 pm";
+                                          bookingeController.Mon = "monday";
+                                        } else if (value
+                                            .contains("11:00(afternoon)")) {
+                                          bookingeController.motime = "5:00 pm";
+                                          bookingeController.Mon = "monday";
+                                        } else if (value
+                                            .contains("11:30(afternoon)")) {
+                                          bookingeController.motime = "5:30 pm";
+                                          bookingeController.Mon = "monday";
+                                        } else if (value
+                                            .contains("12:00(afternoon)")) {
+                                          bookingeController.motime = "6:00 pm";
+                                          bookingeController.Mon = "monday";
+                                        } else if (value
+                                            .contains("12:30(afternoon)")) {
+                                          bookingeController.motime = "6:30 pm";
+                                          bookingeController.Mon = "monday";
+                                        }
                                       });
                                     },
                                   ),
@@ -555,23 +568,23 @@ class _EditPageState extends State<BookScreen>
                               ? Row(children: [
                                   const Text("Tuesday time:-  "),
                                   DropdownButton<String>(
-                                    value: bookingeController.tuetime2,
+                                    value: tuetime2,
                                     style: const TextStyle(
                                         color: Colors.black,
                                         fontSize: 16,
                                         fontWeight: FontWeight.w700),
                                     items: <String>[
-                                      "4:30 pm",
-                                      "5:00 pm",
-                                      "5:30 pm",
-                                      "6:00 pm",
-                                      "6:30 pm",
+                                      "10:30(afternoon)",
+                                      "11:00(afternoon)",
+                                      "11:30(afternoon)",
+                                      "12:00(afternoon)",
+                                      "12:30(afternoon)",
                                     ].map<DropdownMenuItem<String>>(
-                                        (String value2) {
+                                        (String value) {
                                       return DropdownMenuItem<String>(
-                                        value: value2,
+                                        value: value,
                                         child: Text(
-                                          value2,
+                                          value,
                                           style: const TextStyle(
                                               color: Colors.black,
                                               fontSize: 16,
@@ -579,10 +592,40 @@ class _EditPageState extends State<BookScreen>
                                         ),
                                       );
                                     }).toList(),
-                                    onChanged: (value2) {
+                                    onChanged: (value) {
                                       setState(() {
-                                        bookingeController.tuetime2 = value2!;
-                                        bookingeController.Tue = "tuesday";
+                                        //        "4:30 pm",
+                                        // "5:00 pm",
+                                        // "5:30 pm",
+                                        // "6:00 pm",
+                                        // "6:30 pm",
+                                        tuetime2 = value;
+                                        if (value!
+                                            .contains("10:30(afternoon)")) {
+                                          bookingeController.tuetime2 =
+                                              "4:30 pm";
+                                          bookingeController.Tue = "tuesday";
+                                        } else if (value
+                                            .contains("11:00(afternoon)")) {
+                                          bookingeController.tuetime2 =
+                                              "5:00 pm";
+                                          bookingeController.Tue = "tuesday";
+                                        } else if (value
+                                            .contains("11:30(afternoon)")) {
+                                          bookingeController.tuetime2 =
+                                              "5:30 pm";
+                                          bookingeController.Tue = "tuesday";
+                                        } else if (value
+                                            .contains("12:00(afternoon)")) {
+                                          bookingeController.tuetime2 =
+                                              "6:00 pm";
+                                          bookingeController.Tue = "tuesday";
+                                        } else if (value
+                                            .contains("12:30(afternoon)")) {
+                                          bookingeController.tuetime2 =
+                                              "6:30 pm";
+                                          bookingeController.Tue = "tuesday";
+                                        }
                                       });
                                     },
                                   ),
@@ -592,23 +635,23 @@ class _EditPageState extends State<BookScreen>
                               ? Row(children: [
                                   const Text("Wednesday time:-  "),
                                   DropdownButton<String>(
-                                    value: bookingeController.wentime3,
+                                    value: wentime3,
                                     style: const TextStyle(
                                         color: Colors.black,
                                         fontSize: 16,
                                         fontWeight: FontWeight.w700),
                                     items: <String>[
-                                      "4:30 pm",
-                                      "5:00 pm",
-                                      "5:30 pm",
-                                      "6:00 pm",
-                                      "6:30 pm",
+                                      "10:30(afternoon)",
+                                      "11:00(afternoon)",
+                                      "11:30(afternoon)",
+                                      "12:00(afternoon)",
+                                      "12:30(afternoon)",
                                     ].map<DropdownMenuItem<String>>(
-                                        (String value3) {
+                                        (String value) {
                                       return DropdownMenuItem<String>(
-                                        value: value3,
+                                        value: value,
                                         child: Text(
-                                          value3,
+                                          value,
                                           style: const TextStyle(
                                               color: Colors.black,
                                               fontSize: 16,
@@ -616,10 +659,40 @@ class _EditPageState extends State<BookScreen>
                                         ),
                                       );
                                     }).toList(),
-                                    onChanged: (value3) {
+                                    onChanged: (value) {
                                       setState(() {
-                                        bookingeController.wentime3 = value3!;
-                                        bookingeController.Wed = "wednesday";
+                                        //        "4:30 pm",
+                                        // "5:00 pm",
+                                        // "5:30 pm",
+                                        // "6:00 pm",
+                                        // "6:30 pm",
+                                        wentime3 = value;
+                                        if (value!
+                                            .contains("10:30(afternoon)")) {
+                                          bookingeController.wentime3 =
+                                              "4:30 pm";
+                                          bookingeController.Wed = "wednesday";
+                                        } else if (value
+                                            .contains("11:00(afternoon)")) {
+                                          bookingeController.wentime3 =
+                                              "5:00 pm";
+                                          bookingeController.Wed = "wednesday";
+                                        } else if (value
+                                            .contains("11:30(afternoon)")) {
+                                          bookingeController.wentime3 =
+                                              "5:30 pm";
+                                          bookingeController.Wed = "wednesday";
+                                        } else if (value
+                                            .contains("12:00(afternoon)")) {
+                                          bookingeController.wentime3 =
+                                              "6:00 pm";
+                                          bookingeController.Wed = "wednesday";
+                                        } else if (value
+                                            .contains("12:30(afternoon)")) {
+                                          bookingeController.wentime3 =
+                                              "6:30 pm";
+                                          bookingeController.Wed = "wednesday";
+                                        }
                                       });
                                     },
                                   ),
@@ -629,23 +702,23 @@ class _EditPageState extends State<BookScreen>
                               ? Row(children: [
                                   const Text("Thursday time:-  "),
                                   DropdownButton<String>(
-                                    value: bookingeController.thetime4,
+                                    value: thetime4,
                                     style: const TextStyle(
                                         color: Colors.black,
                                         fontSize: 16,
                                         fontWeight: FontWeight.w700),
                                     items: <String>[
-                                      "4:30 pm",
-                                      "5:00 pm",
-                                      "5:30 pm",
-                                      "6:00 pm",
-                                      "6:30 pm",
+                                      "10:30(afternoon)",
+                                      "11:00(afternoon)",
+                                      "11:30(afternoon)",
+                                      "12:00(afternoon)",
+                                      "12:30(afternoon)",
                                     ].map<DropdownMenuItem<String>>(
-                                        (String value4) {
+                                        (String value) {
                                       return DropdownMenuItem<String>(
-                                        value: value4,
+                                        value: value,
                                         child: Text(
-                                          value4,
+                                          value,
                                           style: const TextStyle(
                                               color: Colors.black,
                                               fontSize: 16,
@@ -653,10 +726,40 @@ class _EditPageState extends State<BookScreen>
                                         ),
                                       );
                                     }).toList(),
-                                    onChanged: (value4) {
+                                    onChanged: (value) {
                                       setState(() {
-                                        bookingeController.thetime4 = value4!;
-                                        bookingeController.Thu = "thursday";
+                                        //        "4:30 pm",
+                                        // "5:00 pm",
+                                        // "5:30 pm",
+                                        // "6:00 pm",
+                                        // "6:30 pm",
+                                        thetime4 = value;
+                                        if (value!
+                                            .contains("10:30(afternoon)")) {
+                                          bookingeController.thetime4 =
+                                              "4:30 pm";
+                                          bookingeController.Thu = "thursday";
+                                        } else if (value
+                                            .contains("11:00(afternoon)")) {
+                                          bookingeController.thetime4 =
+                                              "5:00 pm";
+                                          bookingeController.Thu = "thursday";
+                                        } else if (value
+                                            .contains("11:30(afternoon)")) {
+                                          bookingeController.thetime4 =
+                                              "5:30 pm";
+                                          bookingeController.Thu = "thursday";
+                                        } else if (value
+                                            .contains("12:00(afternoon)")) {
+                                          bookingeController.thetime4 =
+                                              "6:00 pm";
+                                          bookingeController.Thu = "thursday";
+                                        } else if (value
+                                            .contains("12:30(afternoon)")) {
+                                          bookingeController.thetime4 =
+                                              "6:30 pm";
+                                          bookingeController.Thu = "thursday";
+                                        }
                                       });
                                     },
                                   ),
@@ -666,23 +769,23 @@ class _EditPageState extends State<BookScreen>
                               ? Row(children: [
                                   const Text("Friday time:-  "),
                                   DropdownButton<String>(
-                                    value: bookingeController.fritime5,
+                                    value: fritime5,
                                     style: const TextStyle(
                                         color: Colors.black,
                                         fontSize: 16,
                                         fontWeight: FontWeight.w700),
                                     items: <String>[
-                                      "4:30 pm",
-                                      "5:00 pm",
-                                      "5:30 pm",
-                                      "6:00 pm",
-                                      "6:30 pm",
+                                      "10:30(afternoon)",
+                                      "11:00(afternoon)",
+                                      "11:30(afternoon)",
+                                      "12:00(afternoon)",
+                                      "12:30(afternoon)",
                                     ].map<DropdownMenuItem<String>>(
-                                        (String value4) {
+                                        (String value) {
                                       return DropdownMenuItem<String>(
-                                        value: value4,
+                                        value: value,
                                         child: Text(
-                                          value4,
+                                          value,
                                           style: const TextStyle(
                                               color: Colors.black,
                                               fontSize: 16,
@@ -690,10 +793,40 @@ class _EditPageState extends State<BookScreen>
                                         ),
                                       );
                                     }).toList(),
-                                    onChanged: (value4) {
+                                    onChanged: (value) {
                                       setState(() {
-                                        bookingeController.fritime5 = value4!;
-                                        bookingeController.Fri = "friday";
+                                        //        "4:30 pm",
+                                        // "5:00 pm",
+                                        // "5:30 pm",
+                                        // "6:00 pm",
+                                        // "6:30 pm",
+                                        fritime5 = value;
+                                        if (value!
+                                            .contains("10:30(afternoon)")) {
+                                          bookingeController.fritime5 =
+                                              "4:30 pm";
+                                          bookingeController.Fri = "friday";
+                                        } else if (value
+                                            .contains("11:00(afternoon)")) {
+                                          bookingeController.fritime5 =
+                                              "5:00 pm";
+                                          bookingeController.Fri = "friday";
+                                        } else if (value
+                                            .contains("11:30(afternoon)")) {
+                                          bookingeController.fritime5 =
+                                              "5:30 pm";
+                                          bookingeController.Fri = "friday";
+                                        } else if (value
+                                            .contains("12:00(afternoon)")) {
+                                          bookingeController.fritime5 =
+                                              "6:00 pm";
+                                          bookingeController.Fri = "friday";
+                                        } else if (value
+                                            .contains("12:30(afternoon)")) {
+                                          bookingeController.fritime5 =
+                                              "6:30 pm";
+                                          bookingeController.Fri = "friday";
+                                        }
                                       });
                                     },
                                   ),
@@ -703,22 +836,22 @@ class _EditPageState extends State<BookScreen>
                               ? Row(children: [
                                   const Text("Saturday time:-  "),
                                   DropdownButton<String>(
-                                    value: bookingeController.sattime,
+                                    value: sattime,
                                     style: const TextStyle(
                                         color: Colors.black,
                                         fontSize: 16,
                                         fontWeight: FontWeight.w700),
                                     items: <String>[
-                                      "09:00 am",
-                                      "10:00 am",
-                                      "11:00 am",
-                                      "12:00 pm",
-                                      "1:00 pm",
-                                      "2:00 pm",
-                                      "3:00 pm",
-                                      "4:00 pm",
-                                      "5:00 pm",
-                                      "6:00 pm",
+                                      "03:00(morning)",
+                                      "04:00(morning)",
+                                      "05:00(morning)",
+                                      "06:00(morning)",
+                                      "07:00(afternoon)",
+                                      "08:00(afternoon)",
+                                      "09:00(afternoon)",
+                                      "10:00(afternoon)",
+                                      "11:00(afternoon)",
+                                      "12:00(afternoon)",
                                     ].map<DropdownMenuItem<String>>(
                                         (String value) {
                                       return DropdownMenuItem<String>(
@@ -733,9 +866,71 @@ class _EditPageState extends State<BookScreen>
                                       );
                                     }).toList(),
                                     onChanged: (value) {
+                                      //       "09:00 am",
+                                      // "10:00 am",
+                                      // "11:00 am",
+                                      // "12:00 pm",
+                                      // "1:00 pm",
+                                      // "2:00 pm",
+                                      // "3:00 pm",
+                                      // "4:00 pm",
+                                      // "5:00 pm",
+                                      // "6:00 pm",
                                       setState(() {
-                                        bookingeController.sattime = value!;
-                                        bookingeController.Sat = "saturday";
+                                        sattime = value!;
+
+                                        if (value.contains("03:00(morning)")) {
+                                          bookingeController.sattime =
+                                              "09:00 am";
+                                          bookingeController.Sat = "saturday";
+                                        } else if (value
+                                            .contains("04:00(morning)")) {
+                                          bookingeController.sattime =
+                                              "10:00 am";
+                                          bookingeController.Sat = "saturday";
+                                        } else if (value
+                                            .contains("05:00(morning)")) {
+                                          bookingeController.sattime =
+                                              "11:00 am";
+                                          bookingeController.Sat = "saturday";
+                                        } else if (value
+                                            .contains("06:00(morning)")) {
+                                          bookingeController.sattime =
+                                              "12:00 am";
+                                          bookingeController.Sat = "saturday";
+                                        } else if (value
+                                            .contains("07:00(afternoon)")) {
+                                          bookingeController.sattime =
+                                              "1:00 am";
+                                          bookingeController.Sat = "saturday";
+                                        } else if (value
+                                            .contains("08:00(afternoon)")) {
+                                          bookingeController.sattime =
+                                              "2:00 pm";
+                                          bookingeController.Sat = "saturday";
+                                        } else if (value
+                                            .contains("09:00(afternoon)")) {
+                                          bookingeController.sattime =
+                                              "3:00 pm";
+                                          bookingeController.Sat = "saturday";
+                                        } else if (value
+                                            .contains("10:00(afternoon)")) {
+                                          bookingeController.sattime =
+                                              "4:00 pm";
+                                          bookingeController.Sat = "saturday";
+                                        } else if (value
+                                            .contains("11:00(afternoon)")) {
+                                          bookingeController.sattime =
+                                              "5:00 pm";
+                                          bookingeController.Sat = "saturday";
+                                        } else if (value
+                                            .contains("12:00(afternoon)")) {
+                                          bookingeController.sattime =
+                                              "6:00 pm";
+                                          bookingeController.Sat = "saturday";
+                                        }
+
+                                        print(bookingeController.sattime);
                                       });
                                     },
                                   )
@@ -745,22 +940,22 @@ class _EditPageState extends State<BookScreen>
                               ? Row(children: [
                                   const Text("Sunday time:-  "),
                                   DropdownButton<String>(
-                                    value: bookingeController.suntime2,
+                                    value: suntime2,
                                     style: const TextStyle(
                                         color: Colors.black,
                                         fontSize: 16,
                                         fontWeight: FontWeight.w700),
                                     items: <String>[
-                                      "09:00 am",
-                                      "10:00 am",
-                                      "11:00 am",
-                                      "12:00 pm",
-                                      "1:00 pm",
-                                      "2:00 pm",
-                                      "3:00 pm",
-                                      "4:00 pm",
-                                      "5:00 pm",
-                                      "6:00 pm",
+                                      "03:00(morning)",
+                                      "04:00(morning)",
+                                      "05:00(morning)",
+                                      "06:00(morning)",
+                                      "07:00(afternoon)",
+                                      "08:00(afternoon)",
+                                      "09:00(afternoon)",
+                                      "10:00(afternoon)",
+                                      "11:00(afternoon)",
+                                      "12:00(afternoon)",
                                     ].map<DropdownMenuItem<String>>(
                                         (String value) {
                                       return DropdownMenuItem<String>(
@@ -775,9 +970,69 @@ class _EditPageState extends State<BookScreen>
                                       );
                                     }).toList(),
                                     onChanged: (value) {
+                                      //       "09:00 am",
+                                      // "10:00 am",
+                                      // "11:00 am",
+                                      // "12:00 pm",
+                                      // "1:00 pm",
+                                      // "2:00 pm",
+                                      // "3:00 pm",
+                                      // "4:00 pm",
+                                      // "5:00 pm",
+                                      // "6:00 pm",
                                       setState(() {
-                                        bookingeController.suntime2 = value!;
-                                        bookingeController.Sun = "sunday";
+                                        suntime2 = value!;
+
+                                        if (value.contains("03:00(morning)")) {
+                                          bookingeController.suntime2 =
+                                              "09:00 am";
+                                          bookingeController.Sun = "sunday";
+                                        } else if (value
+                                            .contains("04:00(morning)")) {
+                                          bookingeController.suntime2 =
+                                              "10:00 am";
+                                          bookingeController.Sun = "sunday";
+                                        } else if (value
+                                            .contains("05:00(morning)")) {
+                                          bookingeController.suntime2 =
+                                              "11:00 am";
+                                          bookingeController.Sun = "sunday";
+                                        } else if (value
+                                            .contains("06:00(morning)")) {
+                                          bookingeController.sattime =
+                                              "12:00 am";
+                                          bookingeController.Sun = "sunday";
+                                        } else if (value
+                                            .contains("07:00(afternoon)")) {
+                                          bookingeController.suntime2 =
+                                              "1:00 am";
+                                          bookingeController.Sun = "sunday";
+                                        } else if (value
+                                            .contains("08:00(afternoon)")) {
+                                          bookingeController.suntime2 =
+                                              "2:00 pm";
+                                          bookingeController.Sun = "sunday";
+                                        } else if (value
+                                            .contains("09:00(afternoon)")) {
+                                          bookingeController.suntime2 =
+                                              "3:00 pm";
+                                          bookingeController.Sun = "sunday";
+                                        } else if (value
+                                            .contains("10:00(afternoon)")) {
+                                          bookingeController.suntime2 =
+                                              "4:00 pm";
+                                          bookingeController.Sun = "sunday";
+                                        } else if (value
+                                            .contains("11:00(afternoon)")) {
+                                          bookingeController.suntime2 =
+                                              "5:00 pm";
+                                          bookingeController.Sun = "sunday";
+                                        } else if (value
+                                            .contains("12:00(afternoon)")) {
+                                          bookingeController.suntime2 =
+                                              "6:00 pm";
+                                          bookingeController.Sun = "sunday";
+                                        }
                                       });
                                     },
                                   )
@@ -1088,6 +1343,38 @@ class _EditPageState extends State<BookScreen>
         bookingeController.startdate = selected.day.toString();
       });
     }
+  }
+
+  DropdownButton<String> _buildExpiredMonth() {
+    return DropdownButton<String>(
+      value: _expiredMonth,
+      icon: Icon(Icons.arrow_drop_down),
+      iconSize: 24,
+      elevation: 16,
+      style: TextStyle(color: Colors.grey[700], fontSize: 16),
+      underline: Container(
+        height: 1,
+        color: Colors.grey[600],
+      ),
+      onChanged: (String? data) {
+        setState(() {
+          _expiredMonth = data!;
+          if (date == "") {
+            bookingeController.motime = "4:30 pm";
+            bookingeController.Mon = "monday";
+          }
+        });
+      },
+      items: _monthList.map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Container(
+            child: Text(value),
+            alignment: Alignment.center,
+          ),
+        );
+      }).toList(),
+    );
   }
 }
 

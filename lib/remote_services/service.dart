@@ -288,13 +288,14 @@ class RemoteServices {
     // print("id.toString()");
     //print(id.toString());
     res = await Network().getData("booking/${bId}/qr-code");
-
+    print(bId);
     var body = json.decode(res.body);
+    print(body);
     if (res.statusCode == 200) {
       //  print(body);
       return Qr.fromJson(body);
     } else {
-      throw Exception('Failed to load User' + res.statusCode.toString());
+      throw Exception('Failed to load Qr' + res.statusCode.toString());
     }
   }
 
@@ -333,6 +334,18 @@ class RemoteServices {
           .cast<Search>();
     } else {
       throw Exception('Failed to load Comment');
+    }
+  }
+
+  static Future<RequestedBooking> getsinglebooking(var bId) async {
+    res = await Network().getData("booking/${bId}");
+
+    var body = json.decode(res.body);
+
+    if (res.statusCode == 200) {
+      return RequestedBooking.fromJson(body["data"]);
+    } else {
+      throw Exception('Failed to load User' + res.statusCode.toString());
     }
   }
 }

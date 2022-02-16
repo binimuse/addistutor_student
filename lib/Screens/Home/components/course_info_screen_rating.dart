@@ -67,7 +67,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
   Widget build(BuildContext context) {
     final double tempHeight = MediaQuery.of(context).size.height -
         (MediaQuery.of(context).size.width / 1.2) +
-        24.0;
+        75.0;
     return Container(
       color: DesignCourseAppTheme.nearlyWhite,
       child: Scaffold(
@@ -103,6 +103,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
                 child: Padding(
                   padding: const EdgeInsets.only(left: 8, right: 8),
                   child: SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
                     child: Container(
                       constraints: BoxConstraints(
                           minHeight: infoHeight,
@@ -287,23 +288,15 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
                               padding: const EdgeInsets.all(8),
                               child: Row(
                                 children: <Widget>[
-                                  getTimeBoxUI(
-                                      widget.hotelData!.booking_schedule.length
-                                          .toString(),
-                                      'Subject'),
+                                  getTimeBoxUI("1", 'Subject'),
                                   getTimeBoxUI(
                                       widget.hotelData!.session.toString(),
                                       'session'),
-                                  widget.hotelData!.subject.title != null
-                                      ? getTimeBoxUIday(
-                                          widget.hotelData!.subject.title +
-                                              "subject ")
-                                      : getTimeBoxUIday(
-                                          "subject not defind" " "),
                                 ],
                               ),
                             ),
                           ),
+                          getTimeBoxUIday(widget.hotelData!.subject.title),
                           const Center(
                             child: Text(
                               "Days Booked",

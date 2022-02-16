@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:addistutor_student/Screens/Profile/localstring.dart';
 import 'package:addistutor_student/Screens/connectvity.dart';
 
@@ -11,7 +13,10 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'Screens/splash/error.dart';
 import 'Screens/splash/splash_screen.dart';
 
-void main() => runApp(const MyApp());
+void main() {
+  HttpOverrides.global = MyHttpOverrides();
+  runApp(const MyApp());
+}
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -86,5 +91,14 @@ class _MyHomePageState extends State<MyApp> {
       ),
       home: const ConnectionFaildScreen(),
     );
+  }
+}
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }

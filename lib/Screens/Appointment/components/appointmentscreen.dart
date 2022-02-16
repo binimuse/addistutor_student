@@ -132,7 +132,7 @@ class _HomePageState extends State<Appointment>
                 padding: const EdgeInsets.only(top: 406),
                 child: Column(children: [
                   CircularProgressIndicator(),
-                  Center(child: Text("Loading"))
+                  Center(child: Text("No Booked Tutors"))
                 ]),
               ))));
   }
@@ -345,22 +345,22 @@ class _HomePageState extends State<Appointment>
                                     ),
                                   ),
                                   const SizedBox(height: 5.0),
-                                  SizedBox(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.45,
-                                    child: Text(
-                                      "teaching since" +
-                                          " " +
-                                          chat.teacher.teaching_since,
+                                  Row(children: [
+                                    Icon(
+                                      Icons.star,
+                                      color: Color(0xFF6F35A5),
+                                      size: 10,
+                                    ),
+                                    Text(
+                                      chat.teacher.rating,
                                       // ignore: prefer_const_constructors
                                       style: TextStyle(
-                                        color: Colors.blueGrey,
-                                        fontSize: 14.0,
-                                        fontWeight: FontWeight.w400,
+                                        color: kPrimaryColor,
+                                        fontSize: 12.0,
+                                        fontWeight: FontWeight.w500,
                                       ),
-                                      overflow: TextOverflow.ellipsis,
                                     ),
-                                  ),
+                                  ]),
                                 ],
                               ),
                             ],

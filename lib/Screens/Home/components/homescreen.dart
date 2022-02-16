@@ -137,7 +137,7 @@ class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
                       Expanded(
                         child: SingleChildScrollView(
                           child: SizedBox(
-                            height: MediaQuery.of(context).size.height * 2,
+                            height: MediaQuery.of(context).size.height * 2.5,
                             child: Column(
                               children: <Widget>[
                                 getSearchBarUI(),
@@ -270,7 +270,7 @@ class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           const Text(
-            'Popular Tutor',
+            'Popular Tutors',
             textAlign: TextAlign.left,
             style: TextStyle(
               fontWeight: FontWeight.w600,
