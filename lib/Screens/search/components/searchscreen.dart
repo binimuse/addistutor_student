@@ -1,4 +1,4 @@
-// ignore_for_file: import_of_legacy_library_into_null_safe, invalid_use_of_protected_member, unnecessary_null_comparison, duplicate_ignore
+// ignore_for_file: import_of_legacy_library_into_null_safe, invalid_use_of_protected_member, unnecessary_null_comparison, duplicate_ignore, deprecated_member_use
 
 import 'dart:io';
 
