@@ -60,7 +60,7 @@ class HotelListView extends StatelessWidget {
                                   textAlign: TextAlign.left,
                                   style: const TextStyle(
                                     fontWeight: FontWeight.w600,
-                                    fontSize: 22,
+                                    fontSize: 18,
                                   ),
                                 ),
                                 const SizedBox(
@@ -70,7 +70,7 @@ class HotelListView extends StatelessWidget {
                                   Text(
                                     ' ${hotelData!.gender}',
                                     style: TextStyle(
-                                        fontSize: 14,
+                                        fontSize: 12,
                                         color: Colors.grey.withOpacity(0.8)),
                                   ),
                                   const SizedBox(
@@ -85,7 +85,7 @@ class HotelListView extends StatelessWidget {
                                   Text(
                                     ' ${hotelData!.location.name}',
                                     style: TextStyle(
-                                        fontSize: 14,
+                                        fontSize: 12,
                                         color: Colors.grey.withOpacity(0.8)),
                                   ),
                                 ]),
@@ -107,7 +107,7 @@ class HotelListView extends StatelessWidget {
                                 textAlign: TextAlign.left,
                                 style: const TextStyle(
                                   fontWeight: FontWeight.w600,
-                                  fontSize: 17,
+                                  fontSize: 12,
                                 ),
                               ),
                               Row(children: [
@@ -116,7 +116,7 @@ class HotelListView extends StatelessWidget {
                                   textAlign: TextAlign.left,
                                   style: const TextStyle(
                                     fontWeight: FontWeight.w600,
-                                    fontSize: 17,
+                                    fontSize: 12,
                                   ),
                                 ),
                                 Icon(

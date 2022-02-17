@@ -8,6 +8,7 @@ import 'package:addistutor_student/Screens/Profile/contactus.dart';
 import 'package:addistutor_student/Screens/Profile/help_screen.dart';
 import 'package:addistutor_student/Screens/Profile/setting.dart';
 import 'package:addistutor_student/Screens/Notification/notification.dart';
+import 'package:addistutor_student/Screens/Profile/termsodservice.dart';
 import 'package:addistutor_student/controller/bookingcontroller.dart';
 import 'package:addistutor_student/controller/contactuscontroller.dart';
 import 'package:addistutor_student/controller/editprofilecontroller.dart';
@@ -82,7 +83,7 @@ class _ProfilePageState extends State<ProfileS> {
 
   void _onRefresh() async {
     // monitor network fetch
-    await Future.delayed(const Duration(milliseconds: 1000));
+    await Future.delayed(const Duration(milliseconds: 500));
     // if failed,use refreshFailed()
 
     setState(() {
@@ -409,6 +410,20 @@ class _ProfilePageState extends State<ProfileS> {
                         );
                       },
                       child: _buildRow(Icons.email, "Contact us")),
+                  _buildDivider(),
+                  GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          // ignore: prefer_const_constructors
+                          context,
+                          PageRouteBuilder(
+                            pageBuilder: (context, animation1, animation2) =>
+                                const ProductDescriptionPage(),
+                            transitionDuration: Duration.zero,
+                          ),
+                        );
+                      },
+                      child: _buildRow(Icons.rule, "Terms of Service")),
                   _buildDivider(),
                   GestureDetector(
                       onTap: () {

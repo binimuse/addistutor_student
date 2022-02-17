@@ -6,6 +6,7 @@ import 'package:addistutor_student/Screens/Home/components/category_list_view.da
 
 import 'package:addistutor_student/Screens/Home/components/popular_course_list_view.dart';
 import 'package:addistutor_student/Screens/search/components/searchscreen.dart';
+import 'package:addistutor_student/constants.dart';
 import 'package:addistutor_student/controller/geteducationlevelcontroller.dart';
 import 'package:addistutor_student/controller/getlocationcontroller.dart';
 import 'package:addistutor_student/controller/getsubjectcontroller.dart';
@@ -313,9 +314,8 @@ class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
     return Expanded(
       child: Container(
         decoration: BoxDecoration(
-            color: isSelected
-                ? DesignCourseAppTheme.nearlyBlue
-                : DesignCourseAppTheme.nearlyWhite,
+            color:
+                isSelected ? kPrimaryColor : DesignCourseAppTheme.nearlyWhite,
             borderRadius: const BorderRadius.all(Radius.circular(24.0)),
             border: Border.all(color: DesignCourseAppTheme.nearlyBlue)),
         child: Material(

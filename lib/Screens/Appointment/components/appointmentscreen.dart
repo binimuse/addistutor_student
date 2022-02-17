@@ -348,7 +348,7 @@ class _HomePageState extends State<Appointment>
                                   Row(children: [
                                     Icon(
                                       Icons.star,
-                                      color: Color(0xFF6F35A5),
+                                      color: kPrimaryColor,
                                       size: 10,
                                     ),
                                     Text(
