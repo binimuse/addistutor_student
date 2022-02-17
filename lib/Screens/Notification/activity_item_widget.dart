@@ -9,6 +9,7 @@ import 'package:addistutor_student/controller/getreqestedbookingcpntroller.dart'
 import 'package:addistutor_student/remote_services/service.dart';
 import 'package:addistutor_student/remote_services/user.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 
 class ActivityItemWidget extends StatefulWidget {
@@ -43,6 +44,12 @@ class _ProfileScreenState extends State<ActivityItemWidget>
   }
 
   var bid;
+
+  @override
+  void deactivate() {
+    EasyLoading.dismiss();
+    super.deactivate();
+  }
 
   Future<void> setData() async {
     animationController?.forward();
@@ -145,14 +152,38 @@ class _ProfileScreenState extends State<ActivityItemWidget>
             ),
           ),
           onTap: () async {
-            Navigator.push(
-              Get.context!,
-              MaterialPageRoute(
-                  builder: (context) => SinglebookingPage(
-                      hotelData: widget.data!.data.booking_id)),
-            );
+            setState(() {
+              requestedBooking.getsingle(widget.data!.data.booking_id);
+            });
+            loadData();
+            await Future.delayed(const Duration(seconds: 2));
+
+            // setState(() {
+            //   requestedBooking.getsingle(widget.data!.data.booking_id);
+            // });
+
+            // await Future.delayed(const Duration(seconds: 3));
+            // Get.bottomSheet(Container(
+            //   height: 150,
+            //   color: kPrimaryColor,
+            //   child: Center(
+            //       child: Text(
+            //     requestedBooking.fname,
+            //     style: const TextStyle(fontSize: 28.0, color: Colors.white),
+            //   )),
+            // ));
           },
         ));
+  }
+
+  loadData() {
+    // Here you can write your code for open new view
+    EasyLoading.show();
+    Future.delayed(const Duration(seconds: 2), () {
+// Here you can write your code
+      Get.to(SinglebookingPage(hotelData: widget.data!.data.booking_id));
+      EasyLoading.dismiss();
+    });
   }
 
   Widget getTimeBoxUIday(String txt2) {

@@ -31,8 +31,9 @@ class GetReqBooking extends GetxController with StateMixin {
   var genders;
   var facebook;
   var ratingt;
-  var id;
+  late int tid;
   var bid;
+  var session;
 
 //booking_schedule
   var day;
@@ -51,7 +52,8 @@ class GetReqBooking extends GetxController with StateMixin {
       mname = listsubject5!.teacher.middle_name.toString();
       genders = listsubject5!.teacher.gender.toString();
       ratingt = listsubject5!.teacher.rating.toString();
-      id = listsubject5!.teacher.id.toString();
+      tid = listsubject5!.teacher.id;
+      session = listsubject5!.session.toString();
       //
       // day = listsubject5!.booking_schedule.day.toString();
       is_active = listsubject5!.is_active.toString();

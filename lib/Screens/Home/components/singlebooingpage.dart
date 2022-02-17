@@ -195,6 +195,7 @@ class _CourseInfoScreenState extends State<SinglebookingPage>
                                         children: [
                                           Text(
                                             requestedBooking.fname +
+                                                " " +
                                                 requestedBooking.mname,
                                             textAlign: TextAlign.left,
                                             style: TextStyle(
@@ -317,13 +318,16 @@ class _CourseInfoScreenState extends State<SinglebookingPage>
                                           // getTimeBoxUI("location",
                                           //     requestedBooking.),
                                           getTimeBoxUI(1.toString(), 'Subject'),
-                                          getTimeBoxUI(1.toString(), 'Subject'),
+                                          getTimeBoxUI(
+                                              requestedBooking.session
+                                                  .toString(),
+                                              'Session'),
                                         ],
                                       ),
                                     ),
                                   ),
 
-                                  getTimeBoxUI(1.toString(), 'Subject'),
+                                  getTimeBoxUI(requestedBooking.title, ''),
                                   // Expanded(
                                   //   child: ListView.builder(
                                   //       scrollDirection: Axis.horizontal,
@@ -368,7 +372,7 @@ class _CourseInfoScreenState extends State<SinglebookingPage>
                               child: ClipRRect(
                                   borderRadius: BorderRadius.circular(18.0),
                                   child: Image.network(
-                                    "https://tutor.oddatech.com/api/teacher-profile-picture/${requestedBooking.id}",
+                                    "https://tutor.oddatech.com/api/teacher-profile-picture/${requestedBooking.tid}",
                                   )),
                             ))),
                     Padding(
@@ -387,7 +391,8 @@ class _CourseInfoScreenState extends State<SinglebookingPage>
                               color: DesignCourseAppTheme.nearlyBlack,
                             ),
                             onTap: () {
-                              Navigator.pop(context);
+                              Get.back();
+                              // Navigator.pop(context);
                               // Navigator.pushReplacement(
                               //     context,
                               //     MaterialPageRoute(
