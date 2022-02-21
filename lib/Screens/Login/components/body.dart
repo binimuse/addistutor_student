@@ -12,7 +12,6 @@ import 'package:addistutor_student/Screens/Login/components/background.dart';
 import 'package:addistutor_student/Screens/Signup/signup_screen.dart';
 import 'package:addistutor_student/Screens/main/main.dart';
 import 'package:addistutor_student/components/already_have_an_account_acheck.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../constants.dart';
@@ -69,9 +68,12 @@ class _LoginScreenState extends State<Body> {
                     fontSize: 23),
               ),
               SizedBox(height: size.height * 0.03),
-              SvgPicture.asset(
-                "assets/icons/login.svg",
-                height: size.height * 0.35,
+
+              Image(
+                image: AssetImage(
+                  'assets/images/login.jpg',
+                ),
+                height: size.height * 0.25,
               ),
               SizedBox(height: size.height * 0.03),
               TextFieldContainer(
