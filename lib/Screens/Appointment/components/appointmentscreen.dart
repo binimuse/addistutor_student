@@ -6,6 +6,7 @@ import 'dart:io';
 import 'package:addistutor_student/Screens/Home/components/course_info_screen_rating.dart';
 import 'package:addistutor_student/Screens/Home/components/design_course_app_theme.dart';
 import 'package:addistutor_student/Screens/Home/components/ongoingtutors.dart';
+import 'package:addistutor_student/Wallet/wallet.dart';
 
 import 'package:addistutor_student/constants.dart';
 import 'package:addistutor_student/controller/editprofilecontroller.dart';
@@ -54,6 +55,7 @@ class _HomePageState extends State<Appointment>
 
       // var id = editprofileController.fetchPf(body["student_id"]);
       // print(body["student_id"]);
+      walletContoller.getbalance(body["student_id"]);
 
       getReqBooking.fetchReqBooking(body["student_id"]);
     }
@@ -184,6 +186,7 @@ class _HomePageState extends State<Appointment>
               Center(
                 child:
                     Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  // ignore: deprecated_member_use
                   FlatButton(
                     onPressed: () {
                       //Navigator.of(context).pop(true);
@@ -191,6 +194,7 @@ class _HomePageState extends State<Appointment>
                     },
                     child: const Center(child: Text('No')),
                   ),
+                  // ignore: deprecated_member_use
                   FlatButton(
                     onPressed: () async {
                       //
@@ -538,11 +542,42 @@ class _HomePageState extends State<Appointment>
             ),
           ),
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                // ignore: prefer_const_constructors
+                context,
+                PageRouteBuilder(
+                  pageBuilder: (context, animation1, animation2) =>
+                      const WalletPage(),
+                  transitionDuration: Duration.zero,
+                ),
+              );
+            },
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: []),
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    walletContoller.wallet.toString() + ' birr',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 23,
+                      letterSpacing: 0.2,
+                      color: kPrimaryColor,
+                    ),
+                  ),
+                  Text(
+                    'Available Balance',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 14,
+                      letterSpacing: 0.2,
+                      color: DesignCourseAppTheme.grey,
+                    ),
+                  ),
+                ]),
           ),
         ],
       ),

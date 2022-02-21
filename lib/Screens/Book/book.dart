@@ -1,10 +1,15 @@
 // ignore_for_file: deprecated_member_use, import_of_legacy_library_into_null_safe, invalid_use_of_protected_member, prefer_typing_uninitialized_variables, unnecessary_null_comparison, unnecessary_brace_in_string_interps, non_constant_identifier_names
 
+import 'dart:convert';
+
 import 'package:addistutor_student/Screens/Home/components/design_course_app_theme.dart';
+import 'package:addistutor_student/Wallet/wallet.dart';
 import 'package:addistutor_student/constants.dart';
 import 'package:addistutor_student/controller/bookingcontroller.dart';
+import 'package:addistutor_student/controller/editprofilecontroller.dart';
 import 'package:addistutor_student/controller/getsubjectcontroller.dart';
 import 'package:addistutor_student/controller/getutoravlblitycontroller.dart';
+import 'package:addistutor_student/controller/walletcontroller.dart';
 
 import 'package:addistutor_student/remote_services/service.dart';
 import 'package:addistutor_student/remote_services/user.dart';
@@ -12,6 +17,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class BookScreen extends StatefulWidget {
   const BookScreen({
@@ -30,6 +36,7 @@ GetSubjectController getSubjectController = Get.find();
 GetTutorAvlblityController getTutorAvlblityController =
     Get.put(GetTutorAvlblityController());
 late bool weakdays3 = false;
+late bool canbook = false;
 
 late String sid = "";
 late bool weakdays = false;
@@ -49,12 +56,9 @@ class _EditPageState extends State<BookScreen>
     with SingleTickerProviderStateMixin {
   final BookingeController bookingeController = Get.put(BookingeController());
 
-  List<String> _monthList = [];
-
-  String? _expiredMonth;
-
   @override
   void initState() {
+    _fetchUser();
     _getsubject();
     _initForLang();
     // getTutorAvlblityController.fetchDay("2");
@@ -116,6 +120,7 @@ class _EditPageState extends State<BookScreen>
     super.deactivate();
   }
 
+  final WalletContoller walletContoller = Get.put(WalletContoller());
   final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
 
@@ -125,8 +130,11 @@ class _EditPageState extends State<BookScreen>
     // if failed,use refreshFailed()
 
     setState(() {
-      // _getlocation();
-      // _fetchUser();
+      _fetchUser();
+      _getsubject();
+      _initForLang();
+      // getTutorAvlblityController.fetchDay("2");
+      bookingeController.isFetched(true);
     });
     _refreshController.refreshCompleted();
   }
@@ -143,6 +151,8 @@ class _EditPageState extends State<BookScreen>
     _refreshController.loadComplete();
   }
 
+  final EditprofileController editprofileController =
+      Get.put(EditprofileController());
   String date = "";
   var totalprice;
 
@@ -158,6 +168,27 @@ class _EditPageState extends State<BookScreen>
         getSubjectController.sub = subject[0];
       });
     }
+  }
+
+  var ids;
+  void _fetchUser() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    var token = localStorage.getString('user');
+
+    if (token != null) {
+      var body = json.decode(token);
+
+      if (body["student_id"] != null) {
+        setState(() {
+          ids = int.parse(body["student_id"]);
+          walletContoller.getbalance(ids);
+          //  walletContoller.gettransaction(ids);
+        });
+        editprofileController.fetchPf(int.parse(body["student_id"]));
+      } else {
+        var noid = "noid";
+      }
+    } else {}
   }
 
   bool showPassword = false;
@@ -215,49 +246,120 @@ class _EditPageState extends State<BookScreen>
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              SizedBox(
-                                height: 100,
-                                child: ListView.builder(
-                                    scrollDirection: Axis.horizontal,
-                                    itemBuilder: (_, index) {
-                                      return Column(
-                                        children: [
-                                          getTimeBoxUIday(
-                                              widget
-                                                  .hotelData!.subject_id.title,
-                                              widget.hotelData!.subject_id.id),
-                                        ],
-                                      );
-                                    },
-                                    itemCount: 1),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Text(
-                                  'Selected Subject:' " " + isselected,
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize:
-                                          MediaQuery.of(context).size.width >
-                                                  360
-                                              ? 18
-                                              : 16,
-                                      fontWeight: FontWeight.normal),
-                                ),
-                              ),
-                            ],
-                          ),
+                          Row(children: [
+                            Container(
+                              width: 50,
+                              height: 80,
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      width: 4,
+                                      color: Theme.of(context)
+                                          .scaffoldBackgroundColor),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        spreadRadius: 2,
+                                        blurRadius: 30,
+                                        color: Colors.black.withOpacity(0.1),
+                                        offset: const Offset(0, 10))
+                                  ],
+                                  shape: BoxShape.circle,
+                                  image: DecorationImage(
+                                      fit: BoxFit.contain,
+                                      image: NetworkImage(
+                                          "https://tutor.oddatech.com/api/student-profile-picture/${ids}"))),
+                            ),
+                            const SizedBox(
+                              width: 15,
+                            ),
+                            const Text(
+                              'Student: ',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                  fontFamily: 'WorkSans',
+                                  fontWeight: FontWeight.w700),
+                            ),
+                            Text(
+                              editprofileController.firstname.text.toString() +
+                                  " " +
+                                  editprofileController.lastname.text
+                                      .toString(),
+                              style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w100),
+                            ),
+                          ]),
                           const SizedBox(
-                            height: 35,
+                            height: 15,
+                          ),
+                          Row(children: [
+                            const Text(
+                              'Subject : ',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                  fontFamily: 'WorkSans',
+                                  fontWeight: FontWeight.w700),
+                            ),
+                            Text(
+                              widget.hotelData!.subject_id.title,
+                              style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w100),
+                            ),
+                          ]),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          // Column(
+                          //   mainAxisAlignment: MainAxisAlignment.center,
+                          //   crossAxisAlignment: CrossAxisAlignment.start,
+                          //   children: <Widget>[
+                          //     SizedBox(
+                          //       height: 100,
+                          //       child: ListView.builder(
+                          //           scrollDirection: Axis.horizontal,
+                          //           itemBuilder: (_, index) {
+                          //             return Column(
+                          //               children: [
+                          //                 getTimeBoxUIday(
+                          //                     widget
+                          //                         .hotelData!.subject_id.title,
+                          //                     widget.hotelData!.subject_id.id),
+                          //               ],
+                          //             );
+                          //           },
+                          //           itemCount: 1),
+                          //     ),
+                          //     Padding(
+                          //       padding: const EdgeInsets.all(16.0),
+                          //       child: Text(
+                          //         'Selected Subject:' " " + isselected,
+                          //         textAlign: TextAlign.left,
+                          //         style: TextStyle(
+                          //             color: Colors.black,
+                          //             fontSize:
+                          //                 MediaQuery.of(context).size.width >
+                          //                         360
+                          //                     ? 18
+                          //                     : 16,
+                          //             fontWeight: FontWeight.normal),
+                          //       ),
+                          //     ),
+                          //   ],
+                          // ),
+                          const SizedBox(
+                            height: 10,
                           ),
                           const Text(
                             'How many sessions do you want to buy? ',
-                            style: TextStyle(color: Colors.black45),
+                            style: const TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontFamily: 'WorkSans',
+                                fontWeight: FontWeight.w700),
                           ),
                           const Text(
                             'A session is 60 minutes long and you can buy starting from one sessions. ',
@@ -320,6 +422,83 @@ class _EditPageState extends State<BookScreen>
                                 var val2 = int.parse(widget.hotelData!.price);
 
                                 totalprice = val2 * val;
+
+                                int wallet = totalprice as int;
+
+                                int wallet2 = int.parse(walletContoller.wallet);
+
+                                if (wallet > wallet2) {
+                                  canbook = false;
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => AlertDialog(
+                                      elevation: 0,
+                                      backgroundColor: const Color(0xffffffff),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(15.0),
+                                      ),
+                                      title: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: const [
+                                            SizedBox(height: 15),
+                                            Text(
+                                              'Insufficient balance',
+                                              style: TextStyle(
+                                                  fontSize: 18.0,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.red),
+                                            ),
+                                            SizedBox(height: 15),
+                                            Divider(
+                                              height: 1,
+                                              color: kPrimaryColor,
+                                            ),
+                                          ]),
+                                      content: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: const [
+                                            SizedBox(height: 15),
+                                            Text(
+                                              'Your balance is insufficient please make a deposit !',
+                                              style: TextStyle(
+                                                fontSize: 18.0,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            SizedBox(height: 15),
+                                          ]),
+                                      actions: <Widget>[
+                                        // ignore: deprecated_member_use
+                                        SizedBox(
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          height: 50,
+                                          child: InkWell(
+                                            highlightColor: Colors.grey[200],
+                                            onTap: () {
+                                              Navigator.of(context).pop(true);
+                                              // _logout(context);
+                                            },
+                                            child: Center(
+                                              child: Text(
+                                                "Ok",
+                                                style: TextStyle(
+                                                  fontSize: 18.0,
+                                                  color: Theme.of(context)
+                                                      .primaryColor,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                } else {
+                                  canbook = true;
+                                }
                               });
                             },
                           ),
@@ -328,7 +507,7 @@ class _EditPageState extends State<BookScreen>
                           ),
                           totalprice != null
                               ? Text(
-                                  "Total price:- ${totalprice}",
+                                  "Total price:- ${totalprice} \n",
                                   style: const TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold),
@@ -339,7 +518,11 @@ class _EditPageState extends State<BookScreen>
                           ),
                           const Text(
                             'Date And Time ',
-                            style: TextStyle(color: Colors.black38),
+                            style: const TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontFamily: 'WorkSans',
+                                fontWeight: FontWeight.w700),
                           ),
                           const Text(
                             'Preferred study date and  starting from what time? ',
@@ -929,8 +1112,6 @@ class _EditPageState extends State<BookScreen>
                                               "6:00 pm";
                                           bookingeController.Sat = "saturday";
                                         }
-
-                                        print(bookingeController.sattime);
                                       });
                                     },
                                   )
@@ -1038,122 +1219,141 @@ class _EditPageState extends State<BookScreen>
                                   )
                                 ])
                               : Container(),
+                          const Text(
+                            'Start  Date : ',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontFamily: 'WorkSans',
+                                fontWeight: FontWeight.w700),
+                          ),
+                          const Text(
+                            'Preferred start date? ',
+                            style: TextStyle(color: Colors.black38),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: <Widget>[
                               ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  shadowColor: kPrimaryColor,
-                                  primary: kPrimaryColor,
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20, vertical: 10),
-                                  textStyle: const TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 14,
-                                      letterSpacing: 0.27,
-                                      color: Colors.white),
-                                ),
-                                onPressed: () {
-                                  _selectDate(context);
-                                },
-                                child: const Text("Choose tutor Start  Date"),
-                              ),
+                                  style: ElevatedButton.styleFrom(
+                                    shadowColor: kPrimaryColor,
+                                    primary: kPrimaryColor,
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 20, vertical: 10),
+                                    textStyle: const TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 14,
+                                        letterSpacing: 0.27,
+                                        color: Colors.white),
+                                  ),
+                                  onPressed: () {
+                                    setState(() {
+                                      _selectDate(context);
+                                    });
+                                  },
+                                  child: Text(
+                                      "${selectedDate.day}/${selectedDate.month}/${selectedDate.year}")),
                               const SizedBox(
                                 width: 20,
                               ),
-                              Text(
-                                  "${selectedDate.day}/${selectedDate.month}/${selectedDate.year}")
                             ],
                           ),
                           const SizedBox(
                             height: 15,
                           ),
-                          Center(
-                            child: RaisedButton(
-                              onPressed: () async {
-                                if (avalbledate2.isNotEmpty) {
-                                  Cricular();
-                                  await Future.delayed(
-                                      const Duration(seconds: 3));
-                                  bookingeController.ismonday = false;
-                                  bookingeController.istue = false;
-                                  bookingeController.iswen = false;
-                                  bookingeController.isthe = false;
-                                  bookingeController.isfri = false;
-                                  bookingeController.issat = false;
-                                  bookingeController.issun = false;
-                                } else {
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) => AlertDialog(
-                                      title: const Text(
-                                        'Error ',
-                                        style: TextStyle(
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.red,
-                                          fontFamily: 'WorkSans',
-                                        ),
-                                      ),
-                                      content: const Text(
-                                        'Please Select  days',
-                                        style: TextStyle(
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.black,
-                                          fontFamily: 'WorkSans',
-                                        ),
-                                      ),
-                                      actions: <Widget>[
-                                        Center(
-                                          child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                FlatButton(
-                                                  onPressed: () {
-                                                    Navigator.of(context)
-                                                        .pop(true);
-                                                    setState(() {
-                                                      // isLoading = false;
-                                                    });
-                                                  },
-                                                  child: const Center(
-                                                      child: Text('ok')),
-                                                ),
-                                              ]),
-                                        ),
-                                      ],
+                          canbook
+                              ? Center(
+                                  child: RaisedButton(
+                                    onPressed: () async {
+                                      if (avalbledate2.isNotEmpty) {
+                                        Cricular();
+                                        await Future.delayed(
+                                            const Duration(seconds: 3));
+                                        bookingeController.ismonday = false;
+                                        bookingeController.istue = false;
+                                        bookingeController.iswen = false;
+                                        bookingeController.isthe = false;
+                                        bookingeController.isfri = false;
+                                        bookingeController.issat = false;
+                                        bookingeController.issun = false;
+                                      } else {
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) => AlertDialog(
+                                            title: const Text(
+                                              'Error ',
+                                              style: TextStyle(
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.w500,
+                                                color: Colors.red,
+                                                fontFamily: 'WorkSans',
+                                              ),
+                                            ),
+                                            content: const Text(
+                                              'Please Select  days',
+                                              style: TextStyle(
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.w500,
+                                                color: Colors.black,
+                                                fontFamily: 'WorkSans',
+                                              ),
+                                            ),
+                                            actions: <Widget>[
+                                              Center(
+                                                child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      FlatButton(
+                                                        onPressed: () {
+                                                          Navigator.of(context)
+                                                              .pop(true);
+                                                          setState(() {
+                                                            // isLoading = false;
+                                                          });
+                                                        },
+                                                        child: const Center(
+                                                            child: Text('ok')),
+                                                      ),
+                                                    ]),
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      }
+                                      setState(() {
+                                        values = <bool?>[
+                                          false,
+                                          false,
+                                          false,
+                                          false,
+                                          false,
+                                          false,
+                                          false
+                                        ];
+                                      });
+                                    },
+                                    color: kPrimaryColor,
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 50),
+                                    elevation: 2,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(20)),
+                                    child: const Text(
+                                      "Book",
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          letterSpacing: 2.2,
+                                          color: Colors.white),
                                     ),
-                                  );
-                                }
-                                setState(() {
-                                  values = <bool?>[
-                                    false,
-                                    false,
-                                    false,
-                                    false,
-                                    false,
-                                    false,
-                                    false
-                                  ];
-                                });
-                              },
-                              color: kPrimaryColor,
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 50),
-                              elevation: 2,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20)),
-                              child: const Text(
-                                "Book",
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    letterSpacing: 2.2,
-                                    color: Colors.white),
-                              ),
-                            ),
-                          ),
+                                  ),
+                                )
+                              : Container(),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -1343,38 +1543,6 @@ class _EditPageState extends State<BookScreen>
         bookingeController.startdate = selected.day.toString();
       });
     }
-  }
-
-  DropdownButton<String> _buildExpiredMonth() {
-    return DropdownButton<String>(
-      value: _expiredMonth,
-      icon: Icon(Icons.arrow_drop_down),
-      iconSize: 24,
-      elevation: 16,
-      style: TextStyle(color: Colors.grey[700], fontSize: 16),
-      underline: Container(
-        height: 1,
-        color: Colors.grey[600],
-      ),
-      onChanged: (String? data) {
-        setState(() {
-          _expiredMonth = data!;
-          if (date == "") {
-            bookingeController.motime = "4:30 pm";
-            bookingeController.Mon = "monday";
-          }
-        });
-      },
-      items: _monthList.map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Container(
-            child: Text(value),
-            alignment: Alignment.center,
-          ),
-        );
-      }).toList(),
-    );
   }
 }
 

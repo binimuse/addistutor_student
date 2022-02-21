@@ -1,4 +1,4 @@
-// ignore_for_file: invalid_use_of_protected_member, unnecessary_null_comparison, duplicate_ignore
+// ignore_for_file: invalid_use_of_protected_member, unnecessary_null_comparison, duplicate_ignore, deprecated_member_use
 
 import 'dart:io';
 
@@ -112,7 +112,6 @@ class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
   }
 
   CategoryType categoryType = CategoryType.ui;
-  GlobalKey<NavigatorState> _key = GlobalKey();
   @override
   Widget build(BuildContext context) {
     return Obx(() => getEducationlevelController.isfetchededucation.value
@@ -190,6 +189,7 @@ class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
               Center(
                 child:
                     Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  // ignore: deprecated_member_use
                   FlatButton(
                     onPressed: () {
                       //Navigator.of(context).pop(true);

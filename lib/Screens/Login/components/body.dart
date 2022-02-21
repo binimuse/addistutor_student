@@ -443,8 +443,8 @@ class _LoginScreenState extends State<Body> {
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-              builder: (context) => Scaffold(
-                body: const Main(),
+              builder: (context) => const Scaffold(
+                body: Main(),
               ),
             ),
             (route) => false,

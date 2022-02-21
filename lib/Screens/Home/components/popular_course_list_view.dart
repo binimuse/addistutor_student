@@ -1,7 +1,6 @@
 import 'package:addistutor_student/Screens/Home/components/course_info_screen.dart';
 import 'package:addistutor_student/Screens/Home/components/design_course_app_theme.dart';
 import 'package:addistutor_student/Screens/Home/components/homescreen.dart';
-import 'package:addistutor_student/Screens/Home/models/category.dart';
 import 'package:addistutor_student/controller/getpopulartutor.dart';
 import 'package:addistutor_student/remote_services/user.dart';
 import 'package:flutter/material.dart';
@@ -180,6 +179,7 @@ class CategoryView extends StatelessWidget {
                                               CrossAxisAlignment.center,
                                           children: <Widget>[
                                             Text(
+                                              // ignore: unnecessary_string_interpolations
                                               '${category!.gender}',
                                               textAlign: TextAlign.left,
                                               style: const TextStyle(
@@ -194,7 +194,7 @@ class CategoryView extends StatelessWidget {
                                             Row(
                                               children: <Widget>[
                                                 Text(
-                                                  '${category!.location.name}',
+                                                  category!.location.name,
                                                   textAlign: TextAlign.left,
                                                   style: const TextStyle(
                                                     fontWeight: FontWeight.w200,
@@ -216,7 +216,7 @@ class CategoryView extends StatelessWidget {
                                             Row(
                                               children: <Widget>[
                                                 Text(
-                                                  '${category!.rating}',
+                                                  category!.rating,
                                                   textAlign: TextAlign.left,
                                                   style: const TextStyle(
                                                     fontWeight: FontWeight.w200,

@@ -451,3 +451,40 @@ class Qr {
     );
   }
 }
+
+class Balance {
+  String wallet_amount;
+
+  Balance({
+    required this.wallet_amount,
+  });
+
+  factory Balance.fromJson(Map<String, dynamic> json) {
+    return Balance(
+      wallet_amount: json["wallet_amount"],
+    );
+  }
+}
+
+class Transaction {
+  String slip_id;
+  String amount;
+  String status;
+  String date;
+
+  Transaction({
+    required this.slip_id,
+    required this.amount,
+    required this.status,
+    required this.date,
+  });
+
+  factory Transaction.fromJson(Map<String, dynamic> json) {
+    return Transaction(
+      slip_id: json["slip_id"],
+      amount: json["amount"],
+      status: json["status"],
+      date: json["date"],
+    );
+  }
+}

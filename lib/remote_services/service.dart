@@ -288,9 +288,9 @@ class RemoteServices {
     // print("id.toString()");
     //print(id.toString());
     res = await Network().getData("booking/${bId}/qr-code");
-    print(bId);
+
     var body = json.decode(res.body);
-    print(body);
+
     if (res.statusCode == 200) {
       //  print(body);
       return Qr.fromJson(body);
@@ -346,6 +346,47 @@ class RemoteServices {
       return RequestedBooking.fromJson(body["data"]);
     } else {
       throw Exception('Failed to load User' + res.statusCode.toString());
+    }
+  }
+
+  static Future<String> wallet(File image, var data, var id) async {
+    // create multipart request
+    var stream = http.ByteStream(DelegatingStream.typed(image.openRead()));
+    var length = await image.length();
+    res = await Network()
+        .postFile2("student-wallet/${id}/deposit", image, data, stream, length);
+
+    if (res.statusCode == 200) {
+      res.stream.transform(utf8.decoder).listen((value) {});
+
+      return res.statusCode.toString();
+    } else {
+      throw Exception("can't");
+    }
+  }
+
+  static Future<Balance> balance(var id) async {
+    res = await Network().getData("student-wallet/${id}/balance");
+
+    var body = json.decode(res.body);
+    if (res.statusCode == 200) {
+      return Balance.fromJson(body["data"]);
+    } else {
+      throw Exception('Failed to load User' + res.statusCode.toString());
+    }
+  }
+
+  static Future<List<Transaction>> transaction(var id) async {
+    res = await Network().getData("student-wallet/${id}/transaction");
+
+    var body = json.decode(res.body);
+    if (res.statusCode == 200) {
+      return body["data"]
+          .map((e) => Transaction.fromJson(e))
+          .toList()
+          .cast<Transaction>();
+    } else {
+      throw Exception('Failed to load transaction');
     }
   }
 }

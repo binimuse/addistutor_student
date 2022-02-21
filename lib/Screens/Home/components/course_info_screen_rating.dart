@@ -198,8 +198,8 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
                           ),
                           _buildDivider(),
                           Padding(
-                            padding:
-                                EdgeInsets.only(top: 10.0, left: 18, right: 16),
+                            padding: const EdgeInsets.only(
+                                top: 10.0, left: 18, right: 16),
                             child: Row(children: [
                               const Text(
                                 "Booking info",
@@ -212,7 +212,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
                                   color: DesignCourseAppTheme.darkerText,
                                 ),
                               ),
-                              SizedBox(width: 20),
+                              const SizedBox(width: 20),
                               widget.hotelData!.is_active == null
                                   ? Row(
                                       children: <Widget>[

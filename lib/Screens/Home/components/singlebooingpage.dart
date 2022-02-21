@@ -1,23 +1,15 @@
 // ignore_for_file: prefer_typing_uninitialized_variables, invalid_use_of_protected_member, unnecessary_null_comparison
 
 import 'dart:async';
-import 'dart:convert';
-import 'dart:math';
 
-import 'package:addistutor_student/Screens/Book/book.dart';
-import 'package:addistutor_student/Screens/Notification/notification.dart';
-import 'package:addistutor_student/Screens/Profile/editprofile.dart';
-import 'package:addistutor_student/Screens/Profile/profile.dart';
 import 'package:addistutor_student/controller/getreqestedbookingcpntroller.dart';
-import 'package:addistutor_student/remote_services/user.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'design_course_app_theme.dart';
 
 class SinglebookingPage extends StatefulWidget {
-  SinglebookingPage({Key? key, this.hotelData, this.callback})
+  const SinglebookingPage({Key? key, this.hotelData, this.callback})
       : super(key: key);
 
   final VoidCallback? callback;
@@ -198,7 +190,7 @@ class _CourseInfoScreenState extends State<SinglebookingPage>
                                                 " " +
                                                 requestedBooking.mname,
                                             textAlign: TextAlign.left,
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               fontWeight: FontWeight.w600,
                                               fontSize: 15,
                                               fontFamily: 'WorkSans',
@@ -210,7 +202,7 @@ class _CourseInfoScreenState extends State<SinglebookingPage>
                                           Text(
                                             requestedBooking.genders,
                                             textAlign: TextAlign.left,
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               fontWeight: FontWeight.w600,
                                               fontSize: 15,
                                               fontFamily: 'WorkSans',
@@ -224,7 +216,7 @@ class _CourseInfoScreenState extends State<SinglebookingPage>
                                               Text(
                                                 requestedBooking.ratingt,
                                                 textAlign: TextAlign.left,
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                   fontWeight: FontWeight.w600,
                                                   fontSize: 15,
                                                   fontFamily: 'WorkSans',

@@ -80,12 +80,12 @@ class _EditPageState extends State<EditPage> {
       if (body["student_id"] != null) {
         editprofileController.fetchPf(int.parse(body["student_id"]));
         id = int.parse(body["student_id"]);
-        print("yes id");
+      
       } else {
         setState(() {
           noid = "noid";
         });
-        print("no id");
+       
 
         editprofileController.fetchPf(noid);
       }

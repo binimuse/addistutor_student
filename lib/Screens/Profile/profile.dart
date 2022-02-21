@@ -1,4 +1,4 @@
-// ignore_for_file: import_of_legacy_library_into_null_safe, prefer_typing_uninitialized_variables, unused_element, prefer_if_null_operators
+// ignore_for_file: import_of_legacy_library_into_null_safe, prefer_typing_uninitialized_variables, unused_element, prefer_if_null_operators, deprecated_member_use, duplicate_ignore
 
 import 'dart:convert';
 import 'dart:io';
@@ -308,7 +308,7 @@ class _ProfilePageState extends State<ProfileS> {
             child: SingleChildScrollView(
               child: Column(
                 children: <Widget>[
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                   Container(

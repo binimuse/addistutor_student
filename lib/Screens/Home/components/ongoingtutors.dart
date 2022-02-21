@@ -208,7 +208,7 @@ class CategoryView extends StatelessWidget {
                                                       ),
                                                     ),
                                                   ),
-                                                  SizedBox(
+                                                  const SizedBox(
                                                     height: 30,
                                                   ),
                                                   Padding(
@@ -236,7 +236,7 @@ class CategoryView extends StatelessWidget {
                                                                     .withOpacity(
                                                                         0.8)),
                                                           ),
-                                                          SizedBox(
+                                                          const SizedBox(
                                                             width: 15,
                                                           ),
                                                           Icon(
@@ -269,7 +269,7 @@ class CategoryView extends StatelessWidget {
                                                           CrossAxisAlignment
                                                               .center,
                                                       children: [
-                                                        SizedBox(
+                                                        const SizedBox(
                                                           width: 15,
                                                         ),
                                                         Icon(
