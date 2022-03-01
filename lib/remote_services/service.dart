@@ -63,7 +63,7 @@ class RemoteServices {
           .toList()
           .cast<GetLocation>();
     } else {
-      throw Exception('Failed to load User' + res.statusCode.toString());
+      throw Exception('Failed to load location' + res.statusCode.toString());
     }
   }
 
@@ -163,7 +163,7 @@ class RemoteServices {
 
   static Future<List<Day>> getAvalbledate(var id) async {
     // print("id.toString()");
-    //print(id.toString());
+    print(id.toString());
     res = await Network().getData("teacher/${id}/availability");
 
     var body = json.decode(res.body);
@@ -366,13 +366,15 @@ class RemoteServices {
   }
 
   static Future<Balance> balance(var id) async {
+    print(id);
+    print(id);
     res = await Network().getData("student-wallet/${id}/balance");
 
     var body = json.decode(res.body);
     if (res.statusCode == 200) {
       return Balance.fromJson(body["data"]);
     } else {
-      throw Exception('Failed to load User' + res.statusCode.toString());
+      throw Exception('Failed to load balance' + res.statusCode.toString());
     }
   }
 

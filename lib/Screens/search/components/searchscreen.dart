@@ -197,9 +197,10 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
                                 builder: (BuildContext context,
                                     AsyncSnapshot snapshot) {
                                   if (snapshot.hasError) {
-                                    found.value = snapshot.data.length;
+                                    //   found.value = snapshot.data.length;
+
                                     return Center(
-                                      child: Text(snapshot.error.toString()),
+                                      child: Text("No Tutor Found"),
                                     );
                                   }
 

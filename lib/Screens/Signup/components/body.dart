@@ -2,9 +2,11 @@
 
 import 'dart:convert';
 
+import 'package:addistutor_student/Screens/Profile/termsodservice.dart';
 import 'package:addistutor_student/Screens/main/main.dart';
 import 'package:addistutor_student/controller/signupcontroller.dart';
 import 'package:addistutor_student/remote_services/api.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:addistutor_student/Screens/Login/login_screen.dart';
 import 'package:addistutor_student/Screens/Signup/components/background.dart';
@@ -126,7 +128,6 @@ class _SplashScreenState extends State<Body> {
                         },
                       ),
                     ),
-
                     TextFieldContainer(
                       child: TextFormField(
                         obscureText:
@@ -166,37 +167,58 @@ class _SplashScreenState extends State<Body> {
                         },
                       ),
                     ),
-                    // TextFieldContainer(
-                    //   child: TextFormField(
-                    //     obscureText: true,
-                    //     controller: signupController.password,
-                    //     cursorColor: kPrimaryColor,
-                    //     decoration: InputDecoration(
-                    //       hintText: "Password",
-                    //       icon: Icon(
-                    //         Icons.lock,
-                    //         color: kPrimaryColor,
-                    //       ),
-                    //       suffixIcon: Icon(
-                    //         Icons.visibility,
-                    //         color: kPrimaryColor,
-                    //       ),
-                    //       border: InputBorder.none,
-                    //     ),
-                    //     validator: (value) {
-                    //       return signupController.validatephone(value!);
-                    //     },
-                    //   ),
-                    // ),
-                    // RoundedButton(
-                    //   text: "SIGNUP",
-                    //   press: () {
-                    //     if (_multiSelectKey.currentState!.validate()) {
-                    //    register();
-                    //     }
-                    //   },
-                    // ),
-
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 45,
+                        vertical: 16,
+                      ),
+                      alignment: Alignment.center,
+                      child: RichText(
+                        text: TextSpan(
+                            style: const TextStyle(color: Colors.grey),
+                            children: [
+                              const TextSpan(
+                                  text:
+                                      'By tapping Register you acknowledge that you have read the'),
+                              TextSpan(
+                                text: ' Privacy policy',
+                                style: const TextStyle(
+                                  color: kPrimaryColor,
+                                ),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    // Navigator.push(
+                                    //   context,
+                                    //   PageRouteBuilder(
+                                    //     pageBuilder: (context, animation1, animation2) {
+                                    //       return const Privacypolicy();
+                                    //     },
+                                    //   ),
+                                    // );
+                                  },
+                              ),
+                              const TextSpan(text: ' and agree to the'),
+                              TextSpan(
+                                text: ' Term of Service',
+                                style: const TextStyle(
+                                  color: kPrimaryColor,
+                                ),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    Navigator.push(
+                                      context,
+                                      PageRouteBuilder(
+                                        pageBuilder:
+                                            (context, animation1, animation2) {
+                                          return const ProductDescriptionPage();
+                                        },
+                                      ),
+                                    );
+                                  },
+                              ),
+                            ]),
+                      ),
+                    ),
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 30),
                       // ignore: deprecated_member_use
@@ -286,25 +308,25 @@ class _SplashScreenState extends State<Body> {
                             _isLoggedIn = false;
                           });
                         }).catchError((e) {});
-                        showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                            title: const Text('Error'),
-                            content: Text(e.toString()),
-                            actions: <Widget>[
-                              // ignore: deprecated_member_use
-                              FlatButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop(true);
-                                  setState(() {
-                                    isLoading = false;
-                                  });
-                                },
-                                child: const Text('ok'),
-                              ),
-                            ],
-                          ),
-                        );
+                        // showDialog(
+                        //   context: context,
+                        //   builder: (context) => AlertDialog(
+                        //     title: const Text('Error'),
+                        //     content: Text(e.toString()),
+                        //     actions: <Widget>[
+                        //       // ignore: deprecated_member_use
+                        //       FlatButton(
+                        //         onPressed: () {
+                        //           Navigator.of(context).pop(true);
+                        //           setState(() {
+                        //             isLoading = false;
+                        //           });
+                        //         },
+                        //         child: const Text('ok'),
+                        //       ),
+                        //     ],
+                        //   ),
+                        // );
                       });
                     },
                   ),

@@ -205,16 +205,29 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                                         ),
                                   Row(
                                     children: <Widget>[
-                                      Text(
-                                        widget.hotelData!.rating,
-                                        textAlign: TextAlign.left,
-                                        style: const TextStyle(
-                                          fontWeight: FontWeight.w200,
-                                          fontSize: 22,
-                                          letterSpacing: 0.27,
-                                          color: DesignCourseAppTheme.grey,
-                                        ),
-                                      ),
+                                      widget.hotelData!.rating != null
+                                          ? Text(
+                                              widget.hotelData!.rating,
+                                              textAlign: TextAlign.left,
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.w200,
+                                                fontSize: 22,
+                                                letterSpacing: 0.27,
+                                                color:
+                                                    DesignCourseAppTheme.grey,
+                                              ),
+                                            )
+                                          : Text(
+                                              "",
+                                              textAlign: TextAlign.left,
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.w200,
+                                                fontSize: 22,
+                                                letterSpacing: 0.27,
+                                                color:
+                                                    DesignCourseAppTheme.grey,
+                                              ),
+                                            ),
                                       const Icon(
                                         Icons.star,
                                         color: DesignCourseAppTheme.nearlyBlue,
@@ -407,7 +420,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                                     ),
                                     Expanded(
                                       child: Container(
-                                        height: 48,
+                                        height: 35,
                                         decoration: BoxDecoration(
                                           color:
                                               DesignCourseAppTheme.nearlyBlue,

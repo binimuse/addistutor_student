@@ -23,6 +23,7 @@ import 'package:addistutor_student/controller/getutoravlblitycontroller.dart';
 import 'package:addistutor_student/controller/searchcontroller.dart';
 import 'package:addistutor_student/controller/signupcontroller.dart';
 import 'package:addistutor_student/constants.dart';
+import 'package:addistutor_student/remote_services/user.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:flutter/material.dart';
@@ -78,6 +79,18 @@ class _ProfilePageState extends State<ProfileS> {
     _getlocation();
   }
 
+  List<GetLocation> location = [];
+  _getlocation() async {
+    getLocationController.fetchLocation();
+    // ignore: invalid_use_of_protected_member
+    location = getLocationController.listlocation.value;
+    if (location != null && location.isNotEmpty) {
+      setState(() {
+        editprofileController.locaion = location[0];
+      });
+    }
+  }
+
   final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
 
@@ -121,10 +134,6 @@ class _ProfilePageState extends State<ProfileS> {
         editprofileController.fetchPf(noid);
       }
     } else {}
-  }
-
-  void _getlocation() {
-    getLocationController.fetchLocation();
   }
 
   final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();

@@ -91,52 +91,52 @@ class _HomePageState extends State<Appointment>
   Widget build(BuildContext context) {
     return Container(
         color: DesignCourseAppTheme.nearlyWhite,
-        child: Obx(() => getReqBooking.isfetchedsubject.value
-            ? SmartRefresher(
-                enablePullDown: true,
-                enablePullUp: true,
+        child: SmartRefresher(
+            enablePullDown: true,
+            enablePullUp: true,
 
-                //cheak pull_to_refresh
-                controller: _refreshController,
-                onRefresh: _onRefresh,
-                onLoading: _onLoading,
-                child: WillPopScope(
-                  onWillPop: _onBackPressed,
-                  child: Scaffold(
-                      backgroundColor: Colors.transparent,
-                      body: Column(
-                        children: <Widget>[
-                          SizedBox(
-                            height: MediaQuery.of(context).padding.top,
-                          ),
-                          getAppBarUI(),
-                          _buildDivider(),
-                          Expanded(
-                            child: SingleChildScrollView(
-                              child: Container(
-                                height: MediaQuery.of(context).size.height,
-                                child: Column(
-                                  children: <Widget>[
-                                    getCategoryUI(),
-                                    Flexible(
-                                      child: getPopularCourseUI(),
-                                    ),
-                                  ],
+            //cheak pull_to_refresh
+            controller: _refreshController,
+            onRefresh: _onRefresh,
+            onLoading: _onLoading,
+            child: WillPopScope(
+              onWillPop: _onBackPressed,
+              child: Scaffold(
+                  backgroundColor: Colors.transparent,
+                  body: Column(
+                    children: <Widget>[
+                      SizedBox(
+                        height: MediaQuery.of(context).padding.top,
+                      ),
+                      getAppBarUI(),
+                      _buildDivider(),
+                      Obx(() => getReqBooking.isfetchedsubject.value
+                          ? Expanded(
+                              child: SingleChildScrollView(
+                                child: Container(
+                                  height: MediaQuery.of(context).size.height,
+                                  child: Column(
+                                    children: <Widget>[
+                                      getCategoryUI(),
+                                      Flexible(
+                                        child: getPopularCourseUI(),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                          ),
-                        ],
-                      )),
-                ))
-            : Center(
-                child: Padding(
-                padding: const EdgeInsets.only(top: 406),
-                child: Column(children: [
-                  CircularProgressIndicator(),
-                  Center(child: Text("No Booked Tutors"))
-                ]),
-              ))));
+                            )
+                          : Center(
+                              child: Padding(
+                              padding: const EdgeInsets.only(top: 406),
+                              child: Column(children: [
+                                CircularProgressIndicator(),
+                                Center(child: Text("No Booked Tutors"))
+                              ]),
+                            )))
+                    ],
+                  )),
+            )));
   }
 
   loadData() {
@@ -355,15 +355,25 @@ class _HomePageState extends State<Appointment>
                                       color: kPrimaryColor,
                                       size: 10,
                                     ),
-                                    Text(
-                                      chat.teacher.rating,
-                                      // ignore: prefer_const_constructors
-                                      style: TextStyle(
-                                        color: kPrimaryColor,
-                                        fontSize: 12.0,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
+                                    chat.teacher.rating != null
+                                        ? Text(
+                                            chat.teacher.rating,
+                                            // ignore: prefer_const_constructors
+                                            style: TextStyle(
+                                              color: kPrimaryColor,
+                                              fontSize: 12.0,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          )
+                                        : Text(
+                                            "",
+                                            // ignore: prefer_const_constructors
+                                            style: TextStyle(
+                                              color: kPrimaryColor,
+                                              fontSize: 12.0,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          )
                                   ]),
                                 ],
                               ),
@@ -557,16 +567,27 @@ class _HomePageState extends State<Appointment>
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    walletContoller.wallet.toString() + ' birr',
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 23,
-                      letterSpacing: 0.2,
-                      color: kPrimaryColor,
-                    ),
-                  ),
+                  walletContoller.wallet != null
+                      ? Text(
+                          walletContoller.wallet.toString() + ' birr',
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 23,
+                            letterSpacing: 0.2,
+                            color: kPrimaryColor,
+                          ),
+                        )
+                      : Text(
+                          "" + ' birr',
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 23,
+                            letterSpacing: 0.2,
+                            color: kPrimaryColor,
+                          ),
+                        ),
                   Text(
                     'Available Balance',
                     textAlign: TextAlign.left,

@@ -218,28 +218,47 @@ class CategoryView extends StatelessWidget {
                                                           const SizedBox(
                                                             width: 10,
                                                           ),
-                                                          Row(
-                                                            children: <Widget>[
-                                                              Text(
-                                                                ' ${category!.rating}',
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                        12,
-                                                                    fontFamily:
-                                                                        'WorkSans',
-                                                                    color: Colors
-                                                                        .grey
-                                                                        .withOpacity(
-                                                                            0.8)),
-                                                              ),
-                                                              const Icon(
-                                                                Icons.star,
-                                                                color: DesignCourseAppTheme
-                                                                    .nearlyBlue,
-                                                                size: 20,
-                                                              ),
-                                                            ],
-                                                          ),
+                                                          category!.rating !=
+                                                                  null
+                                                              ? Row(
+                                                                  children: <
+                                                                      Widget>[
+                                                                    Text(
+                                                                      ' ${category!.rating}',
+                                                                      style: TextStyle(
+                                                                          fontSize:
+                                                                              12,
+                                                                          fontFamily:
+                                                                              'WorkSans',
+                                                                          color: Colors
+                                                                              .grey
+                                                                              .withOpacity(0.8)),
+                                                                    ),
+                                                                    const Icon(
+                                                                      Icons
+                                                                          .star,
+                                                                      color: DesignCourseAppTheme
+                                                                          .nearlyBlue,
+                                                                      size: 20,
+                                                                    ),
+                                                                  ],
+                                                                )
+                                                              : Row(
+                                                                  children: <
+                                                                      Widget>[
+                                                                    Text(
+                                                                      "",
+                                                                      style: TextStyle(
+                                                                          fontSize:
+                                                                              12,
+                                                                          fontFamily:
+                                                                              'WorkSans',
+                                                                          color: Colors
+                                                                              .grey
+                                                                              .withOpacity(0.8)),
+                                                                    ),
+                                                                  ],
+                                                                ),
                                                           const SizedBox(
                                                             width: 10,
                                                           ),

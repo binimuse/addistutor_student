@@ -45,7 +45,7 @@ class _EditPageState extends State<EditPage> {
   GetLocationController getLocationController =
       Get.put(GetLocationController());
 
-  List<GetLocation> files = [];
+  List<GetLocation> location = [];
   var noid;
   @override
   void initState() {
@@ -60,10 +60,10 @@ class _EditPageState extends State<EditPage> {
   _getlocation() async {
     getLocationController.fetchLocation();
     // ignore: invalid_use_of_protected_member
-    files = getLocationController.listlocation.value;
-    if (files != null && files.isNotEmpty) {
+    location = getLocationController.listlocation.value;
+    if (location != null && location.isNotEmpty) {
       setState(() {
-        editprofileController.locaion = files[0];
+        editprofileController.locaion = location[0];
       });
     }
   }
@@ -80,12 +80,10 @@ class _EditPageState extends State<EditPage> {
       if (body["student_id"] != null) {
         editprofileController.fetchPf(int.parse(body["student_id"]));
         id = int.parse(body["student_id"]);
-      
       } else {
         setState(() {
           noid = "noid";
         });
-       
 
         editprofileController.fetchPf(noid);
       }
@@ -523,7 +521,7 @@ class _EditPageState extends State<EditPage> {
                             color: Colors.black,
                             fontSize: 16,
                             fontWeight: FontWeight.w700),
-                        items: files
+                        items: location
                             .map((e) => DropdownMenuItem(
                                   child: Text(
                                     e.name,

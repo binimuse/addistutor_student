@@ -64,9 +64,8 @@ class _FeedbackScreenState extends State<TopUpPage> {
     return Container(
       color: AppTheme.nearlyWhite,
       child: SafeArea(
-        top: false,
         child: Scaffold(
-          resizeToAvoidBottomInset: false,
+          resizeToAvoidBottomInset: true,
           appBar: AppBar(
             backgroundColor: Colors.white,
             leading: Material(
@@ -127,7 +126,7 @@ class _FeedbackScreenState extends State<TopUpPage> {
                           child: Container(
                             padding: const EdgeInsets.all(4.0),
                             constraints: const BoxConstraints(
-                                minHeight: 80, maxHeight: 160),
+                                minHeight: 40, maxHeight: 160),
                             color: AppTheme.white,
                             child: SingleChildScrollView(
                               padding: const EdgeInsets.only(
@@ -173,7 +172,7 @@ class _FeedbackScreenState extends State<TopUpPage> {
                           child: Container(
                             padding: const EdgeInsets.all(4.0),
                             constraints: const BoxConstraints(
-                                minHeight: 80, maxHeight: 160),
+                                minHeight: 10, maxHeight: 160),
                             color: AppTheme.white,
                             child: SingleChildScrollView(
                               padding: const EdgeInsets.only(
@@ -205,11 +204,11 @@ class _FeedbackScreenState extends State<TopUpPage> {
                     ),
                     _buildComposer(),
                     Padding(
-                      padding: const EdgeInsets.only(top: 16),
+                      padding: const EdgeInsets.only(top: 8),
                       child: Center(
                         child: Container(
                           width: 120,
-                          height: 40,
+                          height: 20,
                           decoration: BoxDecoration(
                             color: Colors.blue,
                             borderRadius:
@@ -292,14 +291,6 @@ class _FeedbackScreenState extends State<TopUpPage> {
                 child: Container(
                   height: 30,
                   width: 65,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      width: 2,
-                      color: Theme.of(context).scaffoldBackgroundColor,
-                    ),
-                    color: Colors.transparent,
-                  ),
                   child: GestureDetector(
                     onTap: () {
                       _showPicker(context);

@@ -81,27 +81,33 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
           title: "Tutor Selection",
           body:
               "The system will generate choices of tutor for you and you indicate your first and second choices.",
-          image: _buildImage('chat.svg'),
+          image: _buildImage('login.svg'),
           decoration: pageDecoration,
         ),
         PageViewModel(
-          title: "Tutor Contact",
-          body: "The selected tutor contacts you and finalizes a mangement.",
-          image: _buildImage('signup.svg'),
-          decoration: pageDecoration,
-        ),
-        PageViewModel(
-          title: "Unique Student Code",
+          title: "Make Paymnet",
           body:
-              "You will receive a unique code which you will use to confirm service is successfully delivered.",
-          image: _buildImage('signup.svg'),
+              "Pay for the number of session you want to buy using the mutiple paymeny and upload the deposit slip",
+          image: _buildImage('login.svg'),
+          decoration: pageDecoration,
+        ),
+        PageViewModel(
+          title: "Qr Code",
+          body:
+              "As soon as payment is received, you will receive a QR code The QR code needs to be scanned at the end of each session to confirm service delivery",
+          image: _buildImage('login.svg'),
+          decoration: pageDecoration,
+        ),
+        PageViewModel(
+          title: "Tutor Confirmation",
+          body: "your chosen tutor will contact you to resume service",
+          image: _buildImage('login.svg'),
           decoration: pageDecoration,
         ),
         PageViewModel(
           title: "Review Tutor",
-          body:
-              "After the service, you can rate the service the tutor provided.",
-          image: _buildImage('signup.svg'),
+          body: "Rate your tutor at the end of each seassion",
+          image: _buildImage('login.svg'),
           decoration: pageDecoration,
         ),
       ],

@@ -162,15 +162,25 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
                                 ),
                                 Row(
                                   children: <Widget>[
-                                    Text(
-                                      widget.hotelData!.teacher.rating,
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.w200,
-                                        fontSize: 15,
-                                        fontFamily: 'WorkSans',
-                                        letterSpacing: 0.27,
-                                      ),
-                                    ),
+                                    widget.hotelData!.teacher.rating != null
+                                        ? Text(
+                                            widget.hotelData!.teacher.rating,
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.w200,
+                                              fontSize: 15,
+                                              fontFamily: 'WorkSans',
+                                              letterSpacing: 0.27,
+                                            ),
+                                          )
+                                        : Text(
+                                            "",
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.w200,
+                                              fontSize: 15,
+                                              fontFamily: 'WorkSans',
+                                              letterSpacing: 0.27,
+                                            ),
+                                          ),
                                     const Icon(
                                       Icons.star,
                                       color: DesignCourseAppTheme.nearlyBlue,

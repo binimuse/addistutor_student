@@ -105,44 +105,46 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-        Container(
-          decoration: const BoxDecoration(),
-          child: Center(
-            child: Image.asset(
-              'assets/images/lg3.png',
-              height: 200,
-              width: 260,
+    return Center(
+      child: Scaffold(
+        body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Container(
+            decoration: const BoxDecoration(),
+            child: Center(
+              child: Image.asset(
+                'assets/images/lg3.png',
+                height: 200,
+                width: 260,
+              ),
             ),
           ),
-        ),
-        const Text(
-          "One-on-One Tutorial Service ",
-          style: TextStyle(
-            fontSize: 26.0,
-            fontFamily: 'WorkSans',
-            fontWeight: FontWeight.bold,
-            letterSpacing: 0.4,
-            height: 0.9,
-            color: Color(0xFF4A6572),
+          const Text(
+            "One-on-One Tutorial Service ",
+            style: TextStyle(
+              fontSize: 26.0,
+              fontFamily: 'WorkSans',
+              fontWeight: FontWeight.bold,
+              letterSpacing: 0.4,
+              height: 0.9,
+              color: Color(0xFF4A6572),
+            ),
           ),
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        const Text(
-          "Connecting you with the Best Tutors in Town, Conveniently. ",
-          style: TextStyle(
-            fontSize: 12.0,
-            fontFamily: 'Roboto',
-            fontWeight: FontWeight.normal,
-            letterSpacing: 0.4,
-            height: 0.9,
-            color: Color(0xFF4A6572),
+          const SizedBox(
+            height: 10,
           ),
-        )
-      ]),
+          const Text(
+            "Connecting you with the Best Tutors in Town, Conveniently. ",
+            style: TextStyle(
+              fontSize: 12.0,
+              fontFamily: 'Roboto',
+              fontWeight: FontWeight.normal,
+              letterSpacing: 0.4,
+              height: 0.9,
+              color: Color(0xFF4A6572),
+            ),
+          )
+        ]),
+      ),
     );
   }
 }

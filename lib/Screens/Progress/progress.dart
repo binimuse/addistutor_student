@@ -59,8 +59,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       fontSize: 16.0,
       fontFamily: 'WorkSans',
       fontWeight: FontWeight.bold,
-      letterSpacing: 0.4,
-      height: 0.9,
+      letterSpacing: 0.3,
       color: Color(0xFF4A6572),
     );
 
@@ -82,24 +81,31 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
 
       pages: [
         PageViewModel(
-          title: "Our tutors",
+          title: "CHOICE",
           body:
-              "Our tutors are carefully screened for their competence and character.",
+              "You can choose the best tutor for your child from our rich database as per your requirement. Depending on need, you can also select a team of specialists. Similarly, you can arrange the tutorial for a date and time that suits your child. You can either buy a short term or long term package. It is infinitely flexible.",
           image: _buildImage('t.jpg'),
           decoration: pageDecoration,
         ),
         PageViewModel(
-          title: "Platform",
+          title: "CONVENIENCE",
           body:
-              "A convenient and efficient tutor booking system with a rich choice of tutors to book for a time and date that suits you best.",
+              "You can reach us through our website, app or on the phone and booking a tutor is extremely easy.",
           image: _buildImage('p.jpg'),
           decoration: pageDecoration,
         ),
         PageViewModel(
-          title: "Community",
+          title: "SAFETY",
           body:
-              "By using our services, you get access to a growing community of learners.",
+              "All our tutors are registered and vetted. They have signed up to our child protection and safeguarding policy.",
           image: _buildImage('b.jpg'),
+          decoration: pageDecoration,
+        ),
+        PageViewModel(
+          title: "COMPANY SUPPORT",
+          body:
+              "By working with us, you are getting more than a tutor. We support our tutors to offer the best support possible to your child.",
+          image: _buildImage('t.jpg'),
           decoration: pageDecoration,
         ),
       ],

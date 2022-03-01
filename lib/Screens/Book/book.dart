@@ -1270,15 +1270,7 @@ class _EditPageState extends State<BookScreen>
                                     onPressed: () async {
                                       if (avalbledate2.isNotEmpty) {
                                         Cricular();
-                                        await Future.delayed(
-                                            const Duration(seconds: 3));
-                                        bookingeController.ismonday = false;
-                                        bookingeController.istue = false;
-                                        bookingeController.iswen = false;
-                                        bookingeController.isthe = false;
-                                        bookingeController.isfri = false;
-                                        bookingeController.issat = false;
-                                        bookingeController.issun = false;
+                                        clear();
                                       } else {
                                         showDialog(
                                           context: context,
@@ -1543,6 +1535,22 @@ class _EditPageState extends State<BookScreen>
         bookingeController.startdate = selected.day.toString();
       });
     }
+  }
+
+  void clear() async {
+    EasyLoading.show();
+
+    Future.delayed(const Duration(milliseconds: 2000), () {
+// Here you can write your code
+      bookingeController.ismonday = false;
+      bookingeController.istue = false;
+      bookingeController.iswen = false;
+      bookingeController.isthe = false;
+      bookingeController.isfri = false;
+      bookingeController.issat = false;
+      bookingeController.issun = false;
+      EasyLoading.dismiss();
+    });
   }
 }
 
