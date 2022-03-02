@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:addistutor_student/Screens/Book/book.dart';
 import 'package:addistutor_student/Screens/Profile/termsodservice.dart';
 import 'package:addistutor_student/Screens/main/main.dart';
 import 'package:addistutor_student/controller/signupcontroller.dart';
@@ -42,134 +43,189 @@ class _SplashScreenState extends State<Body> {
   bool _isLoggedIn = false;
   late GoogleSignInAccount _userObj;
   GoogleSignIn _googleSignIn = GoogleSignIn();
-
+  bool isChecked = false;
+  bool ispassChecked = false;
+  var confirmpass;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Background(
       child: SingleChildScrollView(
-        child: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              SizedBox(height: size.height * 0.05),
-              const Text(
-                "SIGNUP",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: kPrimaryColor,
-                    fontSize: 23),
+        child: Column(
+          children: <Widget>[
+            SizedBox(height: size.height * 0.05),
+            const Text(
+              "SIGN UP",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: kPrimaryColor,
+                  fontSize: 23),
+            ),
+            ClipRRect(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(8.0),
+                topRight: Radius.circular(8.0),
               ),
-              SizedBox(height: size.height * 0.03),
-              Image(
+              child: Image(
                 image: AssetImage(
                   'assets/images/login.jpg',
                 ),
                 height: size.height * 0.15,
               ),
-              Form(
-                key: _multiSelectKey,
-                child: Column(
-                  children: [
-                    TextFieldContainer(
-                      child: TextFormField(
-                        cursorColor: kPrimaryColor,
-                        autofocus: false,
-                        controller: signupController.fullname,
-                        decoration: const InputDecoration(
-                          icon: Icon(
-                            Icons.person_add,
-                            color: kPrimaryColor,
-                          ),
-                          hintText: "Fullname",
-                          border: InputBorder.none,
+            ),
+            Form(
+              key: _multiSelectKey,
+              child: Column(
+                children: [
+                  TextFieldContainer(
+                    child: TextFormField(
+                      cursorColor: kPrimaryColor,
+                      autofocus: false,
+                      controller: signupController.fullname,
+                      decoration: const InputDecoration(
+                        icon: Icon(
+                          Icons.person_add,
+                          color: kPrimaryColor,
                         ),
-                        validator: (value) {
-                          return signupController.validateName(value!);
-                        },
+                        hintText: "Fullname",
+                        border: InputBorder.none,
                       ),
+                      validator: (value) {
+                        return signupController.validateName(value!);
+                      },
                     ),
-                    TextFieldContainer(
-                      child: TextFormField(
-                        cursorColor: kPrimaryColor,
-                        autofocus: false,
-                        controller: signupController.email,
-                        decoration: const InputDecoration(
-                          icon: Icon(
-                            Icons.email,
-                            color: kPrimaryColor,
-                          ),
-                          hintText: "Email",
-                          border: InputBorder.none,
+                  ),
+                  TextFieldContainer(
+                    child: TextFormField(
+                      cursorColor: kPrimaryColor,
+                      autofocus: false,
+                      controller: signupController.email,
+                      decoration: const InputDecoration(
+                        icon: Icon(
+                          Icons.email,
+                          color: kPrimaryColor,
                         ),
-                        validator: (value) {
-                          return signupController.validateEmail(value!);
-                        },
+                        hintText: "Email",
+                        border: InputBorder.none,
                       ),
+                      validator: (value) {
+                        return signupController.validateEmail(value!);
+                      },
                     ),
-                    TextFieldContainer(
-                      child: TextFormField(
-                        cursorColor: kPrimaryColor,
-                        autofocus: false,
-                        controller: signupController.phone,
-                        decoration: const InputDecoration(
-                          icon: Icon(
-                            Icons.phone,
-                            color: kPrimaryColor,
-                          ),
-                          hintText: "Phone",
-                          border: InputBorder.none,
+                  ),
+                  TextFieldContainer(
+                    child: TextFormField(
+                      cursorColor: kPrimaryColor,
+                      autofocus: false,
+                      controller: signupController.phone,
+                      decoration: const InputDecoration(
+                        icon: Icon(
+                          Icons.phone,
+                          color: kPrimaryColor,
                         ),
-                        keyboardType: TextInputType.number,
-                        inputFormatters: <TextInputFormatter>[
-                          FilteringTextInputFormatter.digitsOnly
-                        ],
-                        validator: (value) {
-                          return signupController.validatephone(value!);
-                        },
+                        hintText: "Phone",
+                        border: InputBorder.none,
                       ),
+                      keyboardType: TextInputType.number,
+                      inputFormatters: <TextInputFormatter>[
+                        FilteringTextInputFormatter.digitsOnly
+                      ],
+                      validator: (value) {
+                        return signupController.validatephone(value!);
+                      },
                     ),
-                    TextFieldContainer(
-                      child: TextFormField(
-                        obscureText:
-                            isPasswordTextField1 ? showPassword1 : false,
-                        cursorColor: kPrimaryColor,
-                        controller: signupController.password,
-                        decoration: InputDecoration(
-                          hintText: "Password",
-                          icon: const Icon(
-                            Icons.lock,
-                            color: kPrimaryColor,
-                          ),
-                          suffixIcon: isPasswordTextField1
-                              ? IconButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      showPassword1 = !showPassword1;
-                                    });
-                                  },
-                                  icon: const Icon(
-                                    Icons.remove_red_eye,
-                                    color: kPrimaryColor,
-                                  ),
-                                )
-                              : null,
-                          contentPadding: const EdgeInsets.all(10),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                color: kPrimaryColor, width: 2.0),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          border: InputBorder.none,
+                  ),
+                  TextFieldContainer(
+                    child: TextFormField(
+                      obscureText: isPasswordTextField1 ? showPassword1 : false,
+                      cursorColor: kPrimaryColor,
+                      controller: signupController.password,
+                      decoration: InputDecoration(
+                        hintText: "Password",
+                        icon: const Icon(
+                          Icons.lock,
+                          color: kPrimaryColor,
                         ),
-                        onSaved: (value) {},
-                        validator: (value) {
-                          return signupController.validateNamep(value!);
-                        },
+                        suffixIcon: isPasswordTextField1
+                            ? IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    showPassword1 = !showPassword1;
+                                  });
+                                },
+                                icon: const Icon(
+                                  Icons.remove_red_eye,
+                                  color: kPrimaryColor,
+                                ),
+                              )
+                            : null,
+                        contentPadding: const EdgeInsets.all(10),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(
+                              color: kPrimaryColor, width: 2.0),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        border: InputBorder.none,
                       ),
+                      onSaved: (value) {},
+                      validator: (value) {
+                        return signupController.validateNamep(value!);
+                      },
+                    ),
+                  ),
+                  TextFieldContainer(
+                    child: TextFormField(
+                      obscureText: isPasswordTextField1 ? showPassword1 : false,
+                      cursorColor: kPrimaryColor,
+                      decoration: InputDecoration(
+                        hintText: "confirm Password",
+                        icon: const Icon(
+                          Icons.lock,
+                          color: kPrimaryColor,
+                        ),
+                        suffixIcon: isPasswordTextField1
+                            ? IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    showPassword1 = !showPassword1;
+                                  });
+                                },
+                                icon: const Icon(
+                                  Icons.remove_red_eye,
+                                  color: kPrimaryColor,
+                                ),
+                              )
+                            : null,
+                        contentPadding: const EdgeInsets.all(10),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(
+                              color: kPrimaryColor, width: 2.0),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        border: InputBorder.none,
+                      ),
+                      onChanged: (values) {
+                        setState(() {
+                          confirmpass = values;
+                        });
+                      },
+                      onSaved: (value) {},
+                      validator: (value) {
+                        return signupController.validateNamep(value!);
+                      },
+                    ),
+                  ),
+                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                    Checkbox(
+                      value: isChecked,
+                      onChanged: (value) {
+                        setState(() {
+                          isChecked = value!;
+                        });
+                      },
                     ),
                     Container(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 45,
                         vertical: 16,
                       ),
                       alignment: Alignment.center,
@@ -177,29 +233,8 @@ class _SplashScreenState extends State<Body> {
                         text: TextSpan(
                             style: const TextStyle(color: Colors.grey),
                             children: [
-                              const TextSpan(
-                                  text:
-                                      'By tapping Register you acknowledge that you have read the'),
                               TextSpan(
-                                text: ' Privacy policy',
-                                style: const TextStyle(
-                                  color: kPrimaryColor,
-                                ),
-                                recognizer: TapGestureRecognizer()
-                                  ..onTap = () {
-                                    // Navigator.push(
-                                    //   context,
-                                    //   PageRouteBuilder(
-                                    //     pageBuilder: (context, animation1, animation2) {
-                                    //       return const Privacypolicy();
-                                    //     },
-                                    //   ),
-                                    // );
-                                  },
-                              ),
-                              const TextSpan(text: ' and agree to the'),
-                              TextSpan(
-                                text: ' Term of Service',
+                                text: 'I agree with Term of Service',
                                 style: const TextStyle(
                                   color: kPrimaryColor,
                                 ),
@@ -219,121 +254,175 @@ class _SplashScreenState extends State<Body> {
                             ]),
                       ),
                     ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 30),
-                      // ignore: deprecated_member_use
-                      child: FlatButton(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(36),
-                        ),
-                        color: kPrimaryColor,
-                        onPressed: () {
-                          if (_multiSelectKey.currentState!.validate()) {
-                            register();
+                  ]),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 30),
+                    // ignore: deprecated_member_use
+                    child: FlatButton(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(36),
+                      ),
+                      color: kPrimaryColor,
+                      onPressed: () {
+                        print(signupController.password.text);
+                        print(confirmpass);
+                        if (signupController.password.text == confirmpass) {
+                          setState(() {
+                            ispassChecked = true;
+                            print("true");
+                          });
+                        } else {
+                          setState(() {
+                            ispassChecked = false;
+                            print("false");
+                          });
+                        }
+                        if (_multiSelectKey.currentState!.validate()) {
+                          if (ispassChecked == true) {
+                            isChecked
+                                ? register()
+                                : showDialog(
+                                    context: context,
+                                    builder: (context) => AlertDialog(
+                                      title: const Text('Error'),
+                                      content: const Text(
+                                          "please cheak Term of Service"),
+                                      actions: <Widget>[
+                                        // ignore: deprecated_member_use
+                                        FlatButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop(true);
+                                            setState(() {
+                                              isLoading = false;
+                                            });
+                                          },
+                                          child: const Text('ok'),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                          } else {
+                            showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                title: const Text('Error'),
+                                content: const Text("passowrd don't match"),
+                                actions: <Widget>[
+                                  // ignore: deprecated_member_use
+                                  FlatButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop(true);
+                                      setState(() {
+                                        isLoading = false;
+                                      });
+                                    },
+                                    child: const Text('ok'),
+                                  ),
+                                ],
+                              ),
+                            );
                           }
-
-                          // Navigator.push(
-                          //   context,
-                          //   PageRouteBuilder(
-                          //     pageBuilder: (context, animation1, animation2) {
-                          //       return Suggested();
-                          //     },
-                          //   ),
-                          // );
-                        },
-                        child: Container(
-                          width: double.infinity,
-                          padding: const EdgeInsets.symmetric(vertical: 16),
-                          alignment: Alignment.center,
-                          child: isLoading == false
-                              ? const Text(
-                                  'Register',
-                                  style: TextStyle(
+                        }
+                      },
+                      child: Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        alignment: Alignment.center,
+                        child: isLoading == false
+                            ? const Text(
+                                'Register',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                              )
+                            : const SizedBox(
+                                height: 20,
+                                width: 20,
+                                child: Center(
+                                  child: CircularProgressIndicator(
                                     color: Colors.white,
                                   ),
-                                )
-                              : const SizedBox(
-                                  height: 20,
-                                  width: 20,
-                                  child: Center(
-                                    child: CircularProgressIndicator(
-                                      color: Colors.white,
-                                    ),
-                                  ),
                                 ),
-                        ),
+                              ),
                       ),
-                    )
-                  ],
-                ),
-              ),
-              SizedBox(height: size.height * 0.03),
-              AlreadyHaveAnAccountCheck(
-                login: false,
-                press: () {
-                  Navigator.push(
-                    context,
-                    PageRouteBuilder(
-                      pageBuilder: (context, animation1, animation2) {
-                        return const LoginScreen();
-                      },
                     ),
-                  );
-                },
+                  )
+                ],
               ),
-              const OrDivider(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  SocalIcon(
-                    iconSrc: "assets/icons/google-plus.svg",
-                    press: () {
-                      _googleSignIn.signIn().then((userData) {
-                        setState(() {
-                          _isLoggedIn = true;
-                          _userObj = userData!;
-                        });
-
-                        signupController.email.text = _userObj.email;
-                        signupController.fullname.text = _userObj.displayName!;
-
-                        if (_isLoggedIn) {
-                          registerbygoogle();
-                        }
-
-                        // register();
-                      }).catchError((e) {
-                        _googleSignIn.signOut().then((value) {
-                          setState(() {
-                            _isLoggedIn = false;
-                          });
-                        }).catchError((e) {});
-                        // showDialog(
-                        //   context: context,
-                        //   builder: (context) => AlertDialog(
-                        //     title: const Text('Error'),
-                        //     content: Text(e.toString()),
-                        //     actions: <Widget>[
-                        //       // ignore: deprecated_member_use
-                        //       FlatButton(
-                        //         onPressed: () {
-                        //           Navigator.of(context).pop(true);
-                        //           setState(() {
-                        //             isLoading = false;
-                        //           });
-                        //         },
-                        //         child: const Text('ok'),
-                        //       ),
-                        //     ],
-                        //   ),
-                        // );
-                      });
+            ),
+            SizedBox(height: size.height * 0.03),
+            AlreadyHaveAnAccountCheck(
+              login: false,
+              press: () {
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation1, animation2) {
+                      return const LoginScreen();
                     },
                   ),
-                ],
-              )
-            ],
-          ),
+                );
+              },
+            ),
+            const OrDivider(),
+            const Text(
+              "Sign up with Google ? ",
+              style: TextStyle(color: kPrimaryColor),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                SocalIcon(
+                  iconSrc: "assets/icons/google-plus.svg",
+                  press: () {
+                    _googleSignIn.signIn().then((userData) {
+                      setState(() {
+                        _isLoggedIn = true;
+                        _userObj = userData!;
+                      });
+
+                      signupController.email.text = _userObj.email;
+                      signupController.fullname.text = _userObj.displayName!;
+
+                      if (_isLoggedIn) {
+                        registerbygoogle();
+                      }
+
+                      // register();
+                    }).catchError((e) {
+                      _googleSignIn.signOut().then((value) {
+                        setState(() {
+                          _isLoggedIn = false;
+                        });
+                      }).catchError((e) {});
+                      // showDialog(
+                      //   context: context,
+                      //   builder: (context) => AlertDialog(
+                      //     title: const Text('Error'),
+                      //     content: Text(e.toString()),
+                      //     actions: <Widget>[
+                      //       // ignore: deprecated_member_use
+                      //       FlatButton(
+                      //         onPressed: () {
+                      //           Navigator.of(context).pop(true);
+                      //           setState(() {
+                      //             isLoading = false;
+                      //           });
+                      //         },
+                      //         child: const Text('ok'),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // );
+                    });
+                  },
+                ),
+              ],
+            )
+          ],
         ),
       ),
     );

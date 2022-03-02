@@ -102,7 +102,15 @@ class _CategoryListViewState extends State<CategoryListView>
                         );
                       } else {
                         return const Center(
-                          child: CircularProgressIndicator(),
+                          child: Text(
+                            'No Recommended Tutor found',
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black,
+                              fontFamily: 'WorkSans',
+                            ),
+                          ),
                         );
                       }
                     })),
@@ -455,6 +463,6 @@ class CategoryView extends StatelessWidget {
               );
             },
           )
-        : const Center(child: CircularProgressIndicator()));
+        : Center(child: CircularProgressIndicator()));
   }
 }

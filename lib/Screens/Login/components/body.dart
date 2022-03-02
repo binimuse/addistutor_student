@@ -420,7 +420,7 @@ class _LoginScreenState extends State<Body> {
             context: context,
             builder: (context) => AlertDialog(
               title: const Text('info'),
-              content: const Text("Update your profile to continue"),
+              content: const Text("To continue finsh your profile"),
               actions: <Widget>[
                 FlatButton(
                   onPressed: () {

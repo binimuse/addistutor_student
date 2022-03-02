@@ -98,7 +98,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
           title: "SAFETY",
           body:
               "All our tutors are registered and vetted. They have signed up to our child protection and safeguarding policy.",
-          image: _buildImage('b.jpg'),
+          image: _buildImage('edi.jpg'),
           decoration: pageDecoration,
         ),
         PageViewModel(

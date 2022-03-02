@@ -485,7 +485,7 @@ class _EditPageState extends State<EditPage> {
                         height: 20,
                       ),
                       const Text(
-                        'Select BirthDate',
+                        'Select Date Of birth',
                         style: TextStyle(color: Colors.black38),
                       ),
                       OutlineButton(
@@ -693,8 +693,8 @@ class _EditPageState extends State<EditPage> {
     final DateTime? pickedDate = await showDatePicker(
         context: context,
         initialDate: currentDate,
-        firstDate: DateTime(2015),
-        lastDate: DateTime(2050));
+        firstDate: DateTime(1990),
+        lastDate: currentDate);
     if (pickedDate != null && pickedDate != currentDate) {
       setState(() {
         currentDate = pickedDate;

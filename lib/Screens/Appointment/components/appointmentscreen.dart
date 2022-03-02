@@ -130,7 +130,7 @@ class _HomePageState extends State<Appointment>
                               child: Padding(
                               padding: const EdgeInsets.only(top: 406),
                               child: Column(children: [
-                                CircularProgressIndicator(),
+                                //  CircularProgressIndicator(),
                                 Center(child: Text("No Booked Tutors"))
                               ]),
                             )))
@@ -579,7 +579,7 @@ class _HomePageState extends State<Appointment>
                           ),
                         )
                       : Text(
-                          "" + ' birr',
+                          "0" + ' birr',
                           textAlign: TextAlign.left,
                           style: TextStyle(
                             fontWeight: FontWeight.w700,
