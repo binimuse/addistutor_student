@@ -23,16 +23,24 @@ class Body extends StatelessWidget {
             const Text(
               "Welcome to NextGen",
               style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: kPrimaryColor,
-                  fontSize: 23),
+                fontSize: 25.0,
+                fontFamily: 'WorkSans',
+                fontWeight: FontWeight.bold,
+                letterSpacing: 0.4,
+                height: 0.9,
+                color: kPrimaryColor,
+              ),
             ),
             const Text(
               "Student Applicaion",
               style: TextStyle(
-                  fontWeight: FontWeight.normal,
-                  color: Colors.black54,
-                  fontSize: 20),
+                fontSize: 15.0,
+                fontFamily: 'Roboto',
+                fontWeight: FontWeight.normal,
+                letterSpacing: 0.4,
+                height: 0.9,
+                color: kPrimaryColor,
+              ),
             ),
             SizedBox(height: size.height * 0.05),
             Image(
@@ -43,7 +51,7 @@ class Body extends StatelessWidget {
             ),
             SizedBox(height: size.height * 0.05),
             RoundedButton(
-              text: "LOGIN",
+              text: "Login",
               press: () {
                 Navigator.push(
                   context,
@@ -56,7 +64,7 @@ class Body extends StatelessWidget {
               },
             ),
             RoundedButton(
-              text: "SIGN UP",
+              text: "Register",
               color: kPrimaryLightColor,
               textColor: Colors.black,
               press: () {

@@ -8,6 +8,7 @@ import 'package:addistutor_student/Screens/Home/components/design_course_app_the
 import 'package:addistutor_student/constants.dart';
 import 'package:addistutor_student/controller/editprofilecontroller.dart';
 import 'package:addistutor_student/controller/getlocationcontroller.dart';
+import 'package:addistutor_student/controller/signupcontroller.dart';
 import 'package:addistutor_student/remote_services/user.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter/material.dart';
@@ -41,6 +42,8 @@ class _EditPageState extends State<EditPage> {
 
   final EditprofileController editprofileController =
       Get.put(EditprofileController());
+
+  final SignupController signupController = Get.put(SignupController());
 
   GetLocationController getLocationController =
       Get.put(GetLocationController());

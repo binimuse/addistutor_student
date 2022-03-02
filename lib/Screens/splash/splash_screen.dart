@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:addistutor_student/Screens/Login/components/background.dart';
 import 'package:addistutor_student/Screens/Progress/progress.dart';
 import 'package:addistutor_student/Screens/main/main.dart';
 import 'package:addistutor_student/controller/geteducationlevelcontroller.dart';
@@ -33,7 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
-    var d = const Duration(seconds: 3);
+    var d = const Duration(seconds: 5);
     // delayed 3 seconds to next page
     Future.delayed(d, () {
       //to next page and close this page
@@ -105,18 +106,13 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Scaffold(
-        body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Container(
-            decoration: const BoxDecoration(),
-            child: Center(
-              child: Image.asset(
-                'assets/images/lg3.png',
-                height: 200,
-                width: 260,
-              ),
-            ),
+    return Background(
+      child: SingleChildScrollView(
+        child: Column(children: [
+          Image.asset(
+            'assets/images/lg3.png',
+            height: 150,
+            width: 360,
           ),
           const Text(
             "One-on-One Tutorial Service ",

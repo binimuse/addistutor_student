@@ -61,7 +61,7 @@ class _LoginScreenState extends State<Body> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               const Text(
-                "LOGIN",
+                "Login",
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: kPrimaryColor,
@@ -71,9 +71,9 @@ class _LoginScreenState extends State<Body> {
 
               Image(
                 image: const AssetImage(
-                  'assets/images/login.jpg',
+                  'assets/images/t.jpg',
                 ),
-                height: size.height * 0.25,
+                height: size.height * 0.20,
               ),
               SizedBox(height: size.height * 0.03),
               TextFieldContainer(
