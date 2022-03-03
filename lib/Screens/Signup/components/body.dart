@@ -264,17 +264,13 @@ class _SplashScreenState extends State<Body> {
                       ),
                       color: kPrimaryColor,
                       onPressed: () {
-                        print(signupController.password.text);
-                        print(confirmpass);
                         if (signupController.password.text == confirmpass) {
                           setState(() {
                             ispassChecked = true;
-                            print("true");
                           });
                         } else {
                           setState(() {
                             ispassChecked = false;
-                            print("false");
                           });
                         }
                         if (_multiSelectKey.currentState!.validate()) {

@@ -180,9 +180,9 @@ class _ProfilePageState extends State<ProfileS> {
                       children: <Widget>[
                         ProfileHeader(
                           avatar: NetworkImage(
-                              "https://tutor.oddatech.com/api/student-profile-picture/$ids"),
+                              "https://nextgeneducation.et/api/student-profile-picture/$ids"),
                           coverImage: NetworkImage(
-                              "https://tutor.oddatech.com/api/student-profile-picture/$ids"),
+                              "https://nextgeneducation.et/api/student-profile-picture/$ids"),
                           title: editprofileController.firstname.text
                                   .toString() +
                               " " +
@@ -302,7 +302,7 @@ class _ProfilePageState extends State<ProfileS> {
   final Color divider = Colors.grey.shade600;
   _buildDrawer(BuildContext context, String fname, String lastname, ids) {
     final String image =
-        "https://tutor.oddatech.com/api/student-profile-picture/$ids";
+        "https://nextgeneducation.et/api/student-profile-picture/$ids";
 
     return ClipPath(
       clipper: OvalRightBorderClipper(),

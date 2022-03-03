@@ -35,7 +35,7 @@ class HotelListView extends StatelessWidget {
                   AspectRatio(
                     aspectRatio: 2,
                     child: Image.network(
-                      "https://tutor.oddatech.com/api/teacher-profile-picture/${hotelData!.id}",
+                      "https://nextgeneducation.et/api/teacher-profile-picture/${hotelData!.id}",
                       fit: BoxFit.cover,
                     ),
                   ),

@@ -99,7 +99,19 @@ class _PopularCourseListViewState extends State<PopularCourseListView>
               },
             ),
           )
-        : const Center(child: CircularProgressIndicator()));
+        : const Center(
+            child: Text(
+              'No Popular tutor found',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontWeight: FontWeight.normal,
+                fontSize: 12,
+                fontFamily: 'Roboto',
+                letterSpacing: 0.27,
+                color: DesignCourseAppTheme.darkerText,
+              ),
+            ),
+          ));
   }
 }
 
@@ -288,7 +300,7 @@ class CategoryView extends StatelessWidget {
                           image: DecorationImage(
                               fit: BoxFit.cover,
                               image: NetworkImage(
-                                  "https://tutor.oddatech.com/api/teacher-profile-picture/${category!.id}"))),
+                                  "https://nextgeneducation.et/api/teacher-profile-picture/${category!.id}"))),
                     ),
                   ],
                 ),

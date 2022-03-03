@@ -321,7 +321,7 @@ class _HomePageState extends State<Appointment>
                                         image: DecorationImage(
                                             fit: BoxFit.contain,
                                             image: NetworkImage(
-                                                "https://tutor.oddatech.com/api/teacher-profile-picture/${chat.teacher.id}"))),
+                                                "https://nextgeneducation.et/api/teacher-profile-picture/${chat.teacher.id}"))),
                                   ),
                                 ],
                               ),

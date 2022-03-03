@@ -266,7 +266,7 @@ class _EditPageState extends State<BookScreen>
                                   image: DecorationImage(
                                       fit: BoxFit.contain,
                                       image: NetworkImage(
-                                          "https://tutor.oddatech.com/api/student-profile-picture/${ids}"))),
+                                          "https://nextgeneducation.et/api/student-profile-picture/${ids}"))),
                             ),
                             const SizedBox(
                               width: 15,
