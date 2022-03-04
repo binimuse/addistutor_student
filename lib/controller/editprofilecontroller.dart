@@ -338,8 +338,6 @@ class EditprofileController extends GetxController with StateMixin {
     var uploaded = await RemoteServices.uploadImage(image, ids.toString());
 
     if (uploaded) {
-      print("locatiooooooooooon");
-      print(locaionid);
       var data = {
         "is_parent": is_parent.value,
         "parent_first_name": parent_first_name.text,
@@ -394,85 +392,6 @@ class EditprofileController extends GetxController with StateMixin {
     }
   }
 
-  // openAndCloseLoadingDialog() {
-
-  // }
-
-  // closeDialog(bool stat, String data, BuildContext context) {
-  //   Future.delayed(const Duration(seconds: 1));
-  //   // Dismiss CircularProgressIndicator
-  //   Navigator.of(context).pop();
-  //   if (stat == false) {
-  //     scaffoldKey.currentState!
-  //         .showSnackBar(const SnackBar(content: Text("profile Not Edited")));
-  //   } else {
-  //     // ignore: deprecated_member_use
-
-  //     showDialog(
-  //       context: context,
-  //       builder: (context) => AlertDialog(
-  //         title: const Text(
-  //           'profile Edited',
-  //           style: TextStyle(
-  //             fontSize: 13,
-  //             fontWeight: FontWeight.w500,
-  //             color: Colors.black,
-  //             fontFamily: 'WorkSans',
-  //           ),
-  //         ),
-  //         content: const Text(
-  //           'if its your first time updating your profile you will me redirected to login',
-  //           style: TextStyle(
-  //             fontSize: 13,
-  //             fontWeight: FontWeight.w500,
-  //             color: Colors.black,
-  //             fontFamily: 'WorkSans',
-  //           ),
-  //         ),
-  //         actions: <Widget>[
-  //           // ignore: deprecated_member_use
-  //           FlatButton(
-  //             onPressed: () async {
-  //               isLoading(false);
-  //               Navigator.of(context).pop(true);
-
-  //               SharedPreferences localStorage =
-  //                   await SharedPreferences.getInstance();
-  //               localStorage.setBool('isupdated', true);
-
-  //               var token = localStorage.getString('user');
-
-  //               if (token != null) {
-  //                 body = json.decode(token);
-
-  //                 if (body["student_id"] != null) {
-  //                   Navigator.pop(context);
-  //                   isLoading(false);
-  //                   //    openAndCloseLoadingDialog(context);
-  //                   print("yess");
-  //                 } else {
-  //                   isLoading(false);
-
-  //                   Navigator.push(
-  //                     context,
-  //                     PageRouteBuilder(
-  //                       pageBuilder: (context, animation1, animation2) {
-  //                         return const LoginScreen();
-  //                       },
-  //                     ),
-  //                   );
-  //                 }
-  //               }
-  //             },
-  //             child: const Text('ok'),
-  //           ),
-  //         ],
-  //       ),
-  //     );
-  //     editstudentid(context);
-  //   }
-  // }
-
   closeDialog(bool stat, String data, BuildContext context) async {
     Future.delayed(const Duration(seconds: 1));
     var body;
@@ -495,8 +414,10 @@ class EditprofileController extends GetxController with StateMixin {
           actions: <Widget>[
             FlatButton(
               onPressed: () async {
-                isLoading(false);
                 Navigator.of(context).pop(true);
+
+                Navigator.pop(context);
+                isLoading(false);
               },
               child: const Text('ok'),
             ),
@@ -636,6 +557,13 @@ class EditprofileController extends GetxController with StateMixin {
   String? validateNamep(String value) {
     if (value.isEmpty) {
       return "please Provide a Password";
+    }
+    return null;
+  }
+
+  String? validateNameaboutme(String value) {
+    if (value.length < 150) {
+      return "About me must be at least 150 character";
     }
     return null;
   }

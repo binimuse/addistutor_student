@@ -497,10 +497,10 @@ class _EditPageState extends State<EditPage> {
                       DropdownButton<String>(
                         value: editprofileController.macthgender.value,
                         isExpanded: true,
-                        style: const TextStyle(
-                            color: Colors.black,
+                        style: TextStyle(
+                            color: DesignCourseAppTheme.nearlyBlack,
                             fontSize: 16,
-                            fontWeight: FontWeight.w700),
+                            fontWeight: FontWeight.w300),
                         items: <String>[
                           '',
                           'male',
@@ -511,9 +511,9 @@ class _EditPageState extends State<EditPage> {
                             child: Text(
                               value,
                               style: const TextStyle(
-                                  color: Colors.black,
+                                  color: DesignCourseAppTheme.nearlyBlack,
                                   fontSize: 16,
-                                  fontWeight: FontWeight.w700),
+                                  fontWeight: FontWeight.w300),
                             ),
                           );
                         }).toList(),
@@ -540,14 +540,15 @@ class _EditPageState extends State<EditPage> {
                         color: kPrimaryLightColor,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20)),
+                        highlightColor: kPrimaryColor,
                         onPressed: () {
                           _selectDate(context);
                         },
                         child: Text(editprofileController.date.toString(),
                             style: const TextStyle(
-                                fontSize: 14,
-                                letterSpacing: 2.2,
-                                color: Colors.black)),
+                                color: DesignCourseAppTheme.nearlyBlack,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w300)),
                       ),
                       const SizedBox(
                         height: 15,
@@ -573,9 +574,9 @@ class _EditPageState extends State<EditPage> {
                             ),
                             isExpanded: true,
                             style: const TextStyle(
-                                color: Colors.black,
+                                color: DesignCourseAppTheme.nearlyBlack,
                                 fontSize: 16,
-                                fontWeight: FontWeight.w700),
+                                fontWeight: FontWeight.w300),
                             items: location
                                 .map((e) => DropdownMenuItem(
                                       child: Text(
@@ -687,9 +688,9 @@ class _EditPageState extends State<EditPage> {
                             child: Text(
                               value,
                               style: const TextStyle(
-                                  color: Colors.black,
+                                  color: DesignCourseAppTheme.nearlyBlack,
                                   fontSize: 16,
-                                  fontWeight: FontWeight.w700),
+                                  fontWeight: FontWeight.w300),
                             ),
                           );
                         }).toList(),
@@ -705,26 +706,30 @@ class _EditPageState extends State<EditPage> {
                       Padding(
                         padding: const EdgeInsets.only(bottom: 35.0),
                         child: TextFormField(
+                          keyboardType: TextInputType.multiline,
+                          textInputAction: TextInputAction.newline,
                           controller: editprofileController.About,
+                          maxLength: 150,
                           decoration: const InputDecoration(
-                              contentPadding: EdgeInsets.only(bottom: 3),
-                              labelText: "About Me",
-                              labelStyle: TextStyle(
-                                fontSize: 17,
-                                fontWeight: FontWeight.w700,
-                                color: kPrimaryColor,
-                                fontFamily: 'WorkSans',
-                              ),
-                              focusColor: kPrimaryColor,
-                              fillColor: kPrimaryColor,
-                              hintText: "Describe yourself",
-                              hintStyle: TextStyle(
+                            contentPadding: EdgeInsets.only(bottom: 3),
+                            labelText: "About Me",
+                            labelStyle: TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.w700,
+                              color: kPrimaryColor,
+                              fontFamily: 'WorkSans',
+                            ),
+                            focusColor: kPrimaryColor,
+                            fillColor: kPrimaryColor,
+                            hintText: "Describe yourself",
+                            hintStyle: TextStyle(
+                                color: DesignCourseAppTheme.nearlyBlack,
                                 fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                              )),
+                                fontWeight: FontWeight.w300),
+                          ),
                           validator: (value) {
-                            return editprofileController.validateName(value!);
+                            return editprofileController
+                                .validateNameaboutme(value!);
                           },
                         ),
                       ),

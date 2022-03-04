@@ -103,12 +103,11 @@ class GetLocation {
 
   String name;
   String description;
-  //List<Locations> locaion;
+
   GetLocation({
     required this.id,
     required this.name,
     required this.description,
-    //  required this.locaion,
   });
 
   factory GetLocation.fromJson(Map<String, dynamic> json) {
