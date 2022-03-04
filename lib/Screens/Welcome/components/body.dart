@@ -21,7 +21,7 @@ class Body extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
-              "Welcome to NextGen",
+              "WELCOME TO NEXTGEN",
               style: TextStyle(
                 fontSize: 25.0,
                 fontFamily: 'WorkSans',
@@ -39,7 +39,7 @@ class Body extends StatelessWidget {
                 fontWeight: FontWeight.normal,
                 letterSpacing: 0.4,
                 height: 0.9,
-                color: kPrimaryColor,
+                color: kPrimaryLightColor,
               ),
             ),
             SizedBox(height: size.height * 0.05),

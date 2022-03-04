@@ -53,16 +53,62 @@ class Student {
   }
 }
 
-class GetLocation {
+class Locations {
   int id;
 
   String name;
   String description;
 
+  Locations({
+    required this.id,
+    required this.name,
+    required this.description,
+  });
+
+  factory Locations.fromJson(Map<String, dynamic> json) {
+    return Locations(
+      id: json["id"],
+      name: json["name"],
+      description: json["description"],
+    );
+  }
+}
+
+class GetLocationforedit {
+  int id;
+
+  String name;
+  String description;
+  List<Locations> locaion;
+  GetLocationforedit({
+    required this.id,
+    required this.name,
+    required this.description,
+    required this.locaion,
+  });
+
+  factory GetLocationforedit.fromJson(Map<String, dynamic> json) {
+    return GetLocationforedit(
+      id: json["id"] as int,
+      name: json["name"],
+      description: json["description"],
+      locaion: List<Locations>.from(
+          json["locations"].map((x) => Locations.fromJson(x))),
+    );
+  }
+}
+
+class GetLocation {
+  int id;
+
+  String name;
+  String description;
+  //List<Locations> locaion;
   GetLocation({
     required this.id,
     required this.name,
     required this.description,
+    //  required this.locaion,
   });
 
   factory GetLocation.fromJson(Map<String, dynamic> json) {
@@ -153,8 +199,8 @@ class Search {
   String profile_img;
   String teaching_since;
   GetLocation location;
-  Qualification qualification_id;
-  List<GetSubject> preferred_tutoring_subjects;
+  // Qualification qualification_id;
+//  List<GetSubject> preferred_tutoring_subjects;
   GetSubject subject_id;
 
   Search({
@@ -172,8 +218,8 @@ class Search {
     required this.profile_img,
     required this.teaching_since,
     required this.location,
-    required this.qualification_id,
-    required this.preferred_tutoring_subjects,
+    //  required this.qualification_id,
+    //  required this.preferred_tutoring_subjects,
     required this.subject_id,
   });
 
@@ -193,15 +239,9 @@ class Search {
       teaching_since: json["teaching_since"],
       location_id: json["location_id"],
       location: GetLocation.fromJson(json["location"]),
-      qualification_id: Qualification.fromJson(
-        json["qualification_id"],
-      ),
       subject_id: GetSubject.fromJson(
         json["subject_id"],
       ),
-      preferred_tutoring_subjects: List<GetSubject>.from(
-          json["preferred_tutoring_subjects"]
-              .map((x) => GetSubject.fromJson(x))),
     );
   }
 }

@@ -124,8 +124,7 @@ class _CourseInfoScreenState extends State<SinglebookingPage>
                       children: <Widget>[
                         AspectRatio(
                           aspectRatio: 1.2,
-                          child: Image.asset(
-                              'assets/design_course/webInterFace.png'),
+                          child: Image.asset('assets/images/t.jpg'),
                         ),
                       ],
                     ),
@@ -364,7 +363,7 @@ class _CourseInfoScreenState extends State<SinglebookingPage>
                               child: ClipRRect(
                                   borderRadius: BorderRadius.circular(18.0),
                                   child: Image.network(
-                                    "https://nextgeneducation.et/api/teacher-profile-picture/${requestedBooking.tid}",
+                                    "https://tutor.oddatech.com/api/teacher-profile-picture/${requestedBooking.tid}",
                                   )),
                             ))),
                     Padding(

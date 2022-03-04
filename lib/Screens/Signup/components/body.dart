@@ -217,6 +217,8 @@ class _SplashScreenState extends State<Body> {
                   ),
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                     Checkbox(
+                      activeColor: kPrimaryColor,
+                      checkColor: kPrimaryLightColor,
                       value: isChecked,
                       onChanged: (value) {
                         setState(() {
@@ -234,7 +236,7 @@ class _SplashScreenState extends State<Body> {
                             style: const TextStyle(color: Colors.grey),
                             children: [
                               TextSpan(
-                                text: 'I agree with Term of Service',
+                                text: 'I agree with Terms of Service',
                                 style: const TextStyle(
                                   color: kPrimaryColor,
                                 ),
@@ -650,7 +652,7 @@ class _SplashScreenState extends State<Body> {
                   Navigator.push<dynamic>(
                     context,
                     MaterialPageRoute<dynamic>(
-                      builder: (BuildContext context) => const Main(),
+                      builder: (BuildContext context) => const Mainscrren(),
                     ),
                   );
                 },

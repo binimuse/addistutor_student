@@ -76,7 +76,7 @@ class _LoginScreenState extends State<Body> {
                 ),
                 height: size.height * 0.20,
               ),
-              SizedBox(height: size.height * 0.03),
+
               TextFieldContainer(
                 child: TextFormField(
                   controller: emailcon,
@@ -275,25 +275,6 @@ class _LoginScreenState extends State<Body> {
                             _isLoggedIn = false;
                           });
                         }).catchError((e) {});
-                        showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                            title: const Text('Error'),
-                            content: Text(e.toString()),
-                            actions: <Widget>[
-                              // ignore: deprecated_member_use
-                              FlatButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop(true);
-                                  setState(() {
-                                    isLoading = false;
-                                  });
-                                },
-                                child: const Text('ok'),
-                              ),
-                            ],
-                          ),
-                        );
                       });
                     },
                   ),
@@ -334,7 +315,7 @@ class _LoginScreenState extends State<Body> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const Main(),
+            builder: (context) => const Mainscrren(),
           ),
         );
       }
@@ -450,14 +431,11 @@ class _LoginScreenState extends State<Body> {
             ),
           );
         } else {
-          Navigator.pushAndRemoveUntil(
+          Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const Scaffold(
-                body: Appointment(),
-              ),
+              builder: (context) => const Mainscrren(),
             ),
-            (route) => false,
           );
         }
 
@@ -491,7 +469,7 @@ class _LoginScreenState extends State<Body> {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: const Text('info'),
+          title: const Text('incorrect Email or password '),
           content: Text(body["message"]),
           actions: <Widget>[
             FlatButton(

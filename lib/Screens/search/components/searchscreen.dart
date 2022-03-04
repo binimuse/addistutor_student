@@ -42,7 +42,7 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
   AnimationController? animationController;
   List<HotelListData> hotelList = HotelListData.hotelList;
   final ScrollController _scrollController = ScrollController();
-  SearchController searchController = Get.find();
+  SearchController searchController = Get.put(SearchController());
 
   GetEducationlevelController getEducationlevelController = Get.find();
   GetSubjectController getSubjectController = Get.find();

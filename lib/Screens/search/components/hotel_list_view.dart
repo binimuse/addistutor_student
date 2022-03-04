@@ -35,7 +35,7 @@ class HotelListView extends StatelessWidget {
                   AspectRatio(
                     aspectRatio: 2,
                     child: Image.network(
-                      "https://nextgeneducation.et/api/teacher-profile-picture/${hotelData!.id}",
+                      "https://tutor.oddatech.com/api/teacher-profile-picture/${hotelData!.id}",
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -102,14 +102,14 @@ class HotelListView extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: <Widget>[
-                              Text(
-                                '${hotelData!.qualification_id.title} ',
-                                textAlign: TextAlign.left,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 12,
-                                ),
-                              ),
+                              // Text(
+                              //   '${hotelData!.qualification_id.title} ',
+                              //   textAlign: TextAlign.left,
+                              //   style: const TextStyle(
+                              //     fontWeight: FontWeight.w600,
+                              //     fontSize: 12,
+                              //   ),
+                              // ),
                               Row(children: [
                                 Text(
                                   '${hotelData!.rating} ',

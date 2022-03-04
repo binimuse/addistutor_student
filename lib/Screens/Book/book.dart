@@ -120,7 +120,7 @@ class _EditPageState extends State<BookScreen>
     super.deactivate();
   }
 
-  final WalletContoller walletContoller = Get.put(WalletContoller());
+  final WalletContoller walletContoller = Get.find();
   final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
 
@@ -151,12 +151,12 @@ class _EditPageState extends State<BookScreen>
     _refreshController.loadComplete();
   }
 
-  final EditprofileController editprofileController =
-      Get.put(EditprofileController());
+  final EditprofileController editprofileController = Get.find();
   String date = "";
   var totalprice;
 
   DateTime selectedDate = DateTime.now();
+  DateTime now = DateTime.now();
   List<GetSubject> subject = [];
   _getsubject() {
     getSubjectController.fetchLocation(" ");
@@ -172,6 +172,7 @@ class _EditPageState extends State<BookScreen>
 
   var ids;
   void _fetchUser() async {
+    await Future.delayed(const Duration(seconds: 1));
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     var token = localStorage.getString('user');
 
@@ -183,8 +184,8 @@ class _EditPageState extends State<BookScreen>
           ids = int.parse(body["student_id"]);
           walletContoller.getbalance(ids);
           //  walletContoller.gettransaction(ids);
+          editprofileController.fetchPf(int.parse(body["student_id"]));
         });
-        editprofileController.fetchPf(int.parse(body["student_id"]));
       } else {
         var noid = "noid";
       }
@@ -266,7 +267,7 @@ class _EditPageState extends State<BookScreen>
                                   image: DecorationImage(
                                       fit: BoxFit.contain,
                                       image: NetworkImage(
-                                          "https://nextgeneducation.et/api/student-profile-picture/${ids}"))),
+                                          "https://tutor.oddatech.com/api/student-profile-picture/${ids}"))),
                             ),
                             const SizedBox(
                               width: 15,
@@ -280,7 +281,7 @@ class _EditPageState extends State<BookScreen>
                                   fontWeight: FontWeight.w700),
                             ),
                             Text(
-                              editprofileController.firstname.text.toString() +
+                              editprofileController.firstname.text +
                                   " " +
                                   editprofileController.lastname.text
                                       .toString(),
@@ -1519,7 +1520,7 @@ class _EditPageState extends State<BookScreen>
     final DateTime? selected = await showDatePicker(
         context: context,
         initialDate: selectedDate,
-        firstDate: DateTime(selectedDate.day),
+        firstDate: now,
         lastDate: DateTime(2025),
         helpText: "Select Tutor starting date",
         cancelText: "NOT NOW",
@@ -1532,7 +1533,7 @@ class _EditPageState extends State<BookScreen>
     if (selected != null && selected != selectedDate) {
       setState(() {
         selectedDate = selected;
-        bookingeController.startdate = selected.day.toString();
+        bookingeController.startdate = selected.toString();
       });
     }
   }

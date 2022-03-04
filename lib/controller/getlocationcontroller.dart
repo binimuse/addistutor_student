@@ -4,11 +4,12 @@ import 'package:addistutor_student/remote_services/service.dart';
 
 class GetLocationController extends GetxController with StateMixin {
   var listlocation = <GetLocation>[].obs;
+  var listlocationforedit = <GetLocationforedit>[].obs;
   var isfetchedlocation = false.obs;
   var sent = false.obs;
   GetLocation? location;
   void fetchLocation() async {
-    listlocation.value = await RemoteServices.getlocation();
+    listlocationforedit.value = await RemoteServices.getlocationforedit();
 
     if (listlocation.isNotEmpty) {
       //print(list.length.toString());

@@ -66,7 +66,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
   @override
   Widget build(BuildContext context) {
     final double tempHeight = MediaQuery.of(context).size.height -
-        (MediaQuery.of(context).size.width / 1.2) +
+        (MediaQuery.of(context).size.width / 2.2) +
         75.0;
     return Container(
       color: DesignCourseAppTheme.nearlyWhite,
@@ -78,7 +78,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
               children: <Widget>[
                 AspectRatio(
                   aspectRatio: 1.2,
-                  child: Image.asset('assets/design_course/webInterFace.png'),
+                  child: Image.asset('assets/images/t.jpg'),
                 ),
               ],
             ),
@@ -359,7 +359,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
                       child: ClipRRect(
                           borderRadius: BorderRadius.circular(18.0),
                           child: Image.network(
-                            "https://nextgeneducation.et/api/teacher-profile-picture/${widget.hotelData!.teacher.id}",
+                            "https://tutor.oddatech.com/api/teacher-profile-picture/${widget.hotelData!.teacher.id}",
                           )))),
             ),
             Padding(

@@ -56,10 +56,11 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
   @override
   Widget build(BuildContext context) {
     const bodyStyle = TextStyle(
-      fontSize: 16.0,
-      fontFamily: 'WorkSans',
+      fontSize: 13.0,
+      fontFamily: 'Arial',
       fontWeight: FontWeight.bold,
-      letterSpacing: 0.3,
+      letterSpacing: 0.7,
+      wordSpacing: 0.7,
       color: Color(0xFF4A6572),
     );
 
@@ -131,13 +132,14 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       dotsDecorator: const DotsDecorator(
         size: Size(10.0, 10.0),
         color: Colors.white,
+        activeColor: kPrimaryColor,
         activeSize: Size(22.0, 10.0),
         activeShape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(25.0)),
         ),
       ),
       dotsContainerDecorator: const ShapeDecoration(
-        color: Colors.black54,
+        color: kPrimaryLightColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(8.0)),
         ),

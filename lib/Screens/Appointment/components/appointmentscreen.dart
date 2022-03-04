@@ -321,7 +321,7 @@ class _HomePageState extends State<Appointment>
                                         image: DecorationImage(
                                             fit: BoxFit.contain,
                                             image: NetworkImage(
-                                                "https://nextgeneducation.et/api/teacher-profile-picture/${chat.teacher.id}"))),
+                                                "https://tutor.oddatech.com/api/teacher-profile-picture/${chat.teacher.id}"))),
                                   ),
                                 ],
                               ),
@@ -332,7 +332,7 @@ class _HomePageState extends State<Appointment>
                                   Text(
                                     chat.teacher.first_name +
                                         " " +
-                                        chat.teacher.last_name,
+                                        chat.teacher.middle_name,
                                     // ignore: prefer_const_constructors
                                     style: TextStyle(
                                       color: kPrimaryColor,
@@ -538,7 +538,7 @@ class _HomePageState extends State<Appointment>
                   ),
                 ),
                 Text(
-                  'Dashbord',
+                  'Dashboard',
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,

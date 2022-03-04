@@ -44,9 +44,9 @@ class _BottomNavPageState extends State<Home> {
           }
         },
         children: const <Widget>[
-          Appointment(),
-          SerachPage(),
           HomeScreen(),
+          SerachPage(),
+          Appointment(),
           ProfileScreen(),
         ],
       ),

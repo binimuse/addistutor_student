@@ -9,12 +9,14 @@ class GetPopularTutorController extends GetxController with StateMixin {
   var isfetchedsubject = false.obs;
 
   void fetchqr() async {
-    popular = await RemoteServices.getpopular();
+    try {
+      popular = await RemoteServices.getpopular();
 
-    if (popular != null) {
-      // print("getqr.toString()");
-      // print(getqr + "\n" + b_id.toString());
-      isfetchedsubject(true);
-    }
+      if (popular != null) {
+        // print("getqr.toString()");
+        // print(getqr + "\n" + b_id.toString());
+        isfetchedsubject(true);
+      }
+    } catch (e) {}
   }
 }

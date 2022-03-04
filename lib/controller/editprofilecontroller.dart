@@ -39,7 +39,8 @@ class EditprofileController extends GetxController with StateMixin {
   var forgo = '';
 
   late var macthgender = "".obs;
-  GetLocation? locaion;
+  GetLocationforedit? locaion;
+  var locaionid;
   late var education = "Primary".obs;
   var date;
   var id;
@@ -337,6 +338,8 @@ class EditprofileController extends GetxController with StateMixin {
     var uploaded = await RemoteServices.uploadImage(image, ids.toString());
 
     if (uploaded) {
+      print("locatiooooooooooon");
+      print(locaionid);
       var data = {
         "is_parent": is_parent.value,
         "parent_first_name": parent_first_name.text,
@@ -347,7 +350,7 @@ class EditprofileController extends GetxController with StateMixin {
         "gender": macthgender.value,
         "birth_date": date,
         "email": email.text,
-        "location_id": locaion!.id,
+        "location_id": locaionid,
         "study_purpose": studyperpose.value,
         "grade": Grade.value,
         "about": About.text,
@@ -364,6 +367,8 @@ class EditprofileController extends GetxController with StateMixin {
         ifupdatd(false);
       }
     } else {
+      print("locatiooooooooooon");
+      print(locaionid);
       var data = {
         "is_parent": is_parent.value,
         "parent_first_name": parent_first_name.text,
@@ -374,7 +379,7 @@ class EditprofileController extends GetxController with StateMixin {
         "gender": macthgender.value,
         "birth_date": date,
         "email": email.text,
-        "location_id": locaion!.id,
+        "location_id": locaionid,
         "study_purpose": studyperpose.value,
         "grade": Grade.value,
         "about": About.text,

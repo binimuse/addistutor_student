@@ -85,7 +85,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
           decoration: pageDecoration,
         ),
         PageViewModel(
-          title: "Make Paymnet",
+          title: "Make Payment",
           body:
               "Pay for the number of session you want to buy using the mutiple paymeny and upload the deposit slip",
           image: _buildImage('login.svg'),

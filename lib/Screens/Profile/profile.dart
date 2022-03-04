@@ -79,11 +79,11 @@ class _ProfilePageState extends State<ProfileS> {
     _getlocation();
   }
 
-  List<GetLocation> location = [];
+  List<GetLocationforedit> location = [];
   _getlocation() async {
     getLocationController.fetchLocation();
     // ignore: invalid_use_of_protected_member
-    location = getLocationController.listlocation.value;
+    location = getLocationController.listlocationforedit.value;
     if (location != null && location.isNotEmpty) {
       setState(() {
         editprofileController.locaion = location[0];
@@ -180,9 +180,9 @@ class _ProfilePageState extends State<ProfileS> {
                       children: <Widget>[
                         ProfileHeader(
                           avatar: NetworkImage(
-                              "https://nextgeneducation.et/api/student-profile-picture/$ids"),
+                              "https://tutor.oddatech.com/api/student-profile-picture/$ids"),
                           coverImage: NetworkImage(
-                              "https://nextgeneducation.et/api/student-profile-picture/$ids"),
+                              "https://tutor.oddatech.com/api/student-profile-picture/$ids"),
                           title: editprofileController.firstname.text
                                   .toString() +
                               " " +
@@ -302,7 +302,7 @@ class _ProfilePageState extends State<ProfileS> {
   final Color divider = Colors.grey.shade600;
   _buildDrawer(BuildContext context, String fname, String lastname, ids) {
     final String image =
-        "https://nextgeneducation.et/api/student-profile-picture/$ids";
+        "https://tutor.oddatech.com/api/student-profile-picture/$ids";
 
     return ClipPath(
       clipper: OvalRightBorderClipper(),
@@ -637,7 +637,7 @@ class UserInfo extends StatelessWidget {
             padding: const EdgeInsets.only(left: 8.0, bottom: 4.0),
             alignment: Alignment.topLeft,
             child: const Text(
-              "User Information  \n ",
+              "Student Information  \n ",
               style: TextStyle(
                 color: Colors.black87,
                 fontWeight: FontWeight.w500,

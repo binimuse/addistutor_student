@@ -105,7 +105,7 @@ class _FeedbackScreenState extends State<TopUpPage> {
                           top: MediaQuery.of(context).padding.top,
                           left: 16,
                           right: 16),
-                      child: Image.asset('assets/images/feedbackImage.png'),
+                      child: Image.asset('assets/images/t.jpg'),
                     ),
                     Padding(
                       padding:
@@ -143,7 +143,8 @@ class _FeedbackScreenState extends State<TopUpPage> {
                                 cursorColor: Colors.blue,
                                 decoration: const InputDecoration(
                                     border: InputBorder.none,
-                                    hintText: 'Enter your Slip Id...'),
+                                    hintText:
+                                        'Enter your transaction reference number'),
                                 validator: (value) {
                                   return walletContoller.validateName(value!);
                                 },
@@ -189,7 +190,7 @@ class _FeedbackScreenState extends State<TopUpPage> {
                                 cursorColor: Colors.blue,
                                 decoration: const InputDecoration(
                                     border: InputBorder.none,
-                                    hintText: 'Enter your Ammount...'),
+                                    hintText: 'Enter your Amount...'),
                                 validator: (value) {
                                   return walletContoller.validateName(value!);
                                 },
@@ -204,11 +205,11 @@ class _FeedbackScreenState extends State<TopUpPage> {
                     ),
                     _buildComposer(),
                     Padding(
-                      padding: const EdgeInsets.only(top: 8),
+                      padding: const EdgeInsets.only(top: 16),
                       child: Center(
                         child: Container(
                           width: 120,
-                          height: 20,
+                          height: 40,
                           decoration: BoxDecoration(
                             color: Colors.blue,
                             borderRadius:

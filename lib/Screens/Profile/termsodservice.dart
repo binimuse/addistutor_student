@@ -74,10 +74,11 @@ class _ProductDescriptionPageState extends State<ProductDescriptionPage> {
                 '9. Dealing with a tutor outside of the system\nAll dealings with a tutor should be done through NextGen. This includes schedule arrangement, additional bookings, payment, etc. If a parent deals with a tutor without the knowledge of the company, NextGen won’t take any responsibility whatsoever. Parents and tutors found doing this will be barred from using NextGen Tutorial Services. \n\n',
                 style: TextStyle(
                   fontSize: 14.0,
-                  fontFamily: 'WorkSans',
+                  fontFamily: 'Arial',
                   fontWeight: FontWeight.normal,
                   letterSpacing: 0.4,
                   height: 0.9,
+                  wordSpacing: 0.4,
                   color: Colors.black,
                 ),
               ),
@@ -104,7 +105,7 @@ class _ProductDescriptionPageState extends State<ProductDescriptionPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: const [
                   Text(
-                    "NextGen Tutorial Services",
+                    "Terms of service of tutors",
                     style: TextStyle(
                       fontSize: 14.0,
                       fontFamily: 'WorkSans',

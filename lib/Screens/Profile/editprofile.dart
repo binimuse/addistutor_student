@@ -29,11 +29,13 @@ class _EditPageState extends State<EditPage> {
   ImagePicker picker = ImagePicker();
 
   late var areyou = "Student";
+  late var locationname = "";
+  late var getlocation;
   late bool areyoubool = false;
   late bool supportbool = false;
   DateTime currentDate = DateTime.now();
   bool showPassword = false;
-
+  bool showsubject = false;
   List<XFile>? _imageFileList;
 
   set _imageFile(XFile? value) {
@@ -48,7 +50,7 @@ class _EditPageState extends State<EditPage> {
   GetLocationController getLocationController =
       Get.put(GetLocationController());
 
-  List<GetLocation> location = [];
+  List<GetLocationforedit> location = [];
   var noid;
   @override
   void initState() {
@@ -63,7 +65,7 @@ class _EditPageState extends State<EditPage> {
   _getlocation() async {
     getLocationController.fetchLocation();
     // ignore: invalid_use_of_protected_member
-    location = getLocationController.listlocation.value;
+    location = getLocationController.listlocationforedit.value;
     if (location != null && location.isNotEmpty) {
       setState(() {
         editprofileController.locaion = location[0];
@@ -103,6 +105,7 @@ class _EditPageState extends State<EditPage> {
   Widget build(BuildContext context) {
     return Obx(() => editprofileController.isFetched.value
         ? Scaffold(
+            resizeToAvoidBottomInset: false,
             key: editprofileController.scaffoldKey,
             appBar: AppBar(
               backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -215,7 +218,12 @@ class _EditPageState extends State<EditPage> {
                       ),
                       const Text(
                         'Are you a parent or student?',
-                        style: TextStyle(color: Colors.black38),
+                        style: TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.w700,
+                          color: kPrimaryColor,
+                          fontFamily: 'WorkSans',
+                        ),
                       ),
                       DropdownButton<String>(
                         value: areyou,
@@ -233,9 +241,9 @@ class _EditPageState extends State<EditPage> {
                             child: Text(
                               value,
                               style: const TextStyle(
-                                  color: Colors.black,
+                                  color: DesignCourseAppTheme.nearlyBlack,
                                   fontSize: 16,
-                                  fontWeight: FontWeight.w700),
+                                  fontWeight: FontWeight.w300),
                             ),
                           );
                         }).toList(),
@@ -264,19 +272,22 @@ class _EditPageState extends State<EditPage> {
                                   controller:
                                       editprofileController.parent_first_name,
                                   decoration: const InputDecoration(
-                                      contentPadding:
-                                          EdgeInsets.only(bottom: 3),
-                                      labelText: "Parent First Name",
-                                      focusColor: kPrimaryColor,
-                                      fillColor: kPrimaryColor,
-                                      floatingLabelBehavior:
-                                          FloatingLabelBehavior.always,
-                                      hintText: "Parent First Name",
-                                      hintStyle: TextStyle(
+                                    contentPadding: EdgeInsets.only(bottom: 3),
+                                    labelText: "Parent First Name",
+                                    labelStyle: TextStyle(
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w700,
+                                      color: kPrimaryColor,
+                                      fontFamily: 'WorkSans',
+                                    ),
+                                    focusColor: kPrimaryColor,
+                                    fillColor: kPrimaryColor,
+                                    hintText: "Parent First Name",
+                                    hintStyle: TextStyle(
+                                        color: DesignCourseAppTheme.nearlyBlack,
                                         fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black,
-                                      )),
+                                        fontWeight: FontWeight.w300),
+                                  ),
                                   validator: (value) {
                                     return editprofileController
                                         .validateName(value!);
@@ -289,19 +300,22 @@ class _EditPageState extends State<EditPage> {
                                   controller:
                                       editprofileController.parent_last_name,
                                   decoration: const InputDecoration(
-                                      contentPadding:
-                                          EdgeInsets.only(bottom: 3),
-                                      labelText: "Parent Last Name",
-                                      focusColor: kPrimaryColor,
-                                      fillColor: kPrimaryColor,
-                                      floatingLabelBehavior:
-                                          FloatingLabelBehavior.always,
-                                      hintText: "name",
-                                      hintStyle: TextStyle(
+                                    contentPadding: EdgeInsets.only(bottom: 3),
+                                    labelText: "Parent Last Name",
+                                    labelStyle: TextStyle(
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w700,
+                                      color: kPrimaryColor,
+                                      fontFamily: 'WorkSans',
+                                    ),
+                                    focusColor: kPrimaryColor,
+                                    fillColor: kPrimaryColor,
+                                    hintText: "name",
+                                    hintStyle: TextStyle(
+                                        color: DesignCourseAppTheme.nearlyBlack,
                                         fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black,
-                                      )),
+                                        fontWeight: FontWeight.w300),
+                                  ),
                                   validator: (value) {
                                     return editprofileController
                                         .validateName(value!);
@@ -313,19 +327,22 @@ class _EditPageState extends State<EditPage> {
                                 child: TextFormField(
                                   controller: editprofileController.firstname,
                                   decoration: const InputDecoration(
-                                      contentPadding:
-                                          EdgeInsets.only(bottom: 3),
-                                      labelText: "Student First Name",
-                                      focusColor: kPrimaryColor,
-                                      fillColor: kPrimaryColor,
-                                      floatingLabelBehavior:
-                                          FloatingLabelBehavior.always,
-                                      hintText: "Student First Name",
-                                      hintStyle: TextStyle(
+                                    contentPadding: EdgeInsets.only(bottom: 3),
+                                    labelText: "Student First Name",
+                                    labelStyle: TextStyle(
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w700,
+                                      color: kPrimaryColor,
+                                      fontFamily: 'WorkSans',
+                                    ),
+                                    focusColor: kPrimaryColor,
+                                    fillColor: kPrimaryColor,
+                                    hintText: "Student First Name",
+                                    hintStyle: TextStyle(
+                                        color: DesignCourseAppTheme.nearlyBlack,
                                         fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black,
-                                      )),
+                                        fontWeight: FontWeight.w300),
+                                  ),
                                   validator: (value) {
                                     return editprofileController
                                         .validateName(value!);
@@ -337,19 +354,22 @@ class _EditPageState extends State<EditPage> {
                                 child: TextFormField(
                                   controller: editprofileController.lastname,
                                   decoration: const InputDecoration(
-                                      contentPadding:
-                                          EdgeInsets.only(bottom: 3),
-                                      labelText: "Student Last Name",
-                                      focusColor: kPrimaryColor,
-                                      fillColor: kPrimaryColor,
-                                      floatingLabelBehavior:
-                                          FloatingLabelBehavior.always,
-                                      hintText: "Student Last Name",
-                                      hintStyle: TextStyle(
+                                    contentPadding: EdgeInsets.only(bottom: 3),
+                                    labelText: "Student Last Name",
+                                    labelStyle: TextStyle(
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w700,
+                                      color: kPrimaryColor,
+                                      fontFamily: 'WorkSans',
+                                    ),
+                                    focusColor: kPrimaryColor,
+                                    fillColor: kPrimaryColor,
+                                    hintText: "Student Last Name",
+                                    hintStyle: TextStyle(
+                                        color: DesignCourseAppTheme.nearlyBlack,
                                         fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black,
-                                      )),
+                                        fontWeight: FontWeight.w300),
+                                  ),
                                   validator: (value) {
                                     return editprofileController
                                         .validateName(value!);
@@ -363,19 +383,22 @@ class _EditPageState extends State<EditPage> {
                                 child: TextFormField(
                                   controller: editprofileController.firstname,
                                   decoration: const InputDecoration(
-                                      contentPadding:
-                                          EdgeInsets.only(bottom: 3),
-                                      labelText: "Student First Name",
-                                      focusColor: kPrimaryColor,
-                                      fillColor: kPrimaryColor,
-                                      floatingLabelBehavior:
-                                          FloatingLabelBehavior.always,
-                                      hintText: "Student First Name",
-                                      hintStyle: TextStyle(
+                                    contentPadding: EdgeInsets.only(bottom: 3),
+                                    labelText: "Student First Name",
+                                    labelStyle: TextStyle(
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w700,
+                                      color: kPrimaryColor,
+                                      fontFamily: 'WorkSans',
+                                    ),
+                                    focusColor: kPrimaryColor,
+                                    fillColor: kPrimaryColor,
+                                    hintText: "Student First Name",
+                                    hintStyle: TextStyle(
+                                        color: DesignCourseAppTheme.nearlyBlack,
                                         fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black,
-                                      )),
+                                        fontWeight: FontWeight.w300),
+                                  ),
                                   validator: (value) {
                                     return editprofileController
                                         .validateName(value!);
@@ -387,19 +410,22 @@ class _EditPageState extends State<EditPage> {
                                 child: TextFormField(
                                   controller: editprofileController.lastname,
                                   decoration: const InputDecoration(
-                                      contentPadding:
-                                          EdgeInsets.only(bottom: 3),
-                                      labelText: "Student Last Name",
-                                      focusColor: kPrimaryColor,
-                                      fillColor: kPrimaryColor,
-                                      floatingLabelBehavior:
-                                          FloatingLabelBehavior.always,
-                                      hintText: "Student Last Name",
-                                      hintStyle: TextStyle(
+                                    contentPadding: EdgeInsets.only(bottom: 3),
+                                    labelText: "Student Last Name",
+                                    labelStyle: TextStyle(
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w700,
+                                      color: kPrimaryColor,
+                                      fontFamily: 'WorkSans',
+                                    ),
+                                    focusColor: kPrimaryColor,
+                                    fillColor: kPrimaryColor,
+                                    hintText: "Student Last Name",
+                                    hintStyle: TextStyle(
+                                        color: DesignCourseAppTheme.nearlyBlack,
                                         fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black,
-                                      )),
+                                        fontWeight: FontWeight.w300),
+                                  ),
                                   validator: (value) {
                                     return editprofileController
                                         .validateName(value!);
@@ -412,18 +438,22 @@ class _EditPageState extends State<EditPage> {
                         child: TextFormField(
                           controller: editprofileController.phone,
                           decoration: const InputDecoration(
-                              contentPadding: EdgeInsets.only(bottom: 3),
-                              labelText: "Phone Number",
-                              focusColor: kPrimaryColor,
-                              fillColor: kPrimaryColor,
-                              floatingLabelBehavior:
-                                  FloatingLabelBehavior.always,
-                              hintText: "Phone Number",
-                              hintStyle: TextStyle(
+                            contentPadding: EdgeInsets.only(bottom: 3),
+                            labelText: "Phone Number",
+                            labelStyle: TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.w700,
+                              color: kPrimaryColor,
+                              fontFamily: 'WorkSans',
+                            ),
+                            focusColor: kPrimaryColor,
+                            fillColor: kPrimaryColor,
+                            hintText: "Phone Number",
+                            hintStyle: TextStyle(
+                                color: DesignCourseAppTheme.nearlyBlack,
                                 fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                              )),
+                                fontWeight: FontWeight.w300),
+                          ),
                           validator: (value) {
                             return editprofileController.validateName(value!);
                           },
@@ -434,18 +464,22 @@ class _EditPageState extends State<EditPage> {
                         child: TextFormField(
                           controller: editprofileController.email,
                           decoration: InputDecoration(
-                              contentPadding: const EdgeInsets.only(bottom: 3),
-                              labelText: "Email",
-                              focusColor: kPrimaryColor,
-                              fillColor: kPrimaryColor,
-                              floatingLabelBehavior:
-                                  FloatingLabelBehavior.always,
-                              hintText: editprofileController.email.text,
-                              hintStyle: const TextStyle(
+                            contentPadding: const EdgeInsets.only(bottom: 3),
+                            labelText: "Email",
+                            labelStyle: TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.w700,
+                              color: kPrimaryColor,
+                              fontFamily: 'WorkSans',
+                            ),
+                            focusColor: kPrimaryColor,
+                            fillColor: kPrimaryColor,
+                            hintText: editprofileController.email.text,
+                            hintStyle: const TextStyle(
+                                color: DesignCourseAppTheme.nearlyBlack,
                                 fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                              )),
+                                fontWeight: FontWeight.w300),
+                          ),
                           validator: (value) {
                             return editprofileController.validateEmail(value!);
                           },
@@ -453,7 +487,12 @@ class _EditPageState extends State<EditPage> {
                       ),
                       const Text(
                         'Gender',
-                        style: TextStyle(color: Colors.black38),
+                        style: TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.w700,
+                          color: kPrimaryColor,
+                          fontFamily: 'WorkSans',
+                        ),
                       ),
                       DropdownButton<String>(
                         value: editprofileController.macthgender.value,
@@ -489,10 +528,16 @@ class _EditPageState extends State<EditPage> {
                       ),
                       const Text(
                         'Select Date Of birth',
-                        style: TextStyle(color: Colors.black38),
+                        style: TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.w700,
+                          color: kPrimaryColor,
+                          fontFamily: 'WorkSans',
+                        ),
                       ),
                       OutlineButton(
                         padding: const EdgeInsets.symmetric(horizontal: 50),
+                        color: kPrimaryLightColor,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20)),
                         onPressed: () {
@@ -509,36 +554,77 @@ class _EditPageState extends State<EditPage> {
                       ),
                       const Text(
                         'Location',
-                        style: TextStyle(color: Colors.black38),
-                      ),
-                      DropdownButton<GetLocation>(
-                        hint: Text(
-                          editprofileController.locaion.toString(),
-                          style: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w300),
+                        style: TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.w700,
+                          color: kPrimaryColor,
+                          fontFamily: 'WorkSans',
                         ),
-                        isExpanded: true,
-                        style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700),
-                        items: location
-                            .map((e) => DropdownMenuItem(
-                                  child: Text(
-                                    e.name,
-                                  ),
-                                  value: e,
-                                ))
-                            .toList(),
-                        onChanged: (value) {
-                          setState(() {
-                            editprofileController.locaion = value!;
-                          });
-                        },
-                        value: editprofileController.locaion,
                       ),
+                      Row(children: [
+                        Flexible(
+                          child: DropdownButton<GetLocationforedit>(
+                            hint: Text(
+                              editprofileController.locaion.toString(),
+                              style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w300),
+                            ),
+                            isExpanded: true,
+                            style: const TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700),
+                            items: location
+                                .map((e) => DropdownMenuItem(
+                                      child: Text(
+                                        e.name,
+                                      ),
+                                      value: e,
+                                    ))
+                                .toList(),
+                            onChanged: (value) {
+                              setState(() {
+                                editprofileController.locaion = value!;
+
+                                if (editprofileController
+                                        .locaion!.locaion.length !=
+                                    0) {
+                                  showsubject = true;
+                                } else {
+                                  showsubject = false;
+                                }
+                              });
+                            },
+                            value: editprofileController.locaion,
+                          ),
+                        ),
+                        showsubject
+                            ? Expanded(
+                                child: ListView.builder(
+                                    shrinkWrap: true,
+                                    scrollDirection: Axis.vertical,
+                                    itemBuilder: (_, index) {
+                                      return Column(
+                                        children: [
+                                          getTimeBoxUIday(
+                                              editprofileController
+                                                  .locaion!.locaion[index].name,
+                                              editprofileController
+                                                  .locaion!.locaion[index].id),
+                                        ],
+                                      );
+                                    },
+                                    itemCount: editprofileController
+                                        .locaion!.locaion.length),
+                              )
+                            : Container(),
+                        Text(
+                          locationname,
+                          style: TextStyle(color: Colors.black38),
+                        ),
+                      ]),
                       const SizedBox(
                         height: 25,
                       ),
@@ -551,8 +637,6 @@ class _EditPageState extends State<EditPage> {
                                     labelText: "State the support you require",
                                     focusColor: kPrimaryColor,
                                     fillColor: kPrimaryColor,
-                                    floatingLabelBehavior:
-                                        FloatingLabelBehavior.always,
                                     hintStyle: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,
@@ -566,7 +650,12 @@ class _EditPageState extends State<EditPage> {
                       ),
                       const Text(
                         'Grade',
-                        style: TextStyle(color: Colors.black38),
+                        style: TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.w700,
+                          color: kPrimaryColor,
+                          fontFamily: 'WorkSans',
+                        ),
                       ),
                       DropdownButton<String>(
                         value: editprofileController.Grade.value,
@@ -620,10 +709,14 @@ class _EditPageState extends State<EditPage> {
                           decoration: const InputDecoration(
                               contentPadding: EdgeInsets.only(bottom: 3),
                               labelText: "About Me",
+                              labelStyle: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.w700,
+                                color: kPrimaryColor,
+                                fontFamily: 'WorkSans',
+                              ),
                               focusColor: kPrimaryColor,
                               fillColor: kPrimaryColor,
-                              floatingLabelBehavior:
-                                  FloatingLabelBehavior.always,
                               hintText: "Describe yourself",
                               hintStyle: TextStyle(
                                 fontSize: 16,
@@ -680,6 +773,52 @@ class _EditPageState extends State<EditPage> {
             ),
           )
         : const Center(child: CircularProgressIndicator()));
+  }
+
+  Widget getTimeBoxUIday(String txt2, int id) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          //  print(lid);
+          //  lid = id.toString();
+          locationname = txt2;
+          editprofileController.locaionid = id;
+        });
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Container(
+          decoration: BoxDecoration(
+            color: kPrimaryLightColor,
+            borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+            boxShadow: <BoxShadow>[
+              BoxShadow(
+                  color: DesignCourseAppTheme.grey.withOpacity(0.2),
+                  offset: const Offset(1.1, 1.1),
+                  blurRadius: 8.0),
+            ],
+          ),
+          child: Padding(
+            padding: const EdgeInsets.only(
+                left: 18.0, right: 18.0, top: 12.0, bottom: 12.0),
+            child: Column(
+              children: <Widget>[
+                Text(
+                  txt2,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w200,
+                    fontSize: 14,
+                    letterSpacing: 0.27,
+                    color: DesignCourseAppTheme.nearlyBlack,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
   loadData() {

@@ -1,5 +1,6 @@
 // ignore_for_file: invalid_use_of_protected_member, unnecessary_null_comparison, duplicate_ignore, deprecated_member_use
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:addistutor_student/Screens/Home/components/category_list_view.dart';
@@ -11,12 +12,14 @@ import 'package:addistutor_student/controller/geteducationlevelcontroller.dart';
 import 'package:addistutor_student/controller/getlocationcontroller.dart';
 import 'package:addistutor_student/controller/getsubjectcontroller.dart';
 import 'package:addistutor_student/controller/searchcontroller.dart';
+import 'package:addistutor_student/controller/walletcontroller.dart';
 import 'package:addistutor_student/remote_services/user.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'design_course_app_theme.dart';
 
@@ -46,6 +49,7 @@ class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
       Get.put(GetEducationlevelController());
   GetLocationController getLocationController =
       Get.put(GetLocationController());
+  WalletContoller walletContoller = Get.put(WalletContoller());
   SearchController searchController = Get.put(SearchController());
   GetSubjectController getSubjectController = Get.put(GetSubjectController());
   @override
@@ -58,6 +62,20 @@ class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
     _geteducation();
     _getsubject();
     _getlocation();
+    _fetchUser();
+  }
+
+  void _fetchUser() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    var token = localStorage.getString('user');
+
+    if (token != null) {
+      var body = json.decode(token);
+
+      // var id = editprofileController.fetchPf(body["student_id"]);
+      // print(body["student_id"]);
+      walletContoller.getbalance(body["student_id"]);
+    }
   }
 
   List<GetSubject> subject = [];
@@ -140,7 +158,7 @@ class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
                             height: MediaQuery.of(context).size.height * 2.5,
                             child: Column(
                               children: <Widget>[
-                                getSearchBarUI(),
+                                // getSearchBarUI(),
                                 getCategoryUI(),
                                 Flexible(
                                   child: getPopularCourseUI(),
@@ -330,17 +348,17 @@ class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
 
               if (txt == "Female") {
                 setState(() {
-                  searchController.homepagegender = "Female";
+                  searchController.homepagegender = "female";
                   // print(gender);
                 });
               } else if (txt == "Male") {
                 setState(() {
-                  searchController.homepagegender = "Male";
+                  searchController.homepagegender = "male";
                   //   print(gender);
                 });
               } else if (txt == "All") {
                 setState(() {
-                  searchController.homepagegender = " ";
+                  searchController.homepagegender = "";
                   //   print(gender);
                 });
               }
@@ -352,10 +370,10 @@ class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
               child: Center(
                 child: Row(children: [
                   txt == "Female"
-                      ? Icon(Icons.female, color: HexColor('#B9BABC'))
+                      ? Icon(Icons.female, color: kPrimaryLightColor)
                       : txt == "Male"
-                          ? Icon(Icons.male, color: HexColor('#B9BABC'))
-                          : Icon(Icons.all_inbox, color: HexColor('#B9BABC')),
+                          ? Icon(Icons.male, color: kPrimaryLightColor)
+                          : Icon(Icons.all_inbox, color: kPrimaryLightColor),
                   Text(
                     txt,
                     textAlign: TextAlign.left,
@@ -512,8 +530,8 @@ class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
             ),
           ),
           SizedBox(
-            width: 100,
-            height: 100,
+            width: 120,
+            height: 120,
             child: Image.asset(
               'assets/images/lg3.png',
             ),

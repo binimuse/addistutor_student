@@ -41,7 +41,9 @@ class WalletContoller extends GetxController with StateMixin {
   var wallet;
 
   void getbalance(var id) async {
-    balnce = await RemoteServices.balance(id);
+    try {
+      balnce = await RemoteServices.balance(id);
+    } catch (e) {}
 
     if (balnce != null) {
       // balnce = balance;

@@ -453,7 +453,7 @@ class CategoryView extends StatelessWidget {
                                 image: DecorationImage(
                                     fit: BoxFit.cover,
                                     image: NetworkImage(
-                                        "https://nextgeneducation.et/api/teacher-profile-picture/${category!.id}"))),
+                                        "https://tutor.oddatech.com/api/teacher-profile-picture/${category!.id}"))),
                           ),
                         ],
                       ),

@@ -4,8 +4,11 @@ import 'dart:convert';
 
 import 'package:addistutor_student/Screens/Book/book.dart';
 import 'package:addistutor_student/Screens/Profile/editprofile.dart';
+import 'package:addistutor_student/controller/editprofilecontroller.dart';
+import 'package:addistutor_student/controller/walletcontroller.dart';
 import 'package:addistutor_student/remote_services/user.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'design_course_app_theme.dart';
 
@@ -36,9 +39,33 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
         parent: animationController!,
         curve: const Interval(0, 1.0, curve: Curves.fastOutSlowIn)));
     setData();
-
+    _fetchUser();
     _getsubject();
     super.initState();
+  }
+
+  final EditprofileController editprofileController =
+      Get.put(EditprofileController());
+  final WalletContoller walletContoller = Get.put(WalletContoller());
+  var ids;
+  void _fetchUser() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    var token = localStorage.getString('user');
+
+    if (token != null) {
+      var body = json.decode(token);
+
+      if (body["student_id"] != null) {
+        setState(() {
+          ids = int.parse(body["student_id"]);
+          walletContoller.getbalance(ids);
+          //  walletContoller.gettransaction(ids);
+        });
+        editprofileController.fetchPf(int.parse(body["student_id"]));
+      } else {
+        var noid = "noid";
+      }
+    } else {}
   }
 
   List<GetSubject> subject = [];
@@ -92,7 +119,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
               children: <Widget>[
                 AspectRatio(
                   aspectRatio: 1.2,
-                  child: Image.asset('assets/design_course/webInterFace.png'),
+                  child: Image.asset('assets/images/t.jpg'),
                 ),
               ],
             ),
@@ -154,7 +181,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                                       ? Text(
                                           widget.hotelData!.first_name +
                                               " " +
-                                              widget.hotelData!.last_name,
+                                              widget.hotelData!.middle_name,
                                           textAlign: TextAlign.left,
                                           style: const TextStyle(
                                             fontWeight: FontWeight.w600,
@@ -480,7 +507,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                       child: ClipRRect(
                           borderRadius: BorderRadius.circular(18.0),
                           child: Image.network(
-                            "https://nextgeneducation.et/api/teacher-profile-picture/${widget.hotelData!.id}",
+                            "https://tutor.oddatech.com/api/teacher-profile-picture/${widget.hotelData!.id}",
                           )),
                     ))),
             Padding(

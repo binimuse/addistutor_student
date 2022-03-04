@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:addistutor_student/Screens/Login/components/background.dart';
 import 'package:addistutor_student/Screens/Progress/progress.dart';
 import 'package:addistutor_student/Screens/main/main.dart';
+import 'package:addistutor_student/constants.dart';
 import 'package:addistutor_student/controller/geteducationlevelcontroller.dart';
 import 'package:addistutor_student/controller/getlocationcontroller.dart';
 import 'package:addistutor_student/controller/getsubjectcontroller.dart';
@@ -42,7 +43,7 @@ class _SplashScreenState extends State<SplashScreen> {
         context,
         MaterialPageRoute(
           builder: (context) => Scaffold(
-            body: isAuth ? const Main() : const MyPages(),
+            body: isAuth ? const Mainscrren() : const MyPages(),
           ),
         ),
         (route) => false,
@@ -119,31 +120,36 @@ class _SplashScreenState extends State<SplashScreen> {
                   width: 360,
                 ),
               ),
-              const Center(
-                child: Text(
-                  "One-on-One Tutorial Service ",
-                  style: TextStyle(
-                    fontSize: 26.0,
-                    fontFamily: 'WorkSans',
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 0.4,
-                    height: 0.9,
-                    color: Color(0xFF4A6572),
-                  ),
-                ),
+              Center(
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "One-on-One Tutorial Service ",
+                        style: TextStyle(
+                          fontSize: 26.0,
+                          fontFamily: 'WorkSans',
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 0.4,
+                          height: 0.9,
+                          color: kPrimaryLightColor,
+                        ),
+                      ),
+                    ]),
               ),
               const SizedBox(
                 height: 10,
               ),
               const Text(
-                "Connecting you with the Best Tutors in Town, Conveniently. ",
+                "Connecting you with the Best Tutors in Addis, Conveniently. ",
                 style: TextStyle(
                   fontSize: 12.0,
                   fontFamily: 'Roboto',
                   fontWeight: FontWeight.normal,
                   letterSpacing: 0.4,
                   height: 0.9,
-                  color: Color(0xFF4A6572),
+                  color: Colors.black,
                 ),
               )
             ]),
