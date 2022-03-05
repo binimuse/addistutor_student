@@ -9,12 +9,12 @@ import 'package:flutter/material.dart';
 
 import '../constants.dart';
 
-class WalletContoller extends GetxController with StateMixin {
+class EndBookingContoller extends GetxController with StateMixin {
   GlobalKey<FormState> Formkey = GlobalKey<FormState>();
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   late TextEditingController ammount;
   late TextEditingController slipid;
-
+  var isfetchedsubject = false.obs;
   var inforesponse;
   var isLoading = false.obs;
   var isFetched = false.obs;
@@ -29,40 +29,19 @@ class WalletContoller extends GetxController with StateMixin {
   var listtransaction = <Transaction>[].obs;
   var isfetchedtransaction = false.obs;
 
-  void gettransaction(var id) async {
-    listtransaction.value = await RemoteServices.transaction(id);
-    if (listtransaction != null) {
-      isfetchedtransaction(true);
-    }
-  }
-
   var balnce;
 
   var wallet;
 
-  void getbalance(var id) async {
-    try {
-      balnce = await RemoteServices.balance(id);
-    } catch (e) {}
-
-    if (balnce != null) {
-      // balnce = balance;
-      // ignore: unnecessary_null_comparison
-      wallet = balnce!.wallet_amount.toString();
-
-      isFetched(true);
-    }
-  }
-
   var image;
-  void editProf(BuildContext context, id) async {
+  void editProf(BuildContext context, reason, b_id) async {
     try {
       final isValid = Formkey.currentState!.validate();
 
-      if (isValid == true && image != null) {
+      if (isValid == true) {
         isLoading(true);
         Formkey.currentState!.save();
-        await seteditInfo(context, image, id);
+        await seteditInfo(context, reason, b_id);
       }
     } finally {
       // ignore: todo
@@ -71,36 +50,33 @@ class WalletContoller extends GetxController with StateMixin {
     }
   }
 
-  Future<void> seteditInfo(BuildContext context, image, id) async {
+  Future<void> seteditInfo(BuildContext context, reason, b_id) async {
     openAndCloseLoadingDialog(context);
 
-    var data = {
-      "slip_id": slipid.text,
-      "amount": ammount.text,
-    };
+    inforesponse = await RemoteServices.endbooking(reason, b_id);
 
-    inforesponse = await RemoteServices.wallet(image, data, id);
-    if (inforesponse.toString() == "200") {
-      closeDialog(true, '', context);
+    if (inforesponse == true) {
+      // fetchReplay(id);
+      isfetchedsubject(true);
+      closeDialog2(inforesponse, context);
       isLoading(false);
     } else {
-      closeDialog(false, inforesponse, context);
-
-      //  isLoading(false);
+      closeDialog2(inforesponse, context);
     }
   }
 
-  closeDialog(bool stat, String data, BuildContext context) async {
+  closeDialog2(inforesponse, BuildContext context) async {
     await Future.delayed(const Duration(seconds: 1));
     // Dismiss CircularProgressIndicator
     //
+    print("object");
     Navigator.of(context).pop();
-    if (stat == false) {
+    if (inforesponse == false) {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
           title: Text(
-            data.toString(),
+            "End session failed",
             style: const TextStyle(
               fontSize: 13,
               fontWeight: FontWeight.w500,
@@ -127,7 +103,7 @@ class WalletContoller extends GetxController with StateMixin {
         context: context,
         builder: (context) => AlertDialog(
           title: const Text(
-            'hank you for making the deposit. the administrator is varying your deposit. kindly wait',
+            'End session Sucess',
             style: TextStyle(
               fontSize: 13,
               fontWeight: FontWeight.w500,
@@ -141,11 +117,6 @@ class WalletContoller extends GetxController with StateMixin {
                 isLoading(false);
                 Navigator.of(context).pop(true);
                 Navigator.pop(context);
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //       builder: (context) => const ProfileScreen()),
-                // );
               },
               child: const Text('ok'),
             ),

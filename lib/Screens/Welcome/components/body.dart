@@ -34,7 +34,7 @@ class Body extends StatelessWidget {
             const Text(
               "Student Applicaion",
               style: TextStyle(
-                fontSize: 15.0,
+                fontSize: 18.0,
                 fontFamily: 'Roboto',
                 fontWeight: FontWeight.normal,
                 letterSpacing: 0.4,

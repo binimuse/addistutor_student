@@ -463,6 +463,6 @@ class CategoryView extends StatelessWidget {
               );
             },
           )
-        : Center(child: CircularProgressIndicator()));
+        : const Center(child: CircularProgressIndicator()));
   }
 }

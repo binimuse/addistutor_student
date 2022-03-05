@@ -96,7 +96,7 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
 
   List<GetLocation> location = [];
   _getlocation() async {
-    getLocationController.fetchLocation();
+    getLocationController.fetchLocationfor();
 
     location = getLocationController.listlocation.value;
     if (location != null && location.isNotEmpty) {
@@ -199,7 +199,7 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
                                   if (snapshot.hasError) {
                                     //   found.value = snapshot.data.length;
 
-                                    return Center(
+                                    return const Center(
                                       child: Text("No Tutor Found"),
                                     );
                                   }

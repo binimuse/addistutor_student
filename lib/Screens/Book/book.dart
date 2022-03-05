@@ -1,9 +1,8 @@
-// ignore_for_file: deprecated_member_use, import_of_legacy_library_into_null_safe, invalid_use_of_protected_member, prefer_typing_uninitialized_variables, unnecessary_null_comparison, unnecessary_brace_in_string_interps, non_constant_identifier_names
+// ignore_for_file: deprecated_member_use, import_of_legacy_library_into_null_safe, invalid_use_of_protected_member, prefer_typing_uninitialized_variables, unnecessary_null_comparison, unnecessary_brace_in_string_interps, non_constant_identifier_names, duplicate_ignore
 
 import 'dart:convert';
 
 import 'package:addistutor_student/Screens/Home/components/design_course_app_theme.dart';
-import 'package:addistutor_student/Wallet/wallet.dart';
 import 'package:addistutor_student/constants.dart';
 import 'package:addistutor_student/controller/bookingcontroller.dart';
 import 'package:addistutor_student/controller/editprofilecontroller.dart';
@@ -186,9 +185,7 @@ class _EditPageState extends State<BookScreen>
           //  walletContoller.gettransaction(ids);
           editprofileController.fetchPf(int.parse(body["student_id"]));
         });
-      } else {
-        var noid = "noid";
-      }
+      } else {}
     } else {}
   }
 
@@ -519,7 +516,7 @@ class _EditPageState extends State<BookScreen>
                           ),
                           const Text(
                             'Date And Time ',
-                            style: const TextStyle(
+                            style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 16,
                                 fontFamily: 'WorkSans',
@@ -1232,7 +1229,7 @@ class _EditPageState extends State<BookScreen>
                             'Preferred start date? ',
                             style: TextStyle(color: Colors.black38),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           Row(

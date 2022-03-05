@@ -96,7 +96,7 @@ class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
 
   List<GetLocation> location = [];
   _getlocation() async {
-    getLocationController.fetchLocation();
+    getLocationController.fetchLocationfor();
     // ignore: invalid_use_of_protected_member
     location = getLocationController.listlocation.value;
     if (location != null && location.isNotEmpty) {
@@ -370,10 +370,11 @@ class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
               child: Center(
                 child: Row(children: [
                   txt == "Female"
-                      ? Icon(Icons.female, color: kPrimaryLightColor)
+                      ? const Icon(Icons.female, color: kPrimaryLightColor)
                       : txt == "Male"
-                          ? Icon(Icons.male, color: kPrimaryLightColor)
-                          : Icon(Icons.all_inbox, color: kPrimaryLightColor),
+                          ? const Icon(Icons.male, color: kPrimaryLightColor)
+                          : const Icon(Icons.all_inbox,
+                              color: kPrimaryLightColor),
                   Text(
                     txt,
                     textAlign: TextAlign.left,
@@ -497,12 +498,12 @@ class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
 
   Widget getAppBarUI() {
     return Padding(
-      padding: const EdgeInsets.only(top: 8.0, left: 18, right: 18),
+      padding: const EdgeInsets.only(top: 0.0, left: 18, right: 18),
       child: Row(
         children: <Widget>[
           Expanded(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: const <Widget>[
                 Text(

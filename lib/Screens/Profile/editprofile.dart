@@ -466,7 +466,7 @@ class _EditPageState extends State<EditPage> {
                           decoration: InputDecoration(
                             contentPadding: const EdgeInsets.only(bottom: 3),
                             labelText: "Email",
-                            labelStyle: TextStyle(
+                            labelStyle: const TextStyle(
                               fontSize: 17,
                               fontWeight: FontWeight.w700,
                               color: kPrimaryColor,
@@ -497,13 +497,13 @@ class _EditPageState extends State<EditPage> {
                       DropdownButton<String>(
                         value: editprofileController.macthgender.value,
                         isExpanded: true,
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: DesignCourseAppTheme.nearlyBlack,
                             fontSize: 16,
                             fontWeight: FontWeight.w300),
                         items: <String>[
                           '',
-                          'male',
+                          'Male',
                           'Female',
                         ].map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
@@ -623,7 +623,7 @@ class _EditPageState extends State<EditPage> {
                             : Container(),
                         Text(
                           locationname,
-                          style: TextStyle(color: Colors.black38),
+                          style: const TextStyle(color: Colors.black38),
                         ),
                       ]),
                       const SizedBox(
@@ -667,7 +667,7 @@ class _EditPageState extends State<EditPage> {
                             fontWeight: FontWeight.w700),
                         items: <String>[
                           '',
-                          'Nersury',
+                          'Kg',
                           'LKG',
                           'UKG',
                           '1',
@@ -721,7 +721,7 @@ class _EditPageState extends State<EditPage> {
                             ),
                             focusColor: kPrimaryColor,
                             fillColor: kPrimaryColor,
-                            hintText: "Describe yourself",
+                            hintText: "tell us your study objective",
                             hintStyle: TextStyle(
                                 color: DesignCourseAppTheme.nearlyBlack,
                                 fontSize: 16,
@@ -811,7 +811,7 @@ class _EditPageState extends State<EditPage> {
                 Text(
                   txt2,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.w200,
                     fontSize: 14,
                     letterSpacing: 0.27,

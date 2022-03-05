@@ -2,7 +2,6 @@
 
 import 'dart:convert';
 
-import 'package:addistutor_student/Screens/Book/book.dart';
 import 'package:addistutor_student/Screens/Profile/termsodservice.dart';
 import 'package:addistutor_student/Screens/main/main.dart';
 import 'package:addistutor_student/controller/signupcontroller.dart';
@@ -18,7 +17,6 @@ import 'package:addistutor_student/components/already_have_an_account_acheck.dar
 import 'package:addistutor_student/components/text_field_container.dart';
 import 'package:flutter/services.dart';
 // ignore: import_of_legacy_library_into_null_safe
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -55,19 +53,19 @@ class _SplashScreenState extends State<Body> {
           children: <Widget>[
             SizedBox(height: size.height * 0.05),
             const Text(
-              "SIGN UP",
+              "Register",
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: kPrimaryColor,
                   fontSize: 23),
             ),
             ClipRRect(
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(8.0),
                 topRight: Radius.circular(8.0),
               ),
               child: Image(
-                image: AssetImage(
+                image: const AssetImage(
                   'assets/images/login.jpg',
                 ),
                 height: size.height * 0.15,
@@ -364,7 +362,7 @@ class _SplashScreenState extends State<Body> {
             ),
             const OrDivider(),
             const Text(
-              "Sign up with Google ? ",
+              "Register with Google ? ",
               style: TextStyle(color: kPrimaryColor),
             ),
             const SizedBox(
@@ -629,7 +627,7 @@ class _SplashScreenState extends State<Body> {
           content: Column(mainAxisSize: MainAxisSize.min, children: const [
             SizedBox(height: 15),
             Text(
-              'Successfully registerd',
+              'Student registered successfully',
               style: TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.bold,

@@ -190,7 +190,7 @@ class _FeedbackScreenState extends State<TopUpPage> {
                                 cursorColor: Colors.blue,
                                 decoration: const InputDecoration(
                                     border: InputBorder.none,
-                                    hintText: 'Enter your Amount...'),
+                                    hintText: 'Enter your amount...'),
                                 validator: (value) {
                                   return walletContoller.validateName(value!);
                                 },
@@ -296,7 +296,7 @@ class _FeedbackScreenState extends State<TopUpPage> {
                     onTap: () {
                       _showPicker(context);
                     },
-                    child: const Text("Upload",
+                    child: const Text("Upload bank slip",
                         style: TextStyle(color: kPrimaryColor)),
                   ),
                 )),

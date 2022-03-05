@@ -188,7 +188,8 @@ class _ProfilePageState extends State<ProfileS> {
                               " " +
                               editprofileController.lastname.text.toString(),
                           subtitle: "Grade" " " +
-                              editprofileController.Grade.toString(),
+                              editprofileController.Grade.toString() +
+                              " Studnet",
                           actions: <Widget>[
                             MaterialButton(
                               color: Colors.white,

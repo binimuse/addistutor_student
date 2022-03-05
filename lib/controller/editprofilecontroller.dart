@@ -403,7 +403,7 @@ class EditprofileController extends GetxController with StateMixin {
         context: context,
         builder: (context) => AlertDialog(
           title: const Text(
-            'profile Not Edited',
+            'Profile not edited',
             style: TextStyle(
               fontSize: 13,
               fontWeight: FontWeight.w500,
@@ -439,7 +439,7 @@ class EditprofileController extends GetxController with StateMixin {
             context: context,
             builder: (context) => AlertDialog(
               title: const Text(
-                'profile Edited',
+                'Profile edited',
                 style: TextStyle(
                   fontSize: 13,
                   fontWeight: FontWeight.w500,
@@ -488,7 +488,7 @@ class EditprofileController extends GetxController with StateMixin {
                 ),
               ),
               content: const Text(
-                'if its your first time updating your profile you will be redirected to login',
+                'If it is your first time updating your profile you will be redirected to login',
                 style: TextStyle(
                   fontSize: 13,
                   fontWeight: FontWeight.w500,

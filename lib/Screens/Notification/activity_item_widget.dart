@@ -182,7 +182,7 @@ class _ProfileScreenState extends State<ActivityItemWidget>
           ),
           onTap: () async {
             if (widget.data!.data.notification_type == "wallet") {
-              Get.to(WalletPage());
+              Get.to(const WalletPage());
             } else {
               setState(() {
                 requestedBooking.getsingle(widget.data!.data.booking_id);

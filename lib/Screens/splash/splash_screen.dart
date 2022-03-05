@@ -116,7 +116,7 @@ class _SplashScreenState extends State<SplashScreen> {
               Center(
                 child: Image.asset(
                   'assets/images/lg3.png',
-                  height: 150,
+                  height: 170,
                   width: 360,
                 ),
               ),
@@ -125,15 +125,18 @@ class _SplashScreenState extends State<SplashScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        "One-on-One Tutorial Service ",
-                        style: TextStyle(
-                          fontSize: 26.0,
-                          fontFamily: 'WorkSans',
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 0.4,
-                          height: 0.9,
-                          color: kPrimaryLightColor,
+                      const Center(
+                        child: Text(
+                          "One-on-One Tutorial Service ",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 28.0,
+                            fontFamily: 'WorkSans',
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 0.4,
+                            height: 0.9,
+                            color: kPrimaryLightColor,
+                          ),
                         ),
                       ),
                     ]),
@@ -141,15 +144,18 @@ class _SplashScreenState extends State<SplashScreen> {
               const SizedBox(
                 height: 10,
               ),
-              const Text(
-                "Connecting you with the Best Tutors in Addis, Conveniently. ",
-                style: TextStyle(
-                  fontSize: 12.0,
-                  fontFamily: 'Roboto',
-                  fontWeight: FontWeight.normal,
-                  letterSpacing: 0.4,
-                  height: 0.9,
-                  color: Colors.black,
+              const Center(
+                child: Text(
+                  "Connecting you with the Best Tutors in Addis, Conveniently. ",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    fontFamily: 'Roboto',
+                    fontWeight: FontWeight.normal,
+                    letterSpacing: 0.2,
+                    height: 0.9,
+                    color: Colors.black,
+                  ),
                 ),
               )
             ]),

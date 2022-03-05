@@ -2,7 +2,6 @@
 
 import 'dart:convert';
 
-import 'package:addistutor_student/Screens/Appointment/components/appointmentscreen.dart';
 import 'package:addistutor_student/Screens/Profile/profile.dart';
 import 'package:addistutor_student/Screens/Signup/components/or_divider.dart';
 import 'package:addistutor_student/Screens/Signup/components/social_icon.dart';
@@ -242,7 +241,7 @@ class _LoginScreenState extends State<Body> {
               ),
               const OrDivider(),
               const Text(
-                "Sign up with Google ? ",
+                "Register with Google ? ",
                 style: TextStyle(color: kPrimaryColor),
               ),
               const SizedBox(
@@ -409,7 +408,7 @@ class _LoginScreenState extends State<Body> {
             context: context,
             builder: (context) => AlertDialog(
               title: const Text('info'),
-              content: const Text("To continue finish your profile"),
+              content: const Text("To continue Complete your profile"),
               actions: <Widget>[
                 FlatButton(
                   onPressed: () {

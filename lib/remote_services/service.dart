@@ -179,7 +179,7 @@ class RemoteServices {
 
   static Future<List<Day>> getAvalbledate(var id) async {
     // print("id.toString()");
-    print(id.toString());
+
     res = await Network().getData("teacher/${id}/availability");
 
     var body = json.decode(res.body);
@@ -382,8 +382,6 @@ class RemoteServices {
   }
 
   static Future<Balance> balance(var id) async {
-    print(id);
-    print(id);
     res = await Network().getData("student-wallet/${id}/balance");
 
     var body = json.decode(res.body);
@@ -405,6 +403,22 @@ class RemoteServices {
           .cast<Transaction>();
     } else {
       throw Exception('Failed to load transaction');
+    }
+  }
+
+  static Future<String> endbooking(var ending_reason, var id) async {
+    var data = {
+      'ending_reason': ending_reason,
+    };
+    res = await Network().getpassedData(data, "booking/${id}/end");
+    body = json.decode(res.body);
+    // ignore: avoid_print
+    print("body");
+    print(body);
+    if (res.statusCode == 200) {
+      return body["success"].toString();
+    } else {
+      throw Exception('Failed to send  Mesaage');
     }
   }
 }
