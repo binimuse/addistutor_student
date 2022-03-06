@@ -55,13 +55,12 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
   @override
   Widget build(BuildContext context) {
     const bodyStyle = TextStyle(
-      fontSize: 13.0,
-      fontFamily: 'Arial',
-      fontWeight: FontWeight.bold,
-      letterSpacing: 0.7,
-      wordSpacing: 0.7,
-      color: Color(0xFF4A6572),
-    );
+        fontSize: 13.0,
+        fontFamily: 'Arial',
+        fontWeight: FontWeight.bold,
+        letterSpacing: 0.7,
+        wordSpacing: 0.7,
+        color: Colors.white);
 
     const pageDecoration = PageDecoration(
       titleTextStyle: TextStyle(
@@ -69,15 +68,15 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
           fontFamily: 'Roboto',
           letterSpacing: 0.4,
           fontWeight: FontWeight.w800,
-          color: kPrimaryColor),
+          color: Colors.white),
       bodyTextStyle: bodyStyle,
       descriptionPadding: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
-      pageColor: Colors.white,
+      pageColor: kPrimaryColor,
       imagePadding: EdgeInsets.zero,
     );
 
     return IntroductionScreen(
-      globalBackgroundColor: Colors.white,
+      globalBackgroundColor: kPrimaryColor,
 
       pages: [
         PageViewModel(
@@ -110,6 +109,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
         ),
       ],
       onDone: () => _onIntroEnd(context),
+
       //onSkip: () => _onIntroEnd(context), // You can override onSkip callback
       showSkipButton: true,
       skipFlex: 0,

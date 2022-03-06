@@ -125,7 +125,7 @@ class _EditPageState extends State<EditPage> {
                 ),
               ),
               title: const Text(
-                "Edit Profile",
+                "Profile",
                 style: TextStyle(
                   fontSize: 25,
                   fontWeight: FontWeight.w500,
@@ -136,12 +136,16 @@ class _EditPageState extends State<EditPage> {
             ),
             body: Form(
               key: editprofileController.EditProf,
-              autovalidateMode: AutovalidateMode.onUserInteraction,
+              autovalidateMode: AutovalidateMode.disabled,
               child: Container(
                 padding: const EdgeInsets.only(left: 16, top: 25, right: 16),
                 child: GestureDetector(
                   onTap: () {
-                    FocusScope.of(context).unfocus();
+                    FocusScopeNode currentFocus = FocusScope.of(context);
+
+                    if (!currentFocus.hasPrimaryFocus) {
+                      currentFocus.unfocus();
+                    }
                   },
                   child: ListView(
                     children: [
@@ -737,21 +741,8 @@ class _EditPageState extends State<EditPage> {
                         height: 35,
                       ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          OutlineButton(
-                            padding: const EdgeInsets.symmetric(horizontal: 50),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20)),
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: const Text("CANCEL",
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    letterSpacing: 2.2,
-                                    color: Colors.black)),
-                          ),
                           RaisedButton(
                             onPressed: () {
                               editprofileController.editProf(id, context);

@@ -2,16 +2,21 @@
 
 import 'dart:convert';
 
+import 'package:addistutor_student/Screens/Profile/editprofile.dart';
 import 'package:addistutor_student/Screens/Profile/profile.dart';
 import 'package:addistutor_student/Screens/Signup/components/or_divider.dart';
 import 'package:addistutor_student/Screens/Signup/components/social_icon.dart';
 import 'package:addistutor_student/components/text_field_container.dart';
+import 'package:addistutor_student/controller/editprofilecontroller.dart';
+import 'package:addistutor_student/controller/getlocationcontroller.dart';
 import 'package:addistutor_student/remote_services/api.dart';
+import 'package:addistutor_student/remote_services/user.dart';
 import 'package:flutter/material.dart';
 import 'package:addistutor_student/Screens/Login/components/background.dart';
 import 'package:addistutor_student/Screens/Signup/signup_screen.dart';
 import 'package:addistutor_student/Screens/main/main.dart';
 import 'package:addistutor_student/components/already_have_an_account_acheck.dart';
+import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../constants.dart';
@@ -33,12 +38,53 @@ bool _isLoggedIn = false;
 late GoogleSignInAccount _userObj;
 GoogleSignIn _googleSignIn = GoogleSignIn();
 late TextEditingController emailcon;
+final EditprofileController editprofileController =
+    Get.put(EditprofileController());
 
 class _LoginScreenState extends State<Body> {
   @override
   void initState() {
     super.initState();
+    _fetchUser();
+    _getlocation();
     emailcon = TextEditingController();
+  }
+
+  final GetLocationController getLocationController =
+      Get.put(GetLocationController());
+
+  List<GetLocationforedit> location = [];
+  _getlocation() async {
+    getLocationController.fetchLocation();
+    // ignore: invalid_use_of_protected_member
+    location = getLocationController.listlocationforedit.value;
+    if (location != null && location.isNotEmpty) {
+      setState(() {
+        editprofileController.locaion = location[0];
+      });
+    }
+  }
+
+  var ids;
+  void _fetchUser() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    var token = localStorage.getString('user');
+
+    if (token != null) {
+      var body = json.decode(token);
+
+      if (body["student_id"] != null) {
+        setState(() {
+          ids = int.parse(body["student_id"]);
+        });
+
+        editprofileController.fetchPf(int.parse(body["student_id"]));
+      } else {
+        var noid = "noid";
+
+        editprofileController.fetchPf(noid);
+      }
+    } else {}
   }
 
   bool isLoading = false;
@@ -251,7 +297,7 @@ class _LoginScreenState extends State<Body> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   SocalIcon(
-                    iconSrc: "assets/icons/google-plus.svg",
+                    iconSrc: "assets/images/google.png",
                     press: () {
                       _googleSignIn.signIn().then((userData) {
                         setState(() {
@@ -386,19 +432,37 @@ class _LoginScreenState extends State<Body> {
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: const Text('Please Varify Your email'),
-            content:
-                const Text("go to your email address to confirm your email"),
+            title: const Text('Please verify Your email'),
+            content: const Text("Go to your email to confirm"),
             actions: <Widget>[
-              FlatButton(
-                onPressed: () {
-                  Navigator.of(context).pop(true);
-                  setState(() {
-                    isLoading = false;
-                  });
-                },
-                child: const Text('ok'),
-              ),
+              Center(
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  // ignore: deprecated_member_use
+                  child: FlatButton(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    color: kPrimaryColor,
+                    onPressed: () {
+                      Navigator.of(context).pop(true);
+                      setState(() {
+                        isLoading = false;
+                      });
+                    },
+                    child: Container(
+                        width: 20,
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        alignment: Alignment.center,
+                        child: const Text(
+                          'Ok',
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        )),
+                  ),
+                ),
+              )
             ],
           ),
         );
@@ -407,10 +471,13 @@ class _LoginScreenState extends State<Body> {
           showDialog(
             context: context,
             builder: (context) => AlertDialog(
-              title: const Text('info'),
-              content: const Text("To continue Complete your profile"),
+              content: const Text("To continue complete your profile"),
               actions: <Widget>[
                 FlatButton(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  color: kPrimaryColor,
                   onPressed: () {
                     Navigator.of(context).pop(true);
                     setState(() {
@@ -420,11 +487,20 @@ class _LoginScreenState extends State<Body> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const ProfileScreen(),
+                        builder: (context) => const EditPage(),
                       ),
                     );
                   },
-                  child: const Text('ok'),
+                  child: Container(
+                      width: 20,
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      alignment: Alignment.center,
+                      child: const Text(
+                        'Ok',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      )),
                 ),
               ],
             ),

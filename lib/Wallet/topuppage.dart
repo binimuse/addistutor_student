@@ -265,20 +265,20 @@ class _FeedbackScreenState extends State<TopUpPage> {
                 _showPicker(context);
               },
               child: CircleAvatar(
-                radius: 40,
+                radius: 50,
                 backgroundColor: kPrimaryColor,
                 child: _imageFileList != null
                     ? ClipRRect(
                         borderRadius: BorderRadius.circular(40),
                         child: Image.file(File(_imageFileList![0].path),
-                            width: 95, height: 95, fit: BoxFit.cover),
+                            width: 100, height: 105, fit: BoxFit.contain),
                       )
                     : Container(
                         decoration: BoxDecoration(
                             color: Colors.grey[200],
                             borderRadius: BorderRadius.circular(50)),
                         width: 100,
-                        height: 100,
+                        height: 120,
                         child: Icon(
                           Icons.file_upload_sharp,
                           color: Colors.grey[800],
@@ -288,10 +288,10 @@ class _FeedbackScreenState extends State<TopUpPage> {
             ),
             Positioned(
                 bottom: 0,
-                right: 0,
+                right: 5,
                 child: Container(
                   height: 30,
-                  width: 65,
+                  width: 85,
                   child: GestureDetector(
                     onTap: () {
                       _showPicker(context);

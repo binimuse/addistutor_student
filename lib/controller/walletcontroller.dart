@@ -127,7 +127,7 @@ class WalletContoller extends GetxController with StateMixin {
         context: context,
         builder: (context) => AlertDialog(
           title: const Text(
-            'hank you for making the deposit. the administrator is varying your deposit. kindly wait',
+            'Thank you for making the deposit. The administrator is verifying your deposit. Please wait.',
             style: TextStyle(
               fontSize: 13,
               fontWeight: FontWeight.w500,
@@ -137,6 +137,10 @@ class WalletContoller extends GetxController with StateMixin {
           ),
           actions: <Widget>[
             FlatButton(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              color: kPrimaryColor,
               onPressed: () {
                 isLoading(false);
                 Navigator.of(context).pop(true);
@@ -147,7 +151,16 @@ class WalletContoller extends GetxController with StateMixin {
                 //       builder: (context) => const ProfileScreen()),
                 // );
               },
-              child: const Text('ok'),
+              child: Container(
+                  width: 20,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  alignment: Alignment.center,
+                  child: const Text(
+                    'Ok',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  )),
             ),
           ],
         ),

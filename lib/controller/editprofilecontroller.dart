@@ -478,17 +478,8 @@ class EditprofileController extends GetxController with StateMixin {
           showDialog(
             context: context,
             builder: (context) => AlertDialog(
-              title: const Text(
-                'profile Edited',
-                style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.black,
-                  fontFamily: 'WorkSans',
-                ),
-              ),
               content: const Text(
-                'If it is your first time updating your profile you will be redirected to login',
+                'If this is your first time updating your profile, you will be redirected to the log in page.',
                 style: TextStyle(
                   fontSize: 13,
                   fontWeight: FontWeight.w500,
@@ -498,7 +489,12 @@ class EditprofileController extends GetxController with StateMixin {
               ),
               actions: <Widget>[
                 // ignore: deprecated_member_use
+
                 FlatButton(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  color: kPrimaryColor,
                   onPressed: () async {
                     isLoading(false);
 
@@ -511,7 +507,16 @@ class EditprofileController extends GetxController with StateMixin {
                       ),
                     );
                   },
-                  child: const Text('ok'),
+                  child: Container(
+                      width: 20,
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      alignment: Alignment.center,
+                      child: const Text(
+                        'Ok',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      )),
                 ),
               ],
             ),

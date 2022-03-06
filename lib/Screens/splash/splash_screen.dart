@@ -146,7 +146,7 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
               const Center(
                 child: Text(
-                  "Connecting you with the Best Tutors in Addis, Conveniently. ",
+                  "Connecting you with the best tutors in Addis. Conveniently.",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 12.0,

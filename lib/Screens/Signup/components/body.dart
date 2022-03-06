@@ -85,7 +85,7 @@ class _SplashScreenState extends State<Body> {
                           Icons.person_add,
                           color: kPrimaryColor,
                         ),
-                        hintText: "Fullname",
+                        hintText: "Full Name",
                         border: InputBorder.none,
                       ),
                       validator: (value) {
@@ -176,7 +176,7 @@ class _SplashScreenState extends State<Body> {
                       obscureText: isPasswordTextField1 ? showPassword1 : false,
                       cursorColor: kPrimaryColor,
                       decoration: InputDecoration(
-                        hintText: "confirm Password",
+                        hintText: "Confirm password",
                         icon: const Icon(
                           Icons.lock,
                           color: kPrimaryColor,
@@ -234,7 +234,7 @@ class _SplashScreenState extends State<Body> {
                             style: const TextStyle(color: Colors.grey),
                             children: [
                               TextSpan(
-                                text: 'I agree with Terms of Service',
+                                text: 'I agree with the terms of service',
                                 style: const TextStyle(
                                   color: kPrimaryColor,
                                 ),
@@ -362,7 +362,7 @@ class _SplashScreenState extends State<Body> {
             ),
             const OrDivider(),
             const Text(
-              "Register with Google ? ",
+              "Register with Google? ",
               style: TextStyle(color: kPrimaryColor),
             ),
             const SizedBox(
@@ -372,7 +372,7 @@ class _SplashScreenState extends State<Body> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 SocalIcon(
-                  iconSrc: "assets/icons/google-plus.svg",
+                  iconSrc: "assets/images/google.png",
                   press: () {
                     _googleSignIn.signIn().then((userData) {
                       setState(() {
@@ -564,7 +564,7 @@ class _SplashScreenState extends State<Body> {
           content: Column(mainAxisSize: MainAxisSize.min, children: const [
             SizedBox(height: 15),
             Text(
-              "Running TO a probelm please try again",
+              "Running tO a probelm please try again",
               style: TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.bold,
@@ -585,16 +585,16 @@ class _SplashScreenState extends State<Body> {
                     isLoading = false;
                   });
                 },
-                child: Center(
-                  child: Text(
-                    "Ok",
-                    style: TextStyle(
-                      fontSize: 18.0,
-                      color: Theme.of(context).primaryColor,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
+                child: Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    alignment: Alignment.center,
+                    child: const Text(
+                      'Ok',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    )),
               ),
             ),
           ],
@@ -611,18 +611,6 @@ class _SplashScreenState extends State<Body> {
           ),
           title: Column(mainAxisSize: MainAxisSize.min, children: const [
             SizedBox(height: 15),
-            Text(
-              'Success',
-              style: TextStyle(
-                fontSize: 18.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 15),
-            Divider(
-              height: 1,
-              color: kPrimaryColor,
-            ),
           ]),
           content: Column(mainAxisSize: MainAxisSize.min, children: const [
             SizedBox(height: 15),
@@ -641,30 +629,52 @@ class _SplashScreenState extends State<Body> {
               width: MediaQuery.of(context).size.width,
               height: 50,
               child: InkWell(
-                highlightColor: Colors.grey[200],
-                onTap: () {
-                  Navigator.of(context).pop(true);
-                  setState(() {
-                    isLoading = false;
-                  });
-                  Navigator.push<dynamic>(
-                    context,
-                    MaterialPageRoute<dynamic>(
-                      builder: (BuildContext context) => const Mainscrren(),
+                  highlightColor: Colors.grey[200],
+                  onTap: () {
+                    Navigator.of(context).pop(true);
+                    setState(() {
+                      isLoading = false;
+                    });
+                    Navigator.push<dynamic>(
+                      context,
+                      MaterialPageRoute<dynamic>(
+                        builder: (BuildContext context) => const Mainscrren(),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    // ignore: deprecated_member_use
+                    child: FlatButton(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      color: kPrimaryColor,
+                      onPressed: () {
+                        Navigator.of(context).pop(true);
+                        setState(() {
+                          isLoading = false;
+                        });
+                        Navigator.push<dynamic>(
+                          context,
+                          MaterialPageRoute<dynamic>(
+                            builder: (BuildContext context) =>
+                                const Mainscrren(),
+                          ),
+                        );
+                      },
+                      child: Container(
+                          width: 20,
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          alignment: Alignment.center,
+                          child: const Text(
+                            'Ok',
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          )),
                     ),
-                  );
-                },
-                child: Center(
-                  child: Text(
-                    "Ok",
-                    style: TextStyle(
-                      fontSize: 18.0,
-                      color: Theme.of(context).primaryColor,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
+                  )),
             ),
           ],
         ),
@@ -717,24 +727,39 @@ class _SplashScreenState extends State<Body> {
               width: MediaQuery.of(context).size.width,
               height: 50,
               child: InkWell(
-                highlightColor: Colors.grey[200],
-                onTap: () {
-                  Navigator.of(context).pop(true);
-                  setState(() {
-                    isLoading = false;
-                  });
-                },
-                child: Center(
-                  child: Text(
-                    "Ok",
-                    style: TextStyle(
-                      fontSize: 18.0,
-                      color: Theme.of(context).primaryColor,
-                      fontWeight: FontWeight.bold,
+                  highlightColor: Colors.grey[200],
+                  onTap: () {
+                    Navigator.of(context).pop(true);
+                    setState(() {
+                      isLoading = false;
+                    });
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    // ignore: deprecated_member_use
+                    child: FlatButton(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      color: kPrimaryColor,
+                      onPressed: () {
+                        Navigator.of(context).pop(true);
+                        setState(() {
+                          isLoading = false;
+                        });
+                      },
+                      child: Container(
+                          width: 20,
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          alignment: Alignment.center,
+                          child: const Text(
+                            'Ok',
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          )),
                     ),
-                  ),
-                ),
-              ),
+                  )),
             ),
           ],
         ),
@@ -751,7 +776,7 @@ class _SplashScreenState extends State<Body> {
           title: Column(mainAxisSize: MainAxisSize.min, children: const [
             SizedBox(height: 15),
             Text(
-              'Success',
+              'Student registered successfully',
               style: TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.bold,
@@ -763,47 +788,58 @@ class _SplashScreenState extends State<Body> {
               color: kPrimaryColor,
             ),
           ]),
-          content: Column(mainAxisSize: MainAxisSize.min, children: const [
-            SizedBox(height: 15),
-            Text(
-              'Successfully registerd',
-              style: TextStyle(
-                fontSize: 18.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 15),
-          ]),
           actions: <Widget>[
             // ignore: deprecated_member_use
             SizedBox(
               width: MediaQuery.of(context).size.width,
               height: 50,
               child: InkWell(
-                highlightColor: Colors.grey[200],
-                onTap: () {
-                  Navigator.of(context).pop(true);
-                  setState(() {
-                    isLoading = false;
-                  });
-                  Navigator.push<dynamic>(
-                    context,
-                    MaterialPageRoute<dynamic>(
-                      builder: (BuildContext context) => const LoginScreen(),
+                  highlightColor: Colors.grey[200],
+                  onTap: () {
+                    Navigator.of(context).pop(true);
+                    setState(() {
+                      isLoading = false;
+                    });
+                    Navigator.push<dynamic>(
+                      context,
+                      MaterialPageRoute<dynamic>(
+                        builder: (BuildContext context) => const LoginScreen(),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    // ignore: deprecated_member_use
+                    child: FlatButton(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      color: kPrimaryColor,
+                      onPressed: () {
+                        Navigator.of(context).pop(true);
+                        setState(() {
+                          isLoading = false;
+                        });
+                        Navigator.push<dynamic>(
+                          context,
+                          MaterialPageRoute<dynamic>(
+                            builder: (BuildContext context) =>
+                                const LoginScreen(),
+                          ),
+                        );
+                      },
+                      child: Container(
+                          width: 20,
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          alignment: Alignment.center,
+                          child: const Text(
+                            'Ok',
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          )),
                     ),
-                  );
-                },
-                child: Center(
-                  child: Text(
-                    "Ok",
-                    style: TextStyle(
-                      fontSize: 18.0,
-                      color: Theme.of(context).primaryColor,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
+                  )),
             ),
           ],
         ),

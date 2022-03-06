@@ -12,6 +12,7 @@ import 'package:addistutor_student/Screens/Profile/termsodservice.dart';
 import 'package:addistutor_student/controller/bookingcontroller.dart';
 import 'package:addistutor_student/controller/contactuscontroller.dart';
 import 'package:addistutor_student/controller/editprofilecontroller.dart';
+import 'package:addistutor_student/controller/endbookingcontroller.dart';
 import 'package:addistutor_student/controller/feedbackcontroller.dart';
 import 'package:addistutor_student/controller/geteducationlevelcontroller.dart';
 import 'package:addistutor_student/controller/getlocationcontroller.dart';
@@ -355,7 +356,7 @@ class _ProfilePageState extends State<ProfileS> {
                     },
                     child: _buildRow(
                       Icons.update,
-                      "update profile",
+                      "Update profile",
                     ),
                   ),
                   _buildDivider(),
@@ -403,7 +404,7 @@ class _ProfilePageState extends State<ProfileS> {
                         ),
                       );
                     },
-                    child: _buildRow(Icons.notification_add, "Notification",
+                    child: _buildRow(Icons.notification_add, "Notifications",
                         showBadge: true),
                   ),
                   _buildDivider(),
@@ -543,7 +544,7 @@ class _ProfilePageState extends State<ProfileS> {
                           ),
                         );
                       },
-                      child: _buildRow(Icons.logout, "Logout")),
+                      child: _buildRow(Icons.logout, "Log out")),
                   _buildDivider(),
                 ],
               ),
@@ -597,6 +598,7 @@ class _ProfilePageState extends State<ProfileS> {
     Get.delete<GetTutorAvlblityController>();
     Get.delete<GetQrCode>();
     Get.delete<GetNotigicationController>();
+    Get.delete<EndBookingContoller>();
 
     Navigator.push(
       context,
