@@ -3,6 +3,7 @@
 import 'dart:io';
 
 import 'package:addistutor_student/Screens/Home/components/course_info_screen.dart';
+import 'package:addistutor_student/Screens/Home/components/design_course_app_theme.dart';
 import 'package:addistutor_student/Screens/search/components/hotel_list_view.dart';
 import 'package:addistutor_student/Screens/search/components/model/hotel_list_data.dart';
 import 'package:addistutor_student/controller/geteducationlevelcontroller.dart';
@@ -196,14 +197,6 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
                                     lid.toString(), sid, gender.toString()),
                                 builder: (BuildContext context,
                                     AsyncSnapshot snapshot) {
-                                  if (snapshot.hasError) {
-                                    //   found.value = snapshot.data.length;
-
-                                    return const Center(
-                                      child: Text("No Tutor Found"),
-                                    );
-                                  }
-
                                   if (snapshot.hasData) {
                                     return ListView.builder(
                                       itemCount: snapshot.data.length,
@@ -236,8 +229,8 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
                                     );
                                   }
                                 }))
-                        : const Center(
-                            child: Text("No Tutors found"),
+                        : Center(
+                            child: Container(),
                           ),
                   )),
                 )))
@@ -310,9 +303,11 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
             'Tutor Gender:',
             textAlign: TextAlign.left,
             style: TextStyle(
-                color: Colors.grey,
-                fontSize: MediaQuery.of(context).size.width > 360 ? 18 : 16,
-                fontWeight: FontWeight.normal),
+              fontSize: 17,
+              fontWeight: FontWeight.w700,
+              color: kPrimaryColor,
+              fontFamily: 'WorkSans',
+            ),
           ),
         ),
         Padding(
@@ -321,7 +316,7 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
             value: macthgender.value,
             isExpanded: true,
             style: const TextStyle(
-                color: Colors.black, fontSize: 16, fontWeight: FontWeight.w700),
+                color: Colors.black, fontSize: 16, fontWeight: FontWeight.w400),
             items: <String>[
               'Any',
               'Male',
@@ -332,9 +327,9 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
                 child: Text(
                   value,
                   style: const TextStyle(
-                      color: Colors.black,
+                      color: DesignCourseAppTheme.nearlyBlack,
                       fontSize: 16,
-                      fontWeight: FontWeight.w700),
+                      fontWeight: FontWeight.w300),
                 ),
               );
             }).toList(),
@@ -370,9 +365,11 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
             'Location :',
             textAlign: TextAlign.left,
             style: TextStyle(
-                color: Colors.grey,
-                fontSize: MediaQuery.of(context).size.width > 360 ? 18 : 16,
-                fontWeight: FontWeight.normal),
+              fontSize: 17,
+              fontWeight: FontWeight.w700,
+              color: kPrimaryColor,
+              fontFamily: 'WorkSans',
+            ),
           ),
         ),
         Padding(
@@ -394,9 +391,9 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
                         e.name,
                         textAlign: TextAlign.left,
                         style: const TextStyle(
-                            color: Colors.black,
+                            color: DesignCourseAppTheme.nearlyBlack,
                             fontSize: 16,
-                            fontWeight: FontWeight.w400),
+                            fontWeight: FontWeight.w300),
                       ),
                       value: e,
                     ))
@@ -453,7 +450,7 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
             maxLines: 5,
           ),
           title: const Text(
-            "Subjects avalable",
+            "Available subjects",
             style: TextStyle(
               fontSize: 20,
               color: kPrimaryColor,
@@ -526,9 +523,11 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
             'Education Level:',
             textAlign: TextAlign.left,
             style: TextStyle(
-                color: Colors.grey,
-                fontSize: MediaQuery.of(context).size.width > 360 ? 18 : 16,
-                fontWeight: FontWeight.normal),
+              fontSize: 17,
+              fontWeight: FontWeight.w700,
+              color: kPrimaryColor,
+              fontFamily: 'WorkSans',
+            ),
           ),
         ),
         Padding(
@@ -551,9 +550,9 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
                           e.title,
                           textAlign: TextAlign.left,
                           style: const TextStyle(
-                              color: Colors.black,
+                              color: DesignCourseAppTheme.nearlyBlack,
                               fontSize: 16,
-                              fontWeight: FontWeight.w400),
+                              fontWeight: FontWeight.w300),
                         ),
                       ]),
                       value: e,
@@ -631,7 +630,7 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
             child: Padding(
               padding: EdgeInsets.all(8.0),
               child: Text(
-                "Tutors Found",
+                "Search results",
                 style: TextStyle(
                   fontWeight: FontWeight.w100,
                   fontSize: 16,
@@ -674,7 +673,7 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
             ),
             const Center(
               child: Text(
-                'Search the best Tutors',
+                'Search for tutors',
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 18,

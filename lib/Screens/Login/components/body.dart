@@ -506,11 +506,12 @@ class _LoginScreenState extends State<Body> {
             ),
           );
         } else {
-          Navigator.push(
+          Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-              builder: (context) => const Mainscrren(),
+              builder: (context) => const Scaffold(body: Mainscrren()),
             ),
+            (route) => false,
           );
         }
 

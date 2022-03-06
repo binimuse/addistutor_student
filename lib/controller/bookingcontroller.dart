@@ -391,7 +391,7 @@ class BookingeController extends GetxController with StateMixin {
         context: context,
         builder: (context) => AlertDialog(
           title: const Text(
-            'Booked Sucesss',
+            'Successful booking!',
             style: TextStyle(
               fontSize: 13,
               fontWeight: FontWeight.w500,
@@ -400,7 +400,7 @@ class BookingeController extends GetxController with StateMixin {
             ),
           ),
           content: const Text(
-            'Sucessfully Booked Tutor \nplease go to your Dashbord for any updateds',
+            'Please go to your dashboard.',
             style: TextStyle(
               fontSize: 13,
               fontWeight: FontWeight.w500,
@@ -409,8 +409,11 @@ class BookingeController extends GetxController with StateMixin {
             ),
           ),
           actions: <Widget>[
-            // ignore: deprecated_member_use
             FlatButton(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              color: kPrimaryColor,
               onPressed: () async {
                 isLoading(false);
                 Navigator.of(context).pop(true);
@@ -425,8 +428,18 @@ class BookingeController extends GetxController with StateMixin {
                 //   ),
                 // );
               },
-              child: const Text('ok'),
+              child: Container(
+                  width: 20,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  alignment: Alignment.center,
+                  child: const Text(
+                    'Ok',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  )),
             ),
+            // ignore: deprecated_member_use
           ],
         ),
       );

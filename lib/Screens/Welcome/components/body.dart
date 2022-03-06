@@ -32,7 +32,7 @@ class Body extends StatelessWidget {
               ),
             ),
             const Text(
-              "Student Applicaion",
+              "Student App",
               style: TextStyle(
                 fontSize: 18.0,
                 fontFamily: 'Roboto',
@@ -51,7 +51,7 @@ class Body extends StatelessWidget {
             ),
             SizedBox(height: size.height * 0.05),
             RoundedButton(
-              text: "Login",
+              text: "Log in",
               press: () {
                 Navigator.push(
                   context,

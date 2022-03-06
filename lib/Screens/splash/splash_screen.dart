@@ -127,7 +127,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     children: [
                       const Center(
                         child: Text(
-                          "One-on-One Tutorial Service ",
+                          "One-on-One \n Tutorial Service ",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 28.0,
@@ -146,10 +146,10 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
               const Center(
                 child: Text(
-                  "Connecting you with the best tutors in Addis. Conveniently.",
+                  "Connecting you with the Best Tutors in Addis, Conveniently. ",
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 12.0,
+                    fontSize: 13.0,
                     fontFamily: 'Roboto',
                     fontWeight: FontWeight.normal,
                     letterSpacing: 0.2,

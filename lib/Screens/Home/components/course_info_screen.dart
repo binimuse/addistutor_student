@@ -158,7 +158,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                             padding:
                                 EdgeInsets.only(top: 32.0, left: 18, right: 16),
                             child: Text(
-                              "Tutor info",
+                              "Tutor Profile",
                               textAlign: TextAlign.left,
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
@@ -465,7 +465,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                                         ),
                                         child: const Center(
                                           child: Text(
-                                            'Book',
+                                            'Book Now',
                                             textAlign: TextAlign.left,
                                             style: TextStyle(
                                               fontWeight: FontWeight.w600,

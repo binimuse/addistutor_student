@@ -306,7 +306,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
             maxLines: 5,
           ),
           title: const Text(
-            "Subjects avalable",
+            "Available subjects",
             style: TextStyle(
               fontSize: 20,
               color: kPrimaryColor,

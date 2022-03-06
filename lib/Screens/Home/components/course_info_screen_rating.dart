@@ -177,7 +177,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
                                 padding: EdgeInsets.only(
                                     top: 32.0, left: 18, right: 16),
                                 child: Text(
-                                  "Tutor info",
+                                  "Tutor Profile",
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
                                     fontWeight: FontWeight.w600,
