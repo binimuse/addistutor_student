@@ -5,6 +5,7 @@ import 'package:addistutor_student/Screens/Home/components/design_course_app_the
 import 'package:addistutor_student/Screens/Home/components/homescreen.dart';
 
 import 'package:addistutor_student/Screens/search/components/hotel_app_theme.dart';
+import 'package:addistutor_student/constants.dart';
 import 'package:addistutor_student/controller/geteducationlevelcontroller.dart';
 import 'package:addistutor_student/controller/searchcontroller.dart';
 import 'package:addistutor_student/remote_services/service.dart';
@@ -382,8 +383,7 @@ class CategoryView extends StatelessWidget {
                                                             const Icon(
                                                               Icons.star,
                                                               color:
-                                                                  DesignCourseAppTheme
-                                                                      .nearlyBlue,
+                                                                  kPrimaryLightColor,
                                                               size: 20,
                                                             ),
                                                           ],

@@ -69,7 +69,7 @@ class EndBookingContoller extends GetxController with StateMixin {
     await Future.delayed(const Duration(seconds: 1));
     // Dismiss CircularProgressIndicator
     //
-    print("object");
+
     Navigator.of(context).pop();
     if (inforesponse == false) {
       showDialog(

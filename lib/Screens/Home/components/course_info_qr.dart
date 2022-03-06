@@ -233,7 +233,7 @@ class _CourseInfoScreenState extends State<CourseInfoQr>
                                             child: Row(children: const [
                                               Icon(
                                                 Icons.star,
-                                                color: kPrimaryColor,
+                                                color: kPrimaryLightColor,
                                               ),
                                               SizedBox(width: 10.0),
                                               Text(

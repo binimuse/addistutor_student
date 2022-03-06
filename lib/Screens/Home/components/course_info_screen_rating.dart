@@ -244,8 +244,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
                                               ),
                                         const Icon(
                                           Icons.star,
-                                          color:
-                                              DesignCourseAppTheme.nearlyBlue,
+                                          color: kPrimaryLightColor,
                                           size: 24,
                                         ),
                                       ],

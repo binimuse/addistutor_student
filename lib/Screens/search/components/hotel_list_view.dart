@@ -1,4 +1,5 @@
 import 'package:addistutor_student/Screens/search/components/hotel_app_theme.dart';
+import 'package:addistutor_student/constants.dart';
 import 'package:addistutor_student/remote_services/user.dart';
 
 import 'package:flutter/material.dart';
@@ -121,8 +122,7 @@ class HotelListView extends StatelessWidget {
                                 ),
                                 Icon(
                                   Icons.star,
-                                  color: HotelAppTheme.buildLightTheme()
-                                      .primaryColor,
+                                  color: kPrimaryLightColor,
                                   size: 20,
                                 ),
                               ]),

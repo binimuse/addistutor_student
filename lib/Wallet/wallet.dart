@@ -267,8 +267,7 @@ class _EditProfilePageState extends State<WalletPage> {
                                                     child: Icon(
                                                       Icons
                                                           .account_balance_wallet,
-                                                      color:
-                                                          Colors.lightBlue[900],
+                                                      color: kPrimaryLightColor,
                                                     ),
                                                     padding:
                                                         const EdgeInsets.all(

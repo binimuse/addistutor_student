@@ -2,6 +2,7 @@
 
 import 'dart:async';
 
+import 'package:addistutor_student/constants.dart';
 import 'package:addistutor_student/controller/getreqestedbookingcpntroller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -226,8 +227,7 @@ class _CourseInfoScreenState extends State<SinglebookingPage>
                                               ),
                                               const Icon(
                                                 Icons.star,
-                                                color: DesignCourseAppTheme
-                                                    .nearlyBlue,
+                                                color: kPrimaryLightColor,
                                                 size: 24,
                                               ),
                                             ],

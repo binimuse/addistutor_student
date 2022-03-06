@@ -189,8 +189,7 @@ class _ProfilePageState extends State<ProfileS> {
                               " " +
                               editprofileController.lastname.text.toString(),
                           subtitle: "Grade" " " +
-                              editprofileController.Grade.toString() +
-                              " Studnet",
+                              editprofileController.Grade.toString(),
                           actions: <Widget>[
                             MaterialButton(
                               color: Colors.white,
@@ -201,14 +200,11 @@ class _ProfilePageState extends State<ProfileS> {
                                 color: kPrimaryColor,
                               ),
                               onPressed: () {
-                                Navigator.push(
-                                  // ignore: prefer_const_constructors
+                                Navigator.push<dynamic>(
                                   context,
-                                  PageRouteBuilder(
-                                    pageBuilder:
-                                        (context, animation1, animation2) =>
-                                            const EditPage(),
-                                    transitionDuration: Duration.zero,
+                                  MaterialPageRoute<dynamic>(
+                                    builder: (BuildContext context) =>
+                                        const EditPage(),
                                   ),
                                 );
                               },
@@ -345,12 +341,10 @@ class _ProfilePageState extends State<ProfileS> {
                   const SizedBox(height: 30.0),
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(
+                      Navigator.push<dynamic>(
                         context,
-                        PageRouteBuilder(
-                          pageBuilder: (context, animation1, animation2) =>
-                              const EditPage(),
-                          transitionDuration: Duration.zero,
+                        MaterialPageRoute<dynamic>(
+                          builder: (BuildContext context) => const EditPage(),
                         ),
                       );
                     },
@@ -362,13 +356,11 @@ class _ProfilePageState extends State<ProfileS> {
                   _buildDivider(),
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                        // ignore: prefer_const_constructors
+                      Navigator.push<dynamic>(
                         context,
-                        PageRouteBuilder(
-                          pageBuilder: (context, animation1, animation2) =>
+                        MaterialPageRoute<dynamic>(
+                          builder: (BuildContext context) =>
                               const FeedbackScreen(),
-                          transitionDuration: Duration.zero,
                         ),
                       );
                     },
@@ -380,13 +372,11 @@ class _ProfilePageState extends State<ProfileS> {
                   _buildDivider(),
                   GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          // ignore: prefer_const_constructors
+                        Navigator.push<dynamic>(
                           context,
-                          PageRouteBuilder(
-                            pageBuilder: (context, animation1, animation2) =>
+                          MaterialPageRoute<dynamic>(
+                            builder: (BuildContext context) =>
                                 const SettingsFourPage(),
-                            transitionDuration: Duration.zero,
                           ),
                         );
                       },
@@ -394,13 +384,11 @@ class _ProfilePageState extends State<ProfileS> {
                   _buildDivider(),
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                        // ignore: prefer_const_constructors
+                      Navigator.push<dynamic>(
                         context,
-                        PageRouteBuilder(
-                          pageBuilder: (context, animation1, animation2) =>
+                        MaterialPageRoute<dynamic>(
+                          builder: (BuildContext context) =>
                               const Notificationclass(),
-                          transitionDuration: Duration.zero,
                         ),
                       );
                     },
@@ -410,13 +398,11 @@ class _ProfilePageState extends State<ProfileS> {
                   _buildDivider(),
                   GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          // ignore: prefer_const_constructors
+                        Navigator.push<dynamic>(
                           context,
-                          PageRouteBuilder(
-                            pageBuilder: (context, animation1, animation2) =>
+                          MaterialPageRoute<dynamic>(
+                            builder: (BuildContext context) =>
                                 const ContactDetailsView(),
-                            transitionDuration: Duration.zero,
                           ),
                         );
                       },
@@ -424,13 +410,11 @@ class _ProfilePageState extends State<ProfileS> {
                   _buildDivider(),
                   GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          // ignore: prefer_const_constructors
+                        Navigator.push<dynamic>(
                           context,
-                          PageRouteBuilder(
-                            pageBuilder: (context, animation1, animation2) =>
+                          MaterialPageRoute<dynamic>(
+                            builder: (BuildContext context) =>
                                 const ProductDescriptionPage(),
-                            transitionDuration: Duration.zero,
                           ),
                         );
                       },
@@ -438,13 +422,11 @@ class _ProfilePageState extends State<ProfileS> {
                   _buildDivider(),
                   GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          // ignore: prefer_const_constructors
+                        Navigator.push<dynamic>(
                           context,
-                          PageRouteBuilder(
-                            pageBuilder: (context, animation1, animation2) =>
+                          MaterialPageRoute<dynamic>(
+                            builder: (BuildContext context) =>
                                 const HelpScreen(),
-                            transitionDuration: Duration.zero,
                           ),
                         );
                       },
@@ -584,6 +566,7 @@ class _ProfilePageState extends State<ProfileS> {
   void _logout(BuildContext context) async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     localStorage.remove('token');
+    localStorage.remove('user');
     Get.delete<SignupController>();
     Get.delete<EditprofileController>();
     Get.delete<GetLocationController>();
@@ -600,12 +583,10 @@ class _ProfilePageState extends State<ProfileS> {
     Get.delete<GetNotigicationController>();
     Get.delete<EndBookingContoller>();
 
-    Navigator.push(
+    Navigator.pushAndRemoveUntil(
       context,
-      PageRouteBuilder(
-        pageBuilder: (context, animation1, animation2) => const LoginScreen(),
-        transitionDuration: Duration.zero,
-      ),
+      MaterialPageRoute(builder: (context) => LoginScreen()),
+      (Route<dynamic> route) => false,
     );
 
     _googleSignIn.signOut().then((value) {

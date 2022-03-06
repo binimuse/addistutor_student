@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:addistutor_student/Screens/Book/book.dart';
 import 'package:addistutor_student/Screens/Profile/editprofile.dart';
+import 'package:addistutor_student/constants.dart';
 import 'package:addistutor_student/controller/editprofilecontroller.dart';
 import 'package:addistutor_student/controller/walletcontroller.dart';
 import 'package:addistutor_student/remote_services/user.dart';
@@ -257,7 +258,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                                             ),
                                       const Icon(
                                         Icons.star,
-                                        color: DesignCourseAppTheme.nearlyBlue,
+                                        color: kPrimaryLightColor,
                                         size: 24,
                                       ),
                                     ],

@@ -713,7 +713,7 @@ class _SplashScreenState extends State<Body> {
           content: Column(mainAxisSize: MainAxisSize.min, children: const [
             SizedBox(height: 15),
             Text(
-              "Running TO a probelm please try again",
+              "Running tO a probelm please try again",
               style: TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.bold,
