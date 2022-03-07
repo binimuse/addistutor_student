@@ -286,7 +286,7 @@ class _EditProfilePageState extends State<WalletPage> {
                                                       Text(
                                                         "payment submitted",
                                                         style: TextStyle(
-                                                            fontSize: 18,
+                                                            fontSize: 15,
                                                             fontWeight:
                                                                 FontWeight.w700,
                                                             color: Colors
@@ -303,7 +303,7 @@ class _EditProfilePageState extends State<WalletPage> {
                                                       transaction.amount +
                                                           " Birr",
                                                       style: const TextStyle(
-                                                          fontSize: 18,
+                                                          fontSize: 15,
                                                           fontWeight:
                                                               FontWeight.w700,
                                                           color: Colors
@@ -392,7 +392,7 @@ class _EditProfilePageState extends State<WalletPage> {
                                                           Text(
                                                             "payment declined",
                                                             style: TextStyle(
-                                                                fontSize: 18,
+                                                                fontSize: 15,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w700,
@@ -412,7 +412,7 @@ class _EditProfilePageState extends State<WalletPage> {
                                                               " Birr",
                                                           style:
                                                               const TextStyle(
-                                                                  fontSize: 18,
+                                                                  fontSize: 15,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w700,
@@ -500,9 +500,9 @@ class _EditProfilePageState extends State<WalletPage> {
                                                                 .start,
                                                         children: <Widget>[
                                                           Text(
-                                                            "payment Pending",
+                                                            "payment Pending ",
                                                             style: TextStyle(
-                                                                fontSize: 18,
+                                                                fontSize: 15,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w700,
@@ -522,7 +522,7 @@ class _EditProfilePageState extends State<WalletPage> {
                                                               " Birr",
                                                           style:
                                                               const TextStyle(
-                                                                  fontSize: 18,
+                                                                  fontSize: 15,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w700,

@@ -155,7 +155,7 @@ class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
                       Expanded(
                         child: SingleChildScrollView(
                           child: SizedBox(
-                            height: MediaQuery.of(context).size.height * 2,
+                            height: MediaQuery.of(context).size.height,
                             child: Column(
                               children: <Widget>[
                                 // getSearchBarUI(),
@@ -507,8 +507,8 @@ class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: const <Widget>[
                 Text(
-                  'Welcome to',
-                  textAlign: TextAlign.left,
+                  'WELCOME TO',
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
                     fontSize: 14,
@@ -517,8 +517,8 @@ class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
                   ),
                 ),
                 Text(
-                  'NextGen',
-                  textAlign: TextAlign.left,
+                  'NEXTGEN',
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 22,

@@ -24,18 +24,7 @@ class Body extends StatelessWidget {
               "WELCOME TO",
               style: TextStyle(
                 fontSize: 25.0,
-                fontFamily: 'WorkSans',
-                fontWeight: FontWeight.bold,
-                letterSpacing: 0.6,
-                height: 0.9,
-                color: kPrimaryColor,
-              ),
-            ),
-            const Text(
-              "NEXTGEN",
-              style: TextStyle(
-                fontSize: 25.0,
-                fontFamily: 'WorkSans',
+                fontFamily: 'Arial',
                 fontWeight: FontWeight.bold,
                 letterSpacing: 0.4,
                 height: 0.9,
@@ -43,10 +32,22 @@ class Body extends StatelessWidget {
               ),
             ),
             const Text(
+              "NEXTGEN",
+              style: TextStyle(
+                fontSize: 30.0,
+                fontFamily: 'Arial',
+                fontWeight: FontWeight.bold,
+                letterSpacing: 0.4,
+                height: 0.9,
+                color: kPrimaryColor,
+              ),
+            ),
+            SizedBox(height: 10),
+            const Text(
               "STUDENT APP",
               style: TextStyle(
-                fontSize: 18.0,
-                fontFamily: 'Roboto',
+                fontSize: 20.0,
+                fontFamily: 'Arial',
                 fontWeight: FontWeight.normal,
                 letterSpacing: 0.4,
                 height: 0.9,
@@ -56,7 +57,7 @@ class Body extends StatelessWidget {
             SizedBox(height: size.height * 0.05),
             Image(
               image: AssetImage(
-                'assets/images/login.jpg',
+                'assets/images/t.jpg',
               ),
               height: size.height * 0.25,
             ),

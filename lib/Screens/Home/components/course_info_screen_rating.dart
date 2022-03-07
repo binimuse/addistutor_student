@@ -99,10 +99,10 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
       // print(body["student_id"]);
       //   walletContoller.getbalance(body["student_id"]);
       setState(() {
-        endBookingContoller.isfetchedsubject(true);
-      });
+        //  walletContoller.getbalance(body["student_id"]);
 
-      getReqBooking.fetchReqBooking(body["student_id"]);
+        getReqBooking.fetchReqBooking(body["student_id"]);
+      });
     }
   }
 
@@ -767,10 +767,14 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
                     setState(() {
                       //  codeDialog = valueText;
                       endBookingContoller.editProf(context, valueText, id);
+                      getReqBooking.fetchReqBooking(id);
                     });
-                    await Future<dynamic>.delayed(
-                        const Duration(milliseconds: 2000));
-                    Navigator.pop(context);
+
+                    setState(() {
+                      _fetchUser();
+                    });
+
+                    // Navigator.pop(context);
                   },
                 ),
               ],

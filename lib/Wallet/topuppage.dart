@@ -292,8 +292,8 @@ class _FeedbackScreenState extends State<TopUpPage> {
               onTap: () {
                 _showPicker(context);
               },
-              child:
-                  const Text("Upload", style: TextStyle(color: kPrimaryColor)),
+              child: const Text("Upload your bank slip",
+                  style: TextStyle(color: kPrimaryColor)),
             ),
           ],
         ),

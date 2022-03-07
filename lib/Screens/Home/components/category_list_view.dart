@@ -246,8 +246,8 @@ class CategoryView extends StatelessWidget {
                                                                     const Icon(
                                                                       Icons
                                                                           .star,
-                                                                      color: DesignCourseAppTheme
-                                                                          .nearlyBlue,
+                                                                      color:
+                                                                          kPrimaryLightColor,
                                                                       size: 20,
                                                                     ),
                                                                   ],
@@ -286,9 +286,8 @@ class CategoryView extends StatelessWidget {
                                                             Icon(
                                                               Icons
                                                                   .location_pin,
-                                                              color: HotelAppTheme
-                                                                      .buildLightTheme()
-                                                                  .primaryColor,
+                                                              color:
+                                                                  kPrimaryLightColor,
                                                               size: 10,
                                                             ),
                                                           ]),

@@ -44,14 +44,18 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
     );
   }
 
-  Widget _buildImage(String assetName, [double width = 200]) {
-    return SvgPicture.asset('assets/icons/$assetName', width: width);
+  Widget _buildImage(String assetName, [double width = 250]) {
+    return SvgPicture.asset(
+      'assets/icons/$assetName',
+      width: width,
+      height: 250,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     const bodyStyle = TextStyle(
-        fontSize: 13.0,
+        fontSize: 25.0,
         fontFamily: 'Arial',
         fontWeight: FontWeight.bold,
         letterSpacing: 0.7,
@@ -60,7 +64,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
 
     const pageDecoration = PageDecoration(
       titleTextStyle: TextStyle(
-          fontSize: 24.0,
+          fontSize: 35.0,
           fontFamily: 'Roboto',
           letterSpacing: 0.4,
           fontWeight: FontWeight.w800,

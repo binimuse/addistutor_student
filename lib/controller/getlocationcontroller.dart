@@ -16,6 +16,7 @@ class GetLocationController extends GetxController with StateMixin {
         //print(list.length.toString());
         isfetchedlocation(true);
       }
+      // ignore: empty_catches
     } catch (e) {}
   }
 
