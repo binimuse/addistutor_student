@@ -93,8 +93,8 @@ class _PopularCourseListViewState extends State<PopularCourseListView>
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
-                      mainAxisSpacing: 32.0,
-                      crossAxisSpacing: 32.0,
+                      mainAxisSpacing: 12.0,
+                      crossAxisSpacing: 12.0,
                       childAspectRatio: 0.8,
                     ),
                   );
@@ -139,173 +139,165 @@ class CategoryView extends StatelessWidget {
       builder: (BuildContext context, Widget? child) {
         return FadeTransition(
           opacity: animation!,
-          child: Transform(
-            transform: Matrix4.translationValues(
-                0.0, 50 * (1.0 - animation!.value), 0.0),
-            child: InkWell(
-              splashColor: Colors.transparent,
-              onTap: callback,
-              child: SizedBox(
-                child: Stack(
-                  alignment: AlignmentDirectional.bottomCenter,
-                  children: <Widget>[
-                    Column(
-                      children: <Widget>[
-                        Expanded(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: HexColor('#F8FAFB'),
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(16.0)),
-                              // border: new Border.all(
-                              //     color: DesignCourseAppTheme.notWhite),
-                            ),
-                            child: Column(
-                              children: <Widget>[
-                                Expanded(
-                                  child: Column(
-                                    children: <Widget>[
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 16, left: 16, right: 16),
-                                        child: Text(
-                                          category!.first_name,
-                                          textAlign: TextAlign.left,
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 16,
-                                            fontFamily: 'WorkSans',
-                                            letterSpacing: 0.27,
-                                            color:
-                                                DesignCourseAppTheme.darkerText,
+          child: InkWell(
+            splashColor: Colors.transparent,
+            onTap: callback,
+            child: SizedBox(
+              child: Stack(
+                alignment: AlignmentDirectional.bottomCenter,
+                children: <Widget>[
+                  Column(
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: HexColor('#F8FAFB'),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(16.0)),
+                            // border: new Border.all(
+                            //     color: DesignCourseAppTheme.notWhite),
+                          ),
+                          child: Column(
+                            children: <Widget>[
+                              Expanded(
+                                child: Column(
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 16, left: 16, right: 16),
+                                      child: Text(
+                                        category!.first_name,
+                                        textAlign: TextAlign.left,
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 16,
+                                          fontFamily: 'WorkSans',
+                                          letterSpacing: 0.27,
+                                          color:
+                                              DesignCourseAppTheme.darkerText,
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 8,
+                                          left: 16,
+                                          right: 16,
+                                          bottom: 8),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: <Widget>[
+                                          Text(
+                                            // ignore: unnecessary_string_interpolations
+                                            '${category!.gender}',
+                                            textAlign: TextAlign.left,
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.w200,
+                                              fontSize: 10,
+                                              fontFamily: 'WorkSans',
+                                              letterSpacing: 0.27,
+                                              color: DesignCourseAppTheme.grey,
+                                            ),
                                           ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 8,
-                                            left: 16,
-                                            right: 16,
-                                            bottom: 8),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: <Widget>[
-                                            Text(
-                                              // ignore: unnecessary_string_interpolations
-                                              '${category!.gender}',
-                                              textAlign: TextAlign.left,
-                                              style: const TextStyle(
-                                                fontWeight: FontWeight.w200,
-                                                fontSize: 10,
-                                                fontFamily: 'WorkSans',
-                                                letterSpacing: 0.27,
-                                                color:
-                                                    DesignCourseAppTheme.grey,
+                                          Row(
+                                            children: <Widget>[
+                                              Text(
+                                                category!.location.name,
+                                                textAlign: TextAlign.left,
+                                                style: const TextStyle(
+                                                  fontWeight: FontWeight.w200,
+                                                  fontSize: 12,
+                                                  fontFamily: 'WorkSans',
+                                                  letterSpacing: 0.27,
+                                                  color:
+                                                      DesignCourseAppTheme.grey,
+                                                ),
                                               ),
-                                            ),
-                                            Row(
-                                              children: <Widget>[
-                                                Text(
-                                                  category!.location.name,
-                                                  textAlign: TextAlign.left,
-                                                  style: const TextStyle(
-                                                    fontWeight: FontWeight.w200,
-                                                    fontSize: 12,
-                                                    fontFamily: 'WorkSans',
-                                                    letterSpacing: 0.27,
-                                                    color: DesignCourseAppTheme
-                                                        .grey,
-                                                  ),
-                                                ),
-                                                const Icon(
-                                                  Icons.location_pin,
-                                                  color: DesignCourseAppTheme
-                                                      .nearlyBlue,
-                                                  size: 10,
-                                                ),
-                                              ],
-                                            ),
-                                            Row(
-                                              children: <Widget>[
-                                                category!.rating != null
-                                                    ? Text(
-                                                        category!.rating,
-                                                        textAlign:
-                                                            TextAlign.left,
-                                                        style: const TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.w200,
-                                                          fontSize: 18,
-                                                          letterSpacing: 0.27,
-                                                          color:
-                                                              DesignCourseAppTheme
-                                                                  .grey,
-                                                        ),
-                                                      )
-                                                    : const Text(
-                                                        "",
-                                                        textAlign:
-                                                            TextAlign.left,
-                                                        style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.w200,
-                                                          fontSize: 18,
-                                                          letterSpacing: 0.27,
-                                                          color:
-                                                              DesignCourseAppTheme
-                                                                  .grey,
-                                                        ),
+                                              const Icon(
+                                                Icons.location_pin,
+                                                color: kPrimaryLightColor,
+                                                size: 10,
+                                              ),
+                                            ],
+                                          ),
+                                          Row(
+                                            children: <Widget>[
+                                              category!.rating != null
+                                                  ? Text(
+                                                      category!.rating,
+                                                      textAlign: TextAlign.left,
+                                                      style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.w200,
+                                                        fontSize: 18,
+                                                        letterSpacing: 0.27,
+                                                        color:
+                                                            DesignCourseAppTheme
+                                                                .grey,
                                                       ),
-                                                const Icon(
-                                                  Icons.star,
-                                                  color: kPrimaryLightColor,
-                                                  size: 20,
-                                                ),
-                                              ],
-                                            )
-                                          ],
-                                        ),
+                                                    )
+                                                  : const Text(
+                                                      "",
+                                                      textAlign: TextAlign.left,
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.w200,
+                                                        fontSize: 18,
+                                                        letterSpacing: 0.27,
+                                                        color:
+                                                            DesignCourseAppTheme
+                                                                .grey,
+                                                      ),
+                                                    ),
+                                              const Icon(
+                                                Icons.star,
+                                                color: kPrimaryLightColor,
+                                                size: 20,
+                                              ),
+                                            ],
+                                          )
+                                        ],
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
-                                const SizedBox(
-                                  width: 48,
-                                ),
-                              ],
-                            ),
+                              ),
+                              const SizedBox(
+                                width: 48,
+                              ),
+                            ],
                           ),
                         ),
-                        const SizedBox(
-                          height: 48,
-                        ),
-                      ],
-                    ),
-                    Container(
-                      width: 100,
-                      height: 90,
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                              width: 3,
-                              color: Theme.of(context).scaffoldBackgroundColor),
-                          boxShadow: [
-                            BoxShadow(
-                                spreadRadius: 3,
-                                blurRadius: 10,
-                                color: Colors.black.withOpacity(0.1),
-                                offset: const Offset(0, 20))
-                          ],
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: NetworkImage(
-                                  "https://tutor.oddatech.com/api/teacher-profile-picture/${category!.id}"))),
-                    ),
-                  ],
-                ),
+                      ),
+                      const SizedBox(
+                        height: 48,
+                      ),
+                    ],
+                  ),
+                  Container(
+                    width: 100,
+                    height: 90,
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                            width: 3,
+                            color: Theme.of(context).scaffoldBackgroundColor),
+                        boxShadow: [
+                          BoxShadow(
+                              spreadRadius: 3,
+                              blurRadius: 10,
+                              color: Colors.black.withOpacity(0.1),
+                              offset: const Offset(0, 20))
+                        ],
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: NetworkImage(
+                                "https://tutor.oddatech.com/api/teacher-profile-picture/${category!.id}"))),
+                  ),
+                ],
               ),
             ),
           ),

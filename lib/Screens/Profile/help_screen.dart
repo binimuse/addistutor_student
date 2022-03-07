@@ -50,7 +50,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       fontWeight: FontWeight.bold,
       letterSpacing: 0.4,
       height: 0.9,
-      color: Color(0xFF4A6572),
+      color: Colors.white,
     );
 
     const pageDecoration = PageDecoration(
@@ -59,16 +59,16 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
           fontFamily: 'Roboto',
           letterSpacing: 0.4,
           fontWeight: FontWeight.w800,
-          color: kPrimaryColor),
+          color: Colors.white),
       bodyTextStyle: bodyStyle,
       descriptionPadding: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
-      pageColor: Colors.white,
+      pageColor: kPrimaryColor,
       imagePadding: EdgeInsets.zero,
     );
 
     return IntroductionScreen(
       key: introKey,
-      globalBackgroundColor: Colors.white,
+      globalBackgroundColor: kPrimaryColor,
 
       pages: [
         PageViewModel(
@@ -133,13 +133,14 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       dotsDecorator: const DotsDecorator(
         size: Size(10.0, 10.0),
         color: Colors.white,
+        activeColor: kPrimaryColor,
         activeSize: Size(22.0, 10.0),
         activeShape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(25.0)),
         ),
       ),
       dotsContainerDecorator: const ShapeDecoration(
-        color: Colors.black54,
+        color: kPrimaryLightColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(8.0)),
         ),

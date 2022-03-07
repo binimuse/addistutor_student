@@ -28,10 +28,10 @@ class _EditPageState extends State<EditPage> {
   final ImagePicker _picker = ImagePicker();
   ImagePicker picker = ImagePicker();
 
-  late var areyou = "Student";
+  late var areyou = "";
   late var locationname = "";
   late var getlocation;
-  late bool areyoubool = false;
+  late var areyoubool = "";
   late bool supportbool = false;
   DateTime currentDate = DateTime.now();
   bool showPassword = false;
@@ -143,6 +143,9 @@ class _EditPageState extends State<EditPage> {
                   onTap: () {
                     FocusScopeNode currentFocus = FocusScope.of(context);
 
+                    FocusScope.of(context).unfocus();
+                    TextEditingController().clear();
+
                     if (!currentFocus.hasPrimaryFocus) {
                       currentFocus.unfocus();
                     }
@@ -237,6 +240,7 @@ class _EditPageState extends State<EditPage> {
                             fontSize: 16,
                             fontWeight: FontWeight.w700),
                         items: <String>[
+                          '',
                           'Student',
                           'Parent',
                         ].map<DropdownMenuItem<String>>((String value) {
@@ -255,11 +259,13 @@ class _EditPageState extends State<EditPage> {
                           setState(() {
                             areyou = value!;
                             if (areyou == "Parent") {
-                              areyoubool = true;
+                              areyoubool = "Parent";
                               editprofileController.is_parent.value = true;
-                            } else {
-                              areyoubool = false;
+                            } else if (areyou == "Student") {
+                              areyoubool = "Student";
                               editprofileController.is_parent.value = false;
+                            } else {
+                              areyoubool = "";
                             }
                           });
                           //  areyoubool = false;
@@ -268,7 +274,7 @@ class _EditPageState extends State<EditPage> {
                       const SizedBox(
                         height: 20,
                       ),
-                      areyoubool
+                      areyoubool == "Parent"
                           ? Column(children: [
                               Padding(
                                 padding: const EdgeInsets.only(bottom: 35.0),
@@ -277,7 +283,7 @@ class _EditPageState extends State<EditPage> {
                                       editprofileController.parent_first_name,
                                   decoration: const InputDecoration(
                                     contentPadding: EdgeInsets.only(bottom: 3),
-                                    labelText: "Parent First Name",
+                                    labelText: "Parent  Name",
                                     labelStyle: TextStyle(
                                       fontSize: 17,
                                       fontWeight: FontWeight.w700,
@@ -286,7 +292,7 @@ class _EditPageState extends State<EditPage> {
                                     ),
                                     focusColor: kPrimaryColor,
                                     fillColor: kPrimaryColor,
-                                    hintText: "Parent First Name",
+                                    hintText: "Parent  Name",
                                     hintStyle: TextStyle(
                                         color: DesignCourseAppTheme.nearlyBlack,
                                         fontSize: 16,
@@ -305,7 +311,7 @@ class _EditPageState extends State<EditPage> {
                                       editprofileController.parent_last_name,
                                   decoration: const InputDecoration(
                                     contentPadding: EdgeInsets.only(bottom: 3),
-                                    labelText: "Parent Last Name",
+                                    labelText: "Parent Father's name",
                                     labelStyle: TextStyle(
                                       fontSize: 17,
                                       fontWeight: FontWeight.w700,
@@ -314,7 +320,7 @@ class _EditPageState extends State<EditPage> {
                                     ),
                                     focusColor: kPrimaryColor,
                                     fillColor: kPrimaryColor,
-                                    hintText: "name",
+                                    hintText: "Parent Father's name",
                                     hintStyle: TextStyle(
                                         color: DesignCourseAppTheme.nearlyBlack,
                                         fontSize: 16,
@@ -332,7 +338,7 @@ class _EditPageState extends State<EditPage> {
                                   controller: editprofileController.firstname,
                                   decoration: const InputDecoration(
                                     contentPadding: EdgeInsets.only(bottom: 3),
-                                    labelText: "Student First Name",
+                                    labelText: "Student Name",
                                     labelStyle: TextStyle(
                                       fontSize: 17,
                                       fontWeight: FontWeight.w700,
@@ -341,7 +347,7 @@ class _EditPageState extends State<EditPage> {
                                     ),
                                     focusColor: kPrimaryColor,
                                     fillColor: kPrimaryColor,
-                                    hintText: "Student First Name",
+                                    hintText: "Student Name",
                                     hintStyle: TextStyle(
                                         color: DesignCourseAppTheme.nearlyBlack,
                                         fontSize: 16,
@@ -359,7 +365,7 @@ class _EditPageState extends State<EditPage> {
                                   controller: editprofileController.lastname,
                                   decoration: const InputDecoration(
                                     contentPadding: EdgeInsets.only(bottom: 3),
-                                    labelText: "Student Last Name",
+                                    labelText: "Student Father's name",
                                     labelStyle: TextStyle(
                                       fontSize: 17,
                                       fontWeight: FontWeight.w700,
@@ -368,7 +374,7 @@ class _EditPageState extends State<EditPage> {
                                     ),
                                     focusColor: kPrimaryColor,
                                     fillColor: kPrimaryColor,
-                                    hintText: "Student Last Name",
+                                    hintText: "Student Father's name",
                                     hintStyle: TextStyle(
                                         color: DesignCourseAppTheme.nearlyBlack,
                                         fontSize: 16,
@@ -381,62 +387,72 @@ class _EditPageState extends State<EditPage> {
                                 ),
                               ),
                             ])
-                          : Column(children: [
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 35.0),
-                                child: TextFormField(
-                                  controller: editprofileController.firstname,
-                                  decoration: const InputDecoration(
-                                    contentPadding: EdgeInsets.only(bottom: 3),
-                                    labelText: "Student First Name",
-                                    labelStyle: TextStyle(
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.w700,
-                                      color: kPrimaryColor,
-                                      fontFamily: 'WorkSans',
+                          : areyoubool == "Student"
+                              ? Column(children: [
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.only(bottom: 35.0),
+                                    child: TextFormField(
+                                      controller:
+                                          editprofileController.firstname,
+                                      decoration: const InputDecoration(
+                                        contentPadding:
+                                            EdgeInsets.only(bottom: 3),
+                                        labelText: "Student Name",
+                                        labelStyle: TextStyle(
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.w700,
+                                          color: kPrimaryColor,
+                                          fontFamily: 'WorkSans',
+                                        ),
+                                        focusColor: kPrimaryColor,
+                                        fillColor: kPrimaryColor,
+                                        hintText: "Student Name",
+                                        hintStyle: TextStyle(
+                                            color: DesignCourseAppTheme
+                                                .nearlyBlack,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w300),
+                                      ),
+                                      validator: (value) {
+                                        return editprofileController
+                                            .validateName(value!);
+                                      },
                                     ),
-                                    focusColor: kPrimaryColor,
-                                    fillColor: kPrimaryColor,
-                                    hintText: "Student First Name",
-                                    hintStyle: TextStyle(
-                                        color: DesignCourseAppTheme.nearlyBlack,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w300),
                                   ),
-                                  validator: (value) {
-                                    return editprofileController
-                                        .validateName(value!);
-                                  },
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 35.0),
-                                child: TextFormField(
-                                  controller: editprofileController.lastname,
-                                  decoration: const InputDecoration(
-                                    contentPadding: EdgeInsets.only(bottom: 3),
-                                    labelText: "Student Last Name",
-                                    labelStyle: TextStyle(
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.w700,
-                                      color: kPrimaryColor,
-                                      fontFamily: 'WorkSans',
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.only(bottom: 35.0),
+                                    child: TextFormField(
+                                      controller:
+                                          editprofileController.lastname,
+                                      decoration: const InputDecoration(
+                                        contentPadding:
+                                            EdgeInsets.only(bottom: 3),
+                                        labelText: "Student Father's Name",
+                                        labelStyle: TextStyle(
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.w700,
+                                          color: kPrimaryColor,
+                                          fontFamily: 'WorkSans',
+                                        ),
+                                        focusColor: kPrimaryColor,
+                                        fillColor: kPrimaryColor,
+                                        hintText: "Student Father's Name",
+                                        hintStyle: TextStyle(
+                                            color: DesignCourseAppTheme
+                                                .nearlyBlack,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w300),
+                                      ),
+                                      validator: (value) {
+                                        return editprofileController
+                                            .validateName(value!);
+                                      },
                                     ),
-                                    focusColor: kPrimaryColor,
-                                    fillColor: kPrimaryColor,
-                                    hintText: "Student Last Name",
-                                    hintStyle: TextStyle(
-                                        color: DesignCourseAppTheme.nearlyBlack,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w300),
                                   ),
-                                  validator: (value) {
-                                    return editprofileController
-                                        .validateName(value!);
-                                  },
-                                ),
-                              ),
-                            ]),
+                                ])
+                              : Container(),
                       Padding(
                         padding: const EdgeInsets.only(bottom: 35.0),
                         child: TextFormField(
@@ -672,8 +688,6 @@ class _EditPageState extends State<EditPage> {
                         items: <String>[
                           '',
                           'Kg',
-                          'LKG',
-                          'UKG',
                           '1',
                           '2',
                           '3',
@@ -713,7 +727,7 @@ class _EditPageState extends State<EditPage> {
                           keyboardType: TextInputType.multiline,
                           textInputAction: TextInputAction.newline,
                           controller: editprofileController.About,
-                          maxLength: 150,
+                          maxLength: 200,
                           decoration: const InputDecoration(
                             contentPadding: EdgeInsets.only(bottom: 3),
                             labelText: "About Me",

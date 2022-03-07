@@ -242,9 +242,8 @@ class CategoryView extends StatelessWidget {
                                                           ),
                                                           Icon(
                                                             Icons.phone,
-                                                            color: HotelAppTheme
-                                                                    .buildLightTheme()
-                                                                .primaryColor,
+                                                            color:
+                                                                kPrimaryLightColor,
                                                             size: 7,
                                                           ),
                                                           Text(
@@ -275,9 +274,8 @@ class CategoryView extends StatelessWidget {
                                                         ),
                                                         Icon(
                                                           Icons.star,
-                                                          color: HotelAppTheme
-                                                                  .buildLightTheme()
-                                                              .primaryColor,
+                                                          color:
+                                                              kPrimaryLightColor,
                                                           size: 7,
                                                         ),
                                                         Text(

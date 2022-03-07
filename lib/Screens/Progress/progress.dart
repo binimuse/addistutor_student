@@ -6,6 +6,7 @@ import 'package:addistutor_student/constants.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:introduction_screen/introduction_screen.dart';
 
@@ -44,12 +45,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
   }
 
   Widget _buildImage(String assetName, [double width = 200]) {
-    return Image(
-      image: AssetImage(
-        'assets/images/$assetName',
-      ),
-      width: width,
-    );
+    return SvgPicture.asset('assets/icons/$assetName', width: width);
   }
 
   @override
@@ -82,29 +78,29 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
         PageViewModel(
           title: "CHOICE",
           body:
-              "You can choose the best tutor for your child from our rich database as per your requirement. Depending on need, you can also select a team of specialists. Similarly, you can arrange the tutorial for a date and time that suits your child. You can either buy a short term or long term package. It is infinitely flexible.",
-          image: _buildImage('t.jpg'),
+              "Infinite flexibility to arrange a session with a tutor of your choice for a date and time that suits you.",
+          image: _buildImage('Choice.svg'),
           decoration: pageDecoration,
         ),
         PageViewModel(
           title: "CONVENIENCE",
           body:
-              "You can reach us through our website, app or on the phone and booking a tutor is extremely easy.",
-          image: _buildImage('p.jpg'),
+              "You can reach us through our website, app or on the phone. Booking a tutor has never been easier.",
+          image: _buildImage('Convenience.svg'),
           decoration: pageDecoration,
         ),
         PageViewModel(
           title: "SAFETY",
           body:
-              "All our tutors are registered and vetted. They have signed up to our child protection and safeguarding policy.",
-          image: _buildImage('edi.jpg'),
+              "By working with us, you are getting more than a tutor. We support our tutors to offer the best support possible for your child.",
+          image: _buildImage('Safety.svg'),
           decoration: pageDecoration,
         ),
         PageViewModel(
           title: "COMPANY SUPPORT",
           body:
               "By working with us, you are getting more than a tutor. We support our tutors to offer the best support possible to your child.",
-          image: _buildImage('t.jpg'),
+          image: _buildImage('Company.svg'),
           decoration: pageDecoration,
         ),
       ],

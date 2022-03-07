@@ -120,7 +120,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
               children: <Widget>[
                 AspectRatio(
                   aspectRatio: 1.2,
-                  child: Image.asset('assets/images/t.jpg'),
+                  child: Image.asset('assets/images/lg3.png'),
                 ),
               ],
             ),

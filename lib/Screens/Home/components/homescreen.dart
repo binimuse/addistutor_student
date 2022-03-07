@@ -155,7 +155,7 @@ class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
                       Expanded(
                         child: SingleChildScrollView(
                           child: SizedBox(
-                            height: MediaQuery.of(context).size.height * 2.5,
+                            height: MediaQuery.of(context).size.height * 2,
                             child: Column(
                               children: <Widget>[
                                 // getSearchBarUI(),

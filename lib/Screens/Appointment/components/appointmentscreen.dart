@@ -11,7 +11,10 @@ import 'package:addistutor_student/Wallet/wallet.dart';
 
 import 'package:addistutor_student/constants.dart';
 import 'package:addistutor_student/controller/editprofilecontroller.dart';
+import 'package:addistutor_student/controller/geteducationlevelcontroller.dart';
+import 'package:addistutor_student/controller/getlocationcontroller.dart';
 import 'package:addistutor_student/controller/getreqestedbookingcpntroller.dart';
+import 'package:addistutor_student/controller/getsubjectcontroller.dart';
 import 'package:addistutor_student/remote_services/user.dart';
 
 import 'package:flutter/cupertino.dart';
@@ -28,6 +31,13 @@ class Appointment extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
+GetEducationlevelController getEducationlevelController = Get.find();
+GetSubjectController getSubjectController = Get.find();
+GetLocationController getLocationController = Get.find();
+
+DateTime startDate = DateTime.now();
+DateTime endDate = DateTime.now().add(const Duration(days: 5));
+List<GetSubject> subject = [];
 final EditprofileController editprofileController =
     Get.put(EditprofileController());
 
@@ -38,7 +48,46 @@ class _HomePageState extends State<Appointment>
   @override
   void initState() {
     _fetchUser();
+    _geteducation();
+    _getsubject();
+    _getlocation();
     super.initState();
+  }
+
+  List<GetEducationlevel> education = [];
+
+  _geteducation() async {
+    getEducationlevelController.fetchLocation();
+    // ignore: invalid_use_of_protected_member
+    education = getEducationlevelController.listeducation.value;
+
+    if (education != null && education.isNotEmpty) {
+      setState(() {
+        getEducationlevelController.education = education[0];
+      });
+    }
+  }
+
+  List<GetSubject> _selectedItems2 = [];
+  _getsubject() {
+    subject = getSubjectController.listsubject.value;
+    if (subject != null && subject.isNotEmpty) {
+      setState(() {
+        //  getSubjectController.subject = subject[0];
+      });
+    }
+  }
+
+  List<GetLocation> location = [];
+  _getlocation() async {
+    getLocationController.fetchLocationfor();
+
+    location = getLocationController.listlocation.value;
+    if (location != null && location.isNotEmpty) {
+      setState(() {
+        getLocationController.location = location[0];
+      });
+    }
   }
 
   @override
@@ -47,18 +96,21 @@ class _HomePageState extends State<Appointment>
     super.deactivate();
   }
 
+  var id;
   void _fetchUser() async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     var token = localStorage.getString('user');
 
     if (token != null) {
       var body = json.decode(token);
-
-      // var id = editprofileController.fetchPf(body["student_id"]);
+      id = body["student_id"];
+      //  = editprofileController.fetchPf(body["student_id"]);
       // print(body["student_id"]);
-      walletContoller.getbalance(body["student_id"]);
+      setState(() {
+        walletContoller.getbalance(body["student_id"]);
 
-      getReqBooking.fetchReqBooking(body["student_id"]);
+        getReqBooking.fetchReqBooking(body["student_id"]);
+      });
     }
   }
 
@@ -90,7 +142,13 @@ class _HomePageState extends State<Appointment>
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    // setState(() {
+    //   print(id);
+    //   _fetchUser();
+    // });
+    // _fetchUser();
+
+    return Obx(() => Container(
         color: DesignCourseAppTheme.nearlyWhite,
         child: SmartRefresher(
             enablePullDown: true,
@@ -109,9 +167,93 @@ class _HomePageState extends State<Appointment>
                       SizedBox(
                         height: MediaQuery.of(context).padding.top,
                       ),
-                      getAppBarUI(),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            top: 8.0, left: 18, right: 18),
+                        child: Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  const Text(
+                                    'Student',
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 14,
+                                      letterSpacing: 0.2,
+                                      color: DesignCourseAppTheme.grey,
+                                    ),
+                                  ),
+                                  Text(
+                                    'Dashboard',
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 22,
+                                      fontFamily: 'Roboto',
+                                      letterSpacing: 0.27,
+                                      color: DesignCourseAppTheme.darkerText,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push<dynamic>(
+                                  context,
+                                  MaterialPageRoute<dynamic>(
+                                    builder: (BuildContext context) =>
+                                        WalletPage(),
+                                  ),
+                                );
+                              },
+                              child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    walletContoller.wallet != null
+                                        ? Text(
+                                            walletContoller.wallet.toString() +
+                                                ' birr',
+                                            textAlign: TextAlign.left,
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w700,
+                                              fontSize: 23,
+                                              letterSpacing: 0.2,
+                                              color: kPrimaryColor,
+                                            ),
+                                          )
+                                        : Text(
+                                            "0" + ' birr',
+                                            textAlign: TextAlign.left,
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w700,
+                                              fontSize: 23,
+                                              letterSpacing: 0.2,
+                                              color: kPrimaryColor,
+                                            ),
+                                          ),
+                                    Text(
+                                      'Available Balance',
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 14,
+                                        letterSpacing: 0.2,
+                                        color: DesignCourseAppTheme.grey,
+                                      ),
+                                    ),
+                                  ]),
+                            ),
+                          ],
+                        ),
+                      ),
                       _buildDivider(),
-                      Obx(() => getReqBooking.listsubject.length != null
+                      getReqBooking.listsubject.length != null
                           ? Expanded(
                               child: SingleChildScrollView(
                                 child: Container(
@@ -148,10 +290,10 @@ class _HomePageState extends State<Appointment>
                                       ),
                                     ))),
                               ]),
-                            )))
+                            ))
                     ],
                   )),
-            )));
+            ))));
   }
 
   loadData() {
@@ -574,90 +716,9 @@ class _HomePageState extends State<Appointment>
     );
   }
 
-  Widget getAppBarUI() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 8.0, left: 18, right: 18),
-      child: Row(
-        children: <Widget>[
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                const Text(
-                  'Student',
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 14,
-                    letterSpacing: 0.2,
-                    color: DesignCourseAppTheme.grey,
-                  ),
-                ),
-                Text(
-                  'Dashboard',
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 22,
-                    fontFamily: 'Roboto',
-                    letterSpacing: 0.27,
-                    color: DesignCourseAppTheme.darkerText,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          GestureDetector(
-            onTap: () {
-              Navigator.push<dynamic>(
-                context,
-                MaterialPageRoute<dynamic>(
-                  builder: (BuildContext context) => WalletPage(),
-                ),
-              );
-            },
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  walletContoller.wallet != null
-                      ? Text(
-                          walletContoller.wallet.toString() + ' birr',
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 23,
-                            letterSpacing: 0.2,
-                            color: kPrimaryColor,
-                          ),
-                        )
-                      : Text(
-                          "0" + ' birr',
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 23,
-                            letterSpacing: 0.2,
-                            color: kPrimaryColor,
-                          ),
-                        ),
-                  Text(
-                    'Available Balance',
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 14,
-                      letterSpacing: 0.2,
-                      color: DesignCourseAppTheme.grey,
-                    ),
-                  ),
-                ]),
-          ),
-        ],
-      ),
-    );
-  }
+  // Widget getAppBarUI() {
+  //   return
+  // }
 }
 
 enum CategoryType {

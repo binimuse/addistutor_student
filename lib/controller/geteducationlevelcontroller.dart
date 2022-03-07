@@ -10,11 +10,13 @@ class GetEducationlevelController extends GetxController with StateMixin {
   GetEducationlevel? education;
 
   void fetchLocation() async {
-    listeducation.value = await RemoteServices.geteducation();
+    try {
+      listeducation.value = await RemoteServices.geteducation();
 
-    if (listeducation.isNotEmpty) {
-      //print(list.length.toString());
-      isfetchededucation(true);
-    }
+      if (listeducation.isNotEmpty) {
+        //print(list.length.toString());
+        isfetchededucation(true);
+      }
+    } catch (e) {}
   }
 }

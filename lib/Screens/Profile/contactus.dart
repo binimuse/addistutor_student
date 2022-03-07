@@ -105,7 +105,7 @@ class _HomePageState extends State<ContactDetailsView>
                                   onPressed: () {},
                                   child: const Icon(
                                     Icons.call,
-                                    color: kPrimaryColor,
+                                    color: kPrimaryLightColor,
                                   ),
                                   style: TextButton.styleFrom(
                                       backgroundColor: Colors.white,
@@ -137,7 +137,7 @@ class _HomePageState extends State<ContactDetailsView>
                                   onPressed: () {},
                                   child: const Icon(
                                     Icons.email,
-                                    color: kPrimaryColor,
+                                    color: kPrimaryLightColor,
                                   ),
                                   style: TextButton.styleFrom(
                                       backgroundColor: Colors.white,
@@ -171,7 +171,7 @@ class _HomePageState extends State<ContactDetailsView>
                                   onPressed: () {},
                                   child: const Icon(
                                     Icons.link,
-                                    color: kPrimaryColor,
+                                    color: kPrimaryLightColor,
                                   ),
                                   style: TextButton.styleFrom(
                                       backgroundColor: Colors.white,

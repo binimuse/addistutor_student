@@ -93,8 +93,7 @@ class _CourseInfoScreenState extends State<CourseInfoQr>
                     children: <Widget>[
                       AspectRatio(
                         aspectRatio: 1.2,
-                        child: Image.asset(
-                            'assets/design_course/webInterFace.png'),
+                        child: Image.asset('assets/images/lg3.png'),
                       ),
                     ],
                   ),
@@ -118,140 +117,129 @@ class _CourseInfoScreenState extends State<CourseInfoQr>
                       ),
                       child: Padding(
                         padding: const EdgeInsets.only(left: 8, right: 8),
-                        child: SingleChildScrollView(
-                          child: Container(
-                            constraints: BoxConstraints(
-                                minHeight: infoHeight,
-                                maxHeight: tempHeight > infoHeight
-                                    ? tempHeight
-                                    : infoHeight),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                widget.hotelData!.teacher.first_name != null
-                                    ? Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 32.0, left: 18, right: 16),
-                                        child: Text(
-                                          widget.hotelData!.teacher.first_name +
-                                              " " +
-                                              widget
-                                                  .hotelData!.teacher.last_name,
-                                          textAlign: TextAlign.left,
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 22,
-                                            letterSpacing: 0.27,
-                                            color:
-                                                DesignCourseAppTheme.darkerText,
-                                          ),
-                                        ),
-                                      )
-                                    : const Padding(
-                                        padding: EdgeInsets.only(
-                                            top: 32.0, left: 18, right: 16),
-                                        child: Text(
-                                          "first_name",
-                                          textAlign: TextAlign.left,
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 22,
-                                            letterSpacing: 0.27,
-                                            color:
-                                                DesignCourseAppTheme.darkerText,
-                                          ),
+                        child: Container(
+                          constraints: BoxConstraints(
+                              minHeight: infoHeight,
+                              maxHeight: tempHeight > infoHeight
+                                  ? tempHeight
+                                  : infoHeight),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              widget.hotelData!.teacher.first_name != null
+                                  ? Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 32.0, left: 18, right: 16),
+                                      child: Text(
+                                        widget.hotelData!.teacher.first_name +
+                                            " " +
+                                            widget.hotelData!.teacher.last_name,
+                                        textAlign: TextAlign.left,
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 22,
+                                          letterSpacing: 0.27,
+                                          color:
+                                              DesignCourseAppTheme.darkerText,
                                         ),
                                       ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                      left: 16,
-                                      right: 16,
-                                      bottom: 8,
+                                    )
+                                  : const Padding(
+                                      padding:
+                                          EdgeInsets.only(left: 18, right: 16),
+                                      child: Text(
+                                        "first_name",
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 22,
+                                          letterSpacing: 0.27,
+                                          color:
+                                              DesignCourseAppTheme.darkerText,
+                                        ),
+                                      ),
                                     ),
-                                    child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          SingleChildScrollView(
-                                            child: SizedBox(
-                                              height: MediaQuery.of(context)
-                                                  .size
-                                                  .height,
-                                              child: Column(
-                                                children: <Widget>[
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            top: 124),
-                                                    child: Center(
-                                                      child: QrImage(
-                                                        data: '{"code":"' +
-                                                            getQrCode.getqr +
-                                                            '", "booking_id": "' +
-                                                            widget.hotelData!.id
-                                                                .toString() +
-                                                            '"}',
-                                                        version:
-                                                            QrVersions.auto,
-                                                        size: 200.0,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ]),
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                    left: 16,
+                                    right: 16,
+                                    bottom: 8,
                                   ),
-                                ),
-                                AnimatedOpacity(
-                                  duration: const Duration(milliseconds: 500),
-                                  opacity: opacity3,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 16, bottom: 16, right: 16),
-                                    child: Row(
+                                  child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        const SizedBox(
-                                          width: 16,
-                                        ),
-                                        GestureDetector(
-                                          onTap: () {
-                                            setState(() {
-                                              giverating();
-                                            });
-                                          },
-                                          child: Center(
-                                            child: Row(children: const [
-                                              Icon(
-                                                Icons.star,
-                                                color: kPrimaryLightColor,
+                                      children: [
+                                        SizedBox(
+                                          child: Column(
+                                            children: <Widget>[
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    top: 50),
+                                                child: Center(
+                                                  child: QrImage(
+                                                    data: '{"code":"' +
+                                                        getQrCode.getqr +
+                                                        '", "booking_id": "' +
+                                                        widget.hotelData!.id
+                                                            .toString() +
+                                                        '"}',
+                                                    version: QrVersions.auto,
+                                                    size: 200.0,
+                                                  ),
+                                                ),
                                               ),
-                                              SizedBox(width: 10.0),
-                                              Text(
-                                                "Rate Tutor",
-                                              ),
-                                            ]),
+                                            ],
                                           ),
                                         ),
-                                        rating ? giverating() : Container(),
-                                      ],
-                                    ),
+                                      ]),
+                                ),
+                              ),
+                              AnimatedOpacity(
+                                duration: const Duration(milliseconds: 500),
+                                opacity: opacity3,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 16, bottom: 16, right: 16),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      const SizedBox(
+                                        width: 16,
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            giverating();
+                                          });
+                                        },
+                                        child: Center(
+                                          child: Row(children: const [
+                                            Icon(
+                                              Icons.star,
+                                              color: kPrimaryLightColor,
+                                            ),
+                                            SizedBox(width: 10.0),
+                                            Text(
+                                              "Rate Tutor",
+                                            ),
+                                          ]),
+                                        ),
+                                      ),
+                                      rating ? giverating() : Container(),
+                                    ],
                                   ),
                                 ),
-                                SizedBox(
-                                  height: MediaQuery.of(context).padding.bottom,
-                                )
-                              ],
-                            ),
+                              ),
+                              SizedBox(
+                                height: MediaQuery.of(context).padding.bottom,
+                              )
+                            ],
                           ),
                         ),
                       ),

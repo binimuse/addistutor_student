@@ -56,60 +56,70 @@ class _ActivityPageState extends State<Notificationclass> {
   @override
   // ignore: must_call_super
   Widget build(BuildContext context) {
-    return Obx(() => getNotigicationController.isfetchedlocation.value
-        ? Scaffold(
-            resizeToAvoidBottomInset: false,
-            appBar: AppBar(
-              backgroundColor: Colors.white,
-              leading: Material(
-                color: Colors.white,
-                child: InkWell(
-                  borderRadius:
-                      BorderRadius.circular(AppBar().preferredSize.height),
-                  child: const Icon(
-                    Icons.arrow_back_ios,
-                    color: DesignCourseAppTheme.nearlyBlack,
+    return Obx(
+      () => getNotigicationController.isfetchedlocation.value
+          ? Scaffold(
+              resizeToAvoidBottomInset: false,
+              appBar: AppBar(
+                backgroundColor: Colors.white,
+                leading: Material(
+                  color: Colors.white,
+                  child: InkWell(
+                    borderRadius:
+                        BorderRadius.circular(AppBar().preferredSize.height),
+                    child: const Icon(
+                      Icons.arrow_back_ios,
+                      color: DesignCourseAppTheme.nearlyBlack,
+                    ),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
                   ),
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
+                ),
+                title: const Text(
+                  "Notification",
+                  style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black,
+                    fontFamily: 'WorkSans',
+                  ),
                 ),
               ),
-              title: const Text(
-                "Notification",
+              body: SmartRefresher(
+                enablePullDown: true,
+                enablePullUp: true,
+
+                //cheak pull_to_refresh
+                controller: _refreshController,
+                onRefresh: _onRefresh,
+                onLoading: _onLoading,
+                child: getNotigicationController.isfetchedlocation.isTrue
+                    ? ListView.builder(
+                        physics: const BouncingScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return ActivityItemWidget(
+                            data: getNotigicationController.listdate[index],
+                          );
+                        },
+                        itemCount: getNotigicationController.listdate.length,
+                      )
+                    : const Center(
+                        child: CircularProgressIndicator(),
+                      ),
+              ),
+            )
+          : const Center(
+              child: Text(
+                'No notifications found',
                 style: TextStyle(
-                  fontSize: 25,
+                  fontSize: 13,
                   fontWeight: FontWeight.w500,
                   color: Colors.black,
                   fontFamily: 'WorkSans',
                 ),
               ),
             ),
-            body: SmartRefresher(
-              enablePullDown: true,
-              enablePullUp: true,
-
-              //cheak pull_to_refresh
-              controller: _refreshController,
-              onRefresh: _onRefresh,
-              onLoading: _onLoading,
-              child: getNotigicationController.isfetchedlocation.isTrue
-                  ? ListView.builder(
-                      physics: const BouncingScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        return ActivityItemWidget(
-                          data: getNotigicationController.listdate[index],
-                        );
-                      },
-                      itemCount: getNotigicationController.listdate.length,
-                    )
-                  : const Center(
-                      child: CircularProgressIndicator(),
-                    ),
-            ),
-          )
-        : const Center(
-            child: CircularProgressIndicator(),
-          ));
+    );
   }
 }

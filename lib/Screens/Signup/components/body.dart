@@ -157,7 +157,6 @@ class _SplashScreenState extends State<Body> {
                                 ),
                               )
                             : null,
-                        contentPadding: const EdgeInsets.all(10),
                         focusedBorder: OutlineInputBorder(
                           borderSide: const BorderSide(
                               color: kPrimaryColor, width: 2.0),
@@ -194,7 +193,6 @@ class _SplashScreenState extends State<Body> {
                                 ),
                               )
                             : null,
-                        contentPadding: const EdgeInsets.all(10),
                         focusedBorder: OutlineInputBorder(
                           borderSide: const BorderSide(
                               color: kPrimaryColor, width: 2.0),
@@ -282,7 +280,7 @@ class _SplashScreenState extends State<Body> {
                                     builder: (context) => AlertDialog(
                                       title: const Text('Error'),
                                       content: const Text(
-                                          "please cheak Term of Service"),
+                                          "Please cheak terms of service"),
                                       actions: <Widget>[
                                         // ignore: deprecated_member_use
                                         FlatButton(

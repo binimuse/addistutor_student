@@ -8,6 +8,7 @@ import 'package:addistutor_student/Screens/Login/login_screen.dart';
 import 'package:addistutor_student/Screens/Profile/profile.dart';
 import 'package:addistutor_student/Screens/main/main.dart';
 import 'package:addistutor_student/Screens/search/components/searchscreen.dart';
+import 'package:addistutor_student/Wallet/wallet.dart';
 import 'package:addistutor_student/constants.dart';
 import 'package:addistutor_student/remote_services/service.dart';
 import 'package:addistutor_student/remote_services/user.dart';
@@ -39,13 +40,13 @@ class BookingeController extends GetxController with StateMixin {
   late String teacherid = "";
   late String startdate = "";
 
-  late var motime = "10:30(afternoon)";
-  late var tuetime2 = "10:30(afternoon)";
-  late var wentime3 = "10:30(afternoon)";
-  late var thetime4 = "10:30(afternoon)";
-  late var fritime5 = "10:30(afternoon)";
-  late var suntime2 = "04:00(morning)";
-  late var sattime = "04:00(morning)";
+  late var motime = "10:30 (Afternoon)";
+  late var tuetime2 = "10:30 (Afternoon)";
+  late var wentime3 = "10:30 (Afternoon)";
+  late var thetime4 = "10:30 (Afternoon)";
+  late var fritime5 = "10:30 (Afternoon)";
+  late var suntime2 = "04:00 (Morning)";
+  late var sattime = "04:00 (Morning)";
 
   bool ismonday = false;
   bool istue = false;
@@ -98,7 +99,7 @@ class BookingeController extends GetxController with StateMixin {
       selecteddate.add(day0);
     }
     if (istue) {
-      day0 = "Tuesday";
+      day0 = "tuesday";
       selecteddate.add(day0);
     }
 
@@ -140,113 +141,113 @@ class BookingeController extends GetxController with StateMixin {
 
     if (day0 == "monday") {
       day0time = motime;
-    } else if (day0 == "Tuesday") {
+    } else if (day0 == "tuesday") {
       day0time = tuetime2;
     } else if (day0 == "wednesday") {
       day0time = wentime3;
-    } else if (day0 == "Thursday") {
+    } else if (day0 == "thursday") {
       day0time = thetime4;
-    } else if (day0 == "Friday") {
+    } else if (day0 == "friday") {
       day0time = fritime5;
-    } else if (day0 == "Saterday") {
+    } else if (day0 == "saterday") {
       day0time = sattime;
-    } else if (day0 == "Sunday") {
+    } else if (day0 == "sunday") {
       day0time = suntime2;
     }
 
     if (day1 == "monday") {
       day1time = motime;
-    } else if (day1 == "Tuesday") {
+    } else if (day1 == "tuesday") {
       day1time = tuetime2;
     } else if (day1 == "wednesday") {
       day1time = wentime3;
-    } else if (day1 == "Thursday") {
+    } else if (day1 == "thursday") {
       day1time = thetime4;
-    } else if (day1 == "Friday") {
+    } else if (day1 == "friday") {
       day1time = fritime5;
-    } else if (day1 == "Saterday") {
+    } else if (day1 == "saterday") {
       day1time = sattime;
-    } else if (day1 == "Sunday") {
+    } else if (day1 == "sunday") {
       day1time = suntime2;
     }
 
     if (day2 == "monday") {
       day2time = motime;
-    } else if (day2 == "Tuesday") {
+    } else if (day2 == "tuesday") {
       day2time = tuetime2;
     } else if (day2 == "wednesday") {
       day2time = wentime3;
-    } else if (day2 == "Thursday") {
+    } else if (day2 == "thursday") {
       day2time = thetime4;
-    } else if (day2 == "Friday") {
+    } else if (day2 == "friday") {
       day2time = fritime5;
-    } else if (day2 == "Saterday") {
+    } else if (day2 == "saterday") {
       day2time = sattime;
-    } else if (day2 == "Sunday") {
+    } else if (day2 == "sunday") {
       day2time = suntime2;
     }
 
     if (day3 == "monday") {
       day3time = motime;
-    } else if (day3 == "Tuesday") {
+    } else if (day3 == "tuesday") {
       day3time = tuetime2;
     } else if (day3 == "wednesday") {
       day3time = wentime3;
-    } else if (day3 == "Thursday") {
+    } else if (day3 == "thursday") {
       day3time = thetime4;
-    } else if (day3 == "Friday") {
+    } else if (day3 == "friday") {
       day3time = fritime5;
-    } else if (day3 == "Saterday") {
+    } else if (day3 == "saterday") {
       day3time = sattime;
-    } else if (day3 == "Sunday") {
+    } else if (day3 == "sunday") {
       day3time = suntime2;
     }
 
     if (day4 == "monday") {
       day4time = motime;
-    } else if (day4 == "Tuesday") {
+    } else if (day4 == "tuesday") {
       day4time = tuetime2;
     } else if (day4 == "wednesday") {
       day4time = wentime3;
-    } else if (day4 == "Thursday") {
+    } else if (day4 == "thursday") {
       day4time = thetime4;
-    } else if (day4 == "Friday") {
+    } else if (day4 == "friday") {
       day4time = fritime5;
-    } else if (day4 == "Saterday") {
+    } else if (day4 == "saterday") {
       day4time = sattime;
-    } else if (day4 == "Sunday") {
+    } else if (day4 == "sunday") {
       day4time = suntime2;
     }
 
     if (day5 == "monday") {
       day5time = motime;
-    } else if (day5 == "Tuesday") {
+    } else if (day5 == "tuesday") {
       day5time = tuetime2;
     } else if (day5 == "wednesday") {
       day5time = wentime3;
-    } else if (day5 == "Thursday") {
+    } else if (day5 == "thursday") {
       day5time = thetime4;
-    } else if (day5 == "Friday") {
+    } else if (day5 == "friday") {
       day5time = fritime5;
-    } else if (day5 == "Saterday") {
+    } else if (day5 == "saterday") {
       day5time = sattime;
-    } else if (day5 == "Sunday") {
+    } else if (day5 == "sunday") {
       day5time = suntime2;
     }
 
     if (day6 == "monday") {
       day6time = motime;
-    } else if (day6 == "Tuesday") {
+    } else if (day6 == "tuesday") {
       day6time = tuetime2;
     } else if (day6 == "wednesday") {
       day6time = wentime3;
-    } else if (day6 == "Thursday") {
+    } else if (day6 == "thursday") {
       day6time = thetime4;
-    } else if (day6 == "Friday") {
+    } else if (day6 == "friday") {
       day6time = fritime5;
-    } else if (day6 == "Saterday") {
+    } else if (day6 == "saterday") {
       day6time = sattime;
-    } else if (day6 == "Sunday") {
+    } else if (day6 == "sunday") {
       day6time = suntime2;
     }
 
@@ -255,7 +256,7 @@ class BookingeController extends GetxController with StateMixin {
     print(daylist);
     print(selecteddate);
     book.currentState!.save();
-    await seteditInfo(context);
+    await seteditInfo(context, id);
     // if (selecteddate.every((element) => daylist.contains(element))) {
     //   daylist.clear();
     // } else {
@@ -271,7 +272,7 @@ class BookingeController extends GetxController with StateMixin {
 
   var image;
   late List<Dateandtime> tags = [];
-  Future<void> seteditInfo(BuildContext context) async {
+  Future<void> seteditInfo(BuildContext context, id) async {
     openAndCloseLoadingDialog(context);
     try {
       if (day1 == null) {
@@ -340,7 +341,7 @@ class BookingeController extends GetxController with StateMixin {
     inforesponse = await RemoteServices.booking(data);
 
     if (inforesponse.toString() == "200") {
-      closeDialog(true, inforesponse, context);
+      closeDialog(true, inforesponse, context, id);
       tags.clear();
       data.clear();
       isLoading(false);
@@ -348,7 +349,7 @@ class BookingeController extends GetxController with StateMixin {
       print("noo");
       tags.clear();
       data.clear();
-      closeDialog(false, inforesponse, context);
+      closeDialog(false, inforesponse, context, id);
     }
   }
 
@@ -356,7 +357,7 @@ class BookingeController extends GetxController with StateMixin {
 
 // }
 
-  closeDialog(bool stat, String data, BuildContext context) async {
+  closeDialog(bool stat, String data, BuildContext context, id) async {
     await Future.delayed(const Duration(seconds: 1));
     // Dismiss CircularProgressIndicator
     Navigator.of(context).pop();
@@ -418,6 +419,7 @@ class BookingeController extends GetxController with StateMixin {
                 isLoading(false);
                 Navigator.of(context).pop(true);
                 Navigator.pop(context);
+                // walletContoller.getbalance(id);
 
                 // Navigator.push(
                 //   context,

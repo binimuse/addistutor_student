@@ -119,7 +119,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
     final double tempHeight = MediaQuery.of(context).size.height -
         (MediaQuery.of(context).size.width / 1.2) +
         55.0;
-    return Container(
+    return Obx(() => Container(
         color: DesignCourseAppTheme.nearlyWhite,
         child: SmartRefresher(
           enablePullDown: true,
@@ -137,12 +137,12 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
                   children: <Widget>[
                     AspectRatio(
                       aspectRatio: 1.2,
-                      child: Image.asset('assets/images/t.jpg'),
+                      child: Image.asset('assets/images/lg3.png'),
                     ),
                   ],
                 ),
                 Positioned(
-                  top: (MediaQuery.of(context).size.width / 1.2) - 24.0,
+                  top: (MediaQuery.of(context).size.width / 1.2) - 34.0,
                   bottom: 0,
                   left: 0,
                   right: 0,
@@ -181,7 +181,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
                                     fontWeight: FontWeight.w600,
-                                    fontSize: 22,
+                                    fontSize: 20,
                                     fontFamily: 'WorkSans',
                                     letterSpacing: 0.27,
                                     color: DesignCourseAppTheme.darkerText,
@@ -262,99 +262,103 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
                                     fontWeight: FontWeight.w200,
                                     fontSize: 15,
                                     fontFamily: 'WorkSans',
-                                    letterSpacing: 0.27,
+                                    letterSpacing: 0.17,
                                     color: DesignCourseAppTheme.grey,
                                   ),
                                 ),
                               ),
                               _buildDivider(),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 10.0, left: 18, right: 16),
-                                child: Row(children: [
-                                  const Text(
-                                    "Booking info",
-                                    textAlign: TextAlign.left,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 22,
-                                      fontFamily: 'WorkSans',
-                                      letterSpacing: 0.27,
-                                      color: DesignCourseAppTheme.darkerText,
+                              Flexible(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 10.0, left: 18, right: 16),
+                                  child: Row(children: [
+                                    const Text(
+                                      "Booking info",
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 20,
+                                        fontFamily: 'WorkSans',
+                                        letterSpacing: 0.27,
+                                        color: DesignCourseAppTheme.darkerText,
+                                      ),
                                     ),
-                                  ),
-                                  const SizedBox(width: 20),
-                                  widget.hotelData!.is_active == null
-                                      ? Row(
-                                          children: <Widget>[
-                                            Container(
-                                              width: 20.0,
-                                              height: 20.0,
-                                              decoration: const BoxDecoration(
-                                                  color: Colors.yellow,
-                                                  shape: BoxShape.circle),
-                                              alignment: Alignment.center,
-                                            ),
-                                            const SizedBox(height: 5.0),
-                                            const SizedBox(width: 10),
-                                            const Text(
-                                              " we have contacted the tutor on your \n behalf and waiting for confirmation",
-                                              style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 12.0,
-                                                fontWeight: FontWeight.w600,
+                                    const SizedBox(width: 20),
+                                    widget.hotelData!.is_active == null
+                                        ? Row(
+                                            children: <Widget>[
+                                              Container(
+                                                width: 20.0,
+                                                height: 20.0,
+                                                decoration: const BoxDecoration(
+                                                    color: Colors.yellow,
+                                                    shape: BoxShape.circle),
+                                                alignment: Alignment.center,
                                               ),
-                                            ),
-                                          ],
-                                        )
-                                      : widget.hotelData!.is_active != "0"
-                                          ? Row(
-                                              children: <Widget>[
-                                                Container(
-                                                  width: 20.0,
-                                                  height: 20.0,
-                                                  decoration:
-                                                      const BoxDecoration(
-                                                          color: Colors.green,
-                                                          shape:
-                                                              BoxShape.circle),
-                                                  alignment: Alignment.center,
+                                              const SizedBox(height: 5.0),
+                                              const SizedBox(width: 10),
+                                              const Text(
+                                                " we have contacted the tutor on your \n behalf and waiting for confirmation",
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 12.0,
+                                                  fontWeight: FontWeight.w600,
                                                 ),
-                                                const SizedBox(width: 20),
-                                                const Text(
-                                                  "you have ongoing tutor",
-                                                  style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 12.0,
-                                                    fontWeight: FontWeight.w600,
+                                              ),
+                                            ],
+                                          )
+                                        : widget.hotelData!.is_active != "0"
+                                            ? Row(
+                                                children: <Widget>[
+                                                  Container(
+                                                    width: 20.0,
+                                                    height: 20.0,
+                                                    decoration:
+                                                        const BoxDecoration(
+                                                            color: Colors.green,
+                                                            shape: BoxShape
+                                                                .circle),
+                                                    alignment: Alignment.center,
                                                   ),
-                                                ),
-                                              ],
-                                            )
-                                          : Row(
-                                              children: <Widget>[
-                                                Container(
-                                                  width: 20.0,
-                                                  height: 20.0,
-                                                  decoration:
-                                                      const BoxDecoration(
-                                                          color: Colors.red,
-                                                          shape:
-                                                              BoxShape.circle),
-                                                  alignment: Alignment.center,
-                                                ),
-                                                const SizedBox(width: 20),
-                                                const Text(
-                                                  "the tutor declined your request",
-                                                  style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 12.0,
-                                                    fontWeight: FontWeight.w600,
+                                                  const SizedBox(width: 20),
+                                                  const Text(
+                                                    "you have ongoing tutor",
+                                                    style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 12.0,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                    ),
                                                   ),
-                                                ),
-                                              ],
-                                            )
-                                ]),
+                                                ],
+                                              )
+                                            : Row(
+                                                children: <Widget>[
+                                                  Container(
+                                                    width: 20.0,
+                                                    height: 20.0,
+                                                    decoration:
+                                                        const BoxDecoration(
+                                                            color: Colors.red,
+                                                            shape: BoxShape
+                                                                .circle),
+                                                    alignment: Alignment.center,
+                                                  ),
+                                                  const SizedBox(width: 20),
+                                                  const Text(
+                                                    "the tutor declined your request",
+                                                    style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 12.0,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                    ),
+                                                  ),
+                                                ],
+                                              )
+                                  ]),
+                                ),
                               ),
                               AnimatedOpacity(
                                 duration: const Duration(milliseconds: 500),
@@ -363,23 +367,14 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
                                   padding: const EdgeInsets.all(8),
                                   child: Row(
                                     children: <Widget>[
-                                      getTimeBoxUI("1", 'Subject'),
+                                      getTimeBoxUIday(
+                                          widget.hotelData!.subject.title),
                                       getTimeBoxUI(
                                           widget.hotelData!.session.toString(),
                                           'session'),
                                     ],
                                   ),
                                 ),
-                              ),
-                              getTimeBoxUIday(widget.hotelData!.subject.title),
-                              const Center(
-                                child: Text(
-                                  "Days Booked",
-                                  style: TextStyle(color: Colors.black38),
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 8,
                               ),
                               Expanded(
                                 child: ListView.builder(
@@ -400,7 +395,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
                                     itemCount: widget
                                         .hotelData!.booking_schedule.length),
                               ),
-                              Obx(() => getReqBooking.isfetchedsubject.value
+                              getReqBooking.isfetchedsubject.value
                                   ? widget.hotelData!.ended_at == null
                                       ? AnimatedOpacity(
                                           duration:
@@ -558,7 +553,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
                                       child: Column(children: [
                                       CircularProgressIndicator(),
                                       // const Center(child: Text("No Booked Tutors"))
-                                    ]))),
+                                    ])),
                               SizedBox(
                                 height: MediaQuery.of(context).padding.bottom,
                               )
@@ -611,7 +606,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
               ],
             ),
           ),
-        ));
+        )));
   }
 
   Divider _buildDivider() {

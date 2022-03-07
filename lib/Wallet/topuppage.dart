@@ -258,7 +258,9 @@ class _FeedbackScreenState extends State<TopUpPage> {
     return Padding(
       padding: const EdgeInsets.all(4.0),
       child: Center(
-        child: Stack(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             GestureDetector(
               onTap: () {
@@ -286,20 +288,13 @@ class _FeedbackScreenState extends State<TopUpPage> {
                       ),
               ),
             ),
-            Positioned(
-                bottom: 0,
-                right: 5,
-                child: Container(
-                  height: 30,
-                  width: 85,
-                  child: GestureDetector(
-                    onTap: () {
-                      _showPicker(context);
-                    },
-                    child: const Text("Upload",
-                        style: TextStyle(color: kPrimaryColor)),
-                  ),
-                )),
+            GestureDetector(
+              onTap: () {
+                _showPicker(context);
+              },
+              child:
+                  const Text("Upload", style: TextStyle(color: kPrimaryColor)),
+            ),
           ],
         ),
       ),

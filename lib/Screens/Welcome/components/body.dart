@@ -21,7 +21,18 @@ class Body extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
-              "WELCOME TO NEXTGEN",
+              "WELCOME TO",
+              style: TextStyle(
+                fontSize: 25.0,
+                fontFamily: 'WorkSans',
+                fontWeight: FontWeight.bold,
+                letterSpacing: 0.6,
+                height: 0.9,
+                color: kPrimaryColor,
+              ),
+            ),
+            const Text(
+              "NEXTGEN",
               style: TextStyle(
                 fontSize: 25.0,
                 fontFamily: 'WorkSans',
@@ -32,7 +43,7 @@ class Body extends StatelessWidget {
               ),
             ),
             const Text(
-              "Student App",
+              "STUDENT APP",
               style: TextStyle(
                 fontSize: 18.0,
                 fontFamily: 'Roboto',
@@ -49,20 +60,6 @@ class Body extends StatelessWidget {
               ),
               height: size.height * 0.25,
             ),
-            SizedBox(height: size.height * 0.05),
-            RoundedButton(
-              text: "Log in",
-              press: () {
-                Navigator.push(
-                  context,
-                  PageRouteBuilder(
-                    pageBuilder: (context, animation1, animation2) {
-                      return const LoginScreen();
-                    },
-                  ),
-                );
-              },
-            ),
             RoundedButton(
               text: "Register",
               color: kPrimaryLightColor,
@@ -73,6 +70,19 @@ class Body extends StatelessWidget {
                   PageRouteBuilder(
                     pageBuilder: (context, animation1, animation2) {
                       return const SignUpScreen();
+                    },
+                  ),
+                );
+              },
+            ),
+            RoundedButton(
+              text: "Log in",
+              press: () {
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation1, animation2) {
+                      return const LoginScreen();
                     },
                   ),
                 );

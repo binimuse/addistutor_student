@@ -13,19 +13,21 @@ class GetSubjectController extends GetxController with StateMixin {
   GetSubject? sub;
 
   void fetchLocation(var id) async {
-    listsubject.value = await RemoteServices.getsubject(id);
+    try {
+      listsubject.value = await RemoteServices.getsubject(id);
 
-    if (listsubject.isNotEmpty) {
-      subject = listsubject;
-      // ignore: unnecessary_null_comparison
-      if (subject != null) {
-        hobItem = subject
-            .map((hobbies) =>
-                MultiSelectItem<GetSubject>(hobbies, hobbies.title))
-            .toList();
+      if (listsubject.isNotEmpty) {
+        subject = listsubject;
+        // ignore: unnecessary_null_comparison
+        if (subject != null) {
+          hobItem = subject
+              .map((hobbies) =>
+                  MultiSelectItem<GetSubject>(hobbies, hobbies.title))
+              .toList();
+        }
+        isfetchedsubject(true);
       }
-      isfetchedsubject(true);
-    }
+    } catch (e) {}
   }
 
   var psubj = <Search>[].obs;

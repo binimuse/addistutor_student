@@ -244,110 +244,6 @@ class _EditPageState extends State<BookScreen>
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Row(children: [
-                            Container(
-                              width: 50,
-                              height: 80,
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                      width: 4,
-                                      color: Theme.of(context)
-                                          .scaffoldBackgroundColor),
-                                  boxShadow: [
-                                    BoxShadow(
-                                        spreadRadius: 2,
-                                        blurRadius: 30,
-                                        color: Colors.black.withOpacity(0.1),
-                                        offset: const Offset(0, 10))
-                                  ],
-                                  shape: BoxShape.circle,
-                                  image: DecorationImage(
-                                      fit: BoxFit.contain,
-                                      image: NetworkImage(
-                                          "https://tutor.oddatech.com/api/student-profile-picture/${ids}"))),
-                            ),
-                            const SizedBox(
-                              width: 15,
-                            ),
-                            const Text(
-                              'Student: ',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 16,
-                                  fontFamily: 'WorkSans',
-                                  fontWeight: FontWeight.w700),
-                            ),
-                            Text(
-                              editprofileController.firstname.text +
-                                  " " +
-                                  editprofileController.lastname.text
-                                      .toString(),
-                              style: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w100),
-                            ),
-                          ]),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          Row(children: [
-                            const Text(
-                              'Subject : ',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 16,
-                                  fontFamily: 'WorkSans',
-                                  fontWeight: FontWeight.w700),
-                            ),
-                            Text(
-                              widget.hotelData!.subject_id.title,
-                              style: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w100),
-                            ),
-                          ]),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          // Column(
-                          //   mainAxisAlignment: MainAxisAlignment.center,
-                          //   crossAxisAlignment: CrossAxisAlignment.start,
-                          //   children: <Widget>[
-                          //     SizedBox(
-                          //       height: 100,
-                          //       child: ListView.builder(
-                          //           scrollDirection: Axis.horizontal,
-                          //           itemBuilder: (_, index) {
-                          //             return Column(
-                          //               children: [
-                          //                 getTimeBoxUIday(
-                          //                     widget
-                          //                         .hotelData!.subject_id.title,
-                          //                     widget.hotelData!.subject_id.id),
-                          //               ],
-                          //             );
-                          //           },
-                          //           itemCount: 1),
-                          //     ),
-                          //     Padding(
-                          //       padding: const EdgeInsets.all(16.0),
-                          //       child: Text(
-                          //         'Selected Subject:' " " + isselected,
-                          //         textAlign: TextAlign.left,
-                          //         style: TextStyle(
-                          //             color: Colors.black,
-                          //             fontSize:
-                          //                 MediaQuery.of(context).size.width >
-                          //                         360
-                          //                     ? 18
-                          //                     : 16,
-                          //             fontWeight: FontWeight.normal),
-                          //       ),
-                          //     ),
-                          //   ],
-                          // ),
                           const SizedBox(
                             height: 10,
                           ),
@@ -360,7 +256,7 @@ class _EditPageState extends State<BookScreen>
                                 fontWeight: FontWeight.w700),
                           ),
                           const Text(
-                            'A session is 60 minutes long and you can buy starting from one sessions. ',
+                            'A session is 60 minutes long and you can buy starting from one session. ',
                             style: TextStyle(color: Colors.black38),
                           ),
                           DropdownButton<String>(
@@ -1200,7 +1096,7 @@ class _EditPageState extends State<BookScreen>
                                             .contains("10:00 (Afternoon)")) {
                                           bookingeController.suntime2 =
                                               "4:00 pm";
-                                          bookingeController.Sun = "sunday";
+                                          bookingeController.Sun = "Sunday";
                                         } else if (value
                                             .contains("11:00 (Afternoon)")) {
                                           bookingeController.suntime2 =
@@ -1268,13 +1164,13 @@ class _EditPageState extends State<BookScreen>
                                     onPressed: () async {
                                       if (avalbledate2.isNotEmpty) {
                                         Cricular();
-                                        clear();
+                                        //clear();
                                       } else {
                                         showDialog(
                                           context: context,
                                           builder: (context) => AlertDialog(
                                             title: const Text(
-                                              'Error ',
+                                              'Error',
                                               style: TextStyle(
                                                 fontSize: 13,
                                                 fontWeight: FontWeight.w500,
@@ -1507,7 +1403,7 @@ class _EditPageState extends State<BookScreen>
   }
 
   String intDayToEnglish(int day) {
-    if (day % 7 == DateTime.monday % 7) return 'monday';
+    if (day % 7 == DateTime.monday % 7) return 'Monday';
     if (day % 7 == DateTime.tuesday % 7) return 'Tuesday';
     if (day % 7 == DateTime.wednesday % 7) return 'Wednesday';
     if (day % 7 == DateTime.thursday % 7) return 'Thursday';
