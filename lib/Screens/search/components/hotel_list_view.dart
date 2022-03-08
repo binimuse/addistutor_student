@@ -77,7 +77,7 @@ class HotelListView extends StatelessWidget {
                                   const SizedBox(
                                     width: 10,
                                   ),
-                                  Icon(
+                                  const Icon(
                                     Icons.location_pin,
                                     color: kPrimaryLightColor,
                                     size: 10,
@@ -119,7 +119,7 @@ class HotelListView extends StatelessWidget {
                                     fontSize: 12,
                                   ),
                                 ),
-                                Icon(
+                                const Icon(
                                   Icons.star,
                                   color: kPrimaryLightColor,
                                   size: 20,

@@ -164,11 +164,11 @@ class _CourseInfoScreenState extends State<CourseInfoQr>
                                 padding: const EdgeInsets.all(18.0),
                                 child: Center(
                                   child: Row(children: [
-                                    Icon(
+                                    const Icon(
                                       Icons.leak_add_rounded,
                                       color: kPrimaryLightColor,
                                     ),
-                                    SizedBox(width: 10.0),
+                                    const SizedBox(width: 10.0),
                                     Text(widget.hotelData!.sessiontaken
                                             .toString() +
                                         " "

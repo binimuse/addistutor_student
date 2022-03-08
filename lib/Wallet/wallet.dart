@@ -267,7 +267,7 @@ class _EditProfilePageState extends State<WalletPage> {
                                                                     .all(
                                                                 Radius.circular(
                                                                     18))),
-                                                    child: Icon(
+                                                    child: const Icon(
                                                       Icons
                                                           .account_balance_wallet,
                                                       color: kPrimaryLightColor,

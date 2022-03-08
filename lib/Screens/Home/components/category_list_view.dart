@@ -1,11 +1,10 @@
-// ignore_for_file: prefer_typing_uninitialized_variables, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_typing_uninitialized_variables, prefer_const_literals_to_create_immutables, unnecessary_null_comparison, duplicate_ignore
 
 import 'package:addistutor_student/Screens/Home/components/course_info_screen.dart';
 import 'package:addistutor_student/Screens/Home/components/design_course_app_theme.dart';
 import 'package:addistutor_student/Screens/Home/components/homescreen.dart';
 
-import 'package:addistutor_student/Screens/search/components/hotel_app_theme.dart';
-import 'package:addistutor_student/constants.dart';
+import 'package:addistutor_student/constants.dart' show kPrimaryLightColor;
 import 'package:addistutor_student/controller/geteducationlevelcontroller.dart';
 import 'package:addistutor_student/controller/searchcontroller.dart';
 import 'package:addistutor_student/remote_services/service.dart';
@@ -283,7 +282,7 @@ class CategoryView extends StatelessWidget {
                                                                       .withOpacity(
                                                                           0.8)),
                                                             ),
-                                                            Icon(
+                                                            const Icon(
                                                               Icons
                                                                   .location_pin,
                                                               color:

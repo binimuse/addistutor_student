@@ -249,7 +249,7 @@ class _EditPageState extends State<BookScreen>
                           ),
                           const Text(
                             'How many session do you want to buy? ',
-                            style: const TextStyle(
+                            style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 16,
                                 fontFamily: 'WorkSans',

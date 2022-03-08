@@ -72,8 +72,6 @@ class _EditPageState extends State<EditPage> {
       editprofileController.firstname.text = getmyAccount.full_name;
       editprofileController.email.text = getmyAccount.email;
       editprofileController.phone.text = getmyAccount.phone;
-
-      print(editprofileController.phone);
     });
   }
 
@@ -288,9 +286,10 @@ class _EditPageState extends State<EditPage> {
                                   controller:
                                       editprofileController.parent_first_name,
                                   decoration: InputDecoration(
-                                    contentPadding: EdgeInsets.only(bottom: 3),
+                                    contentPadding:
+                                        const EdgeInsets.only(bottom: 3),
                                     labelText: "Parent  Name",
-                                    labelStyle: TextStyle(
+                                    labelStyle: const TextStyle(
                                       fontSize: 17,
                                       fontWeight: FontWeight.w700,
                                       color: kPrimaryColor,

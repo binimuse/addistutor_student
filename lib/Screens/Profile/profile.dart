@@ -90,7 +90,7 @@ class _ProfilePageState extends State<ProfileS> {
     getLocationController.fetchLocation();
     // ignore: invalid_use_of_protected_member
     location = getLocationController.listlocationforedit.value;
-    if (location != null && location.isNotEmpty) {
+    if (location.isNotEmpty) {
       setState(() {
         editprofileController.locaion = location[0];
       });
@@ -597,7 +597,7 @@ class _ProfilePageState extends State<ProfileS> {
 
     Navigator.pushAndRemoveUntil(
       context,
-      MaterialPageRoute(builder: (context) => LoginScreen()),
+      MaterialPageRoute(builder: (context) => const LoginScreen()),
       (Route<dynamic> route) => false,
     );
 

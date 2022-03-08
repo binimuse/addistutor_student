@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use, unnecessary_null_comparison
+// ignore_for_file: deprecated_member_use, unnecessary_null_comparison, prefer_const_literals_to_create_immutables, prefer_typing_uninitialized_variables
 
 import 'dart:convert';
 
@@ -7,7 +7,6 @@ import 'package:addistutor_student/constants.dart';
 import 'package:addistutor_student/controller/endbookingcontroller.dart';
 import 'package:addistutor_student/remote_services/user.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -25,16 +24,13 @@ class CourseInfoScreenRating extends StatefulWidget {
 
 class _CourseInfoScreenState extends State<CourseInfoScreenRating>
     with TickerProviderStateMixin {
-  final double _initialRating = 2.0;
   final double infoHeight = 364.0;
   AnimationController? animationController;
   Animation<double>? animation;
   double opacity1 = 0.0;
   double opacity2 = 0.0;
   double opacity3 = 0.0;
-  final bool _isVertical = false;
   bool rating = false;
-  IconData? _selectedIcon;
   @override
   void initState() {
     animationController = AnimationController(
@@ -511,7 +507,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
                                         )
                                   : Center(
                                       child: Column(children: [
-                                      CircularProgressIndicator(),
+                                      const CircularProgressIndicator(),
                                       // const Center(child: Text("No Booked Tutors"))
                                     ])),
                               SizedBox(

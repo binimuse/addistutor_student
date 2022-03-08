@@ -63,9 +63,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
           //  walletContoller.gettransaction(ids);
         });
         editprofileController.fetchPf(int.parse(body["student_id"]));
-      } else {
-        var noid = "noid";
-      }
+      } else {}
     } else {}
   }
 
@@ -245,10 +243,10 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                                                     DesignCourseAppTheme.grey,
                                               ),
                                             )
-                                          : Text(
+                                          : const Text(
                                               "",
                                               textAlign: TextAlign.left,
-                                              style: const TextStyle(
+                                              style: TextStyle(
                                                 fontWeight: FontWeight.w200,
                                                 fontSize: 22,
                                                 letterSpacing: 0.27,

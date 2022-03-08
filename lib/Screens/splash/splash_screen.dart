@@ -126,8 +126,8 @@ class _SplashScreenState extends State<SplashScreen> {
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Center(
+                    children: const [
+                      Center(
                         child: Text(
                           "One-on-One \n Tutorial Service ",
                           textAlign: TextAlign.center,

@@ -6,7 +6,6 @@ import 'package:addistutor_student/Screens/Signup/signup_screen.dart';
 import 'package:addistutor_student/Screens/Welcome/components/background.dart';
 import 'package:addistutor_student/components/rounded_button.dart';
 import 'package:addistutor_student/constants.dart';
-import 'package:flutter_svg/svg.dart';
 
 class Body extends StatelessWidget {
   const Body({Key? key}) : super(key: key);
@@ -42,7 +41,7 @@ class Body extends StatelessWidget {
                 color: kPrimaryColor,
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             const Text(
               "STUDENT APP",
               style: TextStyle(
@@ -56,7 +55,7 @@ class Body extends StatelessWidget {
             ),
             SizedBox(height: size.height * 0.05),
             Image(
-              image: AssetImage(
+              image: const AssetImage(
                 'assets/images/t.jpg',
               ),
               height: size.height * 0.25,

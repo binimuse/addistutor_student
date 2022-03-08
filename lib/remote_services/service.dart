@@ -1,9 +1,8 @@
-// ignore_for_file: unnecessary_brace_in_string_interps, unnecessary_null_comparison
+// ignore_for_file: unnecessary_brace_in_string_interps, unnecessary_null_comparison, deprecated_member_use, duplicate_ignore
 
 import 'dart:convert';
 
 import 'dart:io';
-import 'package:addistutor_student/controller/getmyaccount.dart';
 import 'package:addistutor_student/remote_services/user.dart';
 import 'package:http/http.dart' as http;
 import 'package:async/async.dart';
@@ -407,15 +406,14 @@ class RemoteServices {
     }
   }
 
-  static Future<String> endbooking(var ending_reason, var id) async {
+  static Future<String> endbooking(var endingReason, var id) async {
     var data = {
-      'ending_reason': ending_reason,
+      'ending_reason': endingReason,
     };
     res = await Network().getpassedData(data, "booking/${id}/end");
     body = json.decode(res.body);
     // ignore: avoid_print
-    print("body");
-    print(body);
+
     if (res.statusCode == 200) {
       return body["success"].toString();
     } else {
