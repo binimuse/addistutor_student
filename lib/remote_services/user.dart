@@ -530,3 +530,23 @@ class Transaction {
     );
   }
 }
+
+class Myaccount {
+  String full_name;
+  String email;
+  String phone;
+
+  Myaccount({
+    required this.full_name,
+    required this.email,
+    required this.phone,
+  });
+
+  factory Myaccount.fromJson(Map<String, dynamic> json) {
+    return Myaccount(
+      full_name: json["full_name"],
+      email: json["email"],
+      phone: json["phone"],
+    );
+  }
+}

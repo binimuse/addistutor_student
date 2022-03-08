@@ -8,6 +8,7 @@ import 'package:addistutor_student/Screens/Home/components/design_course_app_the
 import 'package:addistutor_student/constants.dart';
 import 'package:addistutor_student/controller/editprofilecontroller.dart';
 import 'package:addistutor_student/controller/getlocationcontroller.dart';
+import 'package:addistutor_student/controller/getmyaccount.dart';
 import 'package:addistutor_student/controller/signupcontroller.dart';
 import 'package:addistutor_student/remote_services/user.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -42,6 +43,7 @@ class _EditPageState extends State<EditPage> {
     _imageFileList = value == null ? null : [value];
   }
 
+  final GetmyAccount getmyAccount = Get.find();
   final EditprofileController editprofileController =
       Get.put(EditprofileController());
 
@@ -58,8 +60,21 @@ class _EditPageState extends State<EditPage> {
     _getlocation();
 
     editprofileController.date = DateFormat.yMd().format(DateTime.now());
-
+    _getmyaccount();
     _fetchUser();
+  }
+
+  void _getmyaccount() async {
+    // monitor network fetch
+    // await Future.delayed(const Duration(milliseconds: 1000));
+    getmyAccount.fetchqr();
+    setState(() {
+      editprofileController.firstname.text = getmyAccount.full_name;
+      editprofileController.email.text = getmyAccount.email;
+      editprofileController.phone.text = getmyAccount.phone;
+
+      print(editprofileController.phone);
+    });
   }
 
   _getlocation() async {
@@ -69,6 +84,7 @@ class _EditPageState extends State<EditPage> {
     if (location != null && location.isNotEmpty) {
       setState(() {
         editprofileController.locaion = location[0];
+        editprofileController.locaionid = location[0].id;
       });
     }
   }
@@ -136,25 +152,15 @@ class _EditPageState extends State<EditPage> {
             ),
             body: Form(
               key: editprofileController.EditProf,
-              autovalidateMode: AutovalidateMode.disabled,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
               child: Container(
                 padding: const EdgeInsets.only(left: 16, top: 25, right: 16),
                 child: GestureDetector(
                   onTap: () {
-                    FocusScopeNode currentFocus = FocusScope.of(context);
-
                     FocusScope.of(context).unfocus();
-                    TextEditingController().clear();
-
-                    if (!currentFocus.hasPrimaryFocus) {
-                      currentFocus.unfocus();
-                    }
                   },
                   child: ListView(
                     children: [
-                      const SizedBox(
-                        height: 15,
-                      ),
                       noid != "noid"
                           ? Center(
                               child: Stack(
@@ -221,7 +227,7 @@ class _EditPageState extends State<EditPage> {
                             )
                           : Container(),
                       const SizedBox(
-                        height: 35,
+                        height: 20,
                       ),
                       const Text(
                         'Are you a parent or student?',
@@ -281,7 +287,7 @@ class _EditPageState extends State<EditPage> {
                                 child: TextFormField(
                                   controller:
                                       editprofileController.parent_first_name,
-                                  decoration: const InputDecoration(
+                                  decoration: InputDecoration(
                                     contentPadding: EdgeInsets.only(bottom: 3),
                                     labelText: "Parent  Name",
                                     labelStyle: TextStyle(
@@ -292,7 +298,7 @@ class _EditPageState extends State<EditPage> {
                                     ),
                                     focusColor: kPrimaryColor,
                                     fillColor: kPrimaryColor,
-                                    hintText: "Parent  Name",
+                                    hintText: getmyAccount.full_name,
                                     hintStyle: TextStyle(
                                         color: DesignCourseAppTheme.nearlyBlack,
                                         fontSize: 16,
@@ -457,7 +463,7 @@ class _EditPageState extends State<EditPage> {
                         padding: const EdgeInsets.only(bottom: 35.0),
                         child: TextFormField(
                           controller: editprofileController.phone,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             contentPadding: EdgeInsets.only(bottom: 3),
                             labelText: "Phone Number",
                             labelStyle: TextStyle(
@@ -468,15 +474,12 @@ class _EditPageState extends State<EditPage> {
                             ),
                             focusColor: kPrimaryColor,
                             fillColor: kPrimaryColor,
-                            hintText: "Phone Number",
+                            hintText: getmyAccount.phone,
                             hintStyle: TextStyle(
                                 color: DesignCourseAppTheme.nearlyBlack,
                                 fontSize: 16,
                                 fontWeight: FontWeight.w300),
                           ),
-                          validator: (value) {
-                            return editprofileController.validateName(value!);
-                          },
                         ),
                       ),
                       Padding(
@@ -494,15 +497,12 @@ class _EditPageState extends State<EditPage> {
                             ),
                             focusColor: kPrimaryColor,
                             fillColor: kPrimaryColor,
-                            hintText: editprofileController.email.text,
+                            hintText: getmyAccount.email,
                             hintStyle: const TextStyle(
                                 color: DesignCourseAppTheme.nearlyBlack,
                                 fontSize: 16,
                                 fontWeight: FontWeight.w300),
                           ),
-                          validator: (value) {
-                            return editprofileController.validateEmail(value!);
-                          },
                         ),
                       ),
                       const Text(
@@ -621,11 +621,19 @@ class _EditPageState extends State<EditPage> {
                             value: editprofileController.locaion,
                           ),
                         ),
-                        showsubject
-                            ? Expanded(
+                        Text(
+                          locationname,
+                          style: const TextStyle(color: Colors.black38),
+                        ),
+                      ]),
+                      showsubject
+                          ? SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: SizedBox(
+                                height: 70,
                                 child: ListView.builder(
                                     shrinkWrap: true,
-                                    scrollDirection: Axis.vertical,
+                                    scrollDirection: Axis.horizontal,
                                     itemBuilder: (_, index) {
                                       return Column(
                                         children: [
@@ -639,13 +647,9 @@ class _EditPageState extends State<EditPage> {
                                     },
                                     itemCount: editprofileController
                                         .locaion!.locaion.length),
-                              )
-                            : Container(),
-                        Text(
-                          locationname,
-                          style: const TextStyle(color: Colors.black38),
-                        ),
-                      ]),
+                              ),
+                            )
+                          : Container(),
                       const SizedBox(
                         height: 25,
                       ),
@@ -725,7 +729,6 @@ class _EditPageState extends State<EditPage> {
                         padding: const EdgeInsets.only(bottom: 35.0),
                         child: TextFormField(
                           keyboardType: TextInputType.multiline,
-                          textInputAction: TextInputAction.newline,
                           controller: editprofileController.About,
                           maxLength: 200,
                           decoration: const InputDecoration(
@@ -796,10 +799,10 @@ class _EditPageState extends State<EditPage> {
         });
       },
       child: Padding(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(8.0),
         child: Container(
           decoration: BoxDecoration(
-            color: kPrimaryLightColor,
+            color: DesignCourseAppTheme.nearlyWhite,
             borderRadius: const BorderRadius.all(Radius.circular(16.0)),
             boxShadow: <BoxShadow>[
               BoxShadow(
@@ -812,6 +815,8 @@ class _EditPageState extends State<EditPage> {
             padding: const EdgeInsets.only(
                 left: 18.0, right: 18.0, top: 12.0, bottom: 12.0),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Text(
                   txt2,
@@ -820,7 +825,7 @@ class _EditPageState extends State<EditPage> {
                     fontWeight: FontWeight.w200,
                     fontSize: 14,
                     letterSpacing: 0.27,
-                    color: DesignCourseAppTheme.nearlyBlack,
+                    color: DesignCourseAppTheme.grey,
                   ),
                 ),
               ],

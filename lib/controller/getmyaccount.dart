@@ -1,0 +1,27 @@
+// ignore_for_file: prefer_typing_uninitialized_variables, empty_catches
+
+import 'package:get/get.dart';
+import 'package:addistutor_student/remote_services/service.dart';
+
+class GetmyAccount extends GetxController with StateMixin {
+  var getmy;
+  var getqr;
+  var isfetchedsubject = false.obs;
+  var full_name;
+  var phone;
+  var email;
+
+  void fetchqr() async {
+    try {
+      getmy = await RemoteServices.getmyaacount();
+
+      if (getmy != null) {
+        full_name = getmy!.full_name.toString();
+        email = getmy!.email.toString();
+        phone = getmy!.phone.toString();
+
+        isfetchedsubject(true);
+      }
+    } catch (e) {}
+  }
+}

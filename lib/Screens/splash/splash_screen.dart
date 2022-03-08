@@ -96,7 +96,9 @@ class _SplashScreenState extends State<SplashScreen> {
     var token = localStorage.getString('token');
     var user = localStorage.getString('user');
     var bodys = json.decode(user!);
-    if (token != null && bodys["email_verified_at"] != null) {
+    if (token != null &&
+        bodys["email_verified_at"] != null &&
+        bodys["student_id"] != null) {
       // print(user);
       // print("token login");
       setState(() {

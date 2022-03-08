@@ -3,6 +3,7 @@
 import 'dart:convert';
 
 import 'dart:io';
+import 'package:addistutor_student/controller/getmyaccount.dart';
 import 'package:addistutor_student/remote_services/user.dart';
 import 'package:http/http.dart' as http;
 import 'package:async/async.dart';
@@ -419,6 +420,17 @@ class RemoteServices {
       return body["success"].toString();
     } else {
       throw Exception('Failed to send  Mesaage');
+    }
+  }
+
+  static Future<Myaccount> getmyaacount() async {
+    res = await Network().getData("my-account");
+
+    var body = json.decode(res.body);
+    if (res.statusCode == 200) {
+      return Myaccount.fromJson(body["data"]);
+    } else {
+      throw Exception('Failed to load User' + res.statusCode.toString());
     }
   }
 }

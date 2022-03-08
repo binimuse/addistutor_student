@@ -16,6 +16,7 @@ import 'package:addistutor_student/controller/endbookingcontroller.dart';
 import 'package:addistutor_student/controller/feedbackcontroller.dart';
 import 'package:addistutor_student/controller/geteducationlevelcontroller.dart';
 import 'package:addistutor_student/controller/getlocationcontroller.dart';
+import 'package:addistutor_student/controller/getmyaccount.dart';
 import 'package:addistutor_student/controller/getnotificationcontoller.dart';
 import 'package:addistutor_student/controller/getqrcontroller.dart';
 import 'package:addistutor_student/controller/getreqestedbookingcpntroller.dart';
@@ -35,6 +36,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'editprofile.dart';
 import 'feedback_screen.dart';
 import 'help_screen.dart';
+import 'dart:math';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -72,12 +74,15 @@ class _ProfilePageState extends State<ProfileS> {
 
   final EditprofileController editprofileController =
       Get.put(EditprofileController());
+
+  final GetmyAccount getmyAccount = Get.put(GetmyAccount());
   @override
   void initState() {
     super.initState();
 
     _fetchUser();
     _getlocation();
+    _getmyaccount();
   }
 
   List<GetLocationforedit> location = [];
@@ -103,8 +108,15 @@ class _ProfilePageState extends State<ProfileS> {
     setState(() {
       _getlocation();
       _fetchUser();
+      _getmyaccount();
     });
     _refreshController.refreshCompleted();
+  }
+
+  void _getmyaccount() async {
+    // monitor network fetch
+    // await Future.delayed(const Duration(milliseconds: 1000));
+    getmyAccount.fetchqr();
   }
 
   void _onLoading() async {
@@ -115,8 +127,10 @@ class _ProfilePageState extends State<ProfileS> {
   }
 
   var ids;
-
+  late int ran;
   void _fetchUser() async {
+    ran = Random().nextInt(100);
+
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     var token = localStorage.getString('user');
 
@@ -126,9 +140,8 @@ class _ProfilePageState extends State<ProfileS> {
       if (body["student_id"] != null) {
         setState(() {
           ids = int.parse(body["student_id"]);
+          editprofileController.fetchPf(int.parse(body["student_id"]));
         });
-
-        editprofileController.fetchPf(int.parse(body["student_id"]));
       } else {
         var noid = "noid";
 
@@ -140,94 +153,92 @@ class _ProfilePageState extends State<ProfileS> {
   final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: _onBackPressed,
-      child: Scaffold(
-        key: _key,
-        backgroundColor: Colors.grey.shade100,
-        extendBodyBehindAppBar: true,
-        extendBody: true,
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          leading: IconButton(
-            onPressed: () {
-              _key.currentState!.openDrawer();
-            },
-            icon: const Icon(
-              Icons.menu,
-              color: kPrimaryColor,
-            ),
-          ),
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-        ),
-        drawer: _buildDrawer(
-          context,
-          editprofileController.firstname.text.toString(),
-          editprofileController.lastname.text.toString(),
-          ids,
-        ),
-        body: editprofileController.obx(
-            (editForm) => SmartRefresher(
-                  enablePullDown: true,
-                  enablePullUp: true,
-
-                  //cheak pull_to_refresh
-                  controller: _refreshController,
-                  onRefresh: _onRefresh,
-                  onLoading: _onLoading,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: <Widget>[
-                        ProfileHeader(
-                          avatar: NetworkImage(
-                              "https://tutor.oddatech.com/api/student-profile-picture/$ids"),
-                          coverImage: NetworkImage(
-                              "https://tutor.oddatech.com/api/student-profile-picture/$ids"),
-                          title: editprofileController.firstname.text
-                                  .toString() +
-                              " " +
-                              editprofileController.lastname.text.toString(),
-                          subtitle: "Grade" " " +
-                              editprofileController.Grade.toString(),
-                          actions: <Widget>[
-                            MaterialButton(
-                              color: Colors.white,
-                              shape: const CircleBorder(),
-                              elevation: 0,
-                              child: const Icon(
-                                Icons.edit,
-                                color: kPrimaryColor,
-                              ),
-                              onPressed: () {
-                                Navigator.push<dynamic>(
-                                  context,
-                                  MaterialPageRoute<dynamic>(
-                                    builder: (BuildContext context) =>
-                                        const EditPage(),
-                                  ),
-                                );
-                              },
-                            )
-                          ],
-                        ),
-                        const SizedBox(height: 10.0),
-                        UserInfo(
-                          phone: editprofileController.phone.text.toString(),
-                          email: editprofileController.email.text.toString(),
-                          gender: editprofileController.macthgender.value
-                              .toString(),
-                          about: editprofileController.About.text.toString(),
-                        ),
-                      ],
-                    ),
+    return editprofileController.obx(
+        (editForm) => WillPopScope(
+            onWillPop: _onBackPressed,
+            child: Scaffold(
+              key: _key,
+              backgroundColor: Colors.grey.shade100,
+              extendBodyBehindAppBar: true,
+              extendBody: true,
+              appBar: AppBar(
+                automaticallyImplyLeading: false,
+                leading: IconButton(
+                  onPressed: () {
+                    _key.currentState!.openDrawer();
+                  },
+                  icon: const Icon(
+                    Icons.menu,
+                    color: kPrimaryColor,
                   ),
                 ),
-            onLoading: Center(child: loadData()),
-            onEmpty: const Text("Can't fetch data"),
-            onError: (error) => Center(child: Text(error.toString()))),
-      ),
-    );
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+              ),
+              drawer: _buildDrawer(
+                context,
+                editprofileController.firstname.text.toString(),
+                editprofileController.lastname.text.toString(),
+                ids,
+              ),
+              body: SmartRefresher(
+                enablePullDown: true,
+                enablePullUp: true,
+
+                //cheak pull_to_refresh
+                controller: _refreshController,
+                onRefresh: _onRefresh,
+                onLoading: _onLoading,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: <Widget>[
+                      ProfileHeader(
+                        avatar: NetworkImage(
+                            "https://tutor.oddatech.com/api/student-profile-picture/$ids?$ran"),
+                        coverImage: NetworkImage(
+                            "https://tutor.oddatech.com/api/student-profile-picture/$ids?$ran"),
+                        title: editprofileController.firstname.text.toString() +
+                            " " +
+                            editprofileController.lastname.text.toString(),
+                        subtitle: "Grade" " " +
+                            editprofileController.Grade.toString(),
+                        actions: <Widget>[
+                          MaterialButton(
+                            color: Colors.white,
+                            shape: const CircleBorder(),
+                            elevation: 0,
+                            child: const Icon(
+                              Icons.edit,
+                              color: kPrimaryColor,
+                            ),
+                            onPressed: () {
+                              Navigator.push<dynamic>(
+                                context,
+                                MaterialPageRoute<dynamic>(
+                                  builder: (BuildContext context) =>
+                                      const EditPage(),
+                                ),
+                              );
+                            },
+                          )
+                        ],
+                      ),
+                      const SizedBox(height: 10.0),
+                      UserInfo(
+                        phone: editprofileController.phone.text.toString(),
+                        email: editprofileController.email.text.toString(),
+                        gender:
+                            editprofileController.macthgender.value.toString(),
+                        about: editprofileController.About.text.toString(),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            )),
+        onLoading: Center(child: loadData()),
+        onEmpty: const Text("Can't fetch data"),
+        onError: (error) => Center(child: Text(error.toString())));
   }
 
   loadData() {
@@ -300,7 +311,7 @@ class _ProfilePageState extends State<ProfileS> {
   final Color divider = Colors.grey.shade600;
   _buildDrawer(BuildContext context, String fname, String lastname, ids) {
     final String image =
-        "https://tutor.oddatech.com/api/student-profile-picture/$ids";
+        "https://tutor.oddatech.com/api/student-profile-picture/$ids?$ran";
 
     return ClipPath(
       clipper: OvalRightBorderClipper(),
@@ -582,6 +593,7 @@ class _ProfilePageState extends State<ProfileS> {
     Get.delete<GetQrCode>();
     Get.delete<GetNotigicationController>();
     Get.delete<EndBookingContoller>();
+    Get.delete<GetmyAccount>();
 
     Navigator.pushAndRemoveUntil(
       context,

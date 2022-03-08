@@ -9,6 +9,7 @@ import 'package:addistutor_student/Screens/Signup/components/social_icon.dart';
 import 'package:addistutor_student/components/text_field_container.dart';
 import 'package:addistutor_student/controller/editprofilecontroller.dart';
 import 'package:addistutor_student/controller/getlocationcontroller.dart';
+import 'package:addistutor_student/controller/getmyaccount.dart';
 import 'package:addistutor_student/remote_services/api.dart';
 import 'package:addistutor_student/remote_services/user.dart';
 import 'package:flutter/material.dart';
@@ -41,13 +42,22 @@ late TextEditingController emailcon;
 final EditprofileController editprofileController =
     Get.put(EditprofileController());
 
+final GetmyAccount getmyAccount = Get.put(GetmyAccount());
+
 class _LoginScreenState extends State<Body> {
   @override
   void initState() {
     super.initState();
     _fetchUser();
     _getlocation();
+    _getmyaccount();
     emailcon = TextEditingController();
+  }
+
+  void _getmyaccount() async {
+    // monitor network fetch
+    // await Future.delayed(const Duration(milliseconds: 1000));
+    getmyAccount.fetchqr();
   }
 
   final GetLocationController getLocationController =
