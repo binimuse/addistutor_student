@@ -538,20 +538,20 @@ class _HomePageState extends State<Appointment>
                                     ),
                                   ],
                                 ),
-                                chat.is_active == null
+                                chat.ended_at != null
                                     ? Column(
                                         children: <Widget>[
                                           Container(
                                             width: 20.0,
                                             height: 20.0,
                                             decoration: const BoxDecoration(
-                                                color: Colors.yellow,
+                                                color: kPrimaryColor,
                                                 shape: BoxShape.circle),
                                             alignment: Alignment.center,
                                           ),
                                           const SizedBox(height: 5.0),
                                           Text(
-                                            "Pending",
+                                            "Booking Ended",
                                             style: TextStyle(
                                               color:
                                                   Colors.grey.withOpacity(0.5),
@@ -561,51 +561,7 @@ class _HomePageState extends State<Appointment>
                                           ),
                                         ],
                                       )
-                                    : chat.is_active != "0"
-                                        ? Column(
-                                            children: <Widget>[
-                                              Container(
-                                                width: 20.0,
-                                                height: 20.0,
-                                                decoration: const BoxDecoration(
-                                                    color: Colors.green,
-                                                    shape: BoxShape.circle),
-                                                alignment: Alignment.center,
-                                              ),
-                                              const SizedBox(height: 5.0),
-                                              Text(
-                                                "Accepted",
-                                                style: TextStyle(
-                                                  color: Colors.grey
-                                                      .withOpacity(0.5),
-                                                  fontSize: 12.0,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                              ),
-                                            ],
-                                          )
-                                        : Column(
-                                            children: <Widget>[
-                                              Container(
-                                                width: 20.0,
-                                                height: 20.0,
-                                                decoration: const BoxDecoration(
-                                                    color: Colors.red,
-                                                    shape: BoxShape.circle),
-                                                alignment: Alignment.center,
-                                              ),
-                                              const SizedBox(height: 5.0),
-                                              Text(
-                                                "Declined",
-                                                style: TextStyle(
-                                                  color: Colors.grey
-                                                      .withOpacity(0.5),
-                                                  fontSize: 12.0,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                              ),
-                                            ],
-                                          )
+                                    : getstutus(chat),
                               ],
                             ),
                           ),
@@ -714,6 +670,71 @@ class _HomePageState extends State<Appointment>
         ),
       ),
     );
+  }
+
+  getstutus(RequestedBooking chat) {
+    return chat.is_active == null
+        ? Column(
+            children: <Widget>[
+              Container(
+                width: 20.0,
+                height: 20.0,
+                decoration: const BoxDecoration(
+                    color: Colors.yellow, shape: BoxShape.circle),
+                alignment: Alignment.center,
+              ),
+              const SizedBox(height: 5.0),
+              Text(
+                "Pending",
+                style: TextStyle(
+                  color: Colors.grey.withOpacity(0.5),
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          )
+        : chat.is_active != "0"
+            ? Column(
+                children: <Widget>[
+                  Container(
+                    width: 20.0,
+                    height: 20.0,
+                    decoration: const BoxDecoration(
+                        color: Colors.green, shape: BoxShape.circle),
+                    alignment: Alignment.center,
+                  ),
+                  const SizedBox(height: 5.0),
+                  Text(
+                    "Accepted",
+                    style: TextStyle(
+                      color: Colors.grey.withOpacity(0.5),
+                      fontSize: 12.0,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+              )
+            : Column(
+                children: <Widget>[
+                  Container(
+                    width: 20.0,
+                    height: 20.0,
+                    decoration: const BoxDecoration(
+                        color: Colors.red, shape: BoxShape.circle),
+                    alignment: Alignment.center,
+                  ),
+                  const SizedBox(height: 5.0),
+                  Text(
+                    "Declined",
+                    style: TextStyle(
+                      color: Colors.grey.withOpacity(0.5),
+                      fontSize: 12.0,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+              );
   }
 
   // Widget getAppBarUI() {

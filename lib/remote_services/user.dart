@@ -344,6 +344,7 @@ class RequestedBooking {
   int id;
 
   String session;
+  int sessiontaken;
   String message;
   String verified_status;
   String teacher_id;
@@ -357,6 +358,7 @@ class RequestedBooking {
   RequestedBooking({
     required this.id,
     required this.session,
+    required this.sessiontaken,
     required this.is_active,
     required this.message,
     required this.verified_status,
@@ -378,6 +380,7 @@ class RequestedBooking {
       teacher_id: json["teacher_id"],
       student_id: json["student_id"],
       ended_at: json["ended_at"],
+      sessiontaken: json["sessions_taken"],
       subject: GetSubject.fromJson(json["subject"]),
       teacher: ReqTech.fromJson(json["teacher"]),
       booking_schedule: List<Bookingschedule>.from(

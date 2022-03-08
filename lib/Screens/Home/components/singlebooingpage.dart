@@ -319,22 +319,21 @@ class _CourseInfoScreenState extends State<SinglebookingPage>
                                   ),
 
                                   getTimeBoxUI(requestedBooking.title, ''),
-                                  // Expanded(
-                                  //   child: ListView.builder(
-                                  //       scrollDirection: Axis.horizontal,
-                                  //       itemBuilder: (_, index) {
-                                  //         return Column(
-                                  //           children: [
-                                  //             getTimeBoxUIday(widget
-                                  //                 .hotelData!
-                                  //                 .subject_id
-                                  //                 .title),
-                                  //           ],
-                                  //         );
-                                  //       },
-                                  //       itemCount: widget.hotelData!
-                                  //           .preferred_tutoring_subjects.length),
-                                  // ),
+                                  Expanded(
+                                    child: ListView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                        itemBuilder: (_, index) {
+                                          return Column(
+                                            children: [
+                                              getTimeBoxUIday(requestedBooking
+                                                  .reqdate[index].day
+                                                  .toString()),
+                                            ],
+                                          );
+                                        },
+                                        itemCount:
+                                            requestedBooking.reqdate.length),
+                                  ),
 
                                   SizedBox(
                                     height:

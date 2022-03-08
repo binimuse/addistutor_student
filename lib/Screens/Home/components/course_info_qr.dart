@@ -160,6 +160,22 @@ class _CourseInfoScreenState extends State<CourseInfoQr>
                                         ),
                                       ),
                                     ),
+                              Padding(
+                                padding: const EdgeInsets.all(18.0),
+                                child: Center(
+                                  child: Row(children: [
+                                    Icon(
+                                      Icons.leak_add_rounded,
+                                      color: kPrimaryLightColor,
+                                    ),
+                                    SizedBox(width: 10.0),
+                                    Text(widget.hotelData!.sessiontaken
+                                            .toString() +
+                                        " "
+                                            "sessions taken"),
+                                  ]),
+                                ),
+                              ),
                               Expanded(
                                 child: Padding(
                                   padding: const EdgeInsets.only(
