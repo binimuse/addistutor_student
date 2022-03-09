@@ -241,7 +241,7 @@ class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
         const Padding(
           padding: EdgeInsets.only(top: 8.0, left: 18, right: 16),
           child: Text(
-            'Recommended Tutor',
+            'Recommended Tutors',
             textAlign: TextAlign.left,
             style: TextStyle(
               fontWeight: FontWeight.w600,

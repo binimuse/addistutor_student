@@ -69,7 +69,10 @@ class _HomePageState extends State<ContactDetailsView>
                   Center(
                       child: Text(contactUSContolller.name,
                           style: const TextStyle(
-                              fontSize: 22, fontWeight: FontWeight.w600))),
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'WorkSans',
+                          ))),
                   const Center(
                       child: Text('${"Addis Ababa"}, ${"Ethiopia"}',
                           style: TextStyle(
@@ -86,8 +89,8 @@ class _HomePageState extends State<ContactDetailsView>
                               'Phone',
                               style: TextStyle(
                                 fontSize: 17,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                color: kPrimaryColor,
                                 fontFamily: 'WorkSans',
                               ),
                             ),
@@ -105,7 +108,39 @@ class _HomePageState extends State<ContactDetailsView>
                                   onPressed: () {},
                                   child: const Icon(
                                     Icons.call,
-                                    color: kPrimaryColor,
+                                    color: kPrimaryLightColor,
+                                  ),
+                                  style: TextButton.styleFrom(
+                                      backgroundColor: Colors.white,
+                                      shape: const CircleBorder()),
+                                ),
+                              ],
+                            )),
+                        ListTile(
+                            title: const Text(
+                              'Secondary phone',
+                              style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
+                                color: kPrimaryColor,
+                                fontFamily: 'WorkSans',
+                              ),
+                            ),
+                            subtitle: Text(
+                              contactUSContolller.phone2,
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16,
+                                  color: Color(0xf3333333)),
+                            ),
+                            trailing: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                TextButton(
+                                  onPressed: () {},
+                                  child: const Icon(
+                                    Icons.call,
+                                    color: kPrimaryLightColor,
                                   ),
                                   style: TextButton.styleFrom(
                                       backgroundColor: Colors.white,
@@ -118,8 +153,8 @@ class _HomePageState extends State<ContactDetailsView>
                               'Email',
                               style: TextStyle(
                                 fontSize: 17,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                color: kPrimaryColor,
                                 fontFamily: 'WorkSans',
                               ),
                             ),
@@ -137,7 +172,7 @@ class _HomePageState extends State<ContactDetailsView>
                                   onPressed: () {},
                                   child: const Icon(
                                     Icons.email,
-                                    color: kPrimaryColor,
+                                    color: kPrimaryLightColor,
                                   ),
                                   style: TextButton.styleFrom(
                                       backgroundColor: Colors.white,
@@ -150,8 +185,8 @@ class _HomePageState extends State<ContactDetailsView>
                               'Website',
                               style: TextStyle(
                                 fontSize: 17,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                color: kPrimaryColor,
                                 fontFamily: 'WorkSans',
                               ),
                             ),
@@ -171,7 +206,7 @@ class _HomePageState extends State<ContactDetailsView>
                                   onPressed: () {},
                                   child: const Icon(
                                     Icons.link,
-                                    color: kPrimaryColor,
+                                    color: kPrimaryLightColor,
                                   ),
                                   style: TextButton.styleFrom(
                                       backgroundColor: Colors.white,
@@ -203,8 +238,8 @@ class _HomePageState extends State<ContactDetailsView>
                             'Telegram',
                             style: TextStyle(
                               fontSize: 17,
-                              fontWeight: FontWeight.w300,
-                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              color: kPrimaryColor,
                               fontFamily: 'WorkSans',
                             ),
                           ),
@@ -219,8 +254,8 @@ class _HomePageState extends State<ContactDetailsView>
                               'Facebook',
                               style: TextStyle(
                                 fontSize: 17,
-                                fontWeight: FontWeight.w300,
-                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                color: kPrimaryColor,
                                 fontFamily: 'WorkSans',
                               ),
                             ),
@@ -240,8 +275,8 @@ class _HomePageState extends State<ContactDetailsView>
                               'twitter',
                               style: TextStyle(
                                 fontSize: 17,
-                                fontWeight: FontWeight.w300,
-                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                color: kPrimaryColor,
                                 fontFamily: 'WorkSans',
                               ),
                             ),
@@ -261,8 +296,8 @@ class _HomePageState extends State<ContactDetailsView>
                               'Instagram',
                               style: TextStyle(
                                 fontSize: 17,
-                                fontWeight: FontWeight.w300,
-                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                color: kPrimaryColor,
                                 fontFamily: 'WorkSans',
                               ),
                             ),
@@ -282,8 +317,8 @@ class _HomePageState extends State<ContactDetailsView>
                               'LinkedIn',
                               style: TextStyle(
                                 fontSize: 17,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                color: kPrimaryColor,
                                 fontFamily: 'WorkSans',
                               ),
                             ),

@@ -393,6 +393,7 @@ class ContactUS {
   String name;
   String email;
   String phone;
+  String phone2;
   String facebook;
   String twitter;
   String instagram;
@@ -402,6 +403,7 @@ class ContactUS {
     required this.name,
     required this.email,
     required this.phone,
+    required this.phone2,
     required this.facebook,
     required this.twitter,
     required this.instagram,
@@ -413,6 +415,7 @@ class ContactUS {
       name: json["name"],
       email: json["email"],
       phone: json["phone"],
+      phone2: json["secondary_phone"],
       facebook: json["facebook"],
       twitter: json["twitter"],
       instagram: json["instagram"],
