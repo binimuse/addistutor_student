@@ -277,7 +277,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
                                           textAlign: TextAlign.left,
                                           style: TextStyle(
                                             fontWeight: FontWeight.w600,
-                                            fontSize: 20,
+                                            fontSize: 15,
                                             fontFamily: 'WorkSans',
                                             letterSpacing: 0.27,
                                             color:

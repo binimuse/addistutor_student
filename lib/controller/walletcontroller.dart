@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names, prefer_typing_uninitialized_variables, unnecessary_null_comparison, duplicate_ignore, deprecated_member_use
+// ignore_for_file: non_constant_identifier_names, prefer_typing_uninitialized_variables, unnecessary_null_comparison, duplicate_ignore, deprecated_member_use, empty_catches
 
 import 'package:addistutor_student/remote_services/service.dart';
 import 'package:addistutor_student/remote_services/user.dart';
@@ -112,6 +112,7 @@ class WalletContoller extends GetxController with StateMixin {
             FlatButton(
               onPressed: () async {
                 isLoading(false);
+                update();
                 Navigator.of(context).pop(true);
                 Navigator.pop(context);
               },

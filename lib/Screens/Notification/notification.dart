@@ -117,6 +117,7 @@ class _ActivityPageState extends State<Notificationclass> {
                   fontWeight: FontWeight.w500,
                   color: Colors.black,
                   fontFamily: 'WorkSans',
+                  decoration: TextDecoration.none,
                 ),
               ),
             ),

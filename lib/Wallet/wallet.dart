@@ -172,7 +172,7 @@ class _EditProfilePageState extends State<WalletPage> {
                                       height: 4,
                                     ),
                                     Text(
-                                      "Deposit here",
+                                      "Attach deposit slip",
                                       style: TextStyle(
                                           fontWeight: FontWeight.w700,
                                           fontSize: 14,

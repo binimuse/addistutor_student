@@ -378,6 +378,7 @@ class BookingeController extends GetxController with StateMixin {
             FlatButton(
               onPressed: () async {
                 isLoading(false);
+                update();
                 Navigator.of(context).pop(true);
                 Navigator.pop(context);
               },
@@ -416,6 +417,7 @@ class BookingeController extends GetxController with StateMixin {
               ),
               color: kPrimaryColor,
               onPressed: () async {
+                update();
                 isLoading(false);
                 Navigator.of(context).pop(true);
                 Navigator.pop(context);

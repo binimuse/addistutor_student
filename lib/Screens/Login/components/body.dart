@@ -117,7 +117,7 @@ class _LoginScreenState extends State<Body> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               const Text(
-                "Login",
+                "Log in",
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: kPrimaryColor,
@@ -180,7 +180,6 @@ class _LoginScreenState extends State<Body> {
                             ),
                           )
                         : null,
-                    contentPadding: const EdgeInsets.all(10),
                     focusedBorder: OutlineInputBorder(
                       borderSide:
                           const BorderSide(color: kPrimaryColor, width: 2.0),
@@ -242,7 +241,7 @@ class _LoginScreenState extends State<Body> {
                     alignment: Alignment.center,
                     child: isLoading == false
                         ? const Text(
-                            'Login',
+                            'Log in',
                             style: TextStyle(
                               color: Colors.white,
                             ),
@@ -276,7 +275,7 @@ class _LoginScreenState extends State<Body> {
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     alignment: Alignment.center,
                     child: const Text(
-                      'Forgot Password?',
+                      'Forgot password?',
                       style: TextStyle(
                         color: kPrimaryColor,
                       ),
@@ -297,7 +296,7 @@ class _LoginScreenState extends State<Body> {
               ),
               const OrDivider(),
               const Text(
-                "Register with Google ? ",
+                "Register with Google? ",
                 style: TextStyle(color: kPrimaryColor),
               ),
               const SizedBox(

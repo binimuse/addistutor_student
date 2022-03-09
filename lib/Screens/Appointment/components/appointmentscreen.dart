@@ -330,7 +330,7 @@ class _HomePageState extends State<Appointment>
               ),
             ),
             content: const Text(
-              'Are You Sure you want to Exit This App',
+              'Are you sure you want to exit this App',
               style: TextStyle(
                 fontSize: 13,
                 fontWeight: FontWeight.w500,
@@ -378,7 +378,7 @@ class _HomePageState extends State<Appointment>
         Padding(
           padding: const EdgeInsets.only(top: 8.0, left: 18, right: 16),
           child: const Text(
-            'OnGoing Tutors',
+            'Ongoing sessions',
             textAlign: TextAlign.center,
             style: TextStyle(
               fontWeight: FontWeight.w600,

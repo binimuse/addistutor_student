@@ -1,3 +1,5 @@
+// ignore_for_file: empty_catches, duplicate_ignore
+
 import 'package:addistutor_student/remote_services/user.dart';
 import 'package:get/get.dart';
 import 'package:addistutor_student/remote_services/service.dart';

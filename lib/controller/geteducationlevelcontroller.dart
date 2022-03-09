@@ -16,6 +16,7 @@ class GetEducationlevelController extends GetxController with StateMixin {
       if (listeducation.isNotEmpty) {
         //print(list.length.toString());
         isfetchededucation(true);
+        update();
       }
       // ignore: empty_catches
     } catch (e) {}

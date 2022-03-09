@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use, import_of_legacy_library_into_null_safe, unnecessary_null_comparison, prefer_typing_uninitialized_variables
+// ignore_for_file: deprecated_member_use, import_of_legacy_library_into_null_safe, unnecessary_null_comparison, prefer_typing_uninitialized_variables, prefer_is_empty
 
 import 'dart:convert';
 import 'dart:io';
@@ -298,7 +298,7 @@ class _EditPageState extends State<EditPage> {
                                     focusColor: kPrimaryColor,
                                     fillColor: kPrimaryColor,
                                     hintText: getmyAccount.full_name,
-                                    hintStyle: TextStyle(
+                                    hintStyle: const TextStyle(
                                         color: DesignCourseAppTheme.nearlyBlack,
                                         fontSize: 16,
                                         fontWeight: FontWeight.w300),
@@ -463,9 +463,9 @@ class _EditPageState extends State<EditPage> {
                         child: TextFormField(
                           controller: editprofileController.phone,
                           decoration: InputDecoration(
-                            contentPadding: EdgeInsets.only(bottom: 3),
+                            contentPadding: const EdgeInsets.only(bottom: 3),
                             labelText: "Phone Number",
-                            labelStyle: TextStyle(
+                            labelStyle: const TextStyle(
                               fontSize: 17,
                               fontWeight: FontWeight.w700,
                               color: kPrimaryColor,
@@ -474,7 +474,7 @@ class _EditPageState extends State<EditPage> {
                             focusColor: kPrimaryColor,
                             fillColor: kPrimaryColor,
                             hintText: getmyAccount.phone,
-                            hintStyle: TextStyle(
+                            hintStyle: const TextStyle(
                                 color: DesignCourseAppTheme.nearlyBlack,
                                 fontSize: 16,
                                 fontWeight: FontWeight.w300),

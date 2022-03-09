@@ -48,7 +48,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                     ),
                   ),
                   title: const Text(
-                    "FeedBack",
+                    "Feedback",
                     style: TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.w500,
@@ -74,7 +74,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                         Container(
                           padding: const EdgeInsets.only(top: 8),
                           child: const Text(
-                            'Your FeedBack',
+                            'write your feedback about our service  here',
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,

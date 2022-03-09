@@ -195,7 +195,7 @@ class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
               ),
             ),
             content: const Text(
-              'Are You Sure you want to Exit This App',
+              'Are you sure you want to exit this App',
               style: TextStyle(
                 fontSize: 13,
                 fontWeight: FontWeight.w500,

@@ -39,7 +39,11 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
   }
 
   Widget _buildImage(String assetName, [double width = 250]) {
-    return SvgPicture.asset('assets/icons/$assetName', width: width);
+    return SvgPicture.asset(
+      'assets/icons/$assetName',
+      width: width,
+      color: kPrimaryLightColor,
+    );
   }
 
   @override
@@ -74,40 +78,40 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
         PageViewModel(
           title: "Register Request",
           body: "Complete all the fields in the registration page.",
-          image: _buildImage('login.svg'),
+          image: _buildImage('test.svg'),
           decoration: pageDecoration,
         ),
         PageViewModel(
           title: "Tutor Selection",
           body:
-              "The system will generate choices of tutor for you and you indicate your first and second choices.",
-          image: _buildImage('login.svg'),
+              "The system will generate choices of tutors and you select your choice.",
+          image: _buildImage('test2.svg'),
           decoration: pageDecoration,
         ),
         PageViewModel(
           title: "Make Payment",
           body:
-              "Pay for the number of session you want to buy using the mutiple paymeny and upload the deposit slip",
-          image: _buildImage('login.svg'),
+              "Pay for the number of sessions you want to buy using the multiple payment options and upload the deposit slip.",
+          image: _buildImage('test3.svg'),
           decoration: pageDecoration,
         ),
         PageViewModel(
-          title: "Qr Code",
+          title: "QR Code",
           body:
               "As soon as payment is received, you will receive a QR code The QR code needs to be scanned at the end of each session to confirm service delivery",
-          image: _buildImage('login.svg'),
+          image: _buildImage('test4.svg'),
           decoration: pageDecoration,
         ),
         PageViewModel(
           title: "Tutor Confirmation",
-          body: "your chosen tutor will contact you to resume service",
-          image: _buildImage('login.svg'),
+          body: "Your chosen tutor will contact you to resume service",
+          image: _buildImage('test5.svg'),
           decoration: pageDecoration,
         ),
         PageViewModel(
-          title: "Review Tutor",
+          title: "Review session",
           body: "Rate your tutor at the end of each seassion",
-          image: _buildImage('login.svg'),
+          image: _buildImage('test6.svg'),
           decoration: pageDecoration,
         ),
       ],

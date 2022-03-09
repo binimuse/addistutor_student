@@ -22,11 +22,11 @@ class Body extends StatelessWidget {
             const Text(
               "WELCOME TO",
               style: TextStyle(
-                fontSize: 25.0,
+                fontSize: 30.0,
                 fontFamily: 'Arial',
                 fontWeight: FontWeight.bold,
                 letterSpacing: 0.4,
-                height: 0.9,
+                height: 1.0,
                 color: kPrimaryColor,
               ),
             ),
@@ -37,7 +37,7 @@ class Body extends StatelessWidget {
                 fontFamily: 'Arial',
                 fontWeight: FontWeight.bold,
                 letterSpacing: 0.4,
-                height: 0.9,
+                height: 1.0,
                 color: kPrimaryColor,
               ),
             ),

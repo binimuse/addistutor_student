@@ -1,3 +1,5 @@
+// ignore_for_file: empty_catches
+
 import 'package:addistutor_student/remote_services/user.dart';
 import 'package:get/get.dart';
 import 'package:addistutor_student/remote_services/service.dart';
@@ -26,6 +28,7 @@ class GetSubjectController extends GetxController with StateMixin {
               .toList();
         }
         isfetchedsubject(true);
+        update();
       }
     } catch (e) {}
   }

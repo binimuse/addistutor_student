@@ -87,6 +87,7 @@ class EndBookingContoller extends GetxController with StateMixin {
           actions: <Widget>[
             FlatButton(
               onPressed: () async {
+                update();
                 isLoading(false);
                 Navigator.of(context).pop(true);
                 Navigator.pop(context);

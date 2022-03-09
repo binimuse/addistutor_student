@@ -127,6 +127,7 @@ class EditprofileController extends GetxController with StateMixin {
           actions: <Widget>[
             FlatButton(
               onPressed: () async {
+                update();
                 Navigator.of(context).pop(true);
                 Navigator.pop(context);
                 isLoading(false);
@@ -308,7 +309,8 @@ class EditprofileController extends GetxController with StateMixin {
         }
         change(fetched, status: RxStatus.success());
       } on Exception {
-        change(null, status: RxStatus.error("Something went wrong"));
+        change(null, status: RxStatus.error("something went wrong"));
+        update();
 
         // ignore: todo
         // TODO
@@ -404,7 +406,7 @@ class EditprofileController extends GetxController with StateMixin {
         builder: (context) => AlertDialog(
           title: Text(
             'Profile not edited' + data,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 13,
               fontWeight: FontWeight.w500,
               color: Colors.black,

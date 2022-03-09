@@ -9,6 +9,7 @@ import 'package:addistutor_student/Screens/Profile/help_screen.dart';
 import 'package:addistutor_student/Screens/Profile/setting.dart';
 import 'package:addistutor_student/Screens/Notification/notification.dart';
 import 'package:addistutor_student/Screens/Profile/termsodservice.dart';
+import 'package:addistutor_student/Wallet/wallet.dart';
 import 'package:addistutor_student/controller/bookingcontroller.dart';
 import 'package:addistutor_student/controller/contactuscontroller.dart';
 import 'package:addistutor_student/controller/editprofilecontroller.dart';
@@ -169,7 +170,8 @@ class _ProfilePageState extends State<ProfileS> {
                   },
                   icon: const Icon(
                     Icons.menu,
-                    color: kPrimaryColor,
+                    color: kPrimaryLightColor,
+                    size: 30,
                   ),
                 ),
                 backgroundColor: Colors.transparent,
@@ -398,6 +400,18 @@ class _ProfilePageState extends State<ProfileS> {
                       Navigator.push<dynamic>(
                         context,
                         MaterialPageRoute<dynamic>(
+                          builder: (BuildContext context) => WalletPage(),
+                        ),
+                      );
+                    },
+                    child: _buildRow(Icons.money, "Wallet ", showBadge: true),
+                  ),
+                  _buildDivider(),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push<dynamic>(
+                        context,
+                        MaterialPageRoute<dynamic>(
                           builder: (BuildContext context) =>
                               const Notificationclass(),
                         ),
@@ -441,7 +455,8 @@ class _ProfilePageState extends State<ProfileS> {
                           ),
                         );
                       },
-                      child: _buildRow(Icons.info_outline, "Help")),
+                      child: _buildRow(
+                          Icons.info_outline, "How the system works")),
                   _buildDivider(),
                   GestureDetector(
                       onTap: () {
@@ -473,11 +488,10 @@ class _ProfilePageState extends State<ProfileS> {
                             content: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: const [
-                                  SizedBox(height: 15),
                                   Text(
-                                    'Are You Sure you want to Log Out',
+                                    'Are you sure you want to log out?',
                                     style: TextStyle(
-                                      fontSize: 18.0,
+                                      fontSize: 15.0,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -487,7 +501,7 @@ class _ProfilePageState extends State<ProfileS> {
                               // ignore: deprecated_member_use
                               SizedBox(
                                 width: MediaQuery.of(context).size.width,
-                                height: 50,
+                                height: 30,
                                 child: InkWell(
                                   highlightColor: Colors.grey[200],
                                   onTap: () {
@@ -512,7 +526,7 @@ class _ProfilePageState extends State<ProfileS> {
                               ),
                               SizedBox(
                                 width: MediaQuery.of(context).size.width,
-                                height: 50,
+                                height: 30,
                                 child: InkWell(
                                   borderRadius: const BorderRadius.only(
                                     bottomLeft: Radius.circular(15.0),
