@@ -330,7 +330,7 @@ class _HomePageState extends State<Appointment>
               ),
             ),
             content: const Text(
-              'Are you sure you want to exit this App',
+              'Are you sure you want to exit this app',
               style: TextStyle(
                 fontSize: 13,
                 fontWeight: FontWeight.w500,
@@ -409,7 +409,7 @@ class _HomePageState extends State<Appointment>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             const Text(
-              'Reqested Tutor List',
+              'Requested sessions list',
               textAlign: TextAlign.right,
               style: TextStyle(
                 fontWeight: FontWeight.w600,

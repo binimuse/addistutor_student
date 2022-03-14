@@ -56,7 +56,7 @@ class Body extends StatelessWidget {
             SizedBox(height: size.height * 0.05),
             Image(
               image: const AssetImage(
-                'assets/images/t.jpg',
+                'assets/images/new.png',
               ),
               height: size.height * 0.25,
             ),

@@ -280,7 +280,7 @@ class _SplashScreenState extends State<Body> {
                                     builder: (context) => AlertDialog(
                                       title: const Text('Error'),
                                       content: const Text(
-                                          "Please cheak terms of service"),
+                                          "Please check terms of service"),
                                       actions: <Widget>[
                                         // ignore: deprecated_member_use
                                         FlatButton(
@@ -290,7 +290,7 @@ class _SplashScreenState extends State<Body> {
                                               isLoading = false;
                                             });
                                           },
-                                          child: const Text('ok'),
+                                          child: const Text('OK'),
                                         ),
                                       ],
                                     ),
@@ -300,7 +300,7 @@ class _SplashScreenState extends State<Body> {
                               context: context,
                               builder: (context) => AlertDialog(
                                 title: const Text('Error'),
-                                content: const Text("passowrd don't match"),
+                                content: const Text("Password don't match"),
                                 actions: <Widget>[
                                   // ignore: deprecated_member_use
                                   FlatButton(
@@ -310,7 +310,7 @@ class _SplashScreenState extends State<Body> {
                                         isLoading = false;
                                       });
                                     },
-                                    child: const Text('ok'),
+                                    child: const Text('OK'),
                                   ),
                                 ],
                               ),
@@ -464,7 +464,7 @@ class _SplashScreenState extends State<Body> {
                   isLoading = false;
                 });
               },
-              child: const Text('ok'),
+              child: const Text('OK'),
             ),
           ],
         ),
@@ -609,14 +609,29 @@ class _SplashScreenState extends State<Body> {
           ),
           title: Column(mainAxisSize: MainAxisSize.min, children: const [
             SizedBox(height: 15),
-          ]),
-          content: Column(mainAxisSize: MainAxisSize.min, children: const [
-            SizedBox(height: 15),
             Text(
-              'Student registered successfully',
+              'Registered successfully',
               style: TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 15),
+            Divider(
+              height: 1,
+              color: kPrimaryColor,
+            ),
+          ]),
+          content: Column(mainAxisSize: MainAxisSize.min, children: const [
+            SizedBox(height: 15),
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text(
+                'Please check your email inbox to verify your email address before you log in.',
+                style: TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
             SizedBox(height: 15),
@@ -774,7 +789,7 @@ class _SplashScreenState extends State<Body> {
           title: Column(mainAxisSize: MainAxisSize.min, children: const [
             SizedBox(height: 15),
             Text(
-              'Student registered successfully',
+              'Registered successfully',
               style: TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.bold,
@@ -785,6 +800,20 @@ class _SplashScreenState extends State<Body> {
               height: 1,
               color: kPrimaryColor,
             ),
+          ]),
+          content: Column(mainAxisSize: MainAxisSize.min, children: const [
+            SizedBox(height: 15),
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text(
+                'Please check your email inbox to verify your email address before you log in.',
+                style: TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            SizedBox(height: 15),
           ]),
           actions: <Widget>[
             // ignore: deprecated_member_use

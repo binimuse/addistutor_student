@@ -690,7 +690,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
           return Form(
             key: endBookingContoller.Formkey,
             child: AlertDialog(
-              title: const Text('End Session'),
+              title: const Text('End session?'),
               content: TextFormField(
                 onChanged: (value) {
                   setState(() {
@@ -698,10 +698,10 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
                   });
                 },
                 controller: _textFieldController,
-                decoration: const InputDecoration(
-                    hintText: "Please enter your reason?"),
+                decoration:
+                    const InputDecoration(hintText: "Please enter reason"),
                 validator: (value) {
-                  return endBookingContoller.validateName(value!);
+                  return endBookingContoller.validateNameres(value!);
                 },
               ),
               actions: <Widget>[
@@ -718,7 +718,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
                 FlatButton(
                   color: Colors.green,
                   textColor: Colors.white,
-                  child: const Text('OK'),
+                  child: const Text('Submit'),
                   onPressed: () async {
                     setState(() {
                       //  codeDialog = valueText;
@@ -753,7 +753,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
               const SizedBox(height: 5.0),
               const SizedBox(width: 10),
               const Text(
-                "We have contacted the tutor on your  behalf and waiting for confirmation",
+                "We have contacted the tutor on your  behalf  \n and waiting for confirmation",
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 12.0,

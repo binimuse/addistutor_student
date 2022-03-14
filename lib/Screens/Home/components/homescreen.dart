@@ -155,7 +155,7 @@ class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
                       Expanded(
                         child: SingleChildScrollView(
                           child: SizedBox(
-                            height: MediaQuery.of(context).size.height,
+                            height: MediaQuery.of(context).size.height - 190,
                             child: Column(
                               children: <Widget>[
                                 // getSearchBarUI(),
@@ -195,7 +195,7 @@ class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
               ),
             ),
             content: const Text(
-              'Are you sure you want to exit this App',
+              'Are you sure you want to exit this app',
               style: TextStyle(
                 fontSize: 13,
                 fontWeight: FontWeight.w500,
@@ -520,10 +520,10 @@ class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
                   'NEXTGEN',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w400,
                     fontSize: 22,
                     fontFamily: 'Roboto',
-                    letterSpacing: 0.27,
+                    letterSpacing: 0.2,
                     color: DesignCourseAppTheme.darkerText,
                   ),
                 ),

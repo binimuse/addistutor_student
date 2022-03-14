@@ -110,21 +110,37 @@ class HotelListView extends StatelessWidget {
                               //     fontSize: 12,
                               //   ),
                               // ),
-                              Row(children: [
-                                Text(
-                                  '${hotelData!.rating} ',
-                                  textAlign: TextAlign.left,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 12,
-                                  ),
-                                ),
-                                const Icon(
-                                  Icons.star,
-                                  color: kPrimaryLightColor,
-                                  size: 20,
-                                ),
-                              ]),
+                              hotelData!.rating != null
+                                  ? Row(children: [
+                                      Text(
+                                        '${hotelData!.rating} ',
+                                        textAlign: TextAlign.left,
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                      const Icon(
+                                        Icons.star,
+                                        color: kPrimaryLightColor,
+                                        size: 20,
+                                      ),
+                                    ])
+                                  : Row(children: [
+                                      Text(
+                                        '0 ',
+                                        textAlign: TextAlign.left,
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                      const Icon(
+                                        Icons.star,
+                                        color: kPrimaryLightColor,
+                                        size: 20,
+                                      ),
+                                    ])
                             ],
                           ),
                         ),

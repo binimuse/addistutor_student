@@ -181,6 +181,7 @@ class _FeedbackScreenState extends State<TopUpPage> {
                               child: TextFormField(
                                 controller: walletContoller.ammount,
                                 maxLines: null,
+                                keyboardType: TextInputType.number,
                                 onChanged: (String txt) {},
                                 style: const TextStyle(
                                   fontFamily: AppTheme.fontName,

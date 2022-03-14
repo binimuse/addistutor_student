@@ -271,7 +271,7 @@ class _ProfilePageState extends State<ProfileS> {
               ),
             ),
             content: const Text(
-              'Are You Sure you want to Exit This App',
+              'Are You Sure you want to Exit This app',
               style: TextStyle(
                 fontSize: 13,
                 fontWeight: FontWeight.w500,
@@ -400,7 +400,7 @@ class _ProfilePageState extends State<ProfileS> {
                       Navigator.push<dynamic>(
                         context,
                         MaterialPageRoute<dynamic>(
-                          builder: (BuildContext context) => WalletPage(),
+                          builder: (BuildContext context) => const WalletPage(),
                         ),
                       );
                     },
@@ -495,7 +495,6 @@ class _ProfilePageState extends State<ProfileS> {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  SizedBox(height: 15),
                                 ]),
                             actions: <Widget>[
                               // ignore: deprecated_member_use

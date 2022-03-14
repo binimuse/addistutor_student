@@ -119,7 +119,7 @@ class _EditPageState extends State<EditPage> {
   Widget build(BuildContext context) {
     return Obx(() => editprofileController.isFetched.value
         ? Scaffold(
-            resizeToAvoidBottomInset: false,
+            resizeToAvoidBottomInset: true,
             key: editprofileController.scaffoldKey,
             appBar: AppBar(
               backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -155,7 +155,11 @@ class _EditPageState extends State<EditPage> {
                 padding: const EdgeInsets.only(left: 16, top: 25, right: 16),
                 child: GestureDetector(
                   onTap: () {
-                    FocusScope.of(context).unfocus();
+                    FocusScopeNode currentFocus = FocusScope.of(context);
+
+                    if (!currentFocus.hasPrimaryFocus) {
+                      currentFocus.unfocus();
+                    }
                   },
                   child: ListView(
                     children: [
@@ -484,6 +488,7 @@ class _EditPageState extends State<EditPage> {
                       Padding(
                         padding: const EdgeInsets.only(bottom: 35.0),
                         child: TextFormField(
+                          readOnly: true,
                           controller: editprofileController.email,
                           decoration: InputDecoration(
                             contentPadding: const EdgeInsets.only(bottom: 3),
@@ -652,26 +657,6 @@ class _EditPageState extends State<EditPage> {
                       const SizedBox(
                         height: 25,
                       ),
-                      supportbool
-                          ? Padding(
-                              padding: const EdgeInsets.only(bottom: 35.0),
-                              child: TextFormField(
-                                decoration: const InputDecoration(
-                                    contentPadding: EdgeInsets.only(bottom: 3),
-                                    labelText: "State the support you require",
-                                    focusColor: kPrimaryColor,
-                                    fillColor: kPrimaryColor,
-                                    hintStyle: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black,
-                                    )),
-                              ),
-                            )
-                          : Container(),
-                      const SizedBox(
-                        height: 25,
-                      ),
                       const Text(
                         'Grade',
                         style: TextStyle(
@@ -747,10 +732,6 @@ class _EditPageState extends State<EditPage> {
                                 fontSize: 16,
                                 fontWeight: FontWeight.w300),
                           ),
-                          validator: (value) {
-                            return editprofileController
-                                .validateNameaboutme(value!);
-                          },
                         ),
                       ),
                       const SizedBox(

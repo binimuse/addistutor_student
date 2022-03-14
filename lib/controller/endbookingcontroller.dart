@@ -76,7 +76,7 @@ class EndBookingContoller extends GetxController with StateMixin {
         context: context,
         builder: (context) => AlertDialog(
           title: const Text(
-            "End session failed",
+            "Session ended failed. ",
             style: TextStyle(
               fontSize: 13,
               fontWeight: FontWeight.w500,
@@ -104,7 +104,7 @@ class EndBookingContoller extends GetxController with StateMixin {
         context: context,
         builder: (context) => AlertDialog(
           title: const Text(
-            'End session Sucess',
+            'Session ended successfully.',
             style: TextStyle(
               fontSize: 13,
               fontWeight: FontWeight.w500,
@@ -151,6 +151,13 @@ class EndBookingContoller extends GetxController with StateMixin {
   String? validateName(String value) {
     if (value.isEmpty) {
       return "please Provide a FeedBack";
+    }
+    return null;
+  }
+
+  String? validateNameres(String value) {
+    if (value.isEmpty) {
+      return "please Provide a reason";
     }
     return null;
   }

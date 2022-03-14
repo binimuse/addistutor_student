@@ -230,7 +230,7 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
                                   }
                                 }))
                         : Center(
-                            child: Text("0 tutors found"),
+                            child: Container(),
                           ),
                   )),
                 )))
@@ -255,7 +255,7 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
               ),
             ),
             content: const Text(
-              'Are you sure you want to exit this App',
+              'Are you sure you want to exit this app',
               style: TextStyle(
                 fontSize: 13,
                 fontWeight: FontWeight.w500,

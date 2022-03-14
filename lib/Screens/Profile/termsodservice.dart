@@ -278,7 +278,7 @@ class _ProductDescriptionPageState extends State<ProductDescriptionPage> {
               padding: EdgeInsets.all(18.0),
               child: Text(
                 ' \nChildren should dress up in decency for their tutorial. A tutor has the right to ask a child to dress up properly or cancel a session. \n\n',
-                textAlign: TextAlign.start,
+                textAlign: TextAlign.justify,
                 style: TextStyle(
                   fontSize: 14.0,
                   fontFamily: 'WorkSans',
@@ -311,7 +311,7 @@ class _ProductDescriptionPageState extends State<ProductDescriptionPage> {
               padding: EdgeInsets.all(18.0),
               child: Text(
                 ' \nNextGen tutors are screened for their competence and character. However, NextGen cannot be liable for any underperformance, damage or loss caused by its tutors. In no event shall the aggregate liability of NextGen exceed the amount you paid for a session. NextGen will strive to find a suitable replacement if you ask for it. \n\n',
-                textAlign: TextAlign.start,
+                textAlign: TextAlign.justify,
                 style: TextStyle(
                   fontSize: 14.0,
                   fontFamily: 'WorkSans',
@@ -344,7 +344,7 @@ class _ProductDescriptionPageState extends State<ProductDescriptionPage> {
               padding: EdgeInsets.all(18.0),
               child: Text(
                 ' \nAll dealings with a tutor should be done through NextGen. This includes schedule arrangement, additional bookings, payment, etc. If a parent deals with a tutor without the knowledge of the company, NextGen won’t take any responsibility whatsoever. Parents and tutors found doing this will be barred from using NextGen Tutorial Services. \n\n',
-                textAlign: TextAlign.start,
+                textAlign: TextAlign.justify,
                 style: TextStyle(
                   fontSize: 14.0,
                   fontFamily: 'WorkSans',

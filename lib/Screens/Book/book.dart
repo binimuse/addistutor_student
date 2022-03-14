@@ -401,7 +401,7 @@ class _EditPageState extends State<BookScreen>
                           ),
                           totalprice != null
                               ? Text(
-                                  "Total price:- ${totalprice} \n",
+                                  "Total price: ${totalprice} \n",
                                   style: const TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold),
@@ -581,7 +581,7 @@ class _EditPageState extends State<BookScreen>
                           const SizedBox(height: 20),
                           bookingeController.ismonday
                               ? Row(children: [
-                                  const Text("Monday time:-  "),
+                                  const Text("Monday time:  "),
                                   DropdownButton<String>(
                                     value: motime,
                                     style: const TextStyle(
@@ -643,7 +643,7 @@ class _EditPageState extends State<BookScreen>
                               : Container(),
                           bookingeController.istue
                               ? Row(children: [
-                                  const Text("Tuesday time:-  "),
+                                  const Text("Tuesday time:  "),
                                   DropdownButton<String>(
                                     value: tuetime2,
                                     style: const TextStyle(
@@ -710,7 +710,7 @@ class _EditPageState extends State<BookScreen>
                               : Container(),
                           bookingeController.iswen
                               ? Row(children: [
-                                  const Text("Wednesday time:-  "),
+                                  const Text("Wednesday time:  "),
                                   DropdownButton<String>(
                                     value: wentime3,
                                     style: const TextStyle(
@@ -777,7 +777,7 @@ class _EditPageState extends State<BookScreen>
                               : Container(),
                           bookingeController.isthe
                               ? Row(children: [
-                                  const Text("Thursday time:-  "),
+                                  const Text("Thursday time:  "),
                                   DropdownButton<String>(
                                     value: thetime4,
                                     style: const TextStyle(
@@ -844,7 +844,7 @@ class _EditPageState extends State<BookScreen>
                               : Container(),
                           bookingeController.isfri
                               ? Row(children: [
-                                  const Text("Friday time:-  "),
+                                  const Text("Friday time:  "),
                                   DropdownButton<String>(
                                     value: fritime5,
                                     style: const TextStyle(
@@ -911,7 +911,7 @@ class _EditPageState extends State<BookScreen>
                               : Container(),
                           bookingeController.issat
                               ? Row(children: [
-                                  const Text("Saturday time:-  "),
+                                  const Text("Saturday time:  "),
                                   DropdownButton<String>(
                                     value: sattime,
                                     style: const TextStyle(
@@ -1013,7 +1013,7 @@ class _EditPageState extends State<BookScreen>
                               : Container(),
                           bookingeController.issun
                               ? Row(children: [
-                                  const Text("Sunday time:-  "),
+                                  const Text("Sunday time:  "),
                                   DropdownButton<String>(
                                     value: suntime2,
                                     style: const TextStyle(
@@ -1203,7 +1203,7 @@ class _EditPageState extends State<BookScreen>
                                                           });
                                                         },
                                                         child: const Center(
-                                                            child: Text('ok')),
+                                                            child: Text('OK')),
                                                       ),
                                                     ]),
                                               ),
@@ -1377,11 +1377,11 @@ class _EditPageState extends State<BookScreen>
                     //  Navigator.of(context).pop(true);
                   },
                   child: Container(
-                      width: 20,
+                      width: 30,
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       alignment: Alignment.center,
                       child: const Text(
-                        'Ok',
+                        'Yes',
                         style: TextStyle(
                           color: Colors.white,
                         ),

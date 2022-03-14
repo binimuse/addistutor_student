@@ -127,7 +127,7 @@ class _LoginScreenState extends State<Body> {
 
               Image(
                 image: const AssetImage(
-                  'assets/images/t.jpg',
+                  'assets/images/new.png',
                 ),
                 height: size.height * 0.20,
               ),
@@ -366,11 +366,12 @@ class _LoginScreenState extends State<Body> {
           ),
         );
       } else {
-        Navigator.push(
+        Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (context) => const Mainscrren(),
+            builder: (context) => const Scaffold(body: Mainscrren()),
           ),
+          (route) => false,
         );
       }
 
@@ -480,7 +481,7 @@ class _LoginScreenState extends State<Body> {
           showDialog(
             context: context,
             builder: (context) => AlertDialog(
-              content: const Text("To continue complete your profile"),
+              content: const Text("To continue, please complete your profile."),
               actions: <Widget>[
                 FlatButton(
                   shape: RoundedRectangleBorder(

@@ -309,7 +309,15 @@ class EditprofileController extends GetxController with StateMixin {
         }
         change(fetched, status: RxStatus.success());
       } on Exception {
-        change(null, status: RxStatus.error("something went wrong"));
+        const Text(
+          'SomeThing Went Wrong',
+          style: TextStyle(
+            fontSize: 13,
+            fontWeight: FontWeight.w500,
+            color: Colors.black,
+            fontFamily: 'WorkSans',
+          ),
+        );
         update();
 
         // ignore: todo
@@ -441,7 +449,7 @@ class EditprofileController extends GetxController with StateMixin {
             context: context,
             builder: (context) => AlertDialog(
               title: const Text(
-                'Profile edited',
+                'Successfully saved',
                 style: TextStyle(
                   fontSize: 13,
                   fontWeight: FontWeight.w500,
@@ -468,14 +476,14 @@ class EditprofileController extends GetxController with StateMixin {
                     Navigator.pop(context);
                     isLoading(false);
                   },
-                  child: const Text('ok'),
+                  child: const Text('OK'),
                 ),
               ],
             ),
           );
 
           //    openAndCloseLoadingDialog(context);
-          print("yess");
+
         } else {
           showDialog(
             context: context,
@@ -556,14 +564,14 @@ class EditprofileController extends GetxController with StateMixin {
 
   String? validateName(String value) {
     if (value.isEmpty) {
-      return "please Provide a name";
+      return "Please provide a name";
     }
     return null;
   }
 
   String? validateNamep(String value) {
     if (value.isEmpty) {
-      return "please Provide a Password";
+      return "Please provide a Password";
     }
     return null;
   }

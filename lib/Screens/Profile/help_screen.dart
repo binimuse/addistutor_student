@@ -98,19 +98,19 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
         PageViewModel(
           title: "QR Code",
           body:
-              "As soon as payment is received, you will receive a QR code The QR code needs to be scanned at the end of each session to confirm service delivery",
+              "As soon as payment is received, you will receive a QR code. The QR code needs to be scanned at the end of each session to confirm service delivery.",
           image: _buildImage('test4.svg'),
           decoration: pageDecoration,
         ),
         PageViewModel(
           title: "Tutor Confirmation",
-          body: "Your chosen tutor will contact you to resume service",
+          body: "Your chosen tutor will contact you to resume service.",
           image: _buildImage('test5.svg'),
           decoration: pageDecoration,
         ),
         PageViewModel(
-          title: "Review session",
-          body: "Rate your tutor at the end of each seassion",
+          title: "Review Tutor",
+          body: "Rate your tutor at the end of any session.",
           image: _buildImage('test6.svg'),
           decoration: pageDecoration,
         ),

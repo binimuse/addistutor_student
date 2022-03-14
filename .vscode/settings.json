@@ -1,5 +1,8 @@
 {
     "yaml.schemas": {
         "https://json.schemastore.org/pubspec.json": "file:///c%3A/Users/omen/addistutor_student/pubspec.yaml"
-    }
+    },
+    "cSpell.words": [
+        "Bookingschedule"
+    ]
 }
