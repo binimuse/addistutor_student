@@ -42,6 +42,7 @@ class EndBookingContoller extends GetxController with StateMixin {
         isLoading(true);
         Formkey.currentState!.save();
         await seteditInfo(context, reason, b_id);
+        update();
       }
     } finally {
       // ignore: todo

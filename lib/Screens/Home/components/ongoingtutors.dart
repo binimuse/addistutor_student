@@ -119,7 +119,7 @@ class _CategoryListViewState extends State<OnGoingTutors>
                         );
                       } else {
                         return const Center(
-                          child: CircularProgressIndicator(),
+                          child: Text("No Ongoing Tutor found"),
                         );
                       }
                     })),

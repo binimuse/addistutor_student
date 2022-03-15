@@ -119,7 +119,7 @@ class _EditPageState extends State<EditPage> {
   Widget build(BuildContext context) {
     return Obx(() => editprofileController.isFetched.value
         ? Scaffold(
-            resizeToAvoidBottomInset: true,
+            resizeToAvoidBottomInset: false,
             key: editprofileController.scaffoldKey,
             appBar: AppBar(
               backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -155,10 +155,10 @@ class _EditPageState extends State<EditPage> {
                 padding: const EdgeInsets.only(left: 16, top: 25, right: 16),
                 child: GestureDetector(
                   onTap: () {
-                    FocusScopeNode currentFocus = FocusScope.of(context);
-
-                    if (!currentFocus.hasPrimaryFocus) {
-                      currentFocus.unfocus();
+                    FocusScopeNode currentScope = FocusScope.of(context);
+                    if (!currentScope.hasPrimaryFocus &&
+                        currentScope.hasFocus) {
+                      FocusManager.instance.primaryFocus!.unfocus();
                     }
                   },
                   child: ListView(

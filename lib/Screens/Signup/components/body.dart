@@ -66,7 +66,7 @@ class _SplashScreenState extends State<Body> {
               ),
               child: Image(
                 image: const AssetImage(
-                  'assets/images/login.jpg',
+                  'assets/images/t.jpg',
                 ),
                 height: size.height * 0.15,
               ),

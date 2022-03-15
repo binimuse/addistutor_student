@@ -726,9 +726,9 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
                       getReqBooking.fetchReqBooking(id);
                     });
 
-                    setState(() {
-                      _fetchUser();
-                    });
+                    await Future<dynamic>.delayed(
+                        const Duration(milliseconds: 2000));
+                    Navigator.pop(context);
 
                     // Navigator.pop(context);
                   },

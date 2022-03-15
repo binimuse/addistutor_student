@@ -20,6 +20,7 @@ class GetReqBooking extends GetxController with StateMixin {
     if (listsubject.isNotEmpty) {
       //print(list.length.toString());
       isfetchedsubject(true);
+      update();
     }
   }
 
