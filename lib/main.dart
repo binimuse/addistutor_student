@@ -7,9 +7,11 @@ import 'package:addistutor_student/constants.dart';
 import 'package:flutter/material.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:connectivity/connectivity.dart';
+import 'package:flutter/services.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:new_version/new_version.dart';
 import 'Screens/splash/error.dart';
 import 'Screens/splash/splash_screen.dart';
 
@@ -37,6 +39,24 @@ class _MyHomePageState extends State<MyApp> {
     _connectivity.myStream.listen((source) {
       setState(() => _source = source);
     });
+    final newVersion = NewVersion(
+      //iOSId: 'com.google.Vespa',
+      androidId: 'com.example.addistutor_student',
+    );
+
+    // You can let the plugin handle fetching the status and showing a dialog,
+    // or you can fetch the status and display your own dialog, or no dialog.
+    const simpleBehavior = true;
+
+    if (simpleBehavior) {
+      basicStatusCheck(newVersion);
+    } else {
+      //  advancedStatusCheck(newVersion);
+    }
+  }
+
+  basicStatusCheck(NewVersion newVersion) {
+    newVersion.showAlertIfNecessary(context: context);
   }
 
   @override

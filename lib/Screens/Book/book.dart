@@ -248,7 +248,7 @@ class _EditPageState extends State<BookScreen>
                             height: 10,
                           ),
                           const Text(
-                            'How many session do you want to buy? ',
+                            'How many sessions do you want to buy? ',
                             style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 16,
@@ -411,7 +411,7 @@ class _EditPageState extends State<BookScreen>
                             height: 25,
                           ),
                           const Text(
-                            'Date And Time ',
+                            'Date and time ',
                             style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 16,
@@ -1114,7 +1114,7 @@ class _EditPageState extends State<BookScreen>
                                 ])
                               : Container(),
                           const Text(
-                            'Start Date:',
+                            'Start date:',
                             style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 16,

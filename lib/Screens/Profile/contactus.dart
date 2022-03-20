@@ -66,13 +66,16 @@ class _HomePageState extends State<ContactDetailsView>
                       ),
                     ),
                   ),
-                  Center(
-                      child: Text(contactUSContolller.name,
-                          style: const TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'WorkSans',
-                          ))),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Center(
+                        child: Text(contactUSContolller.name,
+                            style: const TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'WorkSans',
+                            ))),
+                  ),
                   const Center(
                       child: Text('${"Addis Ababa"}, ${"Ethiopia"}',
                           style: TextStyle(
@@ -108,7 +111,7 @@ class _HomePageState extends State<ContactDetailsView>
                                   onPressed: () {},
                                   child: const Icon(
                                     Icons.call,
-                                    color: kPrimaryLightColor,
+                                    color: kPrimaryColor,
                                   ),
                                   style: TextButton.styleFrom(
                                       backgroundColor: Colors.white,
@@ -140,7 +143,7 @@ class _HomePageState extends State<ContactDetailsView>
                                   onPressed: () {},
                                   child: const Icon(
                                     Icons.call,
-                                    color: kPrimaryLightColor,
+                                    color: kPrimaryColor,
                                   ),
                                   style: TextButton.styleFrom(
                                       backgroundColor: Colors.white,
@@ -172,7 +175,7 @@ class _HomePageState extends State<ContactDetailsView>
                                   onPressed: () {},
                                   child: const Icon(
                                     Icons.email,
-                                    color: kPrimaryLightColor,
+                                    color: kPrimaryColor,
                                   ),
                                   style: TextButton.styleFrom(
                                       backgroundColor: Colors.white,
@@ -206,7 +209,7 @@ class _HomePageState extends State<ContactDetailsView>
                                   onPressed: () {},
                                   child: const Icon(
                                     Icons.link,
-                                    color: kPrimaryLightColor,
+                                    color: kPrimaryColor,
                                   ),
                                   style: TextButton.styleFrom(
                                       backgroundColor: Colors.white,

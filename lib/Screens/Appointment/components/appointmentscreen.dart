@@ -272,7 +272,7 @@ class _HomePageState extends State<Appointment>
                               child: Padding(
                               padding: const EdgeInsets.only(top: 4),
                               child: Column(children: [
-                                Center(child: Text("No Booked Tutors")),
+                                Center(child: Text("No booked tutor")),
                                 const SizedBox(
                                   height: 16,
                                 ),
@@ -403,7 +403,7 @@ class _HomePageState extends State<Appointment>
   Widget getPopularCourseUI() {
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.only(top: 8.0, left: 18, right: 16),
+        padding: const EdgeInsets.only(top: 18.0, left: 18, right: 16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,

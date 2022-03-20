@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'dart:io';
 import 'package:addistutor_student/remote_services/user.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:async/async.dart';
 
@@ -138,7 +139,7 @@ class RemoteServices {
   static Future<List<Search>> search(
       var locationid, var subjectid, var gender) async {
     res = await Network().getData(
-        "tutors?location_id=${locationid}&subject_id=${subjectid}&gender=${gender}");
+        "tutors?address_id=${locationid}&subject_id=${subjectid}&gender=${gender}");
 
     var body = json.decode(res.body);
 
@@ -186,7 +187,7 @@ class RemoteServices {
     if (res.statusCode == 200) {
       return body["data"].map((e) => Day.fromJson(e)).toList().cast<Day>();
     } else {
-      throw Exception('Failed to load Days');
+      throw Text('Failed to load Days');
     }
   }
 

@@ -33,7 +33,7 @@ class EditprofileController extends GetxController with StateMixin {
   late TextEditingController passControl;
   late TextEditingController newpassControl;
   late TextEditingController confirmpassControl;
-
+  final GlobalKey<ScaffoldState> keyforall = GlobalKey<ScaffoldState>();
   late TextEditingController forgotpass;
   var pass = '';
   var forgo = '';
@@ -413,7 +413,7 @@ class EditprofileController extends GetxController with StateMixin {
         context: context,
         builder: (context) => AlertDialog(
           title: Text(
-            'Profile not edited' + data,
+            'Profile not edited ' + data,
             style: const TextStyle(
               fontSize: 13,
               fontWeight: FontWeight.w500,
@@ -499,15 +499,12 @@ class EditprofileController extends GetxController with StateMixin {
               ),
               actions: <Widget>[
                 // ignore: deprecated_member_use
-
                 FlatButton(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),
                   color: kPrimaryColor,
-                  onPressed: () async {
-                    isLoading(false);
-
+                  onPressed: () {
                     Navigator.push(
                       context,
                       PageRouteBuilder(
@@ -518,11 +515,11 @@ class EditprofileController extends GetxController with StateMixin {
                     );
                   },
                   child: Container(
-                      width: 20,
-                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      width: 25,
+                      padding: const EdgeInsets.symmetric(vertical: 10),
                       alignment: Alignment.center,
                       child: const Text(
-                        'Ok',
+                        'OK',
                         style: TextStyle(
                           color: Colors.white,
                         ),

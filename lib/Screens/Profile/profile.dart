@@ -158,7 +158,7 @@ class _ProfilePageState extends State<ProfileS> {
         (editForm) => WillPopScope(
             onWillPop: _onBackPressed,
             child: Scaffold(
-              key: _key,
+              key: editprofileController.keyforall,
               backgroundColor: Colors.grey.shade100,
               extendBodyBehindAppBar: true,
               extendBody: true,
@@ -166,7 +166,8 @@ class _ProfilePageState extends State<ProfileS> {
                 automaticallyImplyLeading: false,
                 leading: IconButton(
                   onPressed: () {
-                    _key.currentState!.openDrawer();
+                    key:
+                    editprofileController.keyforall.currentState!.openDrawer();
                   },
                   icon: const Icon(
                     Icons.menu,
@@ -197,8 +198,8 @@ class _ProfilePageState extends State<ProfileS> {
                       ProfileHeader(
                         avatar: NetworkImage(
                             "https://tutor.oddatech.com/api/student-profile-picture/$ids?$ran"),
-                        coverImage: NetworkImage(
-                            "https://tutor.oddatech.com/api/student-profile-picture/$ids?$ran"),
+                        coverImage: const NetworkImage(
+                            "https://tutor.oddatech.com/lg3.png"),
                         title: editprofileController.firstname.text.toString() +
                             " " +
                             editprofileController.lastname.text.toString(),
@@ -505,6 +506,10 @@ class _ProfilePageState extends State<ProfileS> {
                                   highlightColor: Colors.grey[200],
                                   onTap: () {
                                     Navigator.of(context).pop(true);
+                                    setState(() {
+                                      ScaffoldMessenger.of(context)
+                                          .hideCurrentSnackBar();
+                                    });
                                     _logout(context);
                                   },
                                   child: Center(
@@ -728,7 +733,7 @@ class ProfileHeader extends StatelessWidget {
     return Stack(
       children: <Widget>[
         Ink(
-          height: 200,
+          height: 170,
           decoration: BoxDecoration(
             image: DecorationImage(
                 image: coverImage as ImageProvider<Object>, fit: BoxFit.cover),

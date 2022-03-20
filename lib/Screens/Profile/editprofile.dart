@@ -82,7 +82,6 @@ class _EditPageState extends State<EditPage> {
     if (location != null && location.isNotEmpty) {
       setState(() {
         editprofileController.locaion = location[0];
-        editprofileController.locaionid = location[0].id;
       });
     }
   }
@@ -551,7 +550,7 @@ class _EditPageState extends State<EditPage> {
                         height: 20,
                       ),
                       const Text(
-                        'Select Date Of birth',
+                        'Select date Of birth',
                         style: TextStyle(
                           fontSize: 17,
                           fontWeight: FontWeight.w700,
@@ -611,14 +610,13 @@ class _EditPageState extends State<EditPage> {
                                 .toList(),
                             onChanged: (value) {
                               setState(() {
-                                editprofileController.locaion = value!;
-
                                 if (editprofileController
                                         .locaion!.locaion.length !=
                                     0) {
                                   showsubject = true;
                                 } else {
                                   showsubject = false;
+                                  locationname = "";
                                 }
                               });
                             },
@@ -772,7 +770,6 @@ class _EditPageState extends State<EditPage> {
     return GestureDetector(
       onTap: () {
         setState(() {
-          //  print(lid);
           //  lid = id.toString();
           locationname = txt2;
           editprofileController.locaionid = id;

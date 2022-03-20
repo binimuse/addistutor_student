@@ -3,10 +3,12 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:addistutor_student/Screens/Appointment/components/appointmentscreen.dart';
 import 'package:addistutor_student/Screens/Home/components/category_list_view.dart';
 
 import 'package:addistutor_student/Screens/Home/components/popular_course_list_view.dart';
 import 'package:addistutor_student/Screens/search/components/searchscreen.dart';
+import 'package:addistutor_student/Wallet/wallet.dart';
 import 'package:addistutor_student/constants.dart';
 import 'package:addistutor_student/controller/geteducationlevelcontroller.dart';
 import 'package:addistutor_student/controller/getlocationcontroller.dart';
@@ -74,8 +76,39 @@ class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
 
       // var id = editprofileController.fetchPf(body["student_id"]);
       // print(body["student_id"]);
-      walletContoller.getbalance(body["student_id"]);
+      setState(() {
+        walletContoller.getbalance(body["student_id"]);
+        _cheakwallet();
+      });
     }
+  }
+
+  void _cheakwallet() async {
+    await Future.delayed(const Duration(milliseconds: 5000));
+    print(walletContoller.wallet.toString());
+    try {
+      int wallet2 = int.parse(walletContoller.wallet.toString());
+
+      if (wallet2 < 100) {
+        ScaffoldMessenger.of(editprofileController.keyforall.currentContext!)
+            .showSnackBar(SnackBar(
+          behavior: SnackBarBehavior.floating,
+          margin: const EdgeInsets.only(bottom: 10.0),
+          content: const Text('Your wallet amount is less'),
+          duration: const Duration(days: 1),
+          backgroundColor: kPrimaryColor,
+          action: SnackBarAction(
+              label: 'Press here to top up amount',
+              textColor: kPrimaryLightColor,
+              onPressed: () {
+                Get.to(const WalletPage());
+              }),
+        ));
+      } else {
+        ScaffoldMessenger.of(editprofileController.keyforall.currentContext!)
+            .hideCurrentSnackBar();
+      }
+    } catch (e) {}
   }
 
   List<GetSubject> subject = [];
@@ -145,6 +178,7 @@ class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
               child: WillPopScope(
                 onWillPop: _onBackPressed,
                 child: Scaffold(
+                  key: editprofileController.keyforall,
                   backgroundColor: Colors.transparent,
                   body: Column(
                     children: <Widget>[

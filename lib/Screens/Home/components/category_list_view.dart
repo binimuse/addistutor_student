@@ -1,5 +1,8 @@
 // ignore_for_file: prefer_typing_uninitialized_variables, prefer_const_literals_to_create_immutables, unnecessary_null_comparison, duplicate_ignore
 
+import 'dart:convert';
+
+import 'package:addistutor_student/Screens/Appointment/components/appointmentscreen.dart';
 import 'package:addistutor_student/Screens/Home/components/course_info_screen.dart';
 import 'package:addistutor_student/Screens/Home/components/design_course_app_theme.dart';
 import 'package:addistutor_student/Screens/Home/components/homescreen.dart';
@@ -11,6 +14,7 @@ import 'package:addistutor_student/remote_services/service.dart';
 import 'package:addistutor_student/remote_services/user.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CategoryListView extends StatefulWidget {
   const CategoryListView({
@@ -33,10 +37,37 @@ class _CategoryListViewState extends State<CategoryListView>
 
   @override
   void initState() {
+    // searchController.isfetched(true);
+
     animationController = AnimationController(
         duration: const Duration(milliseconds: 2000), vsync: this);
-    searchController.isfetched(true);
+    _fetchUser();
     super.initState();
+  }
+
+  var ids;
+  late int ran;
+  void _fetchUser() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    var token = localStorage.getString('user');
+
+    if (token != null) {
+      var body = json.decode(token);
+
+      if (body["student_id"] != null) {
+        setState(() {
+          ids = int.parse(body["student_id"]);
+          editprofileController.fetchPf(int.parse(body["student_id"]));
+        });
+      } else {
+        var noid = "noid";
+        print(noid);
+        editprofileController.fetchPf(noid);
+      }
+
+      print("editprofileController.locaionid");
+      print(editprofileController.locaion);
+    } else {}
   }
 
   Future<bool> getData() async {
@@ -115,7 +146,16 @@ class _CategoryListViewState extends State<CategoryListView>
                       }
                     })),
           )
-        : const Center(child: CircularProgressIndicator()));
+        : const Center(
+            child: Text(
+            'No Recommended Tutor found',
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w500,
+              color: Colors.black,
+              fontFamily: 'WorkSans',
+            ),
+          )));
   }
 }
 
@@ -162,7 +202,6 @@ class CategoryView extends StatelessWidget {
                               Expanded(
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    color: HexColor('#F8FAFB'),
                                     borderRadius: const BorderRadius.all(
                                         Radius.circular(16.0)),
                                   ),

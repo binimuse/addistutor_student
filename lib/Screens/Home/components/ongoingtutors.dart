@@ -37,7 +37,7 @@ class _CategoryListViewState extends State<OnGoingTutors>
   void initState() {
     animationController = AnimationController(
         duration: const Duration(milliseconds: 2000), vsync: this);
-    searchController.isfetched(true);
+
     _fetchUser();
     super.initState();
   }
@@ -119,12 +119,12 @@ class _CategoryListViewState extends State<OnGoingTutors>
                         );
                       } else {
                         return const Center(
-                          child: Text("No Ongoing Tutor found"),
+                          child: Text("No ongoing session found"),
                         );
                       }
                     })),
           )
-        : const Center(child: CircularProgressIndicator()));
+        : const Center(child: Text("No ongoing session found")));
   }
 }
 
