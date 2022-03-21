@@ -673,7 +673,7 @@ class _EditPageState extends State<EditPage> {
                             fontWeight: FontWeight.w700),
                         items: <String>[
                           '',
-                          'Kg',
+                          'KG',
                           '1',
                           '2',
                           '3',
