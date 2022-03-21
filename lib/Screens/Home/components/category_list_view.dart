@@ -37,11 +37,12 @@ class _CategoryListViewState extends State<CategoryListView>
 
   @override
   void initState() {
-    // searchController.isfetched(true);
+    //
 
     animationController = AnimationController(
         duration: const Duration(milliseconds: 2000), vsync: this);
     _fetchUser();
+    searchController.isfetched(true);
     super.initState();
   }
 
@@ -61,12 +62,9 @@ class _CategoryListViewState extends State<CategoryListView>
         });
       } else {
         var noid = "noid";
-        print(noid);
+
         editprofileController.fetchPf(noid);
       }
-
-      print("editprofileController.locaionid");
-      print(editprofileController.locaion);
     } else {}
   }
 
