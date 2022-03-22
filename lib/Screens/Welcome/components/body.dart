@@ -33,7 +33,7 @@ class Body extends StatelessWidget {
             const Text(
               "NEXTGEN",
               style: TextStyle(
-                fontSize: 30.0,
+                fontSize: 40.0,
                 fontFamily: 'Arial',
                 fontWeight: FontWeight.bold,
                 letterSpacing: 0.4,
@@ -58,7 +58,7 @@ class Body extends StatelessWidget {
               image: const AssetImage(
                 'assets/images/new.png',
               ),
-              height: size.height * 0.25,
+              height: size.height * 0.35,
             ),
             RoundedButton(
               text: "Register",

@@ -45,7 +45,6 @@ class RemoteServices {
 
     var body = json.decode(res.body);
     if (res.statusCode == 200) {
-      //  print(body);
       return Student.fromJson(body);
     } else {
       throw Exception('Failed to load User' + res.statusCode.toString());

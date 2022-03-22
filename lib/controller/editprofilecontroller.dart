@@ -297,7 +297,7 @@ class EditprofileController extends GetxController with StateMixin {
           email.text = fetched.email;
           macthgender.value = fetched.gender;
           date = fetched.birth_date;
-          // locaion!.id = fetched.location;
+          locaionid = fetched.location_id;
 
           Grade.value = fetched.grade;
           studyperpose.value = fetched.study_purpose;

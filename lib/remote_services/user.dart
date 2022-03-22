@@ -17,6 +17,7 @@ class Student {
   String grade;
   String study_purpose;
   String about;
+  String location_id;
 
   Student({
     required this.id,
@@ -32,6 +33,7 @@ class Student {
     required this.grade,
     required this.study_purpose,
     required this.about,
+    required this.location_id,
   });
 
   factory Student.fromJson(Map<String, dynamic> json) {
@@ -49,6 +51,7 @@ class Student {
       grade: json["grade"],
       study_purpose: json["study_purpose"],
       about: json["about"],
+      location_id: json["location_id"],
     );
   }
 }

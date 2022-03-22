@@ -354,7 +354,7 @@ class _EditPageState extends State<BookScreen>
                                           children: const [
                                             SizedBox(height: 15),
                                             Text(
-                                              'Your balance is insufficient please make a deposit !',
+                                              'Your balance is insufficient.Please make a deposit !',
                                               style: TextStyle(
                                                 fontSize: 18.0,
                                                 fontWeight: FontWeight.bold,

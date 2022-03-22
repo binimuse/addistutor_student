@@ -82,6 +82,7 @@ class _EditPageState extends State<EditPage> {
     if (location != null && location.isNotEmpty) {
       setState(() {
         editprofileController.locaion = location[0];
+        // editprofileController.locaionid = location[0];
       });
     }
   }
@@ -264,6 +265,8 @@ class _EditPageState extends State<EditPage> {
                         }).toList(),
                         onChanged: (value) {
                           setState(() {
+                            FocusScope.of(context)
+                                .requestFocus(new FocusNode());
                             areyou = value!;
                             if (areyou == "Parent") {
                               areyoubool = "Parent";
@@ -542,6 +545,8 @@ class _EditPageState extends State<EditPage> {
                         }).toList(),
                         onChanged: (value) {
                           setState(() {
+                            FocusScope.of(context)
+                                .requestFocus(new FocusNode());
                             editprofileController.macthgender.value = value!;
                           });
                         },
@@ -610,6 +615,8 @@ class _EditPageState extends State<EditPage> {
                                 .toList(),
                             onChanged: (value) {
                               setState(() {
+                                FocusScope.of(context)
+                                    .requestFocus(new FocusNode());
                                 if (editprofileController
                                         .locaion!.locaion.length !=
                                     0) {
@@ -700,6 +707,8 @@ class _EditPageState extends State<EditPage> {
                         }).toList(),
                         onChanged: (value) {
                           setState(() {
+                            FocusScope.of(context)
+                                .requestFocus(new FocusNode());
                             editprofileController.Grade.value = value!;
                           });
                         },

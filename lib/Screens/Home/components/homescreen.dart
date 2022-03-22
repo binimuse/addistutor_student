@@ -98,7 +98,7 @@ class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
           duration: const Duration(days: 1),
           backgroundColor: kPrimaryColor,
           action: SnackBarAction(
-              label: 'Press here to top up amount',
+              label: 'Press here to top up',
               textColor: kPrimaryLightColor,
               onPressed: () {
                 Get.to(const WalletPage());
