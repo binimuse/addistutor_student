@@ -442,7 +442,7 @@ class _LoginScreenState extends State<Body> {
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: const Text('Please verify Your email'),
+            title: const Text('Please verify our email'),
             content: const Text("Go to your email to confirm"),
             actions: <Widget>[
               Center(
