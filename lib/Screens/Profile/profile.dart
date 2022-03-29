@@ -272,7 +272,7 @@ class _ProfilePageState extends State<ProfileS> {
               ),
             ),
             content: const Text(
-              'Are You Sure you want to exit This app',
+              'Are You Sure you want to exit This app?',
               style: TextStyle(
                 fontSize: 13,
                 fontWeight: FontWeight.w500,
@@ -514,7 +514,7 @@ class _ProfilePageState extends State<ProfileS> {
                                   },
                                   child: Center(
                                     child: Text(
-                                      "Ok",
+                                      "Yes",
                                       style: TextStyle(
                                         fontSize: 18.0,
                                         color: Theme.of(context).primaryColor,

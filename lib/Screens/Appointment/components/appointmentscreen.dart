@@ -330,7 +330,7 @@ class _HomePageState extends State<Appointment>
               ),
             ),
             content: const Text(
-              'Are you sure you want to exit this app',
+              'Are you sure you want to exit this app?',
               style: TextStyle(
                 fontSize: 13,
                 fontWeight: FontWeight.w500,
