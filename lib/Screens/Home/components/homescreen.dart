@@ -94,7 +94,7 @@ class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
             .showSnackBar(SnackBar(
           behavior: SnackBarBehavior.floating,
           margin: const EdgeInsets.only(bottom: 10.0),
-          content: const Text('Your wallet amount is less'),
+          content: const Text('Your wallet has insufficient balance.'),
           duration: const Duration(days: 1),
           backgroundColor: kPrimaryColor,
           action: SnackBarAction(

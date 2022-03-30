@@ -84,7 +84,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
         PageViewModel(
           title: "Tutor Selection",
           body:
-              "The system will generate choices of tutors and you select your choice.",
+              "The system will generate a selection of tutors as per your requirement. You can select one of your choice.",
           image: _buildImage('test2.svg'),
           decoration: pageDecoration,
         ),

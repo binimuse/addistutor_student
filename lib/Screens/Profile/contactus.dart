@@ -280,7 +280,7 @@ class _HomePageState extends State<ContactDetailsView>
                           },
                           child: ListTile(
                             title: const Text(
-                              'twitter',
+                              'Twitter',
                               style: TextStyle(
                                 fontSize: 17,
                                 fontWeight: FontWeight.bold,

@@ -3,6 +3,7 @@
 import 'dart:convert';
 
 import 'package:addistutor_student/Screens/Profile/termsodservice.dart';
+import 'package:addistutor_student/Screens/Signup/components/otp.dart';
 import 'package:addistutor_student/Screens/main/main.dart';
 import 'package:addistutor_student/controller/signupcontroller.dart';
 import 'package:addistutor_student/remote_services/api.dart';
@@ -121,12 +122,12 @@ class _SplashScreenState extends State<Body> {
                           Icons.phone,
                           color: kPrimaryColor,
                         ),
-                        hintText: "Phone",
+                        hintText: "Phone 2519",
                         border: InputBorder.none,
                       ),
-                      keyboardType: TextInputType.number,
-                      inputFormatters: <TextInputFormatter>[
-                        FilteringTextInputFormatter.digitsOnly
+                      keyboardType: TextInputType.phone,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.allow(RegExp('[0-9]+')),
                       ],
                       validator: (value) {
                         return signupController.validatephone(value!);
@@ -627,7 +628,7 @@ class _SplashScreenState extends State<Body> {
             Padding(
               padding: EdgeInsets.all(8.0),
               child: Text(
-                'Please check your email inbox to verify your email address before you log in.',
+                'Please check your email inbox or your sms  to verify your email address  or phone number  before you log in.',
                 style: TextStyle(
                   fontSize: 18.0,
                   fontWeight: FontWeight.bold,
@@ -806,7 +807,7 @@ class _SplashScreenState extends State<Body> {
             Padding(
               padding: EdgeInsets.all(8.0),
               child: Text(
-                'Please check your email inbox to verify your email address before you log in.',
+                'Please check your email inbox or your sms  to verify your email address  or phone number  before you log in. ',
                 style: TextStyle(
                   fontSize: 18.0,
                   fontWeight: FontWeight.bold,
@@ -827,10 +828,17 @@ class _SplashScreenState extends State<Body> {
                     setState(() {
                       isLoading = false;
                     });
+                    // Navigator.push<dynamic>(
+                    //   context,
+                    //   MaterialPageRoute<dynamic>(
+                    //     builder: (BuildContext context) => const LoginScreen(),
+                    //   ),
+                    // );
+
                     Navigator.push<dynamic>(
                       context,
                       MaterialPageRoute<dynamic>(
-                        builder: (BuildContext context) => const LoginScreen(),
+                        builder: (BuildContext context) => OTPPage(),
                       ),
                     );
                   },
@@ -847,11 +855,18 @@ class _SplashScreenState extends State<Body> {
                         setState(() {
                           isLoading = false;
                         });
+                        // Navigator.push<dynamic>(
+                        //   context,
+                        //   MaterialPageRoute<dynamic>(
+                        //     builder: (BuildContext context) =>
+                        //         const LoginScreen(),
+                        //   ),
+                        // );
+
                         Navigator.push<dynamic>(
                           context,
                           MaterialPageRoute<dynamic>(
-                            builder: (BuildContext context) =>
-                                const LoginScreen(),
+                            builder: (BuildContext context) => OTPPage(),
                           ),
                         );
                       },

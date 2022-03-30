@@ -29,7 +29,7 @@ class SignupController extends GetxController with StateMixin {
 
   String? validateEmail(String value) {
     if (!GetUtils.isEmail(value)) {
-      return "Provide a valid Email";
+      return "Provide a valid email";
     }
     return null;
   }
@@ -49,8 +49,8 @@ class SignupController extends GetxController with StateMixin {
   }
 
   String? validatephone(String value) {
-    if (value.isEmpty) {
-      return "Please provide phone number";
+    if (!value.contains("251")) {
+      return "Please provide phone number  \n and start with 2519";
     }
     return null;
   }

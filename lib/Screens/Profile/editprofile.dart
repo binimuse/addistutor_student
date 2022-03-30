@@ -757,7 +757,7 @@ class _EditPageState extends State<EditPage> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20)),
                             child: const Text(
-                              "Next",
+                              "Save",
                               style: TextStyle(
                                   fontSize: 14,
                                   letterSpacing: 2.2,

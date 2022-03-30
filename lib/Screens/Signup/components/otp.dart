@@ -3,8 +3,12 @@
  * profile: https://github.com/lohanidamodar
   */
 
+import 'package:addistutor_student/Screens/Login/login_screen.dart';
 import 'package:addistutor_student/constants.dart';
+import 'package:addistutor_student/controller/otpcontroller.dart';
+import 'package:addistutor_student/controller/signupcontroller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 final inputBorder = OutlineInputBorder(
   borderRadius: BorderRadius.circular(8.0),
@@ -19,6 +23,9 @@ final inputDecoration = InputDecoration(
 );
 
 class OTPPage extends StatelessWidget {
+  var otpval;
+  final OtpController otpController = Get.put(OtpController());
+  SignupController signupController = Get.find();
   static final String path = "lib/src/pages/misc/otp.dart";
   @override
   Widget build(BuildContext context) {
@@ -57,6 +64,27 @@ class OTPPage extends StatelessWidget {
               ),
               onPressed: () {},
             ),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation1, animation2) {
+                      return const LoginScreen();
+                    },
+                  ),
+                );
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    "Already cheacked email address?",
+                    style: const TextStyle(color: kPrimaryColor),
+                  ),
+                ],
+              ),
+            ),
             const SizedBox(height: 30.0),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
@@ -72,7 +100,10 @@ class OTPPage extends StatelessWidget {
                   fontSize: 18.0,
                 ),
               ),
-              onPressed: () {},
+              onPressed: () {
+                otpController.editProf(
+                    context, signupController.phone.text.toString());
+              },
             )
           ],
         ),
@@ -118,9 +149,12 @@ class _OTPFieldsState extends State<OTPFields> {
     }
   }
 
+  final OtpController otpController = Get.put(OtpController());
+
   @override
   Widget build(BuildContext context) {
     return Form(
+      key: otpController.Formkey,
       child: Column(
         children: [
           const SizedBox(height: 10.0),
@@ -130,6 +164,21 @@ class _OTPFieldsState extends State<OTPFields> {
               SizedBox(
                 width: 60,
                 child: TextFormField(
+                  autofocus: true,
+                  style: pinStyle,
+                  readOnly: true,
+                  keyboardType: TextInputType.number,
+                  textAlign: TextAlign.center,
+                  decoration: const InputDecoration(
+                    hintText: "S - ",
+                    border: InputBorder.none,
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 60,
+                child: TextFormField(
+                  controller: otpController.otp1,
                   autofocus: true,
                   style: pinStyle,
                   keyboardType: TextInputType.number,
@@ -143,6 +192,7 @@ class _OTPFieldsState extends State<OTPFields> {
               SizedBox(
                 width: 60,
                 child: TextFormField(
+                  controller: otpController.otp2,
                   focusNode: pin2FN,
                   style: pinStyle,
                   keyboardType: TextInputType.number,
@@ -154,6 +204,7 @@ class _OTPFieldsState extends State<OTPFields> {
               SizedBox(
                 width: 60,
                 child: TextFormField(
+                  controller: otpController.otp3,
                   focusNode: pin3FN,
                   style: pinStyle,
                   keyboardType: TextInputType.number,
@@ -165,6 +216,7 @@ class _OTPFieldsState extends State<OTPFields> {
               SizedBox(
                 width: 60,
                 child: TextFormField(
+                  controller: otpController.otp4,
                   focusNode: pin4FN,
                   style: pinStyle,
                   keyboardType: TextInputType.number,
