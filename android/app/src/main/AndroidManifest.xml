@@ -2,7 +2,7 @@
     package="com.example.addistutor_student">
     <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="NextGen student"
+        android:label="NEXTGEN student"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
