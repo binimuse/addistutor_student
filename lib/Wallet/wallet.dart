@@ -121,7 +121,7 @@ class _EditProfilePageState extends State<WalletPage> {
                                     backgroundColor: Colors.white,
                                     child: ClipOval(
                                       child: Image.network(
-                                        'https://tutor.oddatech.com/api/student-profile-picture/${ids}?$ran',
+                                        'https://nextgeneducation.et/api/student-profile-picture/${ids}?$ran',
                                         fit: BoxFit.contain,
                                       ),
                                     ),

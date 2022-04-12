@@ -460,6 +460,12 @@ class _LoginScreenState extends State<Body> {
                       setState(() {
                         isLoading = false;
                       });
+                      Navigator.push<dynamic>(
+                        context,
+                        MaterialPageRoute<dynamic>(
+                          builder: (BuildContext context) => OTPPage(),
+                        ),
+                      );
                     },
                     child: Container(
                         width: 20,
@@ -499,12 +505,6 @@ class _LoginScreenState extends State<Body> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => const EditPage(),
-                      ),
-                    );
-                    Navigator.push<dynamic>(
-                      context,
-                      MaterialPageRoute<dynamic>(
-                        builder: (BuildContext context) => OTPPage(),
                       ),
                     );
                   },
