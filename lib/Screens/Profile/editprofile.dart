@@ -119,7 +119,7 @@ class _EditPageState extends State<EditPage> {
   Widget build(BuildContext context) {
     return Obx(() => editprofileController.isFetched.value
         ? Scaffold(
-            resizeToAvoidBottomInset: false,
+            resizeToAvoidBottomInset: true,
             key: editprofileController.scaffoldKey,
             appBar: AppBar(
               backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -265,8 +265,7 @@ class _EditPageState extends State<EditPage> {
                         }).toList(),
                         onChanged: (value) {
                           setState(() {
-                            FocusScope.of(context)
-                                .requestFocus(new FocusNode());
+                            FocusScope.of(context).requestFocus(FocusNode());
                             areyou = value!;
                             if (areyou == "Parent") {
                               areyoubool = "Parent";
@@ -616,7 +615,7 @@ class _EditPageState extends State<EditPage> {
                             onChanged: (value) {
                               setState(() {
                                 FocusScope.of(context)
-                                    .requestFocus(new FocusNode());
+                                    .requestFocus(FocusNode());
                                 if (editprofileController
                                         .locaion!.locaion.length !=
                                     0) {

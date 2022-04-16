@@ -43,10 +43,8 @@
 	<false/>
 
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Need to upload image</string>
+	<string>we need this permision  to upload image for  update profile, to send image to admin dashbord</string>
 	<key>NSCameraUsageDescription</key>
-	<string>Need to upload image</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Need to upload image</string>
+	<string>we need this permision  to take image from camera for  update profile, to send image to admin dashbord</string>
 </dict>
 </plist>

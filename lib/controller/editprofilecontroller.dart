@@ -358,7 +358,7 @@ class EditprofileController extends GetxController with StateMixin {
         "gender": macthgender.value,
         "birth_date": date,
         "email": email.text,
-        "location_id": locaionid,
+        "location_id": 1,
         "study_purpose": studyperpose.value,
         "grade": Grade.value,
         "about": About.text,
@@ -377,6 +377,7 @@ class EditprofileController extends GetxController with StateMixin {
     } else {
       print("locatiooooooooooon");
       print(locaionid);
+
       var data = {
         "is_parent": is_parent.value,
         "parent_first_name": parent_first_name.text,
@@ -387,7 +388,7 @@ class EditprofileController extends GetxController with StateMixin {
         "gender": macthgender.value,
         "birth_date": date,
         "email": email.text,
-        "location_id": locaionid,
+        "location_id": 1,
         "study_purpose": studyperpose.value,
         "grade": Grade.value,
         "about": About.text,
@@ -426,7 +427,7 @@ class EditprofileController extends GetxController with StateMixin {
               onPressed: () async {
                 Navigator.of(context).pop(true);
 
-                Navigator.pop(context);
+                //    Navigator.pop(context);
                 isLoading(false);
               },
               child: const Text('ok'),
