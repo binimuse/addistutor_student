@@ -46,5 +46,12 @@
 	<key>io.flutter.embedded_views_preview</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
+<<<<<<< HEAD
 	<string>we need this permision  to take image from camera for  update profile, to send image to admin dashbord,and to scan QR codes</string>	</dict>
+=======
+	<string>we need this permision  to take image from camera for  update profile, to send image to admin dashbord</string>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
+</dict>
+>>>>>>> 2196e2fd5cc357ed03ece0d105a3e8b4dfe908f1
 </plist>
