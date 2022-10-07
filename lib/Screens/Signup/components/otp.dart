@@ -25,7 +25,7 @@ final inputDecoration = InputDecoration(
 class OTPPage extends StatelessWidget {
   var otpval;
   final OtpController otpController = Get.put(OtpController());
-  SignupController signupController = Get.find();
+  SignupController signupController = Get.put(SignupController());
   static final String path = "lib/src/pages/misc/otp.dart";
   @override
   Widget build(BuildContext context) {

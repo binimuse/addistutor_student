@@ -2,7 +2,6 @@
 
 import 'package:addistutor_student/Screens/Login/login_screen.dart';
 import 'package:addistutor_student/remote_services/service.dart';
-import 'package:addistutor_student/remote_services/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';

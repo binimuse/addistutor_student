@@ -1,5 +1,3 @@
-// ignore_for_file: invalid_use_of_protected_member, unnecessary_null_comparison, duplicate_ignore
-
 import 'dart:convert';
 
 import 'package:addistutor_student/Screens/Login/components/background.dart';

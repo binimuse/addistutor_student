@@ -180,10 +180,7 @@ class CategoryView extends StatelessWidget {
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.only(
-                                          top: 8,
-                                          left: 16,
-                                          right: 16,
-                                          bottom: 8),
+                                          top: 8, left: 16, bottom: 8),
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
@@ -223,42 +220,6 @@ class CategoryView extends StatelessWidget {
                                               ),
                                             ],
                                           ),
-                                          Row(
-                                            children: <Widget>[
-                                              category!.rating != null
-                                                  ? Text(
-                                                      category!.rating,
-                                                      textAlign: TextAlign.left,
-                                                      style: const TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.w200,
-                                                        fontSize: 18,
-                                                        letterSpacing: 0.27,
-                                                        color:
-                                                            DesignCourseAppTheme
-                                                                .grey,
-                                                      ),
-                                                    )
-                                                  : const Text(
-                                                      "",
-                                                      textAlign: TextAlign.left,
-                                                      style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.w200,
-                                                        fontSize: 18,
-                                                        letterSpacing: 0.27,
-                                                        color:
-                                                            DesignCourseAppTheme
-                                                                .grey,
-                                                      ),
-                                                    ),
-                                              const Icon(
-                                                Icons.star,
-                                                color: kPrimaryLightColor,
-                                                size: 20,
-                                              ),
-                                            ],
-                                          )
                                         ],
                                       ),
                                     ),

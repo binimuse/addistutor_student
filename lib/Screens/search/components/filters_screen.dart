@@ -462,7 +462,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
             }).toList(),
             onChanged: (value) {
               setState(() {
-                FocusScope.of(context).requestFocus(new FocusNode());
+                FocusScope.of(context).requestFocus(FocusNode());
                 macthgender.value = value!;
                 gender = value;
               });
@@ -523,7 +523,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
                 .toList(),
             onChanged: (value) {
               setState(() {
-                FocusScope.of(context).requestFocus(new FocusNode());
+                FocusScope.of(context).requestFocus(FocusNode());
                 getEducationlevelController.education = value!;
               });
 

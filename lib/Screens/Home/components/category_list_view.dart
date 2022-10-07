@@ -5,7 +5,6 @@ import 'dart:convert';
 import 'package:addistutor_student/Screens/Appointment/components/appointmentscreen.dart';
 import 'package:addistutor_student/Screens/Home/components/course_info_screen.dart';
 import 'package:addistutor_student/Screens/Home/components/design_course_app_theme.dart';
-import 'package:addistutor_student/Screens/Home/components/homescreen.dart';
 
 import 'package:addistutor_student/constants.dart' show kPrimaryLightColor;
 import 'package:addistutor_student/controller/geteducationlevelcontroller.dart';
@@ -199,9 +198,9 @@ class CategoryView extends StatelessWidget {
                               ),
                               Expanded(
                                 child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(16.0)),
+                                  decoration: const BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(16.0)),
                                   ),
                                   child: Row(
                                     children: <Widget>[

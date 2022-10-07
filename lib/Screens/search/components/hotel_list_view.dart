@@ -110,6 +110,7 @@ class HotelListView extends StatelessWidget {
                               //     fontSize: 12,
                               //   ),
                               // ),
+                              // ignore: unnecessary_null_comparison
                               hotelData!.rating != null
                                   ? Row(children: [
                                       Text(

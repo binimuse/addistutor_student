@@ -295,46 +295,46 @@ class _LoginScreenState extends State<Body> {
                   );
                 },
               ),
-              const OrDivider(),
-              const Text(
-                "Register with Google? ",
-                style: TextStyle(color: kPrimaryColor),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  SocalIcon(
-                    iconSrc: "assets/images/google.png",
-                    press: () {
-                      _googleSignIn.signIn().then((userData) {
-                        setState(() {
-                          _isLoggedIn = true;
-                          _userObj = userData!;
-                        });
+              // const OrDivider(),
+              // const Text(
+              //   "Register with Google? ",
+              //   style: TextStyle(color: kPrimaryColor),
+              // ),
+              // const SizedBox(
+              //   height: 10,
+              // ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: <Widget>[
+              //     SocalIcon(
+              //       iconSrc: "assets/images/google.png",
+              //       press: () {
+              //         _googleSignIn.signIn().then((userData) {
+              //           setState(() {
+              //             _isLoggedIn = true;
+              //             _userObj = userData!;
+              //           });
 
-                        emailcon.text = _userObj.email;
+              //           emailcon.text = _userObj.email;
 
-                        if (_isLoggedIn) {
-                          if (_formKey.currentState!.validate()) {
-                            _loginwithgoogle();
-                          }
-                        }
+              //           if (_isLoggedIn) {
+              //             if (_formKey.currentState!.validate()) {
+              //               _loginwithgoogle();
+              //             }
+              //           }
 
-                        // register();
-                      }).catchError((e) {
-                        _googleSignIn.signOut().then((value) {
-                          setState(() {
-                            _isLoggedIn = false;
-                          });
-                        }).catchError((e) {});
-                      });
-                    },
-                  ),
-                ],
-              )
+              //           // register();
+              //         }).catchError((e) {
+              //           _googleSignIn.signOut().then((value) {
+              //             setState(() {
+              //               _isLoggedIn = false;
+              //             });
+              //           }).catchError((e) {});
+              //         });
+              //       },
+              //     ),
+              //   ],
+              // )
             ],
           ),
         ),

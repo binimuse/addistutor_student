@@ -8,7 +8,6 @@ import 'package:addistutor_student/remote_services/service.dart';
 import 'package:addistutor_student/remote_services/user.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/state_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class EditprofileController extends GetxController with StateMixin {

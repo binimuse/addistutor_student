@@ -102,7 +102,7 @@ class _FeedbackScreenState extends State<TopUpPage> {
                 child: Column(
                   children: <Widget>[
                     Container(
-                      padding: EdgeInsets.only(
+                      padding: const EdgeInsets.only(
                           top: 16, left: 16, right: 16, bottom: 17),
                       child: SvgPicture.asset(
                         'assets/icons/pay.svg',
@@ -276,7 +276,7 @@ class _FeedbackScreenState extends State<TopUpPage> {
                               child: SingleChildScrollView(
                                 padding: const EdgeInsets.only(
                                     left: 10, right: 10, top: 0, bottom: 0),
-                                child: Column(children: [
+                                child: Column(children: const [
                                   Text(
                                     "Commercial Bank of Ethiopia",
                                     style: TextStyle(
@@ -321,7 +321,7 @@ class _FeedbackScreenState extends State<TopUpPage> {
                               child: SingleChildScrollView(
                                 padding: const EdgeInsets.only(
                                     left: 10, right: 10, top: 0, bottom: 0),
-                                child: Column(children: [
+                                child: Column(children: const [
                                   Text(
                                     "Berhan International Bank",
                                     style: TextStyle(

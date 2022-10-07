@@ -85,7 +85,7 @@ class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
 
   void _cheakwallet() async {
     await Future.delayed(const Duration(milliseconds: 5000));
-    print(walletContoller.wallet.toString());
+
     try {
       int wallet2 = int.parse(walletContoller.wallet.toString());
 

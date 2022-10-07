@@ -359,64 +359,6 @@ class _SplashScreenState extends State<Body> {
                 );
               },
             ),
-            const OrDivider(),
-            const Text(
-              "Register with Google? ",
-              style: TextStyle(color: kPrimaryColor),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                SocalIcon(
-                  iconSrc: "assets/images/google.png",
-                  press: () {
-                    _googleSignIn.signIn().then((userData) {
-                      setState(() {
-                        _isLoggedIn = true;
-                        _userObj = userData!;
-                      });
-
-                      signupController.email.text = _userObj.email;
-                      signupController.fullname.text = _userObj.displayName!;
-
-                      if (_isLoggedIn) {
-                        registerbygoogle();
-                      }
-
-                      // register();
-                    }).catchError((e) {
-                      _googleSignIn.signOut().then((value) {
-                        setState(() {
-                          _isLoggedIn = false;
-                        });
-                      }).catchError((e) {});
-                      // showDialog(
-                      //   context: context,
-                      //   builder: (context) => AlertDialog(
-                      //     title: const Text('Error'),
-                      //     content: Text(e.toString()),
-                      //     actions: <Widget>[
-                      //       // ignore: deprecated_member_use
-                      //       FlatButton(
-                      //         onPressed: () {
-                      //           Navigator.of(context).pop(true);
-                      //           setState(() {
-                      //             isLoading = false;
-                      //           });
-                      //         },
-                      //         child: const Text('ok'),
-                      //       ),
-                      //     ],
-                      //   ),
-                      // );
-                    });
-                  },
-                ),
-              ],
-            )
           ],
         ),
       ),
@@ -432,6 +374,8 @@ class _SplashScreenState extends State<Body> {
       "email": signupController.email.text,
       "full_name": signupController.fullname.text,
     };
+
+    print(data);
 
     var res = await Network().authData(data, 'register-student');
     var body = json.decode(res.body);

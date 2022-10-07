@@ -186,7 +186,7 @@ class RemoteServices {
     if (res.statusCode == 200) {
       return body["data"].map((e) => Day.fromJson(e)).toList().cast<Day>();
     } else {
-      throw Text('Failed to load Days');
+      throw const Text('Failed to load Days');
     }
   }
 

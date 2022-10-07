@@ -544,8 +544,7 @@ class _EditPageState extends State<EditPage> {
                         }).toList(),
                         onChanged: (value) {
                           setState(() {
-                            FocusScope.of(context)
-                                .requestFocus(new FocusNode());
+                            FocusScope.of(context).requestFocus(FocusNode());
                             editprofileController.macthgender.value = value!;
                           });
                         },
