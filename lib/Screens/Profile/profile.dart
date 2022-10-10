@@ -23,6 +23,7 @@ import 'package:addistutor_student/controller/getqrcontroller.dart';
 import 'package:addistutor_student/controller/getreqestedbookingcpntroller.dart';
 import 'package:addistutor_student/controller/getsubjectcontroller.dart';
 import 'package:addistutor_student/controller/getutoravlblitycontroller.dart';
+import 'package:addistutor_student/controller/removeaccountcontroller.dart';
 import 'package:addistutor_student/controller/searchcontroller.dart';
 import 'package:addistutor_student/controller/signupcontroller.dart';
 import 'package:addistutor_student/constants.dart';
@@ -76,6 +77,8 @@ class _ProfilePageState extends State<ProfileS> {
   final EditprofileController editprofileController =
       Get.put(EditprofileController());
 
+  final RemoveScreencontroller removeaccount =
+      Get.put(RemoveScreencontroller());
   final GetmyAccount getmyAccount = Get.put(GetmyAccount());
   @override
   void initState() {
@@ -491,13 +494,23 @@ class _ProfilePageState extends State<ProfileS> {
                               height: 20,
                               child: InkWell(
                                 highlightColor: Colors.grey[200],
-                                onTap: () {
-                                  // Navigator.of(context).pop(true);
-                                  // setState(() {
-                                  //   ScaffoldMessenger.of(context)
-                                  //       .hideCurrentSnackBar();
-                                  // });
-                                  // _logout(context);
+                                onTap: () async {
+                                  SharedPreferences localStorage =
+                                      await SharedPreferences.getInstance();
+                                  var token = localStorage.getString('user');
+
+                                  if (token != null) {
+                                    var body = json.decode(token);
+
+                                    if (body["id"] != null) {
+                                      setState(() {
+                                        ids = body["id"];
+                                        removeaccount.seteditInfo(context, ids);
+                                      });
+                                    } else {
+                                      var noid = "noid";
+                                    }
+                                  } else {}
                                 },
                                 child: const Center(
                                   child: Text(
@@ -705,7 +718,7 @@ class _ProfilePageState extends State<ProfileS> {
     Get.delete<GetTutorAvlblityController>();
     Get.delete<GetQrCode>();
     Get.delete<GetNotigicationController>();
-    Get.delete<EndBookingContoller>();
+
     Get.delete<GetmyAccount>();
 
     Navigator.pushAndRemoveUntil(
