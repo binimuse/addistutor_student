@@ -11,6 +11,7 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:new_version/new_version.dart';
+import 'package:sizer/sizer.dart';
 import 'Screens/splash/error.dart';
 import 'Screens/splash/splash_screen.dart';
 
@@ -102,31 +103,37 @@ class _MyHomePageState extends State<MyApp> {
 
     }
     return isconected
-        ? GetMaterialApp(
-            debugShowCheckedModeBanner: false,
-            translations: LocaleString(),
-            locale: const Locale('en', 'US'),
-            title: 'NextGen',
-            theme: ThemeData(
-              primaryColor: kPrimaryColor,
-              scaffoldBackgroundColor: Colors.white,
-            ),
-            home: const SplashScreen(),
-            builder: EasyLoading.init(),
-          )
+        ? Sizer(builder: (BuildContext context, Orientation orientation,
+            DeviceType deviceType) {
+            return GetMaterialApp(
+              debugShowCheckedModeBanner: false,
+              translations: LocaleString(),
+              locale: const Locale('en', 'US'),
+              title: 'NextGen',
+              theme: ThemeData(
+                primaryColor: kPrimaryColor,
+                scaffoldBackgroundColor: Colors.white,
+              ),
+              home: const SplashScreen(),
+              builder: EasyLoading.init(),
+            );
+          })
         : buildUnAuthScreen();
   }
 
   buildUnAuthScreen() {
-    return GetMaterialApp(
-      title: 'NextGen',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        scaffoldBackgroundColor: kPrimaryColor,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: const ConnectionFaildScreen(),
-    );
+    return Sizer(builder:
+        (BuildContext context, Orientation orientation, DeviceType deviceType) {
+      return GetMaterialApp(
+        title: 'NextGen',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          scaffoldBackgroundColor: kPrimaryColor,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        home: const ConnectionFaildScreen(),
+      );
+    });
   }
 }
 

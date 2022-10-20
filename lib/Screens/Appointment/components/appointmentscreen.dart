@@ -79,13 +79,6 @@ class _HomePageState extends State<Appointment>
   List<GetLocation> location = [];
   _getlocation() async {
     getLocationController.fetchLocationfor();
-
-    location = getLocationController.listlocation.value;
-    if (location != null && location.isNotEmpty) {
-      setState(() {
-        getLocationController.location = location[0];
-      });
-    }
   }
 
   @override

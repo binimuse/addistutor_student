@@ -51,19 +51,19 @@ class RemoteServices {
     }
   }
 
-  static Future<List<GetLocation>> getlocation() async {
+  static Future<List<GetCategory>> getcategory() async {
     // print("id.toString()");
     //print(id.toString());
-    res = await Network().getData("address?with_address=true");
+    res = await Network().getData("employment-category");
 
     var body = json.decode(res.body);
     if (res.statusCode == 200) {
-      return body
-          .map((e) => GetLocation.fromJson(e))
+      return body["data"]
+          .map((e) => GetCategory.fromJson(e))
           .toList()
-          .cast<GetLocation>();
+          .cast<GetCategory>();
     } else {
-      throw Exception('Failed to load location' + res.statusCode.toString());
+      throw Exception('Failed to load Comment');
     }
   }
 

@@ -276,6 +276,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                                           child: Text(
                                         widget.hotelData!.about,
                                         textAlign: TextAlign.justify,
+                                        
                                         style: const TextStyle(
                                           fontWeight: FontWeight.w300,
                                           fontSize: 16,

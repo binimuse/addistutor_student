@@ -89,16 +89,11 @@ class _ProfilePageState extends State<ProfileS> {
     _getmyaccount();
   }
 
-  List<GetLocationforedit> location = [];
+
   _getlocation() async {
     getLocationController.fetchLocation();
     // ignore: invalid_use_of_protected_member
-    location = getLocationController.listlocationforedit.value;
-    if (location.isNotEmpty) {
-      setState(() {
-        editprofileController.locaion = location[0];
-      });
-    }
+
   }
 
   final RefreshController _refreshController =

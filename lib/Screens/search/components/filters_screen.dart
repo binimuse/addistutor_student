@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_typing_uninitialized_variables, unnecessary_null_comparison, invalid_use_of_protected_member, duplicate_ignore, unused_local_variable, unnecessary_string_interpolations
 
+import 'package:addistutor_student/components/form_drop_down_widget.dart';
 import 'package:addistutor_student/controller/geteducationlevelcontroller.dart';
 import 'package:addistutor_student/controller/getlocationcontroller.dart';
 import 'package:addistutor_student/controller/getsubjectcontroller.dart';
@@ -97,16 +98,9 @@ class _FiltersScreenState extends State<FiltersScreen> {
     }
   }
 
-  List<GetLocation> location = [];
   _getlocation() async {
     getLocationController.fetchLocation();
     // ignore: invalid_use_of_protected_member
-    location = getLocationController.listlocation.value;
-    if (location != null && location.isNotEmpty) {
-      setState(() {
-        getLocationController.location = location[0];
-      });
-    }
   }
 
   @override
@@ -373,46 +367,26 @@ class _FiltersScreenState extends State<FiltersScreen> {
                 fontWeight: FontWeight.normal),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(left: 18.0),
-          child: DropdownButton<GetLocation>(
-            hint: Text(
-              getLocationController.listlocation.toString(),
-              style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400),
-            ),
-            isExpanded: true,
-            style: const TextStyle(
-                color: Colors.black, fontSize: 16, fontWeight: FontWeight.w700),
-            items: location
-                .map((e) => DropdownMenuItem(
-                      child: Text(
-                        e.name,
-                        textAlign: TextAlign.left,
-                        style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w400),
-                      ),
-                      value: e,
-                    ))
-                .toList(),
-            onChanged: (value) {
-              setState(() {
-                FocusScope.of(context).requestFocus(new FocusNode());
-                getLocationController.location = value!;
-                lid = value.id;
-              });
+        FormDropDownWidget(
+          hintText: "Select location".trArgs(),
+          options: getLocationController.listlocation.value,
+          value: getLocationController.listLOcationvalue.value,
+          onChanged: (GetLocationforedit subcitymodel) {
+            getLocationController.setLocationStatus(subcitymodel);
 
-              // pop current page
+            lid = subcitymodel.id;
+            setState(() {
+              FocusScope.of(context).requestFocus(FocusNode());
 
-              showsubject = true;
-            },
-            value: getLocationController.location,
-          ),
+              if (getLocationController.listlocation.length != 0) {
+                showsubject = true;
+              } else {
+                showsubject = false;
+              }
+            });
+          },
         ),
+ 
         const SizedBox(
           height: 8,
         )

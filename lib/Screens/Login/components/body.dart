@@ -1,12 +1,10 @@
-// ignore_for_file: import_of_legacy_library_into_null_safe, prefer_typing_uninitialized_variables, duplicate_ignore, deprecated_member_use
+// ignore_for_file: import_of_legacy_library_into_null_safe, prefer_typing_uninitialized_variables, duplicate_ignore, deprecated_member_use, unused_element
 
 import 'dart:convert';
 
 import 'package:addistutor_student/Screens/Profile/editprofile.dart';
 import 'package:addistutor_student/Screens/Profile/profile.dart';
-import 'package:addistutor_student/Screens/Signup/components/or_divider.dart';
 import 'package:addistutor_student/Screens/Signup/components/otp.dart';
-import 'package:addistutor_student/Screens/Signup/components/social_icon.dart';
 import 'package:addistutor_student/components/text_field_container.dart';
 import 'package:addistutor_student/controller/editprofilecontroller.dart';
 import 'package:addistutor_student/controller/getlocationcontroller.dart';
@@ -64,16 +62,9 @@ class _LoginScreenState extends State<Body> {
   final GetLocationController getLocationController =
       Get.put(GetLocationController());
 
-  List<GetLocationforedit> location = [];
   _getlocation() async {
     getLocationController.fetchLocation();
     // ignore: invalid_use_of_protected_member
-    location = getLocationController.listlocationforedit.value;
-    if (location.isNotEmpty) {
-      setState(() {
-        editprofileController.locaion = location[0];
-      });
-    }
   }
 
   var ids;

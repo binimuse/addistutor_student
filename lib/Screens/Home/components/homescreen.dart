@@ -1,4 +1,4 @@
-// ignore_for_file: invalid_use_of_protected_member, unnecessary_null_comparison, duplicate_ignore, deprecated_member_use
+// ignore_for_file: invalid_use_of_protected_member, unnecessary_null_comparison, duplicate_ignore, deprecated_member_use, empty_catches
 
 import 'dart:convert';
 import 'dart:io';
@@ -17,7 +17,6 @@ import 'package:addistutor_student/controller/searchcontroller.dart';
 import 'package:addistutor_student/controller/walletcontroller.dart';
 import 'package:addistutor_student/remote_services/user.dart';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -130,13 +129,6 @@ class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
   List<GetLocation> location = [];
   _getlocation() async {
     getLocationController.fetchLocationfor();
-    // ignore: invalid_use_of_protected_member
-    location = getLocationController.listlocation.value;
-    if (location != null && location.isNotEmpty) {
-      setState(() {
-        getLocationController.location = location[0];
-      });
-    }
   }
 
   final RefreshController _refreshController =

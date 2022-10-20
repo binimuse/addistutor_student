@@ -77,16 +77,9 @@ class _SplashScreenState extends State<SplashScreen> {
     // ignore: invalid_use_of_protected_member
   }
 
-  List<GetLocation> location = [];
   _getlocation() async {
     getLocationController.fetchLocation();
     // ignore: invalid_use_of_protected_member
-    location = getLocationController.listlocation.value;
-    if (location != null && location.isNotEmpty) {
-      setState(() {
-        getLocationController.location = location[0];
-      });
-    }
   }
 
   void _checkIfLoggedIn() async {

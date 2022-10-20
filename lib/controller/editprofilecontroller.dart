@@ -10,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'getlocationcontroller.dart';
+
 class EditprofileController extends GetxController with StateMixin {
   // ignore: non_constant_identifier_names
   GlobalKey<FormState> EditProf = GlobalKey<FormState>();
@@ -38,7 +40,7 @@ class EditprofileController extends GetxController with StateMixin {
   var forgo = '';
 
   late var macthgender = "".obs;
-  GetLocationforedit? locaion;
+
   var locaionid;
   late var education = "Primary".obs;
   var date;
@@ -341,6 +343,7 @@ class EditprofileController extends GetxController with StateMixin {
   }
 
   var image;
+  GetLocationController getLocationController = Get.find();
 
   Future<void> seteditInfo(ids, BuildContext context) async {
     openAndCloseLoadingDialog(context);
@@ -357,7 +360,7 @@ class EditprofileController extends GetxController with StateMixin {
         "gender": macthgender.value,
         "birth_date": date,
         "email": email.text,
-        "location_id": 1,
+        "location_id": getLocationController.listLOcationvalue.value!.id,
         "study_purpose": studyperpose.value,
         "grade": Grade.value,
         "about": About.text,
@@ -387,7 +390,7 @@ class EditprofileController extends GetxController with StateMixin {
         "gender": macthgender.value,
         "birth_date": date,
         "email": email.text,
-        "location_id": 1,
+        "location_id": getLocationController.listLOcationvalue.value!.id,
         "study_purpose": studyperpose.value,
         "grade": Grade.value,
         "about": About.text,

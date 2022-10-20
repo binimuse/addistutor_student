@@ -77,8 +77,32 @@ class Locations {
   }
 }
 
+class GetCategory {
+  String id;
+
+  String name;
+  String description;
+  String additional_price;
+
+  GetCategory({
+    required this.id,
+    required this.name,
+    required this.description,
+    required this.additional_price,
+  });
+
+  factory GetCategory.fromJson(Map<String, dynamic> json) {
+    return GetCategory(
+      id: json["id"].toString(),
+      name: json["name"],
+      description: json["description"],
+      additional_price: json["additional_price"],
+    );
+  }
+}
+
 class GetLocationforedit {
-  int id;
+  String id;
 
   String name;
   String description;
@@ -92,7 +116,7 @@ class GetLocationforedit {
 
   factory GetLocationforedit.fromJson(Map<String, dynamic> json) {
     return GetLocationforedit(
-      id: json["id"] as int,
+      id: json["id"].toString(),
       name: json["name"],
       description: json["description"],
       locaion: List<Locations>.from(

@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:addistutor_student/Screens/Home/components/design_course_app_theme.dart';
+import 'package:addistutor_student/components/form_drop_down_widget.dart';
 
 import 'package:addistutor_student/constants.dart';
 import 'package:addistutor_student/controller/editprofilecontroller.dart';
@@ -52,7 +53,6 @@ class _EditPageState extends State<EditPage> {
   GetLocationController getLocationController =
       Get.put(GetLocationController());
 
-  List<GetLocationforedit> location = [];
   var noid;
   @override
   void initState() {
@@ -78,13 +78,6 @@ class _EditPageState extends State<EditPage> {
   _getlocation() async {
     getLocationController.fetchLocation();
     // ignore: invalid_use_of_protected_member
-    location = getLocationController.listlocationforedit.value;
-    if (location != null && location.isNotEmpty) {
-      setState(() {
-        editprofileController.locaion = location[0];
-        // editprofileController.locaionid = location[0];
-      });
-    }
   }
 
   var body;
@@ -588,51 +581,25 @@ class _EditPageState extends State<EditPage> {
                           fontFamily: 'WorkSans',
                         ),
                       ),
-                      Row(children: [
-                        Flexible(
-                          child: DropdownButton<GetLocationforedit>(
-                            hint: Text(
-                              editprofileController.locaion.toString(),
-                              style: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w300),
-                            ),
-                            isExpanded: true,
-                            style: const TextStyle(
-                                color: DesignCourseAppTheme.nearlyBlack,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w300),
-                            items: location
-                                .map((e) => DropdownMenuItem(
-                                      child: Text(
-                                        e.name,
-                                      ),
-                                      value: e,
-                                    ))
-                                .toList(),
-                            onChanged: (value) {
-                              setState(() {
-                                FocusScope.of(context)
-                                    .requestFocus(FocusNode());
-                                if (editprofileController
-                                        .locaion!.locaion.length !=
-                                    0) {
-                                  showsubject = true;
-                                } else {
-                                  showsubject = false;
-                                  locationname = "";
-                                }
-                              });
-                            },
-                            value: editprofileController.locaion,
-                          ),
-                        ),
-                        Text(
-                          locationname,
-                          style: const TextStyle(color: Colors.black38),
-                        ),
-                      ]),
+                      FormDropDownWidget(
+                        hintText: "Select location".trArgs(),
+                        options: getLocationController.listlocation.value,
+                        value: getLocationController.listLOcationvalue.value,
+                        onChanged: (GetLocationforedit subcitymodel) {
+                          getLocationController.setLocationStatus(subcitymodel);
+
+                          setState(() {
+                            FocusScope.of(context).requestFocus(FocusNode());
+                            if (getLocationController.listlocation.length !=
+                                0) {
+                              showsubject = true;
+                            } else {
+                              showsubject = false;
+                              locationname = "";
+                            }
+                          });
+                        },
+                      ),
                       showsubject
                           ? SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
@@ -645,15 +612,15 @@ class _EditPageState extends State<EditPage> {
                                       return Column(
                                         children: [
                                           getTimeBoxUIday(
-                                              editprofileController
-                                                  .locaion!.locaion[index].name,
-                                              editprofileController
-                                                  .locaion!.locaion[index].id),
+                                              getLocationController
+                                                  .listlocation[index].name,
+                                              getLocationController
+                                                  .listlocation[index].id),
                                         ],
                                       );
                                     },
-                                    itemCount: editprofileController
-                                        .locaion!.locaion.length),
+                                    itemCount: getLocationController
+                                        .listlocation.length),
                               ),
                             )
                           : Container(),
@@ -705,8 +672,7 @@ class _EditPageState extends State<EditPage> {
                         }).toList(),
                         onChanged: (value) {
                           setState(() {
-                            FocusScope.of(context)
-                                .requestFocus(new FocusNode());
+                            FocusScope.of(context).requestFocus(FocusNode());
                             editprofileController.Grade.value = value!;
                           });
                         },
@@ -773,7 +739,7 @@ class _EditPageState extends State<EditPage> {
         : const Center(child: CircularProgressIndicator()));
   }
 
-  Widget getTimeBoxUIday(String txt2, int id) {
+  Widget getTimeBoxUIday(String txt2, String id) {
     return GestureDetector(
       onTap: () {
         setState(() {

@@ -5,16 +5,16 @@ import 'package:get/get.dart';
 import 'package:addistutor_student/remote_services/service.dart';
 
 class GetLocationController extends GetxController with StateMixin {
-  var listlocation = <GetLocation>[].obs;
-  var listlocationforedit = <GetLocationforedit>[].obs;
+  RxList<GetLocationforedit> listlocation = List<GetLocationforedit>.of([]).obs;
+  final listLOcationvalue = Rxn<GetLocationforedit>();
   var isfetchedlocation = false.obs;
   var sent = false.obs;
   GetLocation? location;
   void fetchLocation() async {
     try {
-      listlocationforedit.value = await RemoteServices.getlocationforedit();
+      listlocation.value = await RemoteServices.getlocationforedit();
 
-      if (listlocationforedit.isNotEmpty) {
+      if (listlocation.isNotEmpty) {
         //print(list.length.toString());
         isfetchedlocation(true);
       }
@@ -24,12 +24,16 @@ class GetLocationController extends GetxController with StateMixin {
 
   void fetchLocationfor() async {
     try {
-      listlocation.value = await RemoteServices.getlocation();
+      listlocation.value = await RemoteServices.getlocationforedit();
 
-      if (listlocationforedit.isNotEmpty) {
+      if (listlocation.isNotEmpty) {
         //print(list.length.toString());
         isfetchedlocation(true);
       }
     } catch (e) {}
+  }
+
+  void setLocationStatus(GetLocationforedit zonemodel) {
+    listLOcationvalue.value = zonemodel;
   }
 }

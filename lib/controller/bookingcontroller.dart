@@ -56,7 +56,7 @@ class BookingeController extends GetxController with StateMixin {
   bool issat = false;
   bool issun = false;
 
-  GetLocation? locaion;
+
   late var education = "Primary".obs;
   var date2 = "".obs;
   var id;

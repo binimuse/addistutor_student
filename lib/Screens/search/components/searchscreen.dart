@@ -1,4 +1,4 @@
-// ignore_for_file: import_of_legacy_library_into_null_safe, invalid_use_of_protected_member, unnecessary_null_comparison, duplicate_ignore, deprecated_member_use
+// ignore_for_file: import_of_legacy_library_into_null_safe, invalid_use_of_protected_member, unnecessary_null_comparison, duplicate_ignore, deprecated_member_use, non_constant_identifier_names
 
 import 'dart:io';
 
@@ -6,6 +6,9 @@ import 'package:addistutor_student/Screens/Home/components/course_info_screen.da
 import 'package:addistutor_student/Screens/Home/components/design_course_app_theme.dart';
 import 'package:addistutor_student/Screens/search/components/hotel_list_view.dart';
 import 'package:addistutor_student/Screens/search/components/model/hotel_list_data.dart';
+import 'package:addistutor_student/components/form_drop_down_widget.dart';
+import 'package:addistutor_student/components/form_drop_down_widget_cat.dart';
+import 'package:addistutor_student/controller/getcategorycontroller.dart';
 import 'package:addistutor_student/controller/geteducationlevelcontroller.dart';
 import 'package:addistutor_student/controller/getlocationcontroller.dart';
 import 'package:addistutor_student/controller/getsubjectcontroller.dart';
@@ -49,6 +52,7 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
   GetSubjectController getSubjectController = Get.find();
   GetLocationController getLocationController = Get.find();
 
+  final GetCatgroryContoller getCatgrory = Get.put(GetCatgroryContoller());
   DateTime startDate = DateTime.now();
   DateTime endDate = DateTime.now().add(const Duration(days: 5));
   List<GetSubject> subject = [];
@@ -56,6 +60,7 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
   final List<String> _tobeSent = [];
   late String sid = "";
   late var macthgender = "Any".obs;
+  late var profecncy = "Teacher".obs;
   var lid = "", gender = "";
   RxInt found = 0.obs;
   bool showsubject = false;
@@ -73,6 +78,11 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
     _geteducation();
     _getsubject();
     _getlocation();
+    _getCategory();
+  }
+
+  _getCategory() async {
+    getCatgrory.fetchLocation();
   }
 
   final RefreshController _refreshController =
@@ -95,16 +105,8 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
     _refreshController.loadComplete();
   }
 
-  List<GetLocation> location = [];
   _getlocation() async {
     getLocationController.fetchLocationfor();
-
-    location = getLocationController.listlocation.value;
-    if (location != null && location.isNotEmpty) {
-      setState(() {
-        getLocationController.location = location[0];
-      });
-    }
   }
 
   List<GetEducationlevel> education = [];
@@ -174,6 +176,7 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
                                 showsubject ? subjectViewUI() : Container(),
                                 LocationFilter(),
                                 genderViewUI(),
+                                ProfecencyViewUI(),
                                 getSearchBarUI(),
                               ],
                             );
@@ -353,6 +356,39 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
     );
   }
 
+  Widget ProfecencyViewUI() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        const Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Text(
+            'Tutor Type:',
+            textAlign: TextAlign.left,
+            style: TextStyle(
+              fontSize: 17,
+              fontWeight: FontWeight.w700,
+              color: kPrimaryColor,
+              fontFamily: 'WorkSans',
+            ),
+          ),
+        ),
+        FormDropDownWidgetCat(
+          hintText: "Select Category".trArgs(),
+          options: getCatgrory.listCategory.value,
+          value: getCatgrory.listlistCategoryvalue.value,
+          onChanged: (GetCategory subcitymodel) {
+            getCatgrory.setSubectStatus(subcitymodel);
+          },
+        ),
+        const SizedBox(
+          height: 8,
+        )
+      ],
+    );
+  }
+
   // ignore: non_constant_identifier_names
   Widget LocationFilter() {
     return Column(
@@ -372,42 +408,13 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
             ),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(left: 18.0),
-          child: DropdownButton<GetLocation>(
-            hint: Text(
-              getLocationController.listlocation.toString(),
-              style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400),
-            ),
-            isExpanded: true,
-            style: const TextStyle(
-                color: Colors.black, fontSize: 16, fontWeight: FontWeight.w700),
-            items: location
-                .map((e) => DropdownMenuItem(
-                      child: Text(
-                        e.name,
-                        textAlign: TextAlign.left,
-                        style: const TextStyle(
-                            color: DesignCourseAppTheme.nearlyBlack,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w300),
-                      ),
-                      value: e,
-                    ))
-                .toList(),
-            onChanged: (value) {
-              setState(() {
-                getLocationController.location = value!;
-                lid = value.id.toString();
-              });
-
-              // pop current page
-            },
-            value: getLocationController.location,
-          ),
+        FormDropDownWidget(
+          hintText: "Select location".trArgs(),
+          options: getLocationController.listlocation.value,
+          value: getLocationController.listLOcationvalue.value,
+          onChanged: (GetLocationforedit subcitymodel) {
+            getLocationController.setLocationStatus(subcitymodel);
+          },
         ),
         const SizedBox(
           height: 8,
