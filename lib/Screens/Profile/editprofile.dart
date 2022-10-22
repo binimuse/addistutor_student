@@ -600,30 +600,6 @@ class _EditPageState extends State<EditPage> {
                           });
                         },
                       ),
-                      showsubject
-                          ? SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: SizedBox(
-                                height: 70,
-                                child: ListView.builder(
-                                    shrinkWrap: true,
-                                    scrollDirection: Axis.horizontal,
-                                    itemBuilder: (_, index) {
-                                      return Column(
-                                        children: [
-                                          getTimeBoxUIday(
-                                              getLocationController
-                                                  .listlocation[index].name,
-                                              getLocationController
-                                                  .listlocation[index].id),
-                                        ],
-                                      );
-                                    },
-                                    itemCount: getLocationController
-                                        .listlocation.length),
-                              ),
-                            )
-                          : Container(),
                       const SizedBox(
                         height: 25,
                       ),

@@ -209,6 +209,26 @@ class Qualification {
   }
 }
 
+class Getemploymentcategory {
+  String name;
+  String description;
+  String additional_price;
+
+  Getemploymentcategory({
+    required this.name,
+    required this.description,
+    required this.additional_price,
+  });
+
+  factory Getemploymentcategory.fromJson(Map<String, dynamic> json) {
+    return Getemploymentcategory(
+      name: json == null ? null : json["name"],
+      description: json == null ? null : json["description"],
+      additional_price: json == null ? null : json["additional_price"],
+    );
+  }
+}
+
 class Search {
   int id;
   String user_id;
@@ -220,6 +240,7 @@ class Search {
   String about;
   String rating;
   String price;
+  Getemploymentcategory? employment_category;
 
   String location_id;
   String profile_img;
@@ -244,6 +265,7 @@ class Search {
     required this.profile_img,
     required this.teaching_since,
     required this.location,
+    this.employment_category,
     //  required this.qualification_id,
     //  required this.preferred_tutoring_subjects,
     required this.subject_id,
@@ -265,6 +287,8 @@ class Search {
       teaching_since: json["teaching_since"],
       location_id: json["location_id"],
       location: GetLocation.fromJson(json["location"]),
+      employment_category:
+          Getemploymentcategory.fromJson(json["employment_category"] ?? null),
       subject_id: GetSubject.fromJson(
         json["subject_id"],
       ),

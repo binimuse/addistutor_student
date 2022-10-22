@@ -310,12 +310,27 @@ class _EditPageState extends State<BookScreen>
                               );
                             }).toList(),
                             onChanged: (value) {
+                              var new_price;
+                              var new_value;
                               setState(() {
                                 bookingeController.sessionsd.value = value!;
-                                var val = int.parse(value);
-                                var val2 = int.parse(widget.hotelData!.price);
 
-                                totalprice = val2 * val;
+                                var selected_session = int.parse(value);
+
+                                var old_price =
+                                    int.parse(widget.hotelData!.price);
+
+                                if (widget.hotelData!.employment_category!
+                                        .additional_price !=
+                                    null) {
+                                  new_price = int.parse(widget.hotelData!
+                                      .employment_category!.additional_price);
+                                } else {
+                                  new_price = 0;
+                                }
+
+                                new_value = selected_session * new_price;
+                                totalprice = old_price + new_value;
 
                                 int wallet = totalprice as int;
 
@@ -584,6 +599,7 @@ class _EditPageState extends State<BookScreen>
                                   const Text("Monday time:  "),
                                   DropdownButton<String>(
                                     value: motime,
+                                    hint: Text("Choose a date"),
                                     style: const TextStyle(
                                         color: Colors.black,
                                         fontSize: 16,
@@ -614,6 +630,7 @@ class _EditPageState extends State<BookScreen>
                                         // "5:30 pm",
                                         // "6:00 pm",
                                         // "6:30 pm",
+
                                         motime = value;
                                         if (value!
                                             .contains("10:30 (Afternoon)")) {
@@ -645,6 +662,7 @@ class _EditPageState extends State<BookScreen>
                               ? Row(children: [
                                   const Text("Tuesday time:  "),
                                   DropdownButton<String>(
+                                    hint: Text("Choose a date"),
                                     value: tuetime2,
                                     style: const TextStyle(
                                         color: Colors.black,
@@ -712,6 +730,7 @@ class _EditPageState extends State<BookScreen>
                               ? Row(children: [
                                   const Text("Wednesday time:  "),
                                   DropdownButton<String>(
+                                    hint: Text("Choose a date"),
                                     value: wentime3,
                                     style: const TextStyle(
                                         color: Colors.black,
@@ -779,6 +798,7 @@ class _EditPageState extends State<BookScreen>
                               ? Row(children: [
                                   const Text("Thursday time:  "),
                                   DropdownButton<String>(
+                                    hint: Text("Choose a date"),
                                     value: thetime4,
                                     style: const TextStyle(
                                         color: Colors.black,
@@ -846,6 +866,7 @@ class _EditPageState extends State<BookScreen>
                               ? Row(children: [
                                   const Text("Friday time:  "),
                                   DropdownButton<String>(
+                                    hint: Text("Choose a date"),
                                     value: fritime5,
                                     style: const TextStyle(
                                         color: Colors.black,
@@ -1239,7 +1260,58 @@ class _EditPageState extends State<BookScreen>
                                     ),
                                   ),
                                 )
-                              : Container(),
+                              : Center(
+                                  child: RaisedButton(
+                                  onPressed: () async {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) => const AlertDialog(
+                                        title: Text(
+                                          'Error',
+                                          style: TextStyle(
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.red,
+                                            fontFamily: 'WorkSans',
+                                          ),
+                                        ),
+                                        content: Text(
+                                          'Balance is insufficient',
+                                          style: TextStyle(
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.black,
+                                            fontFamily: 'WorkSans',
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                    setState(() {
+                                      values = <bool?>[
+                                        false,
+                                        false,
+                                        false,
+                                        false,
+                                        false,
+                                        false,
+                                        false
+                                      ];
+                                    });
+                                  },
+                                  color: kPrimaryColor,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 50),
+                                  elevation: 2,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20)),
+                                  child: const Text(
+                                    "Book",
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        letterSpacing: 2.2,
+                                        color: Colors.white),
+                                  ),
+                                )),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,

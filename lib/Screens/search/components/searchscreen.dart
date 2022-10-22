@@ -381,14 +381,6 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
           onChanged: (GetCategory subcitymodel) {
             getCatgrory.setSubectStatus(subcitymodel);
             catagId = subcitymodel.id;
-
-            print("hvhv" + subcitymodel.id);
-
-            setState(() {
-              if (subcitymodel.id.toString() == "1") {
-                catagId = "";
-              }
-            });
           },
         ),
         const SizedBox(

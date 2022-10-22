@@ -17,6 +17,9 @@ class GetPopularTutorController extends GetxController with StateMixin {
         // print(getqr + "\n" + b_id.toString());
         isfetchedsubject(true);
       }
-    } catch (e) {}
+    } catch (e) {
+      print("About me");
+      print(e);
+    }
   }
 }
