@@ -61,7 +61,7 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
   late String sid = "";
   late var macthgender = "Any".obs;
   late var profecncy = "Teacher".obs;
-  var lid = "", gender = "";
+  var lid = "", gender = "", catagId = "";
   RxInt found = 0.obs;
   bool showsubject = false;
   bool searched = false;
@@ -196,8 +196,8 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
                             color:
                                 HotelAppTheme.buildLightTheme().backgroundColor,
                             child: FutureBuilder(
-                                future: RemoteServices.search(
-                                    lid.toString(), sid, gender.toString()),
+                                future: RemoteServices.search(lid.toString(),
+                                    sid, gender.toString(), catagId.toString()),
                                 builder: (BuildContext context,
                                     AsyncSnapshot snapshot) {
                                   if (snapshot.hasData) {
@@ -380,6 +380,15 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
           value: getCatgrory.listlistCategoryvalue.value,
           onChanged: (GetCategory subcitymodel) {
             getCatgrory.setSubectStatus(subcitymodel);
+            catagId = subcitymodel.id;
+
+            print("hvhv" + subcitymodel.id);
+
+            setState(() {
+              if (subcitymodel.id.toString() == "1") {
+                catagId = "";
+              }
+            });
           },
         ),
         const SizedBox(
@@ -414,6 +423,9 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
           value: getLocationController.listLOcationvalue.value,
           onChanged: (GetLocationforedit subcitymodel) {
             getLocationController.setLocationStatus(subcitymodel);
+            lid = subcitymodel.id.toString();
+
+            print(lid);
           },
         ),
         const SizedBox(
@@ -568,6 +580,8 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
             onChanged: (value) {
               setState(() {
                 getEducationlevelController.education = value!;
+
+                print(lid);
                 //     sid = ("");
               });
 

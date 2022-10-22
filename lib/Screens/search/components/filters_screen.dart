@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_typing_uninitialized_variables, unnecessary_null_comparison, invalid_use_of_protected_member, duplicate_ignore, unused_local_variable, unnecessary_string_interpolations
 
 import 'package:addistutor_student/components/form_drop_down_widget.dart';
+import 'package:addistutor_student/controller/getcategorycontroller.dart';
 import 'package:addistutor_student/controller/geteducationlevelcontroller.dart';
 import 'package:addistutor_student/controller/getlocationcontroller.dart';
 import 'package:addistutor_student/controller/getsubjectcontroller.dart';
@@ -37,7 +38,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
   final List<String> sid = [];
   late var macthgender = "".obs;
   bool showsubject = false;
-
+  final GetCatgroryContoller getCatgrory = Get.put(GetCatgroryContoller());
   @override
   void initState() {
     super.initState();
@@ -48,6 +49,11 @@ class _FiltersScreenState extends State<FiltersScreen> {
     _geteducation();
     _getsubject();
     _getlocation();
+    _getCategory();
+  }
+
+  _getCategory() async {
+    getCatgrory.fetchLocation();
   }
 
   List<GetSubject> _selectedItems2 = [];
@@ -194,7 +200,8 @@ class _FiltersScreenState extends State<FiltersScreen> {
                                                   children: [
                                                     FutureBuilder(
                                                         future: RemoteServices
-                                                            .search("", "", ""),
+                                                            .search(
+                                                                "", "", "", ""),
                                                         builder: (BuildContext
                                                                 context,
                                                             AsyncSnapshot
@@ -386,7 +393,6 @@ class _FiltersScreenState extends State<FiltersScreen> {
             });
           },
         ),
- 
         const SizedBox(
           height: 8,
         )
@@ -574,10 +580,6 @@ class _FiltersScreenState extends State<FiltersScreen> {
         ),
       ),
     );
-  }
-
-  void searchwidget(List<String> sid, lid, gender) {
-    RemoteServices.search(lid, sid, gender);
   }
 }
 

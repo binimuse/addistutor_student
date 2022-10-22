@@ -88,7 +88,7 @@ class _CategoryListViewState extends State<CategoryListView>
                 width: double.infinity,
                 child: FutureBuilder(
                     future: RemoteServices.search(
-                        "", "", searchController.homepagegender),
+                        "", "", searchController.homepagegender, ""),
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
                       if (snapshot.hasData) {
                         return ListView.builder(

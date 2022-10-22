@@ -136,9 +136,9 @@ class RemoteServices {
   }
 
   static Future<List<Search>> search(
-      var locationid, var subjectid, var gender) async {
+      var locationid, var subjectid, var gender, var catagId) async {
     res = await Network().getData(
-        "tutors?address_id=${locationid}&subject_id=${subjectid}&gender=${gender}");
+        "tutors?address_id=${locationid}&subject_id=${subjectid}&gender=${gender}&employment_category_id=${catagId}");
 
     var body = json.decode(res.body);
 
