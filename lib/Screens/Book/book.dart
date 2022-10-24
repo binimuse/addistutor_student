@@ -599,7 +599,7 @@ class _EditPageState extends State<BookScreen>
                                   const Text("Monday time:  "),
                                   DropdownButton<String>(
                                     value: motime,
-                                    hint: Text("Choose a date"),
+                                    hint: const Text("Choose a date"),
                                     style: const TextStyle(
                                         color: Colors.black,
                                         fontSize: 16,
@@ -662,7 +662,7 @@ class _EditPageState extends State<BookScreen>
                               ? Row(children: [
                                   const Text("Tuesday time:  "),
                                   DropdownButton<String>(
-                                    hint: Text("Choose a date"),
+                                    hint: const Text("Choose a date"),
                                     value: tuetime2,
                                     style: const TextStyle(
                                         color: Colors.black,
@@ -730,7 +730,7 @@ class _EditPageState extends State<BookScreen>
                               ? Row(children: [
                                   const Text("Wednesday time:  "),
                                   DropdownButton<String>(
-                                    hint: Text("Choose a date"),
+                                    hint: const Text("Choose a date"),
                                     value: wentime3,
                                     style: const TextStyle(
                                         color: Colors.black,
@@ -798,7 +798,7 @@ class _EditPageState extends State<BookScreen>
                               ? Row(children: [
                                   const Text("Thursday time:  "),
                                   DropdownButton<String>(
-                                    hint: Text("Choose a date"),
+                                    hint: const Text("Choose a date"),
                                     value: thetime4,
                                     style: const TextStyle(
                                         color: Colors.black,
@@ -866,7 +866,7 @@ class _EditPageState extends State<BookScreen>
                               ? Row(children: [
                                   const Text("Friday time:  "),
                                   DropdownButton<String>(
-                                    hint: Text("Choose a date"),
+                                    hint: const Text("Choose a date"),
                                     value: fritime5,
                                     style: const TextStyle(
                                         color: Colors.black,

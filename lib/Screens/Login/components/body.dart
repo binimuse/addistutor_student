@@ -10,7 +10,6 @@ import 'package:addistutor_student/controller/editprofilecontroller.dart';
 import 'package:addistutor_student/controller/getlocationcontroller.dart';
 import 'package:addistutor_student/controller/getmyaccount.dart';
 import 'package:addistutor_student/remote_services/api.dart';
-import 'package:addistutor_student/remote_services/user.dart';
 import 'package:flutter/material.dart';
 import 'package:addistutor_student/Screens/Login/components/background.dart';
 import 'package:addistutor_student/Screens/Signup/signup_screen.dart';

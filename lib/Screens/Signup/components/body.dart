@@ -11,8 +11,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:addistutor_student/Screens/Login/login_screen.dart';
 import 'package:addistutor_student/Screens/Signup/components/background.dart';
-import 'package:addistutor_student/Screens/Signup/components/or_divider.dart';
-import 'package:addistutor_student/Screens/Signup/components/social_icon.dart';
 import 'package:addistutor_student/components/already_have_an_account_acheck.dart';
 
 import 'package:addistutor_student/components/text_field_container.dart';
@@ -39,8 +37,6 @@ class _SplashScreenState extends State<Body> {
   var inforesponse;
   bool showPassword1 = true;
   bool isPasswordTextField1 = true;
-  bool _isLoggedIn = false;
-  late GoogleSignInAccount _userObj;
   GoogleSignIn _googleSignIn = GoogleSignIn();
   bool isChecked = false;
   bool ispassChecked = false;
@@ -375,7 +371,7 @@ class _SplashScreenState extends State<Body> {
       "full_name": signupController.fullname.text,
     };
 
-    print(data);
+  
 
     var res = await Network().authData(data, 'register-student');
     var body = json.decode(res.body);
@@ -392,7 +388,6 @@ class _SplashScreenState extends State<Body> {
     } else if (res.statusCode == 422) {
       _googleSignIn.signOut().then((value) {
         setState(() {
-          _isLoggedIn = false;
         });
       }).catchError((e) {});
       showDialog(

@@ -13,7 +13,6 @@ import 'package:addistutor_student/Wallet/wallet.dart';
 import 'package:addistutor_student/controller/bookingcontroller.dart';
 import 'package:addistutor_student/controller/contactuscontroller.dart';
 import 'package:addistutor_student/controller/editprofilecontroller.dart';
-import 'package:addistutor_student/controller/endbookingcontroller.dart';
 import 'package:addistutor_student/controller/feedbackcontroller.dart';
 import 'package:addistutor_student/controller/geteducationlevelcontroller.dart';
 import 'package:addistutor_student/controller/getlocationcontroller.dart';
@@ -27,7 +26,6 @@ import 'package:addistutor_student/controller/removeaccountcontroller.dart';
 import 'package:addistutor_student/controller/searchcontroller.dart';
 import 'package:addistutor_student/controller/signupcontroller.dart';
 import 'package:addistutor_student/constants.dart';
-import 'package:addistutor_student/remote_services/user.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:flutter/material.dart';
@@ -149,7 +147,6 @@ class _ProfilePageState extends State<ProfileS> {
     } else {}
   }
 
-  final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return editprofileController.obx(
@@ -503,7 +500,6 @@ class _ProfilePageState extends State<ProfileS> {
                                         removeaccount.seteditInfo(context, ids);
                                       });
                                     } else {
-                                      var noid = "noid";
                                     }
                                   } else {}
                                 },

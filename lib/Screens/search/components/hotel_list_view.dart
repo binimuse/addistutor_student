@@ -127,16 +127,16 @@ class HotelListView extends StatelessWidget {
                                         size: 20,
                                       ),
                                     ])
-                                  : Row(children: [
+                                  : Row(children: const [
                                       Text(
                                         '0 ',
                                         textAlign: TextAlign.left,
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           fontWeight: FontWeight.w600,
                                           fontSize: 12,
                                         ),
                                       ),
-                                      const Icon(
+                                      Icon(
                                         Icons.star,
                                         color: kPrimaryLightColor,
                                         size: 20,

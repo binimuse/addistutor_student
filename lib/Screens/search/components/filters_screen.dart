@@ -8,7 +8,6 @@ import 'package:addistutor_student/controller/getsubjectcontroller.dart';
 import 'package:addistutor_student/controller/searchcontroller.dart';
 import 'package:addistutor_student/remote_services/service.dart';
 import 'package:addistutor_student/remote_services/user.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
@@ -385,7 +384,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
             setState(() {
               FocusScope.of(context).requestFocus(FocusNode());
 
-              if (getLocationController.listlocation.length != 0) {
+              if (getLocationController.listlocation.isNotEmpty) {
                 showsubject = true;
               } else {
                 showsubject = false;

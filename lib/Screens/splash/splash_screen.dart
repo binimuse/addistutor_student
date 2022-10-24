@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_use_of_protected_member, duplicate_ignore
+
 import 'dart:convert';
 
 import 'package:addistutor_student/Screens/Login/components/background.dart';
@@ -61,7 +63,7 @@ class _SplashScreenState extends State<SplashScreen> {
   List<GetSubject> subject = [];
   _getsubject() {
     subject = getSubjectController.listsubject.value;
-    if (subject != null && subject.isNotEmpty) {
+    if (subject.isNotEmpty) {
       setState(() {
         //  getSubjectController.subject = subject[0];
       });
@@ -73,8 +75,7 @@ class _SplashScreenState extends State<SplashScreen> {
     getSubjectController.fetchLocation("1");
     getLocationController.fetchLocation();
 
-    //
-    // ignore: invalid_use_of_protected_member
+
   }
 
   _getlocation() async {

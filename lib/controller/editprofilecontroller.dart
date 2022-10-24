@@ -5,7 +5,6 @@ import 'dart:convert';
 import 'package:addistutor_student/Screens/Login/login_screen.dart';
 import 'package:addistutor_student/constants.dart';
 import 'package:addistutor_student/remote_services/service.dart';
-import 'package:addistutor_student/remote_services/user.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';

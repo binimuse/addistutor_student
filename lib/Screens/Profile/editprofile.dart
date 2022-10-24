@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use, import_of_legacy_library_into_null_safe, unnecessary_null_comparison, prefer_typing_uninitialized_variables, prefer_is_empty
+// ignore_for_file: deprecated_member_use, import_of_legacy_library_into_null_safe, unnecessary_null_comparison, prefer_typing_uninitialized_variables, prefer_is_empty, invalid_use_of_protected_member
 
 import 'dart:convert';
 import 'dart:io';
@@ -77,7 +77,7 @@ class _EditPageState extends State<EditPage> {
 
   _getlocation() async {
     getLocationController.fetchLocation();
-    // ignore: invalid_use_of_protected_member
+   
   }
 
   var body;

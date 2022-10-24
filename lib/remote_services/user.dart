@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, unnecessary_null_comparison
 
 class Student {
   int id;
@@ -288,7 +288,7 @@ class Search {
       location_id: json["location_id"],
       location: GetLocation.fromJson(json["location"]),
       employment_category:
-          Getemploymentcategory.fromJson(json["employment_category"] ?? null),
+          Getemploymentcategory.fromJson(json["employment_category"]),
       subject_id: GetSubject.fromJson(
         json["subject_id"],
       ),

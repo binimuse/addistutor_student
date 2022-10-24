@@ -21,7 +21,6 @@ import 'package:multi_select_flutter/bottom_sheet/multi_select_bottom_sheet_fiel
 import 'package:multi_select_flutter/chip_display/multi_select_chip_display.dart';
 import 'package:multi_select_flutter/util/multi_select_list_type.dart';
 
-import 'dart:ui';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -417,7 +416,7 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
             getLocationController.setLocationStatus(subcitymodel);
             lid = subcitymodel.id.toString();
 
-            print(lid);
+          
           },
         ),
         const SizedBox(
@@ -573,8 +572,7 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
               setState(() {
                 getEducationlevelController.education = value!;
 
-                print(lid);
-                //     sid = ("");
+             
               });
 
               _onRefresh();

@@ -1,4 +1,3 @@
-import 'dart:ui';
 
 import 'package:addistutor_student/Screens/search/components/hotel_app_theme.dart';
 import 'package:flutter/material.dart';
