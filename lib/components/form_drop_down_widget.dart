@@ -1,5 +1,6 @@
 // ignore_for_file: use_key_in_widget_constructors
 
+import 'package:addistutor_student/Screens/Home/components/design_course_app_theme.dart';
 import 'package:addistutor_student/components/screen_utils.dart';
 import 'package:addistutor_student/remote_services/user.dart';
 import 'package:flutter/material.dart';
@@ -57,7 +58,7 @@ class FormDropDownWidget extends StatelessWidget {
                 style: const TextStyle(
                     color: Colors.black,
                     fontSize: 16,
-                    fontWeight: FontWeight.w700),
+                    fontWeight: FontWeight.w400),
               ),
               isDense: true,
               onChanged: (String? val) {
@@ -74,9 +75,9 @@ class FormDropDownWidget extends StatelessWidget {
                   child: Text(
                     value.name,
                     style: const TextStyle(
-                        color: Colors.black,
+                        color: DesignCourseAppTheme.nearlyBlack,
                         fontSize: 16,
-                        fontWeight: FontWeight.w700),
+                        fontWeight: FontWeight.w300),
                   ),
                 );
               }).toList(),
