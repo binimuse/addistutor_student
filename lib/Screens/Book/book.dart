@@ -317,20 +317,20 @@ class _EditPageState extends State<BookScreen>
 
                                 var selected_session = int.parse(value);
 
-                                var old_price =
+                                var calculated_price =
                                     int.parse(widget.hotelData!.price);
 
                                 if (widget.hotelData!.employment_category!
                                         .additional_price !=
                                     null) {
-                                  new_price = int.parse(widget.hotelData!
-                                      .employment_category!.additional_price);
-                                } else {
-                                  new_price = 0;
+                                  calculated_price += int.parse(widget
+                                      .hotelData!
+                                      .employment_category!
+                                      .additional_price);
                                 }
 
-                                new_value = selected_session * new_price;
-                                totalprice = old_price + new_value;
+                                totalprice =
+                                    selected_session * calculated_price;
 
                                 int wallet = totalprice as int;
 
