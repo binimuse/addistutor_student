@@ -214,10 +214,6 @@ class _LoginScreenState extends State<Body> {
               //   ),
               // ),
               Container(
-                margin: const EdgeInsets.symmetric(
-                  horizontal: 40,
-                  vertical: 20,
-                ),
                 padding: const EdgeInsets.symmetric(horizontal: 30),
                 // ignore: deprecated_member_use
                 child: FlatButton(
@@ -231,6 +227,7 @@ class _LoginScreenState extends State<Body> {
                     }
                   },
                   child: Container(
+                    color: Colors.black,
                     width: double.infinity,
                     padding: const EdgeInsets.symmetric(
                       vertical: 16,
