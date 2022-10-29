@@ -276,7 +276,6 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                                           child: Text(
                                         widget.hotelData!.about,
                                         textAlign: TextAlign.justify,
-                                        
                                         style: const TextStyle(
                                           fontWeight: FontWeight.w300,
                                           fontSize: 16,
@@ -493,6 +492,25 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                 ),
               ),
             ),
+            // Positioned(
+            //     top: (MediaQuery.of(context).size.width / 1.2) - 24.0 - 35,
+            //     right: 35,
+            //     child: ScaleTransition(
+            //         alignment: Alignment.center,
+            //         scale: CurvedAnimation(
+            //             parent: animationController!,
+            //             curve: Curves.fastOutSlowIn),
+            //         child: SizedBox(
+            //           width: 120,
+            //           height: 78,
+            //           child: ClipRRect(
+            //             borderRadius: BorderRadius.circular(18.0),
+            //             child: Image.network(
+            //               "https://nextgeneducation.et/api/teacher-profile-picture/${widget.hotelData!.id}",
+            //             ),
+            //           ),
+            //         ))),
+
             Positioned(
                 top: (MediaQuery.of(context).size.width / 1.2) - 24.0 - 35,
                 right: 35,
@@ -505,10 +523,11 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                       width: 120,
                       height: 78,
                       child: ClipRRect(
-                          borderRadius: BorderRadius.circular(18.0),
-                          child: Image.network(
-                            "https://nextgeneducation.et/api/teacher-profile-picture/${widget.hotelData!.id}",
-                          )),
+                        borderRadius: BorderRadius.circular(18.0),
+                        child: Image.network(
+                          "https://userphotos2.teacheron.com/1220313-51919.jpg",
+                        ),
+                      ),
                     ))),
             Padding(
               padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
