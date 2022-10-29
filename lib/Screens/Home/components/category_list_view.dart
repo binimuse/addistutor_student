@@ -109,6 +109,7 @@ class _CategoryListViewState extends State<CategoryListView>
                                             curve: Curves.fastOutSlowIn)));
                             animationController?.forward();
                             return CategoryView(
+                              index: index,
                               category: snapshot.data[index],
                               animation: animation,
                               animationController: animationController,
@@ -162,12 +163,14 @@ GetEducationlevelController getEducationlevelController =
 class CategoryView extends StatelessWidget {
   const CategoryView(
       {Key? key,
+      required this.index,
       this.category,
       this.animationController,
       this.animation,
       this.callback})
       : super(key: key);
 
+  final int index;
   final VoidCallback? callback;
   final Search? category;
   final AnimationController? animationController;
@@ -188,14 +191,11 @@ class CategoryView extends StatelessWidget {
                     splashColor: Colors.transparent,
                     onTap: callback,
                     child: SizedBox(
-                      width: 280,
+                      width: 230,
                       child: Stack(
                         children: <Widget>[
                           Row(
                             children: <Widget>[
-                              const SizedBox(
-                                width: 48,
-                              ),
                               Expanded(
                                 child: Container(
                                   decoration: const BoxDecoration(
@@ -204,9 +204,6 @@ class CategoryView extends StatelessWidget {
                                   ),
                                   child: Row(
                                     children: <Widget>[
-                                      const SizedBox(
-                                        width: 38 + 14.0,
-                                      ),
                                       // ignore: unnecessary_null_comparison
                                       category!.first_name != null
                                           ? Expanded(
@@ -472,22 +469,29 @@ class CategoryView extends StatelessWidget {
                             width: 70,
                             height: 70,
                             decoration: BoxDecoration(
-                                border: Border.all(
-                                    width: 4,
-                                    color: Theme.of(context)
-                                        .scaffoldBackgroundColor),
-                                boxShadow: [
-                                  BoxShadow(
-                                      spreadRadius: 2,
-                                      blurRadius: 10,
-                                      color: Colors.black.withOpacity(0.1),
-                                      offset: const Offset(0, 10))
-                                ],
-                                shape: BoxShape.circle,
-                                image: DecorationImage(
-                                    fit: BoxFit.cover,
-                                    image: NetworkImage(
-                                        "https://nextgeneducation.et/api/teacher-profile-picture/${category!.id}"))),
+                              border: Border.all(
+                                  width: 4,
+                                  color: Theme.of(context)
+                                      .scaffoldBackgroundColor),
+                              boxShadow: [
+                                BoxShadow(
+                                    spreadRadius: 2,
+                                    blurRadius: 10,
+                                    color: Colors.black.withOpacity(0.1),
+                                    offset: const Offset(0, 10))
+                              ],
+                              shape: BoxShape.circle,
+                              image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: NetworkImage(
+                                    // "https://nextgeneducation.et/api/teacher-profile-picture/${category!.id}",
+                                    index == 0
+                                        ? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTtKC-ND4_EnNxvuNw-gmmMOzPUO8kabo-SA&usqp=CAU"
+                                        : index == 1
+                                            ? "https://media-exp1.licdn.com/dms/image/C5603AQGTnSWEfYq1bg/profile-displayphoto-shrink_400_400/0/1649013749613?e=1672272000&v=beta&t=hC0vxUCpy2IMf_W56-cT3X0sMJDPFX_pzHHQOwIitV8"
+                                            : ""),
+                              ),
+                            ),
                           ),
                         ],
                       ),

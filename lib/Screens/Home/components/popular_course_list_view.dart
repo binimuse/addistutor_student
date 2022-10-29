@@ -74,6 +74,7 @@ class _PopularCourseListViewState extends State<PopularCourseListView>
                         final Search chat =
                             getPopularTutorController.popular[index];
                         return CategoryView(
+                          index: index,
                           category: getPopularTutorController.popular[index],
                           animation: animation,
                           animationController: animationController,
@@ -122,6 +123,7 @@ class CategoryView extends StatelessWidget {
   const CategoryView(
       {Key? key,
       this.category,
+      required this.index,
       this.animationController,
       this.animation,
       this.callback})
@@ -129,6 +131,7 @@ class CategoryView extends StatelessWidget {
 
   final VoidCallback? callback;
   final Search? category;
+  final int index;
   final AnimationController? animationController;
   final Animation<double>? animation;
 
@@ -242,21 +245,32 @@ class CategoryView extends StatelessWidget {
                     width: 100,
                     height: 90,
                     decoration: BoxDecoration(
-                        border: Border.all(
-                            width: 3,
-                            color: Theme.of(context).scaffoldBackgroundColor),
-                        boxShadow: [
-                          BoxShadow(
-                              spreadRadius: 3,
-                              blurRadius: 10,
-                              color: Colors.black.withOpacity(0.1),
-                              offset: const Offset(0, 20))
-                        ],
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: NetworkImage(
-                                "https://nextgeneducation.et/api/teacher-profile-picture/${category!.id}"))),
+                      border: Border.all(
+                          width: 3,
+                          color: Theme.of(context).scaffoldBackgroundColor),
+                      boxShadow: [
+                        BoxShadow(
+                            spreadRadius: 3,
+                            blurRadius: 10,
+                            color: Colors.black.withOpacity(0.1),
+                            offset: const Offset(0, 20))
+                      ],
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        // image: NetworkImage(
+                        //   "https://nextgeneducation.et/api/teacher-profile-picture/${category!.id}",
+                        // ),
+
+                        image: NetworkImage(
+                            // "https://nextgeneducation.et/api/teacher-profile-picture/${category!.id}",
+                            index == 0
+                                ? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTtKC-ND4_EnNxvuNw-gmmMOzPUO8kabo-SA&usqp=CAU"
+                                : index == 1
+                                    ? "https://media-exp1.licdn.com/dms/image/C5603AQGTnSWEfYq1bg/profile-displayphoto-shrink_400_400/0/1649013749613?e=1672272000&v=beta&t=hC0vxUCpy2IMf_W56-cT3X0sMJDPFX_pzHHQOwIitV8"
+                                    : ""),
+                      ),
+                    ),
                   ),
                 ],
               ),
