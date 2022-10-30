@@ -227,7 +227,6 @@ class _LoginScreenState extends State<Body> {
                     }
                   },
                   child: Container(
-                    color: Colors.black,
                     width: double.infinity,
                     padding: const EdgeInsets.symmetric(
                       vertical: 16,
