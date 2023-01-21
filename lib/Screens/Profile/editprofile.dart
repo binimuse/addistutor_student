@@ -77,7 +77,6 @@ class _EditPageState extends State<EditPage> {
 
   _getlocation() async {
     getLocationController.fetchLocation();
-   
   }
 
   var body;
@@ -90,8 +89,8 @@ class _EditPageState extends State<EditPage> {
       body = json.decode(token);
 
       if (body["student_id"] != null) {
-        editprofileController.fetchPf(int.parse(body["student_id"]));
-        id = int.parse(body["student_id"]);
+        editprofileController.fetchPf(body["student_id"]);
+        id = body["student_id"];
       } else {
         setState(() {
           noid = "noid";
@@ -629,7 +628,7 @@ class _EditPageState extends State<EditPage> {
                           '5',
                           '6',
                           '7',
-                          '8',
+                          '8 ',
                           '9',
                           '10',
                           '11',

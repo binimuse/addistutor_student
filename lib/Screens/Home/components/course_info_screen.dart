@@ -58,11 +58,11 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
 
       if (body["student_id"] != null) {
         setState(() {
-          ids = int.parse(body["student_id"]);
+          ids = body["student_id"];
           walletContoller.getbalance(ids);
           //  walletContoller.gettransaction(ids);
         });
-        editprofileController.fetchPf(int.parse(body["student_id"]));
+        editprofileController.fetchPf(body["student_id"]);
       } else {}
     } else {}
   }
@@ -233,7 +233,8 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                                     children: <Widget>[
                                       widget.hotelData!.rating != null
                                           ? Text(
-                                              widget.hotelData!.rating,
+                                              widget.hotelData!.rating
+                                                  .toString(),
                                               textAlign: TextAlign.left,
                                               style: const TextStyle(
                                                 fontWeight: FontWeight.w200,

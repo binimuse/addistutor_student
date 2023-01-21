@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use, unnecessary_null_comparison, prefer_const_literals_to_create_immutables, prefer_typing_uninitialized_variables
+// ignore_for_file: deprecated_member_use, unnecessary_null_comparison, prefer_const_literals_to_create_immutables, prefer_typing_uninitialized_variables, unrelated_type_equality_checks
 
 import 'dart:convert';
 
@@ -220,8 +220,8 @@ class _CourseInfoScreenState extends State<CourseInfoScreenRating>
                                       children: <Widget>[
                                         widget.hotelData!.teacher.rating != null
                                             ? Text(
-                                                widget
-                                                    .hotelData!.teacher.rating,
+                                                widget.hotelData!.teacher.rating
+                                                    .toString(),
                                                 style: const TextStyle(
                                                   fontWeight: FontWeight.w200,
                                                   fontSize: 15,

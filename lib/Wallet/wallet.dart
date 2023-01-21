@@ -42,7 +42,7 @@ class _EditProfilePageState extends State<WalletPage> {
 
       if (body["student_id"] != null) {
         setState(() {
-          ids = int.parse(body["student_id"]);
+          ids = body["student_id"];
           walletContoller.getbalance(ids);
           walletContoller.gettransaction(ids);
         });
@@ -303,7 +303,8 @@ class _EditProfilePageState extends State<WalletPage> {
                                                       CrossAxisAlignment.center,
                                                   children: <Widget>[
                                                     Text(
-                                                      transaction.amount +
+                                                      transaction.amount
+                                                              .toString() +
                                                           " Birr",
                                                       style: const TextStyle(
                                                           fontSize: 15,
@@ -411,7 +412,8 @@ class _EditProfilePageState extends State<WalletPage> {
                                                               .center,
                                                       children: <Widget>[
                                                         Text(
-                                                          transaction.amount +
+                                                          transaction.amount
+                                                                  .toString() +
                                                               " Birr",
                                                           style:
                                                               const TextStyle(
@@ -521,7 +523,8 @@ class _EditProfilePageState extends State<WalletPage> {
                                                               .center,
                                                       children: <Widget>[
                                                         Text(
-                                                          transaction.amount +
+                                                          transaction.amount
+                                                                  .toString() +
                                                               " Birr",
                                                           style:
                                                               const TextStyle(

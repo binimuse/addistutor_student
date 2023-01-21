@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:addistutor_student/Screens/Home/components/design_course_app_theme.dart';
 import 'package:addistutor_student/constants.dart';
 import 'package:addistutor_student/controller/contactuscontroller.dart';

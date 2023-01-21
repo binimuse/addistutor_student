@@ -456,7 +456,6 @@ class RemoteServices {
   }
 
   static Future<Remove> remove(var id) async {
-
     // create multipart request
     res = await Network().getpassedData(null, "account/${id}/remove");
 

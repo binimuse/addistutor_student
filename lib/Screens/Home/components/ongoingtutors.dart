@@ -50,7 +50,7 @@ class _CategoryListViewState extends State<OnGoingTutors>
     if (token != null) {
       var body = json.decode(token);
       setState(() {
-        ids = int.parse(body["student_id"]);
+        ids = body["student_id"];
       });
 
       //  getReqBooking.fetchReqBooking(body["student_id"]);

@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_final_fields, unused_field, sized_box_for_whitespace, prefer_const_literals_to_create_immutables, prefer_const_constructors, duplicate_ignore, import_of_legacy_library_into_null_safe, unnecessary_null_comparison, prefer_adjacent_string_concatenation, invalid_use_of_protected_member, prefer_typing_uninitialized_variables, prefer_is_empty
+// ignore_for_file: prefer_final_fields, unused_field, sized_box_for_whitespace, prefer_const_literals_to_create_immutables, prefer_const_constructors, duplicate_ignore, import_of_legacy_library_into_null_safe, unnecessary_null_comparison, prefer_adjacent_string_concatenation, invalid_use_of_protected_member, prefer_typing_uninitialized_variables, prefer_is_empty, unrelated_type_equality_checks
 
 import 'dart:convert';
 import 'dart:io';
@@ -507,7 +507,8 @@ class _HomePageState extends State<Appointment>
                                           ),
                                           chat.teacher.rating != null
                                               ? Text(
-                                                  chat.teacher.rating,
+                                                  chat.teacher.rating
+                                                      .toString(),
                                                   // ignore: prefer_const_constructors
                                                   style: TextStyle(
                                                     color: kPrimaryColor,

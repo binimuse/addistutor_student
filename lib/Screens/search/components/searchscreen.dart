@@ -17,12 +17,12 @@ import 'package:addistutor_student/remote_services/service.dart';
 import 'package:addistutor_student/remote_services/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:multi_select_flutter/bottom_sheet/multi_select_bottom_sheet_field.dart';
-import 'package:multi_select_flutter/chip_display/multi_select_chip_display.dart';
-import 'package:multi_select_flutter/util/multi_select_list_type.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:multi_select_flutter/bottom_sheet/multi_select_bottom_sheet_field.dart';
+import 'package:multi_select_flutter/chip_display/multi_select_chip_display.dart';
+import 'package:multi_select_flutter/util/multi_select_list_type.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../../constants.dart';
@@ -415,8 +415,6 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
           onChanged: (GetLocationforedit subcitymodel) {
             getLocationController.setLocationStatus(subcitymodel);
             lid = subcitymodel.id.toString();
-
-          
           },
         ),
         const SizedBox(
@@ -425,6 +423,9 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
       ],
     );
   }
+
+
+
 
   Widget subjectViewUI() {
     return Column(
@@ -571,8 +572,6 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
             onChanged: (value) {
               setState(() {
                 getEducationlevelController.education = value!;
-
-             
               });
 
               _onRefresh();

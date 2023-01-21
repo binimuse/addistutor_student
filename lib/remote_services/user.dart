@@ -17,7 +17,7 @@ class Student {
   String grade;
   String study_purpose;
   String about;
-  String location_id;
+  int location_id;
 
   Student({
     required this.id,
@@ -82,7 +82,7 @@ class GetCategory {
 
   String name;
   String description;
-  String additional_price;
+  int additional_price;
 
   GetCategory({
     required this.id,
@@ -212,7 +212,7 @@ class Qualification {
 class Getemploymentcategory {
   String name;
   String description;
-  String additional_price;
+  int additional_price;
 
   Getemploymentcategory({
     required this.name,
@@ -238,13 +238,13 @@ class Search {
   String phone_no;
   String gender;
   String about;
-  String rating;
-  String price;
+  var rating;
+  int price;
   Getemploymentcategory? employment_category;
 
   String location_id;
   String profile_img;
-  String teaching_since;
+  int teaching_since;
   GetLocation location;
   // Qualification qualification_id;
 //  List<GetSubject> preferred_tutoring_subjects;
@@ -300,7 +300,7 @@ class Day {
   int id;
 
   String day;
-  String teacher_id;
+  int teacher_id;
 
   Day({
     required this.id,
@@ -322,7 +322,7 @@ class Bookingschedule {
 
   String day;
   String readable_time;
-  String booking_id;
+  int booking_id;
 
   Bookingschedule({
     required this.id,
@@ -352,11 +352,11 @@ class ReqTech {
   String birth_date;
 
   String about;
-  String rating;
+  var rating;
 
   String location_id;
   String profile_img;
-  String teaching_since;
+  int teaching_since;
 
   ReqTech({
     required this.id,
@@ -394,12 +394,12 @@ class ReqTech {
 class RequestedBooking {
   int id;
 
-  String session;
+  int session;
   int sessiontaken;
   String message;
   String verified_status;
   String teacher_id;
-  String is_active;
+  int is_active;
   String ended_at;
   GetSubject subject;
   String student_id;
@@ -584,8 +584,8 @@ class Remove {
 
 class Transaction {
   String slip_id;
-  String amount;
-  String status;
+  int amount;
+  int status;
   String date;
 
   Transaction({

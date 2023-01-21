@@ -76,10 +76,10 @@ class _LoginScreenState extends State<Body> {
 
       if (body["student_id"] != null) {
         setState(() {
-          ids = int.parse(body["student_id"]);
+          ids = body["student_id"];
         });
 
-        editprofileController.fetchPf(int.parse(body["student_id"]));
+        editprofileController.fetchPf(body["student_id"]);
       } else {
         var noid = "noid";
 

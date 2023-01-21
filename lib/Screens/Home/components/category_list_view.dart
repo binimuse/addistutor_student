@@ -45,7 +45,7 @@ class _CategoryListViewState extends State<CategoryListView>
     super.initState();
   }
 
-  var ids;
+  //var ids;
   late int ran;
   void _fetchUser() async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
@@ -56,8 +56,8 @@ class _CategoryListViewState extends State<CategoryListView>
 
       if (body["student_id"] != null) {
         setState(() {
-          ids = int.parse(body["student_id"]);
-          editprofileController.fetchPf(int.parse(body["student_id"]));
+          // ids = int.parse(body["student_id"]);
+          editprofileController.fetchPf(body["student_id"]);
         });
       } else {
         var noid = "noid";

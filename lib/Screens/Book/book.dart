@@ -180,10 +180,10 @@ class _EditPageState extends State<BookScreen>
 
       if (body["student_id"] != null) {
         setState(() {
-          ids = int.parse(body["student_id"]);
+          ids = body["student_id"];
           walletContoller.getbalance(ids);
           //  walletContoller.gettransaction(ids);
-          editprofileController.fetchPf(int.parse(body["student_id"]));
+          editprofileController.fetchPf(body["student_id"]);
         });
       } else {}
     } else {}
@@ -310,15 +310,13 @@ class _EditPageState extends State<BookScreen>
                               );
                             }).toList(),
                             onChanged: (value) {
-                              var new_price;
-                              var new_value;
                               setState(() {
                                 bookingeController.sessionsd.value = value!;
 
                                 var selected_session = int.parse(value);
 
-                                var calculated_price =
-                                    int.parse(widget.hotelData!.price);
+                                var calculated_price = int.parse(
+                                    widget.hotelData!.price.toString());
 
                                 if (widget.hotelData!.employment_category!
                                         .additional_price !=
@@ -326,7 +324,8 @@ class _EditPageState extends State<BookScreen>
                                   calculated_price += int.parse(widget
                                       .hotelData!
                                       .employment_category!
-                                      .additional_price);
+                                      .additional_price
+                                      .toString());
                                 }
 
                                 totalprice =
