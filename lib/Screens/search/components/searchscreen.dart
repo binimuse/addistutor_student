@@ -20,9 +20,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:multi_select_flutter/bottom_sheet/multi_select_bottom_sheet_field.dart';
-import 'package:multi_select_flutter/chip_display/multi_select_chip_display.dart';
-import 'package:multi_select_flutter/util/multi_select_list_type.dart';
+
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../../constants.dart';
@@ -424,88 +422,85 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
     );
   }
 
-
-
-
   Widget subjectViewUI() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        MultiSelectBottomSheetField<GetSubject>(
-          initialChildSize: 0.6,
-          maxChildSize: 0.95,
-          listType: MultiSelectListType.LIST,
-          checkColor: Colors.pink,
-          selectedColor: kPrimaryColor,
-          selectedItemsTextStyle: const TextStyle(
-            fontSize: 20,
-            color: kPrimaryColor,
-          ),
-          unselectedColor: kPrimaryColor.withOpacity(.08),
-          buttonIcon: const Icon(
-            Icons.add,
-            color: Colors.pinkAccent,
-          ),
-          searchHintStyle: const TextStyle(
-            fontSize: 12,
-          ),
-          searchable: true,
-          buttonText: const Text(
-            "Select Subject:", //"????",
-            style: TextStyle(
-              fontSize: 18,
-              color: Colors.grey,
-            ),
-            overflow: TextOverflow.ellipsis,
-            maxLines: 5,
-          ),
-          title: const Text(
-            "Available subjects",
-            style: TextStyle(
-              fontSize: 20,
-              color: kPrimaryColor,
-            ),
-          ),
-          items: getSubjectController.hobItem,
-          onConfirm: (values) {
-            setState(() {
-              _selectedItems2 = values.cast<GetSubject>();
-            });
+        // MultiSelectBottomSheetField<GetSubject>(
+        //   initialChildSize: 0.6,
+        //   maxChildSize: 0.95,
+        //   listType: MultiSelectListType.LIST,
+        //   checkColor: Colors.pink,
+        //   selectedColor: kPrimaryColor,
+        //   selectedItemsTextStyle: const TextStyle(
+        //     fontSize: 20,
+        //     color: kPrimaryColor,
+        //   ),
+        //   unselectedColor: kPrimaryColor.withOpacity(.08),
+        //   buttonIcon: const Icon(
+        //     Icons.add,
+        //     color: Colors.pinkAccent,
+        //   ),
+        //   searchHintStyle: const TextStyle(
+        //     fontSize: 12,
+        //   ),
+        //   searchable: true,
+        //   buttonText: const Text(
+        //     "Select Subject:", //"????",
+        //     style: TextStyle(
+        //       fontSize: 18,
+        //       color: Colors.grey,
+        //     ),
+        //     overflow: TextOverflow.ellipsis,
+        //     maxLines: 5,
+        //   ),
+        //   title: const Text(
+        //     "Available subjects",
+        //     style: TextStyle(
+        //       fontSize: 20,
+        //       color: kPrimaryColor,
+        //     ),
+        //   ),
+        //   items: getSubjectController.hobItem,
+        //   onConfirm: (values) {
+        //     setState(() {
+        //       _selectedItems2 = values.cast<GetSubject>();
+        //     });
 
-            for (var item in _selectedItems2) {
-              // ignore: unnecessary_string_interpolations
-              _tobeSent.add("${item.title.toString()}");
-              // sid.add("${item.id.toString()}");
-              setState(() {
-                sid = item.id.toString();
-              });
-            }
+        //     for (var item in _selectedItems2) {
+        //       // ignore: unnecessary_string_interpolations
+        //       _tobeSent.add("${item.title.toString()}");
+        //       // sid.add("${item.id.toString()}");
+        //       setState(() {
+        //         sid = item.id.toString();
+        //       });
+        //     }
 
-            /*senduserdata(
-                      'partnerreligion', '${_selectedItems2.toString()}');*/
-          },
-          chipDisplay: MultiSelectChipDisplay(
-            textStyle: const TextStyle(
-              fontSize: 12,
-              color: Colors.black,
-            ),
-            onTap: (value) {
-              setState(() {
-                _selectedItems2.remove(value);
-                _tobeSent.remove(value.toString());
-                //   sid.clear();
-                //     sid = ("");
-              });
-              //  sid.clear();
-              // ignore: avoid_print
+        //     /*senduserdata(
+        //               'partnerreligion', '${_selectedItems2.toString()}');*/
+        //   },
+        //   chipDisplay: MultiSelectChipDisplay(
+        //     textStyle: const TextStyle(
+        //       fontSize: 12,
+        //       color: Colors.black,
+        //     ),
+        //     onTap: (value) {
+        //       setState(() {
+        //         _selectedItems2.remove(value);
+        //         _tobeSent.remove(value.toString());
+        //         //   sid.clear();
+        //         //     sid = ("");
+        //       });
+        //       //  sid.clear();
+        //       // ignore: avoid_print
 
-              for (var item in _selectedItems2) {
-                _tobeSent.add(item.title.toString());
-              }
-            },
-          ),
-        ),
+        //       for (var item in _selectedItems2) {
+        //         _tobeSent.add(item.title.toString());
+        //       }
+        //     },
+        //   ),
+        // ),
         const SizedBox(
           height: 8,
         )
