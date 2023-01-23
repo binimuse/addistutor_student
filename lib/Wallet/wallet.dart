@@ -104,7 +104,13 @@ class _EditProfilePageState extends State<WalletPage> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                              Text(
+                        walletContoller.wallet =="null"?      Text(
+                                "ETB - " + walletContoller.wallet.toString(),
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 29,
+                                    fontWeight: FontWeight.w700),
+                              ): Text(
                                 "ETB - " + walletContoller.wallet.toString(),
                                 style: const TextStyle(
                                     color: Colors.white,
