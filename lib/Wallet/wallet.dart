@@ -104,19 +104,22 @@ class _EditProfilePageState extends State<WalletPage> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                        walletContoller.wallet =="null"?      Text(
-                                "ETB - " + walletContoller.wallet.toString(),
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 29,
-                                    fontWeight: FontWeight.w700),
-                              ): Text(
-                                "ETB - " + walletContoller.wallet.toString(),
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 29,
-                                    fontWeight: FontWeight.w700),
-                              ),
+                              walletContoller.wallet == "null"
+                                  ? Text(
+                                      "ETB - " +
+                                          walletContoller.wallet.toString(),
+                                      style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 29,
+                                          fontWeight: FontWeight.w700),
+                                    )
+                                  : Text(
+                                      "ETB - " + "0",
+                                      style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 29,
+                                          fontWeight: FontWeight.w700),
+                                    ),
                               Row(
                                 children: <Widget>[
                                   const SizedBox(
@@ -228,10 +231,10 @@ class _EditProfilePageState extends State<WalletPage> {
                                 const SizedBox(
                                   height: 24,
                                 ),
-                                ListView.builder(
+                                ListView.separated(
+                                  shrinkWrap: true,
                                   physics: const ScrollPhysics(),
                                   scrollDirection: Axis.vertical,
-                                  shrinkWrap: true,
                                   itemBuilder:
                                       (BuildContext context, int index) {
                                     final Transaction transaction =
@@ -557,9 +560,14 @@ class _EditProfilePageState extends State<WalletPage> {
                                                 ),
                                               );
                                   },
+                                  separatorBuilder: (context, index) {
+                                    return const Divider(
+                                      color: kPrimaryColor,
+                                    );
+                                  },
                                   itemCount:
                                       walletContoller.listtransaction.length,
-                                  padding: const EdgeInsets.all(0),
+                                  padding: const EdgeInsets.all(8),
                                 ),
                               ],
                             ),

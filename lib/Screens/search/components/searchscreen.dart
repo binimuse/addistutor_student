@@ -371,14 +371,42 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
             ),
           ),
         ),
-        FormDropDownWidgetCat(
-          hintText: "Select Category".trArgs(),
-          options: getCatgrory.listCategory.value,
-          value: getCatgrory.listlistCategoryvalue.value,
-          onChanged: (GetCategory subcitymodel) {
-            getCatgrory.setSubectStatus(subcitymodel);
-            catagId = subcitymodel.id;
-          },
+        GestureDetector(
+          onTap: (() {
+            if (!showsubject) {
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: const Text(
+                    "Please first select education Level \n",
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black,
+                      fontFamily: 'WorkSans',
+                    ),
+                  ),
+                  actions: <Widget>[
+                    FlatButton(
+                      onPressed: () async {
+                        Navigator.pop(context);
+                      },
+                      child: Text('ok'),
+                    ),
+                  ],
+                ),
+              );
+            }
+          }),
+          child: FormDropDownWidgetCat(
+            hintText: "Select Category".trArgs(),
+            options: getCatgrory.listCategory.value,
+            value: getCatgrory.listlistCategoryvalue.value,
+            onChanged: (GetCategory subcitymodel) {
+              getCatgrory.setSubectStatus(subcitymodel);
+              catagId = subcitymodel.id;
+            },
+          ),
         ),
         const SizedBox(
           height: 8,

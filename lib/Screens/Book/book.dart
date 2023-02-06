@@ -1275,7 +1275,7 @@ class _EditPageState extends State<BookScreen>
                                           ),
                                         ),
                                         content: Text(
-                                          'Balance is insufficient',
+                                          'Balance is insufficient ',
                                           style: TextStyle(
                                             fontSize: 13,
                                             fontWeight: FontWeight.w500,
