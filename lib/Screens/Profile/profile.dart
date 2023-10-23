@@ -6,6 +6,7 @@ import 'dart:io';
 import 'package:addistutor_student/Screens/Login/login_screen.dart';
 import 'package:addistutor_student/Screens/Profile/contactus.dart';
 import 'package:addistutor_student/Screens/Profile/help_screen.dart';
+import 'package:addistutor_student/Screens/Profile/privecypolicy.dart';
 import 'package:addistutor_student/Screens/Profile/setting.dart';
 import 'package:addistutor_student/Screens/Notification/notification.dart';
 import 'package:addistutor_student/Screens/Profile/termsodservice.dart';
@@ -425,6 +426,18 @@ class _ProfilePageState extends State<ProfileS> {
                         );
                       },
                       child: _buildRow(Icons.email, "Contact us")),
+                  _buildDivider(),
+                  GestureDetector(
+                      onTap: () {
+                        Navigator.push<dynamic>(
+                          context,
+                          MaterialPageRoute<dynamic>(
+                            builder: (BuildContext context) =>
+                                const PrivecypolicyPage(),
+                          ),
+                        );
+                      },
+                      child: _buildRow(Icons.policy, "privacy policy")),
                   _buildDivider(),
                   GestureDetector(
                       onTap: () {

@@ -50,7 +50,7 @@ class _PopularCourseListViewState extends State<PopularCourseListView>
             child: FutureBuilder<bool>(
               future: getData(),
               builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-                print("hahaah ${snapshot}");
+            //    print("hahaah ${snapshot}");
                 if (!snapshot.hasData) {
                   return const SizedBox();
                 } else {

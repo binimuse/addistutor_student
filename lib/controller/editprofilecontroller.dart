@@ -280,14 +280,13 @@ class EditprofileController extends GetxController with StateMixin {
   Future<void> fetchPf(var id) async {
     if (id == "noid") {
       change(fetched, status: RxStatus.success());
-      isFetched.value = true;
+      isFetched(true);
     } else {
       try {
         //  openAndCloseLoadingDialog();
         fetched = await RemoteServices.fetchpf(id);
         //   print(fetched);
         if (fetched != "") {
-          isFetched.value = true;
           id = fetched.id;
           parent_first_name.text = fetched.parent_first_name;
           parent_last_name.text = fetched.parent_last_name;
@@ -302,8 +301,9 @@ class EditprofileController extends GetxController with StateMixin {
           Grade.value = fetched.grade;
           studyperpose.value = fetched.study_purpose;
           About.text = fetched.about;
-
-          await Future.delayed(const Duration(seconds: 1));
+          print(" print({" ": id});");
+          await Future.delayed(const Duration(seconds: 2));
+          isFetched(true);
           // Dismiss CircularProgressIndicator
           //   Navigator.of(Get.context!).pop();
         }
@@ -347,7 +347,7 @@ class EditprofileController extends GetxController with StateMixin {
   Future<void> seteditInfo(ids, BuildContext context) async {
     openAndCloseLoadingDialog(context);
     var uploaded = await RemoteServices.uploadImage(image, ids.toString());
-
+    print(date);
     if (uploaded) {
       var data = {
         "is_parent": is_parent.value,
@@ -359,7 +359,9 @@ class EditprofileController extends GetxController with StateMixin {
         "gender": macthgender.value,
         "birth_date": date,
         "email": email.text,
-        "location_id": getLocationController.listLOcationvalue.value!.id,
+        "location_id": getLocationController.listLOcationvalue.value == null
+            ? ""
+            : getLocationController.listLOcationvalue.value!.id,
         "study_purpose": studyperpose.value,
         "grade": Grade.value,
         "about": About.text,
@@ -377,7 +379,6 @@ class EditprofileController extends GetxController with StateMixin {
       }
     } else {
       print("locatiooooooooooon");
-      print(locaionid);
 
       var data = {
         "is_parent": is_parent.value,
@@ -389,7 +390,9 @@ class EditprofileController extends GetxController with StateMixin {
         "gender": macthgender.value,
         "birth_date": date,
         "email": email.text,
-        "location_id": getLocationController.listLOcationvalue.value!.id,
+        "location_id": getLocationController.listLOcationvalue.value == null
+            ? ""
+            : getLocationController.listLOcationvalue.value!.id,
         "study_purpose": studyperpose.value,
         "grade": Grade.value,
         "about": About.text,
@@ -427,8 +430,9 @@ class EditprofileController extends GetxController with StateMixin {
             FlatButton(
               onPressed: () async {
                 Navigator.of(context).pop(true);
+                Navigator.of(context).pop(true);
 
-                //    Navigator.pop(context);
+                //  Navigator.pop(context);
                 isLoading(false);
               },
               child: const Text('ok'),

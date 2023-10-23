@@ -332,80 +332,84 @@ class _EditPageState extends State<BookScreen>
                                     selected_session * calculated_price;
 
                                 int wallet = totalprice as int;
+                                if (walletContoller.wallet != null) {
+                                  int wallet2 =
+                                      int.parse(walletContoller.wallet);
 
-                                int wallet2 = int.parse(walletContoller.wallet);
-
-                                if (wallet > wallet2) {
-                                  canbook = false;
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) => AlertDialog(
-                                      elevation: 0,
-                                      backgroundColor: const Color(0xffffffff),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(15.0),
-                                      ),
-                                      title: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: const [
-                                            SizedBox(height: 15),
-                                            Text(
-                                              'Insufficient balance',
-                                              style: TextStyle(
-                                                  fontSize: 18.0,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.red),
-                                            ),
-                                            SizedBox(height: 15),
-                                            Divider(
-                                              height: 1,
-                                              color: kPrimaryColor,
-                                            ),
-                                          ]),
-                                      content: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: const [
-                                            SizedBox(height: 15),
-                                            Text(
-                                              'Your balance is insufficient. Please make a deposit.',
-                                              style: TextStyle(
-                                                fontSize: 18.0,
-                                                fontWeight: FontWeight.bold,
+                                  if (wallet > wallet2) {
+                                    canbook = false;
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) => AlertDialog(
+                                        elevation: 0,
+                                        backgroundColor:
+                                            const Color(0xffffffff),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15.0),
+                                        ),
+                                        title: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: const [
+                                              SizedBox(height: 15),
+                                              Text(
+                                                'Insufficient balance',
+                                                style: TextStyle(
+                                                    fontSize: 18.0,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.red),
                                               ),
-                                            ),
-                                            SizedBox(height: 15),
-                                          ]),
-                                      actions: <Widget>[
-                                        // ignore: deprecated_member_use
-                                        SizedBox(
-                                          width:
-                                              MediaQuery.of(context).size.width,
-                                          height: 50,
-                                          child: InkWell(
-                                            highlightColor: Colors.grey[200],
-                                            onTap: () {
-                                              Navigator.of(context).pop(true);
-                                              // _logout(context);
-                                            },
-                                            child: Center(
-                                              child: Text(
-                                                "OK",
+                                              SizedBox(height: 15),
+                                              Divider(
+                                                height: 1,
+                                                color: kPrimaryColor,
+                                              ),
+                                            ]),
+                                        content: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: const [
+                                              SizedBox(height: 15),
+                                              Text(
+                                                'Your balance is insufficient. Please make a deposit.',
                                                 style: TextStyle(
                                                   fontSize: 18.0,
-                                                  color: Theme.of(context)
-                                                      .primaryColor,
                                                   fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              SizedBox(height: 15),
+                                            ]),
+                                        actions: <Widget>[
+                                          // ignore: deprecated_member_use
+                                          SizedBox(
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            height: 50,
+                                            child: InkWell(
+                                              highlightColor: Colors.grey[200],
+                                              onTap: () {
+                                                Navigator.of(context).pop(true);
+                                                // _logout(context);
+                                              },
+                                              child: Center(
+                                                child: Text(
+                                                  "OK",
+                                                  style: TextStyle(
+                                                    fontSize: 18.0,
+                                                    color: Theme.of(context)
+                                                        .primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
                                                 ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                } else {
-                                  canbook = true;
+                                        ],
+                                      ),
+                                    );
+                                  } else {
+                                    canbook = true;
+                                  }
                                 }
                               });
                             },

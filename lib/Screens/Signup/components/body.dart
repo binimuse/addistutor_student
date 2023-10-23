@@ -371,8 +371,6 @@ class _SplashScreenState extends State<Body> {
       "full_name": signupController.fullname.text,
     };
 
-  
-
     var res = await Network().authData(data, 'register-student');
     var body = json.decode(res.body);
 
@@ -387,14 +385,16 @@ class _SplashScreenState extends State<Body> {
       isLoading = false;
     } else if (res.statusCode == 422) {
       _googleSignIn.signOut().then((value) {
-        setState(() {
-        });
+        setState(() {});
       }).catchError((e) {});
+
+      var errorString = body["errors"].toString();
+      var trimmedString = errorString.replaceAll(RegExp(r'[{}\[\]]'), '');
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
           title: const Text('Error'),
-          content: Text(body["errors"].toString()),
+          content: Text(trimmedString),
           actions: <Widget>[
             // ignore: deprecated_member_use
             FlatButton(
@@ -443,11 +443,14 @@ class _SplashScreenState extends State<Body> {
       closeDialog(true, '');
       isLoading = false;
     } else if (res.statusCode == 422) {
+      var errorString = body["errors"].toString();
+      var trimmedString = errorString.replaceAll(RegExp(r'[{}\[\]]'), '');
+
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
           title: const Text('Error'),
-          content: Text(body["errors"].toString()),
+          content: Text(trimmedString),
           actions: <Widget>[
             // ignore: deprecated_member_use
             FlatButton(
