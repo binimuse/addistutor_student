@@ -418,60 +418,64 @@ class _SplashScreenState extends State<Body> {
     });
   }
 
-  register() async {
-    setState(() {
-      isLoading = true;
-    });
+  void register() async {
+    try {
+      setState(() {
+        isLoading = true;
+      });
+      var data = {
+        "email": signupController.email.text,
+        "full_name": signupController.fullname.text,
+        "phone": signupController.phone.text,
+        "password": signupController.password.text,
+      };
+      var res = await Network().authData(data, 'register-student');
+      var body = json.decode(res.body);
 
-    var data = {
-      "email": signupController.email.text,
-      "full_name": signupController.fullname.text,
-      "phone": signupController.phone.text,
-      "password": signupController.password.text,
-    };
-
-    var res = await Network().authData(data, 'register-student');
-    var body = json.decode(res.body);
-
-    //print(body.toString());
-    if (res.statusCode == 200) {
-      SharedPreferences localStorage = await SharedPreferences.getInstance();
-      localStorage.setString("token", body["token"]);
-
-      localStorage.setString('user', json.encode(body['user']));
-
-      closeDialog(true, '');
-      isLoading = false;
-    } else if (res.statusCode == 422) {
-      var errorString = body["errors"].toString();
-      var trimmedString = errorString.replaceAll(RegExp(r'[{}\[\]]'), '');
-
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: const Text('Error'),
-          content: Text(trimmedString),
-          actions: <Widget>[
-            // ignore: deprecated_member_use
-            FlatButton(
-              onPressed: () {
-                Navigator.of(context).pop(true);
-                setState(() {
-                  isLoading = false;
-                });
-              },
-              child: const Text('ok'),
-            ),
-          ],
-        ),
-      );
-    } else {
-      closeDialog(false, res);
+      if (res.statusCode == 200) {
+        _handleSuccessfulRegistration(body);
+      } else if (res.statusCode == 422) {
+        _handleRegistrationError(body["errors"].toString());
+      } else {
+        _handleRegistrationError(res.body);
+      }
+    } catch (e) {
+      _handleRegistrationError(e.toString());
     }
+  }
 
-    setState(() {
-      isLoading = false;
-    });
+  void _handleSuccessfulRegistration(body) async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    localStorage.setString("token", body["token"]);
+
+    localStorage.setString('user', json.encode(body['user']));
+
+    closeDialog(true, '');
+    isLoading = false;
+  }
+
+  void _handleRegistrationError(String error) async {
+    var trimmedString = error.replaceAll(RegExp(r'[{}\[\]]'), '');
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Error'),
+        content: Text(trimmedString),
+        actions: <Widget>[
+          // ignore: deprecated_member_use
+          FlatButton(
+            onPressed: () {
+              Navigator.of(context).pop(true);
+              setState(() {
+                isLoading = false;
+              });
+            },
+            child: const Text('ok'),
+          ),
+        ],
+      ),
+    );
   }
 
   Future<void> closeDialoggoogle(bool stat, var data) async {

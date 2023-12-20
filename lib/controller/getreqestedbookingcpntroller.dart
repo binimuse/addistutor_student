@@ -14,13 +14,17 @@ class GetReqBooking extends GetxController with StateMixin {
   var ratings;
   List<MultiSelectItem<GetSubject>> hobItem = [];
   var isLoading = false.obs;
-  void fetchReqBooking(var id) async {
-    listsubject.value = await RemoteServices.getrequestedbooking(id, "");
+  fetchReqBooking(int id) async {
+    try {
+      listsubject.value = await RemoteServices.getrequestedbooking(id, "");
 
-    if (listsubject.isNotEmpty) {
-      //print(list.length.toString());
-      isfetchedsubject(true);
-      update();
+      if (listsubject.isNotEmpty) {
+        isfetchedsubject(true);
+        update();
+      }
+    } catch (e) {
+      print('Error: $e');
+      // Handle the exception or show an error message
     }
   }
 

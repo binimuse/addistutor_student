@@ -128,7 +128,7 @@ class _LoginScreenState extends State<Body> {
                   controller: emailcon,
                   cursorColor: kPrimaryColor,
                   decoration: const InputDecoration(
-                    hintText: "Email",
+                    hintText: "Email or phone",
                     icon: Icon(
                       Icons.email,
                       color: kPrimaryColor,
@@ -137,7 +137,7 @@ class _LoginScreenState extends State<Body> {
                   ),
                   validator: (emailval) {
                     if (emailval!.isEmpty) {
-                      return "Please put your email";
+                      return "Please put your email or phone";
                     }
                     email = emailval.toString();
                     return null;
@@ -416,159 +416,23 @@ class _LoginScreenState extends State<Body> {
   }
 
   void _login() async {
-    setState(() {
-      isLoading = true;
-    });
-    var data = {'email': email, 'password': password};
-    var res = await Network().authData(data, "login-student");
-    body = json.decode(res.body);
+    try {
+      setState(() {
+        isLoading = true;
+      });
+      var data = {'email': email, 'password': password};
+      var res = await Network().authData(data, "login-student");
+      body = json.decode(res.body);
 
-    if (res.statusCode == 200) {
-      SharedPreferences localStorage = await SharedPreferences.getInstance();
-      localStorage.setString("token", body["token"]);
-
-      localStorage.setString('user', json.encode(body['user']));
-
-      var token = localStorage.getString('user');
-      var bodys = json.decode(token!);
-      if (bodys["email_verified_at"] == null) {
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: const Text('Please verify your email or otp'),
-            content: const Text("Go to your email or sms to confirm"),
-            actions: <Widget>[
-              Center(
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  // ignore: deprecated_member_use
-                  child: FlatButton(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    color: kPrimaryColor,
-                    onPressed: () {
-                      Navigator.of(context).pop(true);
-                      setState(() {
-                        isLoading = false;
-                      });
-                      Navigator.push<dynamic>(
-                        context,
-                        MaterialPageRoute<dynamic>(
-                          builder: (BuildContext context) => OTPPage(),
-                        ),
-                      );
-                    },
-                    child: Container(
-                        width: 20,
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                        alignment: Alignment.center,
-                        child: const Text(
-                          'Ok',
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                        )),
-                  ),
-                ),
-              )
-            ],
-          ),
-        );
+      if (res.statusCode == 200) {
+        _handleSuccessfulLogin();
+      } else if (res.statusCode == 401) {
+        _handleUnauthorized();
       } else {
-        if (bodys["student_id"] == null) {
-          showDialog(
-            context: context,
-            builder: (context) => AlertDialog(
-              content: const Text("To continue, please complete your profile."),
-              actions: <Widget>[
-                FlatButton(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  color: kPrimaryColor,
-                  onPressed: () {
-                    Navigator.of(context).pop(true);
-                    setState(() {
-                      isLoading = false;
-                    });
-
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const EditPage(),
-                      ),
-                    );
-                  },
-                  child: Container(
-                      width: 20,
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      alignment: Alignment.center,
-                      child: const Text(
-                        'Ok',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      )),
-                ),
-              ],
-            ),
-          );
-        } else {
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const Scaffold(body: Mainscrren()),
-            ),
-            (route) => false,
-          );
-        }
-
-        isLoading = false;
+        _handleLoginError();
       }
-    } else if (res.statusCode == 401) {
-      _googleSignIn.signOut().then((value) {
-        setState(() {
-          _isLoggedIn = false;
-        });
-      }).catchError((e) {});
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: const Text('info'),
-          content: Text(body["message"]),
-          actions: <Widget>[
-            FlatButton(
-              onPressed: () {
-                Navigator.of(context).pop(true);
-                setState(() {
-                  isLoading = false;
-                });
-              },
-              child: const Text('ok'),
-            ),
-          ],
-        ),
-      );
-    } else {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: const Text('incorrect Email or password '),
-          content: Text(body["message"]),
-          actions: <Widget>[
-            FlatButton(
-              onPressed: () {
-                Navigator.of(context).pop(true);
-                setState(() {
-                  isLoading = false;
-                });
-              },
-              child: const Text('ok'),
-            ),
-          ],
-        ),
-      );
+    } catch (e) {
+      _handleLoginError();
     }
   }
 
@@ -603,7 +467,7 @@ class _LoginScreenState extends State<Body> {
           content: Column(mainAxisSize: MainAxisSize.min, children: const [
             SizedBox(height: 15),
             Text(
-              'incorrect Email or Password',
+              'incorrect Email/phone or Password',
               style: TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.bold,
@@ -640,5 +504,157 @@ class _LoginScreenState extends State<Body> {
         ),
       );
     }
+  }
+
+  void _handleSuccessfulLogin() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    localStorage.setString("token", body["token"]);
+
+    localStorage.setString('user', json.encode(body['user']));
+
+    var token = localStorage.getString('user');
+    var bodys = json.decode(token!);
+    if (bodys["email_verified_at"] == null) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Please verify your email or otp'),
+          content: const Text("Go to your email or sms to confirm"),
+          actions: <Widget>[
+            Center(
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                // ignore: deprecated_member_use
+                child: FlatButton(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  color: kPrimaryColor,
+                  onPressed: () {
+                    Navigator.of(context).pop(true);
+                    setState(() {
+                      isLoading = false;
+                    });
+                    Navigator.push<dynamic>(
+                      context,
+                      MaterialPageRoute<dynamic>(
+                        builder: (BuildContext context) => OTPPage(),
+                      ),
+                    );
+                  },
+                  child: Container(
+                      width: 20,
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      alignment: Alignment.center,
+                      child: const Text(
+                        'Ok',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      )),
+                ),
+              ),
+            )
+          ],
+        ),
+      );
+    } else {
+      if (bodys["student_id"] == null) {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            content: const Text("To continue, please complete your profile."),
+            actions: <Widget>[
+              FlatButton(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                color: kPrimaryColor,
+                onPressed: () {
+                  Navigator.of(context).pop(true);
+                  setState(() {
+                    isLoading = false;
+                  });
+
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const EditPage(),
+                    ),
+                  );
+                },
+                child: Container(
+                    width: 20,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    alignment: Alignment.center,
+                    child: const Text(
+                      'Ok',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    )),
+              ),
+            ],
+          ),
+        );
+      } else {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const Scaffold(body: Mainscrren()),
+          ),
+          (route) => false,
+        );
+      }
+
+      isLoading = false;
+    }
+  }
+
+  void _handleUnauthorized() {
+    _googleSignIn.signOut().then((value) {
+      setState(() {
+        _isLoggedIn = false;
+      });
+    }).catchError((e) {});
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('info'),
+        content: Text(body["message"]),
+        actions: <Widget>[
+          FlatButton(
+            onPressed: () {
+              Navigator.of(context).pop(true);
+              setState(() {
+                isLoading = false;
+              });
+            },
+            child: const Text('ok'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _handleLoginError() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('incorrect Email/phone or password '),
+        content: Text(body["message"]),
+        actions: <Widget>[
+          FlatButton(
+            onPressed: () {
+              Navigator.of(context).pop(true);
+              setState(() {
+                isLoading = false;
+              });
+            },
+            child: const Text('ok'),
+          ),
+        ],
+      ),
+    );
   }
 }

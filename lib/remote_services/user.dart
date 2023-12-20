@@ -82,7 +82,7 @@ class GetCategory {
 
   String name;
   String description;
-  int additional_price;
+  dynamic additional_price;
 
   GetCategory({
     required this.id,
@@ -212,7 +212,7 @@ class Qualification {
 class Getemploymentcategory {
   String name;
   String description;
-  int additional_price;
+  dynamic additional_price;
 
   Getemploymentcategory({
     required this.name,
@@ -239,12 +239,12 @@ class Search {
   String gender;
   String about;
   var rating;
-  int price;
+  dynamic price;
   Getemploymentcategory? employment_category;
 
   String location_id;
   String profile_img;
-  int teaching_since;
+  dynamic teaching_since;
   GetLocation location;
   // Qualification qualification_id;
 //  List<GetSubject> preferred_tutoring_subjects;

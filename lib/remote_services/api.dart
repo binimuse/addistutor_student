@@ -7,8 +7,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:path/path.dart';
 
 class Network {
-  //final String _url = 'https://tutor.oddatech.com/api/';
-  final String _url = 'https://nextgeneducation.et/api/';
+  final String _url = 'https://tutor.oddatech.com/api/';
+  // final String _url = 'https://nextgeneducation.et/api/';
 
   var token;
 
@@ -53,6 +53,7 @@ class Network {
   authData(data, apiUrl) async {
     var fullUrl = _url + apiUrl;
     var uri = Uri.parse(fullUrl);
+    print(token);
     return await http.post(uri, body: jsonEncode(data), headers: _setHeaders());
   }
 

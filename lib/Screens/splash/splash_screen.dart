@@ -74,8 +74,6 @@ class _SplashScreenState extends State<SplashScreen> {
     getEducationlevelController.fetchLocation();
     getSubjectController.fetchLocation("1");
     getLocationController.fetchLocation();
-
-
   }
 
   _getlocation() async {
@@ -87,15 +85,19 @@ class _SplashScreenState extends State<SplashScreen> {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     var token = localStorage.getString('token');
     var user = localStorage.getString('user');
-    var bodys = json.decode(user!);
-    if (token != null &&
-        bodys["email_verified_at"] != null &&
-        bodys["student_id"] != null) {
-      // print(user);
-      // print("token login");
-      setState(() {
-        isAuth = true;
-      });
+
+    if (user != null) {
+      var bodys = json.decode(user);
+
+      if (token != null &&
+          bodys["email_verified_at"] != null &&
+          bodys["student_id"] != null) {
+        // print(user);
+        // print("token login");
+        setState(() {
+          isAuth = true;
+        });
+      }
     }
   }
 

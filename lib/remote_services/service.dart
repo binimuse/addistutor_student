@@ -402,7 +402,7 @@ class RemoteServices {
           .toList()
           .cast<Transaction>();
     } else {
-      throw Exception('Failed to load transaction');
+      throw Exception(res.body.toString());
     }
   }
 

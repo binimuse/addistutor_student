@@ -30,7 +30,8 @@ class WalletContoller extends GetxController with StateMixin {
 
   void gettransaction(var id) async {
     listtransaction.value = await RemoteServices.transaction(id);
-    if (listtransaction != null) {
+
+    if (listtransaction.value != null) {
       isfetchedtransaction(true);
     }
   }
