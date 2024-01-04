@@ -128,7 +128,7 @@ class _LoginScreenState extends State<Body> {
                   controller: emailcon,
                   cursorColor: kPrimaryColor,
                   decoration: const InputDecoration(
-                    hintText: "Email or phone",
+                    hintText: "Email or phone(251***)",
                     icon: Icon(
                       Icons.email,
                       color: kPrimaryColor,

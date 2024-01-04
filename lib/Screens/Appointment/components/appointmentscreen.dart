@@ -100,7 +100,7 @@ class _HomePageState extends State<Appointment>
       setState(() {
         walletContoller.getbalance(body["student_id"]);
 
-        getReqBooking.fetchReqBooking(body["student_id"]);
+        getReqBooking.fetchReqBooking(int.parse(body["student_id"]));
       });
     }
   }
