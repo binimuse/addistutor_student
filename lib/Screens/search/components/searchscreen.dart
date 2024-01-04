@@ -43,7 +43,7 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
   AnimationController? animationController;
   List<HotelListData> hotelList = HotelListData.hotelList;
   final ScrollController _scrollController = ScrollController();
-  SearchController searchController = Get.put(SearchController());
+  SearchControllers searchController = Get.put(SearchControllers());
 
   GetEducationlevelController getEducationlevelController = Get.find();
   GetSubjectController getSubjectController = Get.find();
@@ -54,7 +54,6 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
   DateTime endDate = DateTime.now().add(const Duration(days: 5));
   List<GetSubject> subject = [];
 
-  final List<String> _tobeSent = [];
   late String sid = "";
   late var macthgender = "Any".obs;
   late var profecncy = "Teacher".obs;
@@ -120,7 +119,6 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
     }
   }
 
-  List<GetSubject> _selectedItems2 = [];
   _getsubject() {
     subject = getSubjectController.listsubject.value;
     if (subject != null && subject.isNotEmpty) {
@@ -391,7 +389,7 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
                       onPressed: () async {
                         Navigator.pop(context);
                       },
-                      child: Text('ok'),
+                      child: const Text('ok'),
                     ),
                   ],
                 ),
@@ -454,7 +452,7 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
+      children: const <Widget>[
         // MultiSelectBottomSheetField<GetSubject>(
         //   initialChildSize: 0.6,
         //   maxChildSize: 0.95,
@@ -529,7 +527,7 @@ class _HomePageState extends State<SerachPage> with TickerProviderStateMixin {
         //     },
         //   ),
         // ),
-        const SizedBox(
+        SizedBox(
           height: 8,
         )
       ],

@@ -27,7 +27,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
   GetSubjectController getSubjectController = Get.find();
   GetLocationController getLocationController = Get.find();
 
-  SearchController searchController = Get.put(SearchController());
+  SearchControllers searchController = Get.put(SearchControllers());
 
   double distValue = 50.0;
   var lid, gender;

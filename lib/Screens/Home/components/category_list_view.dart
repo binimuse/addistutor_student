@@ -28,7 +28,7 @@ class CategoryListView extends StatefulWidget {
 }
 
 var found;
-SearchController searchController = Get.put(SearchController());
+SearchControllers searchController = Get.put(SearchControllers());
 
 class _CategoryListViewState extends State<CategoryListView>
     with TickerProviderStateMixin {
@@ -262,8 +262,7 @@ class CategoryView extends StatelessWidget {
                                                           category!.rating !=
                                                                   null
                                                               ? Row(
-                                                                  children: <
-                                                                      Widget>[
+                                                                  children: <Widget>[
                                                                     Text(
                                                                       ' ${category!.rating}',
                                                                       style: TextStyle(
@@ -285,8 +284,7 @@ class CategoryView extends StatelessWidget {
                                                                   ],
                                                                 )
                                                               : Row(
-                                                                  children: <
-                                                                      Widget>[
+                                                                  children: <Widget>[
                                                                     Text(
                                                                       "",
                                                                       style: TextStyle(

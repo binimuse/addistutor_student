@@ -36,7 +36,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'editprofile.dart';
 import 'feedback_screen.dart';
-import 'help_screen.dart';
 import 'dart:math';
 
 class ProfileScreen extends StatelessWidget {
@@ -709,7 +708,7 @@ class _ProfilePageState extends State<ProfileS> {
     Get.delete<EditprofileController>();
     Get.delete<GetLocationController>();
     Get.delete<GetSubjectController>();
-    Get.delete<SearchController>();
+    Get.delete<SearchControllers>();
     Get.delete<BookingeController>();
     Get.delete<ContactUSContolller>();
     Get.delete<FeedBackScreencontroller>();

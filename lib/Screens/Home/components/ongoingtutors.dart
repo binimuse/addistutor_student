@@ -27,7 +27,7 @@ class OnGoingTutors extends StatefulWidget {
 }
 
 var found;
-SearchController searchController = Get.put(SearchController());
+SearchControllers searchController = Get.put(SearchControllers());
 
 class _CategoryListViewState extends State<OnGoingTutors>
     with TickerProviderStateMixin {

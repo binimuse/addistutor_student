@@ -39,14 +39,9 @@ class _MyHomePageState extends State<MyApp> {
     _connectivity.myStream.listen((source) {
       setState(() => _source = source);
     });
-    final newVersion = NewVersion(
-      //iOSId: 'com.google.Vespa',
-      androidId: 'com.next.addistutor_student',
-    );
 
     // You can let the plugin handle fetching the status and showing a dialog,
     // or you can fetch the status and display your own dialog, or no dialog.
-    const simpleBehavior = true;
 
     // try {
     //   if (simpleBehavior) {

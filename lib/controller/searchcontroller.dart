@@ -4,7 +4,7 @@ import 'package:addistutor_student/remote_services/service.dart';
 import 'package:addistutor_student/remote_services/user.dart';
 import 'package:get/get.dart';
 
-class SearchController extends GetxController {
+class SearchControllers extends GetxController {
   var list = <Search>[].obs;
   var isfetched = false.obs;
 

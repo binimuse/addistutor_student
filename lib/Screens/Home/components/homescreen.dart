@@ -51,7 +51,7 @@ class _HomePageState extends State<Home> with SingleTickerProviderStateMixin {
   GetLocationController getLocationController =
       Get.put(GetLocationController());
   WalletContoller walletContoller = Get.put(WalletContoller());
-  SearchController searchController = Get.put(SearchController());
+  SearchControllers searchController = Get.put(SearchControllers());
   GetSubjectController getSubjectController = Get.put(GetSubjectController());
   @override
   void initState() {

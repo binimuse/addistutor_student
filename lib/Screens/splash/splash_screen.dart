@@ -29,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
       Get.put(GetEducationlevelController());
   GetLocationController getLocationController =
       Get.put(GetLocationController());
-  SearchController searchController = Get.put(SearchController());
+  SearchControllers searchController = Get.put(SearchControllers());
   GetSubjectController getSubjectController = Get.put(GetSubjectController());
   bool isAuth = false;
 

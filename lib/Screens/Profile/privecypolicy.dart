@@ -110,7 +110,6 @@ class _WebViewExampleState extends State<PrivecypolicyPage> {
   }
 
   Future<bool> _onBack2() async {
-    DateTime now = DateTime.now();
     var value = await goback.canGoBack(); // check webview can go back
     print(value);
     if (value) {

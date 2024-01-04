@@ -53,7 +53,7 @@ class RemoveScreencontroller extends GetxController with StateMixin {
       Get.delete<EditprofileController>();
       Get.delete<GetLocationController>();
       Get.delete<GetSubjectController>();
-      Get.delete<SearchController>();
+      Get.delete<SearchControllers>();
       Get.delete<BookingeController>();
       Get.delete<ContactUSContolller>();
       Get.delete<FeedBackScreencontroller>();
@@ -80,7 +80,7 @@ class RemoveScreencontroller extends GetxController with StateMixin {
       Get.delete<EditprofileController>();
       Get.delete<GetLocationController>();
       Get.delete<GetSubjectController>();
-      Get.delete<SearchController>();
+      Get.delete<SearchControllers>();
       Get.delete<BookingeController>();
       Get.delete<ContactUSContolller>();
       Get.delete<FeedBackScreencontroller>();

@@ -27,7 +27,7 @@ class SignupController extends GetxController with StateMixin {
   var inforesponse;
 
   validateEmail(String value) {
-    if (value != null && !value.isEmpty) {
+    if (!value.isEmpty) {
       if (!GetUtils.isEmail(value)) {
         return "Provide a valid email";
       }

@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+// ignore_for_file: use_key_in_widget_constructors, prefer_null_aware_operators
 
 import 'package:addistutor_student/components/custom_sizes.dart';
 import 'package:addistutor_student/components/screen_utils.dart';
