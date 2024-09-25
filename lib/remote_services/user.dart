@@ -17,7 +17,7 @@ class Student {
   String grade;
   String study_purpose;
   String about;
-  String location_id;
+  int location_id;
 
   Student({
     required this.id,

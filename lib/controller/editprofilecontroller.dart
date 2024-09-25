@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:addistutor_student/Screens/Login/login_screen.dart';
 import 'package:addistutor_student/constants.dart';
 import 'package:addistutor_student/remote_services/service.dart';
+import 'package:addistutor_student/remote_services/user.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -275,7 +276,7 @@ class EditprofileController extends GetxController with StateMixin {
     }
   }
 
-  var fetched;
+  late Student fetched;
 
   Future<void> fetchPf(var id) async {
     if (id == "noid") {
@@ -283,8 +284,8 @@ class EditprofileController extends GetxController with StateMixin {
       isFetched(true);
     } else {
       try {
-        //  openAndCloseLoadingDialog();
-        fetched = await RemoteServices.fetchpf(id);
+        // Ensure id is a String before passing it to fetchpf
+        fetched = await RemoteServices.fetchpf(id.toString());
         //   print(fetched);
         if (fetched != "") {
           id = fetched.id;
