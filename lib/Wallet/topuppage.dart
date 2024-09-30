@@ -255,7 +255,7 @@ class _FeedbackScreenState extends State<TopUpPage> {
                         "Commercial Bank of Ethiopia", "1000461903766"),
                     buildAccountInfo(
                         "Berhan International Bank", "2001130411334"),
-                    buildAccountInfo("Tele Birr Number", "0930266200"),
+                    buildAccountInfo("TeleBirr Account", "0930266200"),
                   ],
                 ),
               ),
