@@ -249,13 +249,13 @@ class _FeedbackScreenState extends State<TopUpPage> {
                       ),
                     ),
                     const SizedBox(
-                      height: 20,
+                      height: 10,
                     ),
                     buildAccountInfo(
                         "Commercial Bank of Ethiopia", "1000461903766"),
                     buildAccountInfo(
                         "Berhan International Bank", "2001130411334"),
-                    buildAccountInfo("TeleBirr Account", "0930266200"),
+                    buildAccountInfo("Telebirr Account", "0930266200"),
                   ],
                 ),
               ),

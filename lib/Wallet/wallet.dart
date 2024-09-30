@@ -560,11 +560,11 @@ class _EditProfilePageState extends State<WalletPage> {
                                                 ),
                                               );
                                   },
-                                  separatorBuilder: (context, index) {
-                                    return const Divider(
-                                      color: kPrimaryColor,
-                                    );
-                                  },
+                                  separatorBuilder:
+                                      (BuildContext context, int index) =>
+                                          const SizedBox(
+                                    height: 16,
+                                  ),
                                   itemCount:
                                       walletContoller.listtransaction.length,
                                   padding: const EdgeInsets.all(8),

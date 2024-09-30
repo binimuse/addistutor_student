@@ -382,7 +382,7 @@ class _ProductDescriptionPageState extends State<ProductDescriptionPage> {
                     style: TextStyle(
                       fontSize: 14.0,
                       fontFamily: 'Arial',
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.bold, 
                       letterSpacing: 0.4,
                       height: 0.9,
                       color: kPrimaryColor,
