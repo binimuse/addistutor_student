@@ -51,7 +51,7 @@ class _WebViewExampleState extends State<PrivecypolicyPage> {
             return Stack(children: <Widget>[
               Expanded(
                 child: WebView(
-                  initialUrl: 'https://nextgeneducation.et/policy',
+                  initialUrl: 'https://nextgeneducationgroup.et/privacy-policy',
                   javascriptMode: JavascriptMode.unrestricted,
                   onWebViewCreated: (WebViewController webViewController) {
                     _controller.complete(webViewController);
