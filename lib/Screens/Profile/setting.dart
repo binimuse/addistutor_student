@@ -117,34 +117,34 @@ class _SettingsFourPageState extends State<SettingsFourPage> {
                 ),
               ),
             ),
-            const SizedBox(
-              height: 20,
-            ),
-            GestureDetector(
-              onTap: () {
-                buildLanguageDialog(context);
-              },
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Language",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.grey[600],
-                      ),
-                    ),
-                    const Icon(
-                      Icons.arrow_forward_ios,
-                      color: Colors.grey,
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            // const SizedBox(
+            //   height: 20,
+            // ),
+            // GestureDetector(
+            //   onTap: () {
+            //     buildLanguageDialog(context);
+            //   },
+            //   child: Padding(
+            //     padding: const EdgeInsets.symmetric(vertical: 8.0),
+            //     child: Row(
+            //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //       children: [
+            //         Text(
+            //           "Language",
+            //           style: TextStyle(
+            //             fontSize: 18,
+            //             fontWeight: FontWeight.w500,
+            //             color: Colors.grey[600],
+            //           ),
+            //         ),
+            //         const Icon(
+            //           Icons.arrow_forward_ios,
+            //           color: Colors.grey,
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // ),
             const SizedBox(
               height: 10,
             ),
