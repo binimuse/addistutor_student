@@ -555,7 +555,7 @@ class Qr {
 }
 
 class Balance {
-  String wallet_amount;
+  int wallet_amount;
 
   Balance({
     required this.wallet_amount,

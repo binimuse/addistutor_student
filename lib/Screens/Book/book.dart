@@ -333,8 +333,7 @@ class _EditPageState extends State<BookScreen>
 
                                 int wallet = totalprice as int;
                                 if (walletContoller.wallet != null) {
-                                  int wallet2 =
-                                      int.parse(walletContoller.wallet);
+                                  int wallet2 = walletContoller.wallet;
 
                                   if (wallet > wallet2) {
                                     canbook = false;
@@ -408,7 +407,10 @@ class _EditPageState extends State<BookScreen>
                                       ),
                                     );
                                   } else {
-                                    canbook = true;
+                                    if (bookingeController.sessionsd.value !=
+                                        null) {
+                                      canbook = true;
+                                    }
                                   }
                                 }
                               });
@@ -592,7 +594,7 @@ class _EditPageState extends State<BookScreen>
                                           itemCount: snapshot.data.length));
                                 } else {
                                   return const Center(
-                                    child: CircularProgressIndicator(),
+                                    child: SizedBox(),
                                   );
                                 }
                               }),
@@ -1120,7 +1122,7 @@ class _EditPageState extends State<BookScreen>
                                             .contains("10:00 (Afternoon)")) {
                                           bookingeController.suntime2 =
                                               "4:00 pm";
-                                          bookingeController.Sun = "Sunday";
+                                          bookingeController.Sun = "sunday";
                                         } else if (value
                                             .contains("11:00 (Afternoon)")) {
                                           bookingeController.suntime2 =
@@ -1182,139 +1184,7 @@ class _EditPageState extends State<BookScreen>
                           const SizedBox(
                             height: 15,
                           ),
-                          canbook
-                              ? Center(
-                                  child: RaisedButton(
-                                    onPressed: () async {
-                                      if (avalbledate2.isNotEmpty) {
-                                        Cricular();
-                                        //clear();
-                                      } else {
-                                        showDialog(
-                                          context: context,
-                                          builder: (context) => AlertDialog(
-                                            title: const Text(
-                                              'Error',
-                                              style: TextStyle(
-                                                fontSize: 13,
-                                                fontWeight: FontWeight.w500,
-                                                color: Colors.red,
-                                                fontFamily: 'WorkSans',
-                                              ),
-                                            ),
-                                            content: const Text(
-                                              'Please Select  days',
-                                              style: TextStyle(
-                                                fontSize: 13,
-                                                fontWeight: FontWeight.w500,
-                                                color: Colors.black,
-                                                fontFamily: 'WorkSans',
-                                              ),
-                                            ),
-                                            actions: <Widget>[
-                                              Center(
-                                                child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      FlatButton(
-                                                        onPressed: () {
-                                                          Navigator.of(context)
-                                                              .pop(true);
-                                                          setState(() {
-                                                            // isLoading = false;
-                                                          });
-                                                        },
-                                                        child: const Center(
-                                                            child: Text('OK')),
-                                                      ),
-                                                    ]),
-                                              ),
-                                            ],
-                                          ),
-                                        );
-                                      }
-                                      setState(() {
-                                        values = <bool?>[
-                                          false,
-                                          false,
-                                          false,
-                                          false,
-                                          false,
-                                          false,
-                                          false
-                                        ];
-                                      });
-                                    },
-                                    color: kPrimaryColor,
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 50),
-                                    elevation: 2,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(20)),
-                                    child: const Text(
-                                      "Book",
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          letterSpacing: 2.2,
-                                          color: Colors.white),
-                                    ),
-                                  ),
-                                )
-                              : Center(
-                                  child: RaisedButton(
-                                  onPressed: () async {
-                                    showDialog(
-                                      context: context,
-                                      builder: (context) => const AlertDialog(
-                                        title: Text(
-                                          'Error',
-                                          style: TextStyle(
-                                            fontSize: 13,
-                                            fontWeight: FontWeight.w500,
-                                            color: Colors.red,
-                                            fontFamily: 'WorkSans',
-                                          ),
-                                        ),
-                                        content: Text(
-                                          'Balance is insufficient ',
-                                          style: TextStyle(
-                                            fontSize: 13,
-                                            fontWeight: FontWeight.w500,
-                                            color: Colors.black,
-                                            fontFamily: 'WorkSans',
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                    setState(() {
-                                      values = <bool?>[
-                                        false,
-                                        false,
-                                        false,
-                                        false,
-                                        false,
-                                        false,
-                                        false
-                                      ];
-                                    });
-                                  },
-                                  color: kPrimaryColor,
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 50),
-                                  elevation: 2,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(20)),
-                                  child: const Text(
-                                    "Book",
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        letterSpacing: 2.2,
-                                        color: Colors.white),
-                                  ),
-                                )),
+                          canbook == true ? buildButton() : SizedBox(),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -1345,7 +1215,7 @@ class _EditPageState extends State<BookScreen>
                                       );
                                     } else {
                                       return const Center(
-                                        child: CircularProgressIndicator(),
+                                        child: SizedBox(),
                                       );
                                     }
                                   }),
@@ -1524,6 +1394,114 @@ class _EditPageState extends State<BookScreen>
       bookingeController.issun = false;
       EasyLoading.dismiss();
     });
+  }
+
+  buildButton() {
+    return Center(
+      child: RaisedButton(
+        onPressed: () async {
+          if (avalbledate2.isNotEmpty) {
+            Cricular();
+            //clear();
+          } else {
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: const Text(
+                  'Error',
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.red,
+                    fontFamily: 'WorkSans',
+                  ),
+                ),
+                content: const Text(
+                  'Please Select  days',
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black,
+                    fontFamily: 'WorkSans',
+                  ),
+                ),
+                actions: <Widget>[
+                  Center(
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          FlatButton(
+                            onPressed: () {
+                              Navigator.of(context).pop(true);
+                              setState(() {
+                                // isLoading = false;
+                              });
+                            },
+                            child: const Center(child: Text('OK')),
+                          ),
+                        ]),
+                  ),
+                ],
+              ),
+            );
+          }
+          setState(() {
+            values = <bool?>[false, false, false, false, false, false, false];
+          });
+        },
+        color: kPrimaryColor,
+        padding: const EdgeInsets.symmetric(horizontal: 50),
+        elevation: 2,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        child: const Text(
+          "Book",
+          style:
+              TextStyle(fontSize: 14, letterSpacing: 2.2, color: Colors.white),
+        ),
+      ),
+    );
+  }
+
+  buildDiloag() {
+    return Center(
+        child: RaisedButton(
+      onPressed: () async {
+        showDialog(
+          context: context,
+          builder: (context) => const AlertDialog(
+            title: Text(
+              'Error',
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w500,
+                color: Colors.red,
+                fontFamily: 'WorkSans',
+              ),
+            ),
+            content: Text(
+              'Balance is insufficient ',
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w500,
+                color: Colors.black,
+                fontFamily: 'WorkSans',
+              ),
+            ),
+          ),
+        );
+        setState(() {
+          values = <bool?>[false, false, false, false, false, false, false];
+        });
+      },
+      color: kPrimaryColor,
+      padding: const EdgeInsets.symmetric(horizontal: 50),
+      elevation: 2,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      child: const Text(
+        "Book",
+        style: TextStyle(fontSize: 14, letterSpacing: 2.2, color: Colors.white),
+      ),
+    ));
   }
 }
 
